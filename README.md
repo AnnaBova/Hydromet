@@ -3,6 +3,6 @@
 
 ```bash
 npm install
-node server.js
+npm start
 ```
-`open localhost:3000`
+`open localhost:3001`
