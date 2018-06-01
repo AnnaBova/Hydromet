@@ -1,7 +1,10 @@
-var WeatherDays = require('../WeatherObl.json');
-var waterTemperature = require('../waterTemperature.json');
-var zptemperature = require('../zptemperature.json');
-var CityWeatherTable = require('../CityWeatherTable.json');
+var WeatherDays = require('../data/WeatherObl.json');
+var waterTemperature = require('../data/waterTemperature.json');
+var zptemperature = require('../data/zptemperature.json');
+var CityWeatherTable = require('../data/CityWeatherTable.json');
+var weatherCity = require('../data/weatherCity.json');
+var textWeatherRegion = require('../data/TextWeatherRegion.json');
+var textWeatherCity = require('../data/TextWeatherCity.json');
 
 module.exports = {
   getMainPage: function (req, res) {
@@ -48,7 +51,12 @@ module.exports = {
     res.render('pages/meteorological_phenomena');
   },
   getHydrometeorologyBulletin: function(req, res){
-    res.render('pages/hedrometeorological_bulletin', { weatherObl: WeatherDays.days });
+    res.render('pages/hedrometeorological_bulletin', 
+    { weatherObl: WeatherDays.days,
+      TextWeatherObl:textWeatherRegion.days, 
+      weatherCity: weatherCity.days, 
+      TextWeatherCity: textWeatherCity.days 
+    });
   },
   getClimaticCharacteristic: function(req, res){
     res.render('pages/climatic_characteristic');    

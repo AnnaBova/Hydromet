@@ -1,0 +1,16 @@
+{
+    "day": 26,
+    "mounth": "листопада",
+    "SrTemperature": {
+        "date":"2007",
+        "value":"+2" 
+    },
+    "MaxTemperature": {
+        "date":"2007",
+        "value":"+8" 
+    },
+    "MinTemperature": {
+        "date":"1947",
+        "value":"-10" 
+    }
+}

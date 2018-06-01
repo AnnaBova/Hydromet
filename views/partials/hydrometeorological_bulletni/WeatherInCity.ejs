@@ -3,11 +3,11 @@
         <table class="table table-bordered weather-table">
         <thead>
             <tr>
-            <th>Середа <p class="text-medium">20.11</p></th>
-            <th>Четвер <p class="text-medium">21.11</p></th>
-            <th>П'ятниця <p class="text-medium">22.11</p></th>
-            <th>Субота <p class="text-medium">23.11</p></th>
-            <th>Неділя <p class="text-medium">24.11</p></th>
+            <th><%= weatherCity[0].title %> <p class="text-medium"><%= weatherCity[0].date %></p></th>
+            <th><%= weatherCity[1].title %> <p class="text-medium"><%= weatherCity[1].date %></p></th>
+            <th><%= weatherCity[2].title %> <p class="text-medium"><%= weatherCity[2].date %></p></th>
+            <th><%= weatherCity[3].title %> <p class="text-medium"><%= weatherCity[3].date %></p></th>
+            <th><%= weatherCity[4].title %> <p class="text-medium"><%= weatherCity[4].date %></p></th>
             </tr>
         </thead>
         <tbody>
@@ -15,81 +15,81 @@
             <td>
                 <div class="w-50 f-l text-center p-l-r-5">
                 Ніч
-                <p><img src="public/assets/svg/cloud_moon.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[0].night.weather %>.svg"></p>
+                <p><%= weatherCity[0].night.temperature %></p>
+                <p><%= weatherCity[0].night.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[0].night.DirectionWind %> la-lg"></i></p>
                 </div>
                 <div class="w-50 f-r text-center p-l-r-5">
                 День
-                <p><img src="public/assets/svg/cloud_sun.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[0].day.weather %>.svg"></p>
+                <p><%= weatherCity[0].day.temperature %></p>
+                <p><%= weatherCity[0].day.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[0].day.DirectionWind %> la-lg"></i></p>
                 </div>
             </td>
             <td>
                 <div class="w-50 f-l text-center p-l-r-5">
                 Ніч
-                <p><img src="public/assets/svg/cloud_rain.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[1].night.weather %>.svg"></p>
+                <p><%= weatherCity[1].night.temperature %></p>
+                <p><%= weatherCity[1].night.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[1].night.DirectionWind %> la-lg"></i></p>
                 </div>
                 <div class="w-50 f-r text-center p-l-r-5">
                 День
-                <p><img src="public/assets/svg/sun.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[1].day.weather %>.svg"></p>
+                <p><%= weatherCity[1].day.temperature %></p>
+                <p><%= weatherCity[1].day.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[1].day.DirectionWind %> la-lg"></i></p>
                 </div>
             </td>
             <td>
                 <div class="w-50 f-l text-center p-l-r-5">
                 Ніч
-                <p><img src="public/assets/svg/moon.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[2].night.weather %>.svg"></p>
+                <p><%= weatherCity[2].night.temperature %></p>
+                <p><%= weatherCity[2].night.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[2].night.DirectionWind %> la-lg"></i></p>
                 </div>
                 <div class="w-50 f-r text-center p-l-r-5">
                 День
-                <p><img src="public/assets/svg/cloud_rain_thunder.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[2].day.weather %>.svg"></p>
+                <p><%= weatherCity[2].day.temperature %></p>
+                <p><%= weatherCity[2].day.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[2].day.DirectionWind %> la-lg"></i></p>
                 </div>
             </td>
             <td>
                 <div class="w-50 f-l text-center p-l-r-5">
                 Ніч
-                <p><img src="public/assets/svg/cloud_rain.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[3].night.weather %>.svg"></p>
+                <p><%= weatherCity[3].night.temperature %></p>
+                <p><%= weatherCity[3].night.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[3].night.DirectionWind %> la-lg"></i></p>
                 </div>
                 <div class="w-50 f-r text-center p-l-r-5">
                 День
-                <p><img src="public/assets/svg/sun.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[3].day.weather %>.svg"></p>
+                <p><%= weatherCity[3].day.temperature %></p>
+                <p><%= weatherCity[3].day.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[3].day.DirectionWind %> la-lg"></i></p>
                 </div>
             </td>
             <td>
                 <div class="w-50 f-l text-center p-l-r-5">
                 Ніч
-                <p><img src="public/assets/svg/cloud_moon.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[4].night.weather %>.svg"></p>
+                <p><%= weatherCity[4].night.temperature %></p>
+                <p><%= weatherCity[4].night.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[4].night.DirectionWind %> la-lg"></i></p>
                 </div>
                 <div class="w-50 f-r text-center p-l-r-5">
                 День
-                <p><img src="public/assets/svg/cloud.svg"></p>
-                <p>+13...+15</p>
-                <p>7-12 м/с</p>
-                <p><i class="la la-long-arrow-up la-lg"></i></p>
+                <p><img src="public/assets/svg/<%= weatherCity[4].day.weather %>.svg"></p>
+                <p><%= weatherCity[4].day.temperature %></p>
+                <p><%= weatherCity[4].day.wind %></p>
+                <p><i class="la la-long-arrow-<%= weatherCity[4].day.DirectionWind %> la-lg"></i></p>
                 </div>
             </td>
             </tr>

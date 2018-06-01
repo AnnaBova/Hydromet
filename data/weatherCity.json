@@ -1,0 +1,84 @@
+{
+    "days":[
+        {
+            "title":"Середа",
+            "date": "20.11",
+            "day": {
+                "weather":"cloud_sun",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            },
+            "night": {
+                "weather":"cloud_moon",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            }
+        },
+        {
+            "title":"Четверг",
+            "date": "21.11",
+            "day": {
+                "weather":"sun",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            },
+            "night": {
+                "weather":"cloud_rain",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            }
+        },
+        {
+            "title":"П'ятниця",
+            "date": "22.11",
+            "day": {
+                "weather":"cloud_rain_thunder",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            },
+            "night": {
+                "weather":"moon",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            }
+        },
+        {
+            "title":"Субота",
+            "date": "23.11",
+            "day": {
+                "weather":"sun",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            },
+            "night": {
+                "weather":"cloud_rain",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            }
+        },
+        {
+            "title":"Неділя",
+            "date": "24.11",
+            "day": {
+                "weather":"cloud",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            },
+            "night": {
+                "weather":"cloud_moon",
+                "temperature":"+13...+15",
+                "wind": "7-12 м/с",
+                "DirectionWind":"up"
+            }
+        }
+    ]
+}
