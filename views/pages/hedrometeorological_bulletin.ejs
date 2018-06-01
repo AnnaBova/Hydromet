@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ../partials/head %>
+
+<body>
+
+    <% include ../partials/header %>
+    <section>
+        <% include ../partials/hydrometeorological_bulletni/Title %>
+        <% include ../partials/hydrometeorological_bulletni/weatherObl %>
+        <% include ../partials/hydrometeorological_bulletni/TextWeatherInRegion %>
+        <div class="block-blue text-white">
+            <div class="block-title text-center">
+                    <span class="number">02</span>
+                    Прогноз погоди по місту Запоріжжя
+            </div>
+            <% include ../partials/hydrometeorological_bulletni/WeatherInCity %>
+        </div>
+        <% include ../partials/hydrometeorological_bulletni/TextWeatherInCity %>
+        <% include ../partials/hydrometeorological_bulletni/ObservableWeather %>
+        <% include ../partials/hydrometeorological_bulletni/ClimateData %>
+    </section>
+    <% include ../partials/footer %>
+
+    <% include ../partials/scripts %>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<tr>
+  <td>
+      <div class="flex-block just-sp-ar">
+      <div><%= item.summer %></div>
+      <div><%= item.winter %></div>
+    </div>                    
+  </td>
+  <td> <%= item.temperature %> </td>
+  <td> <%= item.wind %> <i class="la la-long-arrow-<%= item.DirectionWind %> la-lg"></i></td>
+  <td> <%= item.pressure %> </td>     
+  <td>
+      <% if(item.phenomena != ""){ %>
+      <img src="/public/assets/svg/<%= item.phenomena %>_small.svg">
+    <% } %>
+  </td>
+</tr>

@@ -41,16 +41,8 @@
                 </tr>
               </thead>
               <tbody>
-                  <% table.weather.forEach(function(item) {%>
-                    <tr>
-                      <td>
-                        <div class="flex-block just-sp-ar">
-                          <div>00</div>
-                          <div>02</div>
-                        </div>                    
-                      </td>
-                      <% include ./WeatherTableItem %>
-                    </tr>
+                  <% table.weather.forEach(function(item) {%>                
+                    <% include ./WeatherTableItem %>
                   <% }) %>                                                                        
               </tbody>
             </table>   

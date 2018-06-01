@@ -20,4 +20,20 @@ router.get('/contact', controller.getContact);
 
 router.get('/structure', controller.getStructure);
 
+router.get('/meteorological_phenomena', controller.getMeteorologPhenomena);
+
+router.get('/hydrometeorological_bulletin', controller.getHydrometeorologyBulletin);
+
+router.get('/climatic_characteristic', controller.getClimaticCharacteristic);
+
+router.get('/climatic_records', controller.getClimaticRecords);
+
+router.get('/regular_observations', controller.getRegularObservations);
+
+router.get('/events', controller.getEvents);
+
+router.get('/single_events/:nummber', controller.getSingleEvents);
+
+router.get('/decade_bulletin', controller.getDecadeBulletin);
+
 module.exports = router;
