@@ -1,0 +1,422 @@
+{
+    "zaporozhye":{
+        "weather": [
+            {
+                "temperature": "+0.6",
+                "wind":"3 м/с",
+                "pressure": "767.6",
+                "DirectionWind":"up",
+                "phenomena": "cloud_rain_snow"
+            },
+            {
+                "temperature": "+0.6",
+                "wind":"3 м/с",
+                "pressure": "767.6",
+                "DirectionWind":"up",
+                "phenomena": "cloud_rain_snow"
+            },
+            {
+                "temperature": "+0.6",
+                "wind":"3 м/с",
+                "pressure": "767.6",
+                "DirectionWind":"up",
+                "phenomena": "cloud_rain_snow"
+            },
+            {
+                "temperature": "+0.6",
+                "wind":"3 м/с",
+                "pressure": "767.6",
+                "DirectionWind":"up",
+                "phenomena": "cloud_rain_snow"
+            },
+            {
+                "temperature": "+0.6",
+                "wind":"3 м/с",
+                "pressure": "767.6",
+                "DirectionWind":"up",
+                "phenomena": ""
+            },
+            {
+                "temperature": "+0.6",
+                "wind":"3 м/с",
+                "pressure": "767.6",
+                "DirectionWind":"up",
+                "phenomena": ""
+            },
+            {
+                "temperature": "+0.6",
+                "wind":"3 м/с",
+                "pressure": "767.6",
+                "DirectionWind":"up",
+                "phenomena": ""
+            },
+            {
+                "temperature": "+0.6",
+                "wind":"3 м/с",
+                "pressure": "767.6",
+                "DirectionWind":"up",
+                "phenomena": ""
+            }  
+        ]
+    },
+    "prism":{
+        "weather": [
+            {
+                "temperature": "+0.10",
+                "wind":"6 м/с",
+                "pressure": "867.6",
+                "DirectionWind":"down",
+                "phenomena": "cloud_rain"
+            },
+            {
+                "temperature": "+0.10",
+                "wind":"6 м/с",
+                "pressure": "867.6",
+                "DirectionWind":"down",
+                "phenomena": "cloud_rain"
+            },
+            {
+                "temperature": "+0.10",
+                "wind":"6 м/с",
+                "pressure": "867.6",
+                "DirectionWind":"down",
+                "phenomena": "cloud_rain"
+            },
+            {
+                "temperature": "+0.10",
+                "wind":"6 м/с",
+                "pressure": "867.6",
+                "DirectionWind":"down",
+                "phenomena": "cloud_rain"
+            },
+            {
+                "temperature": "+0.10",
+                "wind":"6 м/с",
+                "pressure": "867.6",
+                "DirectionWind":"down",
+                "phenomena": ""
+            },
+            {
+                "temperature": "+0.10",
+                "wind":"6 м/с",
+                "pressure": "867.6",
+                "DirectionWind":"down",
+                "phenomena": ""
+            },
+            {
+                "temperature": "+0.10",
+                "wind":"6 м/с",
+                "pressure": "867.6",
+                "DirectionWind":"down",
+                "phenomena": ""
+            },
+            {
+                "temperature": "+0.10",
+                "wind":"6 м/с",
+                "pressure": "867.6",
+                "DirectionWind":"down",
+                "phenomena": ""
+            } 
+        ]
+    },
+    "kyrylivka":{
+        "weather": [
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            } 
+        ]
+    },
+   "gulyaypole":{
+        "weather": [
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            } 
+        ]
+    },
+    "botievye":{
+        "weather": [
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            } 
+        ]
+    },
+    "melitopol":{
+        "weather": [
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            } 
+        ]
+    },
+    "berdyansk":{
+        "weather": [
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            },
+            {
+                "temperature": "",
+                "wind":"",
+                "pressure": "",
+                "DirectionWind":"",
+                "phenomena": ""
+            }             
+        ]
+    }
+}

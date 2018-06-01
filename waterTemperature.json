@@ -1,0 +1,11 @@
+{
+    "Date":"24 листопада",
+    "Dnipro":{
+        "Observable": "08",
+        "Temperature": "23,5"
+    },
+    "Azov": {
+        "Observable": "03",
+        "Temperature": "24,4"
+    }
+}

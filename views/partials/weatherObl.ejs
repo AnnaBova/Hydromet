@@ -1,0 +1,105 @@
+<div class="block-blue text-white">
+        <div class="block-title text-center">
+          <span class="number">01</span>
+          Прогноз погоди по Запорізькій області
+        </div> 
+        <div class="weather-block">
+          <div class="table-responsive">
+            <table class="table table-bordered weather-table">
+              <thead>
+                <tr>
+                  <th><%= weatherObl[0].title %> <p class="text-medium"><%= weatherObl[0].date %></p></th>
+                  <th><%= weatherObl[1].title %> <p class="text-medium"><%= weatherObl[1].date %></p></th>
+                  <th><%= weatherObl[2].title %> <p class="text-medium"><%= weatherObl[2].date %></p></th>
+                  <th><%= weatherObl[3].title %> <p class="text-medium"><%= weatherObl[3].date %></p></th>
+                  <th><%= weatherObl[4].title %> <p class="text-medium"><%= weatherObl[4].date %></p></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="w-50 f-l text-center p-l-r-5">
+                      Ніч
+                      <p><img src="public/assets/svg/<%= weatherObl[0].night.weather %>.svg"></p>
+                      <p><%= weatherObl[0].night.temperature %></p>
+                      <p><%= weatherObl[0].night.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[0].night.DirectionWind %> la-lg"></i></p>
+                    </div>
+                    <div class="w-50 f-r text-center p-l-r-5">
+                      День
+                      <p><img src="public/assets/svg/<%= weatherObl[0].day.weather %>.svg"></p>
+                      <p><%= weatherObl[0].day.temperature %></p>
+                      <p><%= weatherObl[0].day.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[0].day.DirectionWind %> la-lg"></i></p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="w-50 f-l text-center p-l-r-5">
+                      Ніч
+                      <p><img src="public/assets/svg/<%= weatherObl[1].night.weather %>.svg"></p>
+                      <p><%= weatherObl[1].night.temperature %></p>
+                      <p><%= weatherObl[1].night.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[1].night.DirectionWind %> la-lg"></i></p>
+                    </div>
+                    <div class="w-50 f-r text-center p-l-r-5">
+                      День
+                      <p><img src="public/assets/svg/<%= weatherObl[1].day.weather %>.svg"></p>
+                      <p><%= weatherObl[1].day.temperature %></p>
+                      <p><%= weatherObl[1].day.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[1].day.DirectionWind %> la-lg"></i></p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="w-50 f-l text-center p-l-r-5">
+                      Ніч
+                      <p><img src="public/assets/svg/<%= weatherObl[2].night.weather %>.svg"></p>
+                      <p><%= weatherObl[2].night.temperature %></p>
+                      <p><%= weatherObl[2].night.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[2].night.DirectionWind %> la-lg"></i></p>
+                    </div>
+                    <div class="w-50 f-r text-center p-l-r-5">
+                      День
+                      <p><img src="public/assets/svg/<%= weatherObl[2].day.weather %>.svg"></p>
+                      <p><%= weatherObl[2].day.temperature %></p>
+                      <p><%= weatherObl[2].day.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[2].day.DirectionWind %> la-lg"></i></p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="w-50 f-l text-center p-l-r-5">
+                      Ніч
+                      <p><img src="public/assets/svg/<%= weatherObl[3].night.weather %>.svg"></p>
+                      <p><%= weatherObl[3].night.temperature %></p>
+                      <p><%= weatherObl[3].night.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[3].night.DirectionWind %> la-lg"></i></p>
+                    </div>
+                    <div class="w-50 f-r text-center p-l-r-5">
+                      День
+                      <p><img src="public/assets/svg/<%= weatherObl[3].day.weather %>.svg"></p>
+                      <p><%= weatherObl[3].day.temperature %></p>
+                      <p><%= weatherObl[3].day.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[3].day.DirectionWind %> la-lg"></i></p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="w-50 f-l text-center p-l-r-5">
+                      Ніч
+                      <p><img src="public/assets/svg/<%= weatherObl[4].night.weather %>.svg"></p>
+                      <p><%= weatherObl[4].night.temperature %></p>
+                      <p><%= weatherObl[4].night.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[4].night.DirectionWind %> la-lg"></i></p>
+                    </div>
+                    <div class="w-50 f-r text-center p-l-r-5">
+                      День
+                      <p><img src="public/assets/svg/<%= weatherObl[4].day.weather %>.svg"></p>
+                      <p><%= weatherObl[4].day.temperature %></p>
+                      <p><%= weatherObl[4].day.wind %></p>
+                      <p><i class="la la-long-arrow-<%= weatherObl[4].day.DirectionWind %> la-lg"></i></p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>

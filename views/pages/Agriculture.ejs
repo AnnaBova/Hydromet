@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ../partials/head %>
+
+<body>
+    <% include ../partials/header %>
+    <section>
+            <div class="background background_9"></div>
+            <div class="block-blue">
+              <div class="block-title text-center text-white">
+                Використання метеорологічної інформації в сільському господарстві
+              </div>  
+              <div class="text-center text-white">Інформація</div>
+              <hr class="dash">
+              <div class="container info-container m-b-xl">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="block-white info-block">
+                      <div class="text-center text-blue text-bold m-b-sm">Фактична</div>
+                      <div class="text-bold">Метеорологічна:</div>
+                        <ul class="info-list">
+                          <li>температура повітря</li>
+                          <li>вологість повітря</li>
+                          <li>температура ґрунту</li>
+                          <li>опади</li>
+                          <li>швидкість вітру</li>
+                          <li>сніговий покрив</li>
+                          <li>атмосферні явища</li>
+                        </ul>
+                      <div class="text-bold">Агрометеорологічна:</div>
+                      <ul class="info-list">
+                        <li>запаси продуктивної вологи в ґрунті</li>
+                        <li>фенологічні спостереження</li>
+                        <li>несприятливі явища</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="block-white info-block">
+                      <div class="text-center text-blue text-bold m-b-sm">Прогностична</div>
+                      <ul class="info-list">
+                        <li>попередження про НЯ</li>
+                        <li>прогнози погоди</li>
+                        <li>прогнози запасів вологи в ґрунті</li>
+                        <li>прогнози теплозабезпечення</li>
+                        <li>прогноз перезимівлі</li>
+                        <li>прогноз врожайності</li>
+                        <li>гідрологічні прогнози</li>
+                      </ul>                
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="block-white info-block">
+                      <div class="text-center text-blue text-bold m-b-sm">Режимно-довідкова</div>
+                      <ul class="info-list">
+                        <li>метеорологічна</li>
+                        <li>агрометеорологічні огляди</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>  
+              </div>      
+            </div>
+            <div class="block-white">
+              <div class="text-center m-t-lg">Господарські рішення</div> 
+              <hr class="dash dash-blue">  
+              <div class="w-80 f-r">
+                <div class="flex-block just-inh">
+                  <div class="w-35">
+                    <div class="right-block">
+                      <div class="text-bold m-b-md">На стадії оперативного управління:</div>
+                      <div class="stages">
+                        <div class="stages-line"></div>
+                          <div>
+                            <div class="stage-ellipse">1</div>
+                            <div class="stage-item">
+                              підготовка до сівби ярих, пересів озимих, зміна структурних площ
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">2</div>
+                            <div class="stage-item">
+                              вибір оптимальних строків сівби ярих культур, норм внесення добрив
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">3</div>
+                            <div class="stage-item">
+                              корегування норм висіву, глибини закладки насіння
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">4</div>
+                            <div class="stage-item">
+                              корегування заходів по догляду за насінням
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">5</div>
+                            <div class="stage-item">
+                              визначення строків початку збору різних видів с/г культур
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">6</div>
+                            <div class="stage-item">
+                              оцінка умов і корегування строків збору с/г культур
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">7</div>
+                            <div class="stage-item">
+                              вибір оптимальних строків сівби озимих восени
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">8</div>
+                            <div class="stage-item">
+                              визначення строків початку випасу тварин і прогноз урожаю кормів
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">9</div>
+                            <div class="stage-item">
+                              корегування заходів по догляду за посівами восени
+                            </div>
+                          </div>
+                      </div>
+                    </div> 
+                  </div>
+                  <div class="w-65">
+                    <div class="background img_herb"></div> 
+                  </div>
+                </div>
+              </div>       
+            </div>
+            <div class="block-blue">
+              <div class="text-center m-t-lg text-white">
+                Несприятливі погодні явища
+              </div>  
+              <hr class="dash">   
+              <div class="container m-b-xl">
+                <div class="table-responsive">
+                  <table id="adverse_phenomena" class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Перелік і критерії</th>
+                        <th>Вплив</th>
+                        <th>Запобіжні заходи</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Температура повітря 25&deg; морозу і нижче</td>
+                        <td>Пошкодження і загибель плодових культур. Зниження продуктивності тварин</td>
+                        <td>Підбір морозостійких сортів. Додаткове годування тварин, утеплення приміщень для тварин</td>
+                      </tr>
+                      <tr>
+                        <td>Температура повітря 35&deg; тепла і вище</td>
+                        <td>Зниження ваги тварин. Пошкодження сільгоспкультур (в період цвітіння череззерниця та пусте колосся)</td>
+                        <td>Організація частішого водопою тварин</td>
+                      </tr>
+                      <tr>
+                        <td>Заморозки в повітрі і на поверхні ґрунту</td>
+                        <td>Пошкодження овочевих, плодових і технічних культур</td>
+                        <td>Вибір оптимальних строків сівби, захист садів, застосування укриття</td>
+                      </tr> 
+                      <tr>
+                        <td>Вимерзання при невеликому сніговому покриві і температурі ґрунту на глибині вузла кущіння (3см) нижче 15&deg; морозу</td>
+                        <td>Пошкодження і загибель посівів озимих культур, багаторічних трав, кореневої системи плодових</td>
+                        <td>Снігонакопичення</td>
+                      </tr>     
+                      <tr>
+                        <td>Випрівання озимих при високому сніговому покриві, слабкому промерзанні ґрунту, температурі на глибині 3 см вище 5&deg; морозу</td>
+                        <td>Вуглеводне виснаження, зрідженість і загибель рослин</td>
+                        <td>Прийняття заходів по прискоренню сходу снігового покриву (почорніння снігу)</td>
+                      </tr>  
+                      <tr>
+                        <td>Льодова корка</td>
+                        <td>пошкодження озимих культур і масове травмування тварин на пасовищах. Загроза недогодування</td>
+                        <td>Руйнування льодової корки. Підвіз корму на пасовища</td>
+                      </tr>   
+                      <tr>
+                        <td>Посуха і суховії</td>
+                        <td>В'янення та загибель рослин. Стрімке зниження врожайності с/г культур, садів і виноградників</td>
+                        <td>Організація зрошення полів</td>
+                      </tr>   
+                      <tr>
+                        <td>Град, зливи, шквали</td>
+                        <td>Полягання зернових культур, пошкодження і загибель від граду с/г культур, садів і виноградників</td>
+                        <td>Протиградовий захист с/г культур</td>
+                      </tr>  
+                      <tr>
+                        <td>Тривалі і сильні дощі</td>
+                        <td>Замулювання і змив посівів. Проростання зерна в валках</td>
+                        <td>Рихлення посівів. Пересів</td>
+                      </tr> 
+                      <tr>
+                        <td>Пилові бурі</td>
+                        <td>Видування рослин. Занос рослин пиловидним ґрунтом або піском</td>
+                        <td>Грунтово захисні сівозміни, куліси, лісосмуги</td>
+                      </tr>                                                                                               
+                    </tbody>
+                  </table> 
+                </div>
+              </div>
+            </div>
+            <div class="block-white">
+              <div class="text-center m-t-lg">Економічний ефект</div> 
+              <hr class="dash dash-blue">  
+              <div class="w-80 f-r">
+                <div class="flex-block just-inh">
+                  <div class="w-35">
+                    <div class="right-block">
+                      <div class="stages">
+                        <div class="stages-line"></div>
+                          <div>
+                            <div class="stage-ellipse">1</div>
+                            <div class="stage-item">
+                              отримання більш високиї врожаїв с/г культур
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">2</div>
+                            <div class="stage-item">
+                              зменшення витрат при збиранні врожаю
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">3</div>
+                            <div class="stage-item">
+                              отримання максимально можливих зборів с/г культур на основі оптимізації структури посівних площ
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">4</div>
+                            <div class="stage-item">
+                              вироблення більш раціональних агротехнічних прийомів для окремих районів
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">5</div>
+                            <div class="stage-item">
+                              прийняття запобіжних заходів в залежності від умов погоди, що очікуються, для зменшення збитків
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">6</div>
+                            <div class="stage-item">
+                              найбільш раціональне планування поточних робіт
+                            </div>
+                          </div>
+                          <div>
+                            <div class="stage-ellipse">7</div>
+                            <div class="stage-item">
+                              оцінка ризику і страхування врожаю
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="w-65">
+                    <div class="background img_office"></div> 
+                  </div>
+                </div>
+              </div>       
+            </div>
+          </section>
+    <% include ../partials/footer %>
+    <% include ../partials/scripts %>
+</body>
+</html>

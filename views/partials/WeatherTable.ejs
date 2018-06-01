@@ -1,0 +1,60 @@
+<div class="block-blue">
+        <div class="container">
+          <div class="flex-block just-sp-ar tabs">
+            <div>
+              <a class="text-center <% if(cityes.zaporozhye){ %> active <% } %>" href="/current/zaporozhye">Запоріжжя</a>
+            </div>
+            <div>
+              <a class="text-center <% if(cityes.prism){ %> active <% } %>" href="/current/prism">Пришиб</a>
+            </div>
+            <div>
+              <a class="text-center <% if(cityes.kyrylivka){ %> active <% } %>" href="/current/kyrylivka">Кирилівка</a>
+            </div>
+            <div>
+              <a class="text-center <% if(cityes.gulyaypole){ %> active <% } %>" href="/current/gulyaypole">Гуляйполе</a>
+            </div>
+            <div>
+              <a class="text-center <% if(cityes.botievye){ %> active <% } %>" href="/current/botievye">Ботієве</a>
+            </div>
+            <div>
+              <a class="text-center <% if(cityes.melitopol){ %> active <% } %>" href="/current/melitopol">Мелітополь</a>
+            </div>
+            <div>
+              <a class="text-center <% if(cityes.berdyansk){ %> active <% } %>" href="/current/berdyansk">Бердянськ</a>
+            </div>
+          </div>          
+          <div class="table-responsive">
+            <table id="current_weather" class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                    строк спостережень (години)
+                    <div class="flex-block just-sp-ar">
+                      <div>літній час</div>
+                      <div>зимовий час</div>
+                    </div>
+                  </th>
+                  <th>температура повітря (&deg;C)</th>
+                  <th>напрямок та середня швидкість вітру</th>
+                  <th>атмосферний тиск на рівні станції (мм.рт.ст.)</th>
+                  <th>атмосферні явища</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% table.weather.forEach(function(item) {%>
+                    <tr>
+                      <td>
+                        <div class="flex-block just-sp-ar">
+                          <div>00</div>
+                          <div>02</div>
+                        </div>                    
+                      </td>
+                      <% include ./WeatherTableItem %>
+                    </tr>
+                  <% }) %>                                                                        
+              </tbody>
+            </table>   
+          </div>            
+          <% include ./conventions %>
+        </div>      
+</div>

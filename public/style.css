@@ -1,0 +1,47 @@
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.container.main-container {
+    padding-top: 48px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #676767;
+}
+
+.footer p {
+    line-height: 60px;
+    color: white;
+    margin: 0;
+}
+
+.navbar {
+    background-color: #bbbbbb;
+}
+
+.navbar a {
+    color: black;
+}
+
+.navbar a:hover {
+    color: #343434;
+    text-decoration: none;
+}
+
+.block {
+    display: block
+}
+.block:hover {
+    box-shadow: 3px 7px 69px -16px rgba(0,0,0,0.42);
+}
