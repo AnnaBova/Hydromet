@@ -1,0 +1,58 @@
+{
+    "date":"24.11.2017р",
+    "Observ":"08",
+    "Berda":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    },
+    "Obtichna":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    },
+    "Lozyvatka":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    },
+    "Molochna":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    },
+    "Molochna2":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    },
+    "DniproWS":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    },
+    "KaxovWS":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    },
+    "KaxovWS2":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    },
+    "KaxovWS3":{
+        "OutWater": "400",
+        "LvlWater":"175",
+        "EditLvl":"-3",
+        "phenomena": "чисто"
+    }
+}

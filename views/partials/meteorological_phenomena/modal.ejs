@@ -1,12 +1,12 @@
-<div class="modal fade" id="phenomenaModal" tabindex="-1" role="dialog" aria-labelledby="phenomenaModalLabel" aria-hidden="true">
+<div class="modal fade" id="phenomenaModal<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="phenomenaModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header block-blue text-center">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-            <div class="modal-title m-b-sm text-white" id="phenomenaModalLabel">Вітер, у т.ч. шквали, смерчі </div>
-            <h5>максимальна швидкість</h5>
+            <div class="modal-title m-b-sm text-white" id="phenomenaModalLabel"><%= item.modalName %> </div>
+            <h5><%= item.modalConvention %> </h5>
         </div>
         <div class="modal-body">
             <div class="flex-block just-sp-ar m-b-sm">
@@ -16,43 +16,20 @@
             <div class="table-responsive">
             <table class="table phenomena-table">
                 <tbody>
-                <tr>
-                    <td>11.11.2007</td>
-                    <td>34 м/с</td>
-                    <td>Бердянськ</td>
-                </tr>
-                <tr>
-                    <td>17.03.2014</td>
-                    <td>34 м/с</td>
-                    <td>Запоріжжя</td>
-                </tr>
-                <tr>
-                    <td>24.09.2014</td>
-                    <td>33 м/с</td>
-                    <td>Бердянськ</td>
-                </tr>
-                <tr>
-                    <td>24.09.2014</td>
-                    <td>28 м/с</td>
-                    <td>Запоріжжя</td>
-                </tr>
-                <tr>
-                    <td>24.09.2014</td>
-                    <td>27 м/с</td>
-                    <td>Ботієве</td>
-                </tr>
-                <tr>
-                    <td>24.09.2014</td>
-                    <td>26 м/с</td>
-                    <td>Пришиб</td>
-                </tr>                 
+                    <% item.table.forEach(function(items){%>
+                        <tr>
+                            <td><%= items.date %></td>
+                            <td><%= items.value %></td>
+                            <td><%= items.post %></td>
+                        </tr>
+                    <% })%>             
                 </tbody>
             </table>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="text-gray m-t-b-10">&lt; Попередній рекорд</button>
-            <button type="button" class="text-gray m-t-b-10 active">Наступний рекорд &gt;</button>
+            <button type="button" class="text-gray m-t-b-10" data-dismiss="modal" data-toggle="modal" data-target="#phenomenaModal<%= item.id-1 %>">&lt; Попередній рекорд</button>
+            <button type="button" class="text-gray m-t-b-10 active" data-dismiss="modal" data-toggle="modal" data-target="#phenomenaModal<%= item.id+1 %>">Наступний рекорд &gt;</button>
         </div>
         </div>
     </div>

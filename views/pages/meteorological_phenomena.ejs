@@ -8,7 +8,10 @@
     <% include ../partials/header %>
     <section>
         <% include ../partials/meteorological_phenomena/table %>
-        <% include ../partials/meteorological_phenomena/modal %>
+        <% modalId.forEach(function(item){%>
+            <% include ../partials/meteorological_phenomena/modal %>
+        <% });%>
+
     </section>
     <% include ../partials/footer %>
 

@@ -8,7 +8,9 @@
     <% include ../partials/header %>
     <section>
         <% include ../partials/climatic_records/table %>
-        <% include ../partials/climatic_records/modal %>
+        <% modalId.forEach(function(item){%>
+            <% include ../partials/climatic_records/modal %>
+        <%})%>
     </section>
     <% include ../partials/footer %>
 
