@@ -171,13 +171,11 @@ button.btn-blue{
   max-height:545px;
 }
 .background_1_1{
-  background-image: url(../images/background_1_1.jpg);
   overflow: auto;
   height: auto;
   max-height:100%;
 }
 .background_1_2{
-  background-image: url(../images/background_1_2.jpg);
   overflow: auto;
   height: auto;
   max-height:100%;

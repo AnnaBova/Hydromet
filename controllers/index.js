@@ -15,7 +15,7 @@ module.exports = {
   getMainPage: function (req, res) {
     res.render('pages/home', { ZpTemperature: zptemperature, weatherObl: WeatherDays.days, Water: waterTemperature});
   },
-
+  
   getCurrentWeather: function (req, res) {
     var router = {
       "zaporozhye": false,
