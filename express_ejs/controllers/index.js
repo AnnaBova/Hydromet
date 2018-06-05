@@ -7,9 +7,12 @@ var textWeatherRegion = require('../data/TextWeatherRegion');
 var textWeatherCity = require('../data/TextWeatherCity');
 var ClimaticData = require('../data/climatic_date');
 var Regular_Observation = require('../data/regular_observations');
-var meterolog_phenomena = require('../data/meteorolog_phenomena');
 var events = require('../data/event');
-var climatic_records = require('../data/climatic_records');
+var path = require('path');
+
+var MeteorologFenomena = require('../db/model/MeteorologPhenomena');
+var ClimaticRecords = require('../db/model/ClimateRecords');
+
 
 module.exports = {
   getMainPage: function (req, res) {
@@ -53,7 +56,10 @@ module.exports = {
     res.render('pages/structure');
   },
   getMeteorologPhenomena : function(req, res){
-    res.render('pages/meteorological_phenomena', {modalId: meterolog_phenomena.modalIndex});
+    MeteorologFenomena.GetAllPhenomena()
+    .then(respons => {
+      res.render('pages/meteorological_phenomena', {modalId: respons});
+    });
   },
   getHydrometeorologyBulletin: function(req, res){
     res.render('pages/hedrometeorological_bulletin', 
@@ -68,7 +74,9 @@ module.exports = {
     res.render('pages/climatic_characteristic');    
   },
   getClimaticRecords: function(req, res){
-    res.render('pages/climatic_records', { modalId: climatic_records.modalIndex });
+    ClimaticRecords.getAllRecords().then(respons => {
+      res.render('pages/climatic_records', { modalId: respons });
+    });
   },
   getRegularObservations: function(req, res){
     res.render('pages/regular_observations', { data:Regular_Observation });
@@ -81,5 +89,8 @@ module.exports = {
   },
   getDecadeBulletin: function(req, res){
     res.render('pages/decade_bulletin');
+  },
+  getAdmin: function(req, res){
+    res.sendFile(path.resolve('public/build/index.html'))
   }
 };

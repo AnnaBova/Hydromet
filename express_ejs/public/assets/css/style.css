@@ -180,6 +180,10 @@ button.btn-blue{
   height: auto;
   max-height:100%;
 }
+.admin-link {
+  text-decoration: none;
+  color: white;
+}
 .background_3{
   background-image: url(../images/background_3.jpg);
 }

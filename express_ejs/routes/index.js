@@ -3,6 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 const controller =  require('../controllers/');
+const admincontroller = require('../controllers/admin')
+
+router.all('/*', function(req, res, next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    next();
+})
 
 router.get('/', controller.getMainPage);
 
@@ -35,5 +43,9 @@ router.get('/events', controller.getEvents);
 router.get('/single_events/:nummber', controller.getSingleEvents);
 
 router.get('/decade_bulletin', controller.getDecadeBulletin);
+
+router.get('/admin', controller.getAdmin);
+
+router.post('/token', admincontroller.getToken);
 
 module.exports = router;
