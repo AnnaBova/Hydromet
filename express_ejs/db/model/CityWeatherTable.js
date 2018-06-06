@@ -1,13 +1,38 @@
 var mongoose = require('mongoose');
+var TimeGaps = require('./TimeGaps');
+var Station = require('./Station');
 
 const WeatherTableSchema = mongoose.Schema({
-    "zaporozhye": {
-        "weather": [
-
-        ]
+    "date": String,
+    "StationID": String,
+    "TimeGapsId": String,
+    "Weather": {
+        "temperature": String,
+        "wind": String,
+        "pressure": String,
+        "DirectionWind": String,
+        "phenomena": String
     }
 });
 
-module.exports = {
+const WeatherTable = mongoose.model('WeatherTable', WeatherTableSchema);
 
+
+module.exports = {
+    AddEntry: function(data){
+        const entry = new WeatherTable(data);
+        entry.save(); 
+    },
+    EditTables: function(data){
+
+    },
+    GetAll: function(){
+       return WeatherTable.find({});
+    },
+    GetCityTable: function(id){
+        return WeatherTable.find({StationID: id});
+    },
+    GetZpWeather: function(observ, station){
+        return WeatherTable.find({"StationID": station, "TimeGapsId": observ });
+    }
 };

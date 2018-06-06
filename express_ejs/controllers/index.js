@@ -1,7 +1,5 @@
 var WeatherDays = require('../data/WeatherObl');
-var waterTemperature = require('../data/waterTemperature');
 var zptemperature = require('../data/zptemperature');
-var CityWeatherTable = require('../data/CityWeatherTable');
 var weatherCity = require('../data/weatherCity');
 var textWeatherRegion = require('../data/TextWeatherRegion');
 var textWeatherCity = require('../data/TextWeatherCity');
@@ -12,14 +10,40 @@ var path = require('path');
 
 var MeteorologFenomena = require('../db/model/MeteorologPhenomena');
 var ClimaticRecords = require('../db/model/ClimateRecords');
+var Hydrometrologycal_bulletin = require('../db/model/Hydrometrologycal_bulletin');
+var WeatherTable = require('../db/model/CityWeatherTable');
+var Station = require('../db/model/Station');
+var TimeGaps = require('../db/model/TimeGaps');
+var WaterTemperature = require('../db/model/waterTemerature');
 
+var Init = require('../db/init');
 
 module.exports = {
-  getMainPage: function (req, res) {
-    res.render('pages/home', { ZpTemperature: zptemperature, weatherObl: WeatherDays.days, Water: waterTemperature});
+  getMainPage: function (req, resp) {
+    var promise = [];
+    const arr = [];
+    observe = '00';
+    arr.push(TimeGaps.GetIdTimeGaps(observe));
+    arr.push(Station.GetIdStation('zaporozhye'));
+    Promise.all(arr)
+      .then(res => {
+        WeatherTable.GetZpWeather(res[0][0].id, res[1][0].id)
+        .then(response => {
+            promise.push(Station.GetIdStation('zaporozhye'));
+            promise.push(WaterTemperature.GetTemperature());
+            Promise.all(promise)
+              .then(respons => {
+                  resp.render('pages/home', { ZpTemperature: response[0], observe: observe, weatherObl: WeatherDays.days, Water: respons[1][0]})
+              })
+              .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+      });
+    
+    
   },
   
-  getCurrentWeather: function (req, res) {
+  getCurrentWeather: function (req, response) {
     var router = {
       "zaporozhye": false,
       "prism": true,
@@ -29,11 +53,38 @@ module.exports = {
       "melitopol": false,
       "berdyansk": false
     }
+
     for(key in router){
       router[key]=false;
-    }
+    }   
     router[req.params.city] = true;
-    res.render('pages/currentweather', {cityes: router, table: CityWeatherTable[req.params.city] });
+
+    var buffer = [];
+    var table = [];
+    Station.GetIdStation(req.params.city)
+    .then(res => {
+      WeatherTable.GetCityTable(res[0].id)
+      .then(respons => {
+        for(var i=0; i<respons.length; i++){
+          buffer.push(TimeGaps.GetTimeById(respons[i].TimeGapsId))
+        }
+        Promise.all(buffer)
+        .then(resp => {
+          for(var i=0; i<resp.length; i++){
+            table.push(
+              {
+               Weather: respons[i].Weather, 
+               Summer: resp[i].Summer,
+               Winter: resp[i].Winter 
+              })
+          }
+          table.sort(function(a, b){
+            return Number(a.Summer) - Number(b.Summer);
+          })
+          response.render('pages/currentweather', { cityes: router, table: table })
+        });
+      });
+    });    
   },
 
   getAgriculturePage: function (req, res) {
@@ -62,6 +113,15 @@ module.exports = {
     });
   },
   getHydrometeorologyBulletin: function(req, res){
+
+    const obj = {
+      StormText: "BlaBlaBla",
+      WeatherCity: weatherCity,
+      TextWeatherCity: textWeatherCity,
+      WeatherObl: WeatherDays,
+      TextWeatherObl: textWeatherRegion
+    }
+
     res.render('pages/hedrometeorological_bulletin', 
     { weatherObl: WeatherDays.days,
       TextWeatherObl:textWeatherRegion.days, 
