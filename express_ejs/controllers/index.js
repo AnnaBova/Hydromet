@@ -1,20 +1,15 @@
-var WeatherDays = require('../data/WeatherObl');
-var zptemperature = require('../data/zptemperature');
-var weatherCity = require('../data/weatherCity');
-var textWeatherRegion = require('../data/TextWeatherRegion');
-var textWeatherCity = require('../data/TextWeatherCity');
-var ClimaticData = require('../data/climatic_date');
-var Regular_Observation = require('../data/regular_observations');
 var events = require('../data/event');
 var path = require('path');
 
 var MeteorologFenomena = require('../db/model/MeteorologPhenomena');
 var ClimaticRecords = require('../db/model/ClimateRecords');
-var Hydrometrologycal_bulletin = require('../db/model/Hydrometrologycal_bulletin');
 var WeatherTable = require('../db/model/CityWeatherTable');
 var Station = require('../db/model/Station');
 var TimeGaps = require('../db/model/TimeGaps');
 var WaterTemperature = require('../db/model/waterTemerature');
+var WeatherCityTable = require('../db/model/WeatherCity');
+var ClimateData = require('../db/model/ClimateData');
+var Regular_observable = require('../db/model/Regular_observable');
 
 var Init = require('../db/init');
 
@@ -33,7 +28,10 @@ module.exports = {
             promise.push(WaterTemperature.GetTemperature());
             Promise.all(promise)
               .then(respons => {
-                  resp.render('pages/home', { ZpTemperature: response[0], observe: observe, weatherObl: WeatherDays.days, Water: respons[1][0]})
+                WeatherCityTable.GetAll().then(
+                  answer => { resp.render('pages/home', { ZpTemperature: response[0], observe: observe, weatherObl: answer[0].WeatherTable, Water: respons[1][0]}) }
+                )
+                  
               })
               .catch(err => console.log(err));
         })
@@ -113,22 +111,26 @@ module.exports = {
     });
   },
   getHydrometeorologyBulletin: function(req, res){
-
-    const obj = {
-      StormText: "BlaBlaBla",
-      WeatherCity: weatherCity,
-      TextWeatherCity: textWeatherCity,
-      WeatherObl: WeatherDays,
-      TextWeatherObl: textWeatherRegion
-    }
-
-    res.render('pages/hedrometeorological_bulletin', 
-    { weatherObl: WeatherDays.days,
-      TextWeatherObl:textWeatherRegion.days, 
-      weatherCity: weatherCity.days, 
-      TextWeatherCity: textWeatherCity.days,
-      ClimaticData: ClimaticData
-    });
+      WeatherCityTable.GetAll()
+      .then(
+        respons => {
+          ClimateData.Get()
+          .then(
+            response => {
+              res.render('pages/hedrometeorological_bulletin', 
+              { weatherObl: respons[0].WeatherTable,
+                TextWeatherObl: respons[0].TextWeather, 
+                weatherCity:  respons[1].WeatherTable, 
+                TextWeatherCity: respons[1].TextWeather,
+                ClimaticData: response[0],
+                StormWarning: response[0].StormText
+              });
+            }
+          );
+          
+        }
+      );
+   
   },
   getClimaticCharacteristic: function(req, res){
     res.render('pages/climatic_characteristic');    
@@ -139,7 +141,11 @@ module.exports = {
     });
   },
   getRegularObservations: function(req, res){
-    res.render('pages/regular_observations', { data:Regular_Observation });
+    Regular_observable.GetAll()
+    .then(resp => {
+      res.render('pages/regular_observations', { data: resp });
+    });
+    
   },
   getEvents: function(req, res){
     res.render('pages/events', {events: events.events});

@@ -5,8 +5,6 @@ const LocalHost = 'http://localhost:3001'
 
 export function getToken(data){
     return (dispatch) => {
-
-
         fetch(`${LocalHost}/token`, { 
             method: 'POST',
             headers: { 'Content-type': 'application/json'},
@@ -14,7 +12,7 @@ export function getToken(data){
         })  
             .then(res => res.json())
             .then(res => { localStorage.setItem('token', res.token); return res;})
-            .then(res => dispatch(setToken(res.token)))
+            .then(res => dispatch(setToken(res)))
             .then(() => dispatch(push('/')))
             .catch(err => console.log(err));
     }

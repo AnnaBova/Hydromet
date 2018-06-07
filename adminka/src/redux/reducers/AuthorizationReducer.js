@@ -2,6 +2,7 @@ import { SET_TOKEN } from '../actions/ActionTypes';
 
 const initialState = {
     token: "",
+    role: "",
 }
 
 export function AuthorizationReducer(state = initialState, actions){
@@ -9,7 +10,8 @@ export function AuthorizationReducer(state = initialState, actions){
         
         case SET_TOKEN: {
             return {
-                token: actions.payload
+                token: actions.payload.token,
+                role: actions.payload.role,
             }
         }
 

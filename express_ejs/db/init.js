@@ -2,6 +2,93 @@ var mongoose = require('mongoose');
 var TimeGaps = require('./model/TimeGaps');
 var Station = require('./model/Station');
 var WeatherTable = require('./model/CityWeatherTable');
+var Regular_observable = require('./model/Regular_observable');
+var UserController = require('./model/user');
+
+
+var UsersArray = [
+    {
+        login: "vgzcgm",
+        password: "oksana",
+        role: "1",
+        station: "zaporozhye"
+    },
+    {
+        login: "prishib",
+        password: "lintur",
+        role: "1",
+        station: "prism"
+    },
+    {
+        login: "kirilovka",
+        password: "gontar",
+        role: "1",
+        station: "kyrylivka"
+    },
+    {
+        login: "melitopol",
+        password: "valentina",
+        role: "1",
+        station: "melitopol"
+    },
+    {
+        login: "gylyapole",
+        password: "semenuta",
+        role: "1",
+        station: "gulyaypole"
+    },
+    {
+        login: "botievo",
+        password: "khistov",
+        role: "1",
+        station: "botievye"
+    },
+    {
+        login: "berdyansk",
+        password: "svetlana",
+        role: "1",
+        station: "berdyansk"
+    },
+]
+
+var ObservArr = [
+    {
+        title: "р. Берда",
+        Position: "с. Осипенко"
+    },
+    {
+        title: "р. Обитічна",
+        Position: "м. Приморськ"
+    },
+    {
+        title: "р. Лозуватка",
+        Position: "с. Новоолексіївка"
+    },
+    {
+        title: "р. Молочна",
+        Position: "м. Токмак"
+    },
+    {
+        title: "р. Молочна",
+        Position: "с. Терпіння"
+    },
+    {
+        title: "Дніпровське вдсх.",
+        Position: "м. Запоріжжя - верхній б'єф"
+    },
+    {
+        title: "Каховське вдсх.",
+        Position: "с. Благовіщенка"
+    },
+    {
+        title: "Каховське вдсх.",
+        Position: "с. Плавні"
+    },
+    {
+        title: "Каховське вдсх.",
+        Position: "с. Розумівка"
+    }
+]
 
 var StationArray = [
     {"Title":'zaporozhye'},
@@ -49,42 +136,44 @@ var TimeGapsArray = [
 ]
 
 module.exports = function(){
-    TimeGaps.Init(TimeGapsArray);
-    Station.Init(StationArray);
-    var object = {
-        "date": "20.10.2017"
-    }
+    //TimeGaps.Init(TimeGapsArray);
+    //Station.Init(StationArray);
+    UserController.Init(UsersArray);
+    //Regular_observable.Init(ObservArr);
 
-    var weather = {
-        "temperature": "",
-        "wind":"",
-        "pressure": "",
-        "DirectionWind":"",
-        "phenomena": ""
-    }
+    //var object = {
+    //  "date": "20.10.2017"
+    //}
+    //var weather = {
+    //    "temperature": "",
+    //    "wind":"",
+    //    "pressure": "",
+    //    "DirectionWind":"",
+    //    "phenomena": ""
+    //}
 
-    const StationArr = [];
-    const TimeGapsArr = []; 
-    for(var i=0; i<7; i++){ 
-        StationArr.push(Station.GetIdStation(StationArray[i]['Title']));
-    } 
-    for(var j=0; j<8; j++){ 
-        TimeGapsArr.push(TimeGaps.GetIdTimeGaps(TimeGapsArray[j]['Summer']));
-    }
-    Promise.all(StationArr).then(res => {
-        Promise.all(TimeGapsArr).then(respons => {
-             for(var i=0;i< res.length; i++){
-                 object.StationID = res[i][0].id;
-                 for(var j=0;j<respons.length; j++){
-                    object.TimeGapsId = respons[j][0].id;
-                    object.Weather = weather;
-                    WeatherTable.AddEntry(object);
-                 }
-             }
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+    //const StationArr = [];
+    //const TimeGapsArr = []; 
+    //for(var i=0; i<7; i++){ 
+    //    StationArr.push(Station.GetIdStation(StationArray[i]['Title']));
+    //} 
+    //for(var j=0; j<8; j++){ 
+    //    TimeGapsArr.push(TimeGaps.GetIdTimeGaps(TimeGapsArray[j]['Summer']));
+    //}
+    //Promise.all(StationArr).then(res => {
+    //    Promise.all(TimeGapsArr).then(respons => {
+    //         for(var i=0;i< res.length; i++){
+    //             object.StationID = res[i][0].id;
+    //             for(var j=0;j<respons.length; j++){
+    //                object.TimeGapsId = respons[j][0].id;
+    //                object.Weather = weather;
+    //               WeatherTable.AddEntry(object);
+    //             }
+    //         }
+    //    })
+    //    .catch(err => console.log(err));
+    //})
+    //.catch(err => console.log(err));
 
     console.log('Initial');
 }

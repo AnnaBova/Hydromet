@@ -4,7 +4,7 @@
         <span class="number">01</span>
         Регулярні спостереження в період весняної повені
     </div>  
-    <div class="text-center text-white">Поточна ситуація на річках та водосховищах станом на <%= data.Observ %> годину <%= data.date%>.</div>
+    <div class="text-center text-white">Поточна ситуація на річках та водосховищах станом на <%= data[0].observ %> годину <%= data[0].date%>.</div>
     <hr class="dash">
     <div class="container m-b-xl">
         <div class="table-responsive">
@@ -20,78 +20,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td> р. Берда &nbsp; <span class="text-gray">с. Осипенко</span></td>
-                <td><%= data.Berda.OutWater %></td>
-                <td><%= data.Berda.LvlWater %></td>
-                <td><%= data.Berda.EditLvl %></td>
-                <td><%= data.Berda.phenomena %></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td> р. Обитічна &nbsp; <span class="text-gray">м. Приморськ</span></td>
-                <td><%= data.Obtichna.OutWater %></td>
-                <td><%= data.Obtichna.LvlWater %></td>
-                <td><%= data.Obtichna.EditLvl %></td>
-                <td><%= data.Obtichna.phenomena %></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td> р. Лозуватка &nbsp; <span class="text-gray">с. Новоолексіївка</span></td>
-                <td><%= data.Lozyvatka.OutWater %></td>
-                <td><%= data.Lozyvatka.LvlWater %></td>
-                <td><%= data.Lozyvatka.EditLvl %></td>
-                <td><%= data.Lozyvatka.phenomena %></td>
-            </tr> 
-            <tr>
-                <td>4</td>
-                <td> р. Молочна &nbsp; <span class="text-gray">м. Токмак</span></td>
-                <td><%= data.Molochna.OutWater %></td>
-                <td><%= data.Molochna.LvlWater %></td>
-                <td><%= data.Molochna.EditLvl %></td>
-                <td><%= data.Molochna.phenomena %></td>
-            </tr>     
-            <tr>
-                <td>5</td>
-                <td> р. Молочна &nbsp; <span class="text-gray">с. Терпіння</span></td>
-                <td><%= data.Molochna2.OutWater %></td>
-                <td><%= data.Molochna2.LvlWater %></td>
-                <td><%= data.Molochna2.EditLvl %></td>
-                <td><%= data.Molochna2.phenomena %></td>
-            </tr>  
-            <tr>
-                <td>6</td>
-                <td> Дніпровське вдсх. &nbsp; <span class="text-gray">м. Запоріжжя - верхній б'єф</span></td>
-                <td><%= data.DniproWS.OutWater %></td>
-                <td><%= data.DniproWS.LvlWater %></td>
-                <td><%= data.DniproWS.EditLvl %></td>
-                <td><%= data.DniproWS.phenomena %></td>
-            </tr>   
-            <tr>
-                <td>7</td>
-                <td> Каховське вдсх. &nbsp; <span class="text-gray">с. Благовіщенка</span></td>
-                <td><%= data.KaxovWS.OutWater %></td>
-                <td><%= data.KaxovWS.LvlWater %></td>
-                <td><%= data.KaxovWS.EditLvl %></td>
-                <td><%= data.KaxovWS.phenomena %></td>
-            </tr>   
-            <tr>
-                <td>8</td>
-                <td> Каховське вдсх. &nbsp; <span class="text-gray">с. Плавні</span></td>
-                <td><%= data.KaxovWS2.OutWater %></td>
-                <td><%= data.KaxovWS2.LvlWater %></td>
-                <td><%= data.KaxovWS2.EditLvl %></td>
-                <td><%= data.KaxovWS2.phenomena %></td>
-            </tr>  
-            <tr>
-                <td>9</td>
-                <td> Каховське вдсх. &nbsp; <span class="text-gray">с. Розумівка</span></td>
-                <td><%= data.KaxovWS3.OutWater %></td>
-                <td><%= data.KaxovWS3.LvlWater %></td>
-                <td><%= data.KaxovWS3.EditLvl %></td>
-                <td><%= data.KaxovWS3.phenomena %></td>
-            </tr>                                                                                              
+                <% for(var i=0; i<9 ; i++){%>
+                    <tr>
+                        <td><%= i+1 %></td>
+
+                        <td> <%= data[i].Title %> &nbsp; <span class="text-gray"><%= data[i].Position %></span></td>
+                        <td><%= data[i].OutWater %></td>
+                        <td><%= data[i].LvlWater %></td>
+                        <td><%= data[i].EditLvl %></td>
+                        <td><%= data[i].phenomena %></td>
+                    </tr>
+                <%}%>                                                                                          
             </tbody>
         </table>   
         </div>       
