@@ -1,6 +1,10 @@
 const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const UserController = require('../db/model/user');
+const Station = require('../db/model/Station');
+const TimeGaps = require('../db/model/TimeGaps');
+const WeatherTabel = require('../db/model/CityWeatherTable');
+const waterTemperature = require('../db/model/waterTemerature');
 
 const saltRounds = 10;
 
@@ -15,5 +19,40 @@ module.exports = {
                 }
             );
         });       
+    }, 
+    getStation: function(req, res){
+        UserController.Authorization(req.user.login)
+            .then(respons => {
+                Station.GetStationById(respons.stationID)
+                    .then(response => {
+                        res.json(response);
+                    })
+                    .catch(err => res.status(401).send(err));
+                })
+            .catch(err => res.status(403).send(err));
+    }, 
+    addWeather: function(req, res){
+        var PromiseArr = [];
+        PromiseArr.push(TimeGaps.GetIdTimeGaps(req.body.TimeGaps));
+        PromiseArr.push(UserController.Authorization(req.user.login));        
+        Promise.all(PromiseArr)
+            .then(respons => {
+                var obj = {
+                    Weather: {
+                        temperature: req.body.temperature,
+                        wind: req.body.wind,
+                        pressure: req.body.pressure,
+                        DirectionWind: req.body.DiractionWind,
+                        phenomena: req.body.phenomena
+                    },
+                    date: req.body.date,
+                    StationID: respons[1].stationID,
+                    TimaGapsId: respons[0][0].id
+                }
+                waterTemperature.AddTemperature(respons[1].stationID, req.body.waterTemperature, req.body.date, req.body.TimeGaps);
+                WeatherTabel.EditTables(obj);
+            })
+            .catch(err => console.log(err));
+        res.send();
     }
 }

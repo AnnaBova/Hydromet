@@ -24,7 +24,10 @@ module.exports = {
         entry.save(); 
     },
     EditTables: function(data){
-
+        WeatherTable.findOneAndUpdate({ StationID: data.StationID, TimeGapsId: data.TimaGapsId }, data)
+            .then(res => {
+                
+            });
     },
     GetAll: function(){
        return WeatherTable.find({});

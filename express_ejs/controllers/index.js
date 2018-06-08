@@ -23,19 +23,19 @@ module.exports = {
     Promise.all(arr)
       .then(res => {
         WeatherTable.GetZpWeather(res[0][0].id, res[1][0].id)
-        .then(response => {
-            promise.push(Station.GetIdStation('zaporozhye'));
-            promise.push(WaterTemperature.GetTemperature());
-            Promise.all(promise)
-              .then(respons => {
-                WeatherCityTable.GetAll().then(
-                  answer => { resp.render('pages/home', { ZpTemperature: response[0], observe: observe, weatherObl: answer[0].WeatherTable, Water: respons[1][0]}) }
-                )
-                  
-              })
-              .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
+          .then(response => {
+              promise.push(Station.GetIdStation('zaporozhye'));
+              promise.push(WaterTemperature.GetTemperature());
+              Promise.all(promise)
+                .then(respons => {
+                  WeatherCityTable.GetAll().then(
+                    answer => { resp.render('pages/home', { ZpTemperature: response[0], observe: observe, weatherObl: answer[0].WeatherTable, Water: respons[1][0]}) }
+                  )
+                    
+                })
+                .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
       });
     
     
@@ -60,29 +60,32 @@ module.exports = {
     var buffer = [];
     var table = [];
     Station.GetIdStation(req.params.city)
-    .then(res => {
-      WeatherTable.GetCityTable(res[0].id)
-      .then(respons => {
-        for(var i=0; i<respons.length; i++){
-          buffer.push(TimeGaps.GetTimeById(respons[i].TimeGapsId))
-        }
-        Promise.all(buffer)
-        .then(resp => {
-          for(var i=0; i<resp.length; i++){
-            table.push(
-              {
-               Weather: respons[i].Weather, 
-               Summer: resp[i].Summer,
-               Winter: resp[i].Winter 
+      .then(res => {
+        WeatherTable.GetCityTable(res[0].id)
+          .then(respons => {
+            for(var i=0; i<respons.length; i++){
+              buffer.push(TimeGaps.GetTimeById(respons[i].TimeGapsId))
+            }
+            Promise.all(buffer)
+              .then(resp => {
+                for(var i=0; i<resp.length; i++){
+                  table.push(
+                    {
+                    Weather: respons[i].Weather, 
+                    Summer: resp[i].Summer,
+                    Winter: resp[i].Winter 
+                    });
+                }
+                table.sort(function(a, b){
+                  return Number(a.Summer) - Number(b.Summer);
+                });
+                response.render('pages/currentweather', { cityes: router, table: table })
               })
-          }
-          table.sort(function(a, b){
-            return Number(a.Summer) - Number(b.Summer);
+              .catch(err => console.log(err));
           })
-          response.render('pages/currentweather', { cityes: router, table: table })
-        });
-      });
-    });    
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));    
   },
 
   getAgriculturePage: function (req, res) {

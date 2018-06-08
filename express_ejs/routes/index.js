@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-
+const ExpressJSW = require('express-jwt');
 const controller =  require('../controllers/');
 const admincontroller = require('../controllers/admin')
 
@@ -47,5 +47,9 @@ router.get('/decade_bulletin', controller.getDecadeBulletin);
 router.get('/admin', controller.getAdmin);
 
 router.post('/token', admincontroller.getToken);
+
+router.get('/station', ExpressJSW({secret: 'hydromet'}), admincontroller.getStation);
+
+router.post('/addweather', ExpressJSW({secret: 'hydromet'}), admincontroller.addWeather);
 
 module.exports = router;

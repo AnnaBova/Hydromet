@@ -49,6 +49,27 @@ var UsersArray = [
         role: "1",
         station: "berdyansk"
     },
+    {
+        login: "sappi",
+        password: "martunenko",
+        role: "2",
+        
+    },
+    {
+        login: "vgmz",
+        password: "sorokina",
+        role: "3",
+    },
+    {
+        login: "sinoptik",
+        password: "pogoda",
+        role: "4",
+    },
+    {
+        login: "klszps",
+        password: "moskovka",
+        role: "5",
+    }
 ]
 
 var ObservArr = [

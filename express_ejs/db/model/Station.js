@@ -17,8 +17,6 @@ module.exports = {
         return Station.find({'Title': string});
     },
     GetStationById: function(id){
-        Station.findById(id, (err, data) => {
-            return data;
-        });
+        return Station.findById(id);
     }
 }
