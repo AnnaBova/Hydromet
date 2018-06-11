@@ -5,6 +5,8 @@ const Station = require('../db/model/Station');
 const TimeGaps = require('../db/model/TimeGaps');
 const WeatherTabel = require('../db/model/CityWeatherTable');
 const waterTemperature = require('../db/model/waterTemerature');
+const ClimateRecords = require('../db/model/ClimateRecords');
+const Phenomena = require('../db/model/MeteorologPhenomena');
 
 const saltRounds = 10;
 
@@ -53,6 +55,27 @@ module.exports = {
                 WeatherTabel.EditTables(obj);
             })
             .catch(err => console.log(err));
+        res.send();
+    },
+    GetClimateRecords: function(req, res) {
+        ClimateRecords.getAllRecords()
+        .then(resp => res.json(resp));
+        
+    },
+    saveRecords: function(req, res){
+        for(var i=0;i< req.body.length; i++){
+            ClimateRecords.UpdateRecords(req.body[i]);
+        }
+        res.send();
+    },
+    GetPhenomena: function(req, res){
+        Phenomena.GetAllPhenomena()
+        .then(respons => res.json(respons));
+    },
+    SavePhenomena: function(req, res){
+        for(var i=0;i< req.body.length; i++){
+            Phenomena.UpdateRecords(req.body[i]);
+        }
         res.send();
     }
 }

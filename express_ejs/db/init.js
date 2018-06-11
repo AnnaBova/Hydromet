@@ -159,7 +159,7 @@ var TimeGapsArray = [
 module.exports = function(){
     //TimeGaps.Init(TimeGapsArray);
     //Station.Init(StationArray);
-    UserController.Init(UsersArray);
+    //UserController.Init(UsersArray);
     //Regular_observable.Init(ObservArr);
 
     //var object = {

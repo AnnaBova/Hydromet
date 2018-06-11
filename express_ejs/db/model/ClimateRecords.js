@@ -27,5 +27,10 @@ module.exports = {
     },
     getAllRecords: function(){
         return ClimateRecords.find({});
+    }, 
+    UpdateRecords: function(record){
+        ClimateRecords.findByIdAndUpdate(record._id, record)
+            .then(res => {
+            });
     }
 }

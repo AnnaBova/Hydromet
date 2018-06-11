@@ -52,4 +52,12 @@ router.get('/station', ExpressJSW({secret: 'hydromet'}), admincontroller.getStat
 
 router.post('/addweather', ExpressJSW({secret: 'hydromet'}), admincontroller.addWeather);
 
+router.get('/get_climate_records', admincontroller.GetClimateRecords );
+
+router.post('/save_records', admincontroller.saveRecords);
+
+router.get('/get_phenomena', admincontroller.GetPhenomena);
+
+router.post('/save_phenomena', admincontroller.SavePhenomena);
+
 module.exports = router;

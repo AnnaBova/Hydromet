@@ -21,8 +21,10 @@ module.exports = {
         const phenomena = new meteorologPhenomena(data);
         phenomena.save();
     },
-    EditPhenomena: function(table){
-
+    UpdateRecords: function(phenomen){
+        meteorologPhenomena.findByIdAndUpdate(phenomen._id, phenomen)
+            .then(res => {
+            });
     },
     GetAllPhenomena: function(){
        return  meteorologPhenomena.find({});

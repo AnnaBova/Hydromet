@@ -1,8 +1,9 @@
-import { SET_TOKEN } from '../actions/ActionTypes';
+import { SET_TOKEN, SET_STATION_ID, SET_STATION_NAME } from '../actions/ActionTypes';
 
 const initialState = {
     token: "",
-    role: "",
+    stationId:"",
+    StationName: "",
 }
 
 export function AuthorizationReducer(state = initialState, actions){
@@ -11,7 +12,21 @@ export function AuthorizationReducer(state = initialState, actions){
         case SET_TOKEN: {
             return {
                 token: actions.payload.token,
-                role: actions.payload.role,
+                ...state
+            }
+        }
+
+        case SET_STATION_ID: {
+            return {
+                ...state,
+                stationID: actions.payload
+            }
+        }
+
+        case SET_STATION_NAME: {
+            return {
+                ...state,
+                StationName: actions.payload
             }
         }
 
