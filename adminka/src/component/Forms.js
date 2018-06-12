@@ -5,9 +5,7 @@ import { push } from 'react-router-redux';
 class Forms extends Component {
 
     componentDidMount(){
-        if(!localStorage.getItem('token')){
-            this.props.noAuthorization();
-        }
+        this.props.noAuthorization();
     }
 
   render() {

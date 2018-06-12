@@ -6,3 +6,6 @@ export const CHANGE_RECORDS = 'CHANGE_RECORDS';
 export const EDIT_RECORD = 'EDIT_RECORD';
 export const SAVE_RECORD = 'SAVE_RECORDS';
 export const GET_PHENOMENA = 'GET_PHENOMENA';
+export const GET_BULLETIN = 'GET_BULLETIN';
+export const CHANGE_DAY = 'CHANGE_DAY';
+export const EDIT_DAY = 'EDIT_DAY';

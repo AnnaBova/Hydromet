@@ -7,7 +7,7 @@ const WeatherTabel = require('../db/model/CityWeatherTable');
 const waterTemperature = require('../db/model/waterTemerature');
 const ClimateRecords = require('../db/model/ClimateRecords');
 const Phenomena = require('../db/model/MeteorologPhenomena');
-
+const WeatherCityTable = require('../db/model/WeatherCity');
 const saltRounds = 10;
 
 
@@ -77,5 +77,14 @@ module.exports = {
             Phenomena.UpdateRecords(req.body[i]);
         }
         res.send();
+    },
+    GetHydroBulletind: function(req, res){
+        WeatherCityTable.GetAll()
+        .then(resp => res.json({
+            WeatherObl: resp[0].WeatherTable,
+            TextWeatherObl: resp[0].TextWeather, 
+            WeatherCity:  resp[1].WeatherTable, 
+            TextWeatherCity: resp[1].TextWeather,
+        }) );
     }
 }

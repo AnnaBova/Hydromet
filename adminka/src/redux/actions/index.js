@@ -1,7 +1,64 @@
-import { SET_TOKEN, SET_STATION_ID, SET_STATION_NAME, GET_CLIMATE_RECORDS, CHANGE_RECORDS, EDIT_RECORD, SAVE_RECORD, GET_PHENOMENA } from './ActionTypes';
+import { 
+    SET_TOKEN, 
+    SET_STATION_ID, 
+    SET_STATION_NAME, 
+    GET_CLIMATE_RECORDS, 
+    CHANGE_RECORDS, 
+    EDIT_RECORD, 
+    SAVE_RECORD, 
+    GET_PHENOMENA,
+    GET_BULLETIN,
+    CHANGE_DAY,
+    EDIT_DAY
+} from './ActionTypes';
 import { push } from 'react-router-redux';
 
 const LocalHost = 'http://localhost:3001'
+
+export function getHydroBulletin (){
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_hydrometeorologycal_bulletin`)
+        .then(res => res.json())
+        .then(res => dispatch(setBulletin(res)))
+        .catch(err => console.log(err));
+    }
+}
+
+export function EditDay(obj){
+    return {
+        type: EDIT_DAY,
+        payload: obj
+    }
+}
+
+export function Edit(data){
+    return (dispatch) => {
+        fetch(`${LocalHost}/EditData`, {
+            method: 'POST',
+            headers: { 
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data) 
+        })
+        .then(res => res.json())
+        .then(EditDay(data))
+        .catch(err => console.log(err));
+    }
+}
+
+export function setBulletin(data){
+    return {
+        type: GET_BULLETIN,
+        payload: data
+    }
+}
+
+export function ChangeDay(value){
+    return {
+        type: CHANGE_DAY,
+        payload: value,
+    }
+}
 
 export function getToken(data){
     return (dispatch) => {

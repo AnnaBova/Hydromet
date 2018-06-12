@@ -60,4 +60,6 @@ router.get('/get_phenomena', admincontroller.GetPhenomena);
 
 router.post('/save_phenomena', admincontroller.SavePhenomena);
 
+router.get('/get_hydrometeorologycal_bulletin', admincontroller.GetHydroBulletind);
+
 module.exports = router;

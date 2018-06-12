@@ -7,13 +7,13 @@ const days = mongoose.Schema({
         "weather": String,
         "temperature": String,
         "wind": String,
-        "DiractionWind": String
+        "DirectionWind": String
     },
     "night":{
         "weather": String,
         "temperature": String,
         "wind": String,
-        "DiractionWind": String
+        "DirectionWind": String
     }
 });
 
