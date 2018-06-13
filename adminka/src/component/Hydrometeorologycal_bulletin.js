@@ -5,37 +5,91 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Weather from './Weather';
 import TextWeather from './TextWeather';
-import { getHydroBulletin, ChangeDay, EditDay } from '../redux/actions/index';
+import { getHydroBulletin, ChangeDay, Edit, ChangeWeathers, GiveClimateData, GiveWeatherObservable } from '../redux/actions/index';
+import ClimateData from './ClimateData';
+import ObservableWeather from './ObservableWeather';
 
 class Hydrometeorologycal extends Component {
 
     constructor(props){
         super(props);
         this.state = {
+            activeIndex: 0,
             panas: [
                 {   menuItem: 'Погода по Запорожью', 
-                    render: () => <Tab.Pane><Weather data={this.props.WeatherDay} Submit={this.Submit} ChangeDay={this.ChangeDay}/></Tab.Pane> },
+                    render: () => <Tab.Pane>
+                        <Weather 
+                            data={this.props.WeatherDay} 
+                            Submit={this.Submit} 
+                            ChangeDay={this.ChangeDay}
+                        />
+                        </Tab.Pane> },
                 {   menuItem: 'Текстовая погода по Запорожью', 
-                    render: () => <Tab.Pane><TextWeather /></Tab.Pane> },
+                    render: () => <Tab.Pane>
+                        <TextWeather
+                            data={this.props.WeatherDay} 
+                            ChangeDay={this.ChangeDay}
+                            Submit={this.Submit}
+                        />
+                        </Tab.Pane> },
                 {   menuItem: 'Погода по облости', 
-                    render: () => <Tab.Pane><Weather data={this.props.WeatherDay} Submit={this.Submit} ChangeDay={this.ChangeDay}/></Tab.Pane> },
+                    render: () => <Tab.Pane>
+                    <Weather 
+                        data={this.props.WeatherDay} 
+                        Submit={this.Submit} 
+                        ChangeDay={this.ChangeDay}
+                    />
+                    </Tab.Pane> },
                 {   menuItem: 'Текстовая погода по облости', 
-                    render: () => <Tab.Pane><TextWeather /></Tab.Pane> },
+                    render: () => <Tab.Pane> 
+                        <TextWeather 
+                            data={this.props.WeatherDay}
+                            ChangeDay={this.ChangeDay}
+                            Submit={this.Submit}
+                        />
+                        </Tab.Pane> },
                 {   menuItem: 'Обзор погоды', 
-                    render: () => <Tab.Pane>Tab 5</Tab.Pane> },
+                    render: () => <Tab.Pane>
+                            <ObservableWeather  Submit={this.handelSubmitObserv}/>
+                        </Tab.Pane> },
                 {   menuItem: 'Климатические данные запорожья', 
-                    render: () => <Tab.Pane>Tab 6</Tab.Pane> },
+                    render: () => <Tab.Pane>
+                        <ClimateData 
+                            Submit={this.handelSubmitClimate}
+                        /></Tab.Pane> },
             ],
-            activeIndex: 0,
         }
+    }
+
+    handelSubmitObserv = (value) => {
+        this.props.GiveWeatherObservable(value);
     }
 
     ChangeDay = (value) => {
         this.props.ChangeDay(value);
     }
 
+    handelSubmitClimate = (value) => {
+        this.props.GiveClimateData(value);
+    }
+
+    handleTabChange = (e, { activeIndex }) => {
+        if(activeIndex < 4){
+            this.props.ChangeWeathers(activeIndex);
+        }
+        this.setState({ activeIndex })
+    }
+
     Submit = (obj) => {
-        this.props.EditDay(obj);
+        console.log(obj);
+        const newLocal =  this.props.SelectWeathers.map(item => {
+            //eslint-disable-next-line
+            if (item._id == obj._id) {
+                item = obj;
+            }
+            return item;
+        });
+        this.props.EditDay(newLocal, this.state.activeIndex);
     }
 
     componentDidMount(){
@@ -54,24 +108,24 @@ class Hydrometeorologycal extends Component {
     return (
         <Form>
             <Grid.Column>
-            <Form.Field >
-                <label htmlFor="StormWarning">Штормовое предупреждение</label>
-                <TextArea autoHeight name="StormWarning" placeholder='Tell us more' />
-            </Form.Field>
-            <Tab panes={this.state.panas}></Tab>
-            <Button>Save</Button>
-            <Button type="button" onClick={this.LogOut}>Close</Button>
+            <Tab panes={this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange}></Tab>
+            <Button>Сохранить отчет</Button>
+            <Button type="button" onClick={this.LogOut}>Выйти</Button>
             </Grid.Column>
         </Form>);
     }
 }
 
 const mapStateToProps = (state) => ({
-    WeatherDay: state.hydrometeorolog_bulletin.WeatherDay
+    WeatherDay: state.hydrometeorolog_bulletin.WeatherDay,
+    SelectWeathers: state.hydrometeorolog_bulletin.SelectWeathers
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    EditDay: bindActionCreators(EditDay, dispatch),
+    GiveWeatherObservable: bindActionCreators(GiveWeatherObservable, dispatch),
+    GiveClimateData: bindActionCreators(GiveClimateData, dispatch),
+    ChangeWeathers: bindActionCreators(ChangeWeathers, dispatch),
+    EditDay: bindActionCreators(Edit, dispatch),
     ChangeDay: bindActionCreators(ChangeDay, dispatch),
     getBuletin: bindActionCreators(getHydroBulletin, dispatch),
     noAuthorization: () => dispatch(push('/signup'))

@@ -9,7 +9,11 @@ import {
     GET_PHENOMENA,
     GET_BULLETIN,
     CHANGE_DAY,
-    EDIT_DAY
+    EDIT_DAY,
+    CHANGE_WEATHER_OBL,
+    CHANGE_WEATHER_CITY,
+    CHANGE_TEXT_WEATHER_OBL,
+    CHANGE_TEXT_WEATHER_CITY
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
@@ -31,14 +35,78 @@ export function EditDay(obj){
     }
 }
 
-export function Edit(data){
+
+export function ChangeWeathers(value){
+    if(value == 0){
+        return {
+            type: CHANGE_WEATHER_CITY
+        }
+    }
+    if(value == 1){
+        return {
+            type: CHANGE_TEXT_WEATHER_CITY
+        }
+    }
+    if(value == 2){
+        return {
+            type: CHANGE_WEATHER_OBL
+        }
+    }
+    if(value == 3){
+        return {
+            type: CHANGE_TEXT_WEATHER_OBL
+        }
+    }
+}
+
+export function GiveWeatherObservable(value){
+    return (dispatch)=> {
+        fetch(`${LocalHost}/give_weather_observable`, {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json'},
+            body: JSON.stringify(value) 
+        })
+        .then(res => {})
+        .catch(err => console.log(err));
+    }
+}
+
+export function uploadDocumentRequest({ file, name }) {  
+    let data = new FormData();
+    data.append('file', document);
+    data.append('name', name);
+  
     return (dispatch) => {
-        fetch(`${LocalHost}/EditData`, {
+      fetch('/files', {
+            method: 'POST',
+            headers: { 'Content-type': 'multipart/form-data'},
+            body: JSON.stringify(value) 
+        })
+        .then(response => dispatch(uploadSuccess(response))
+        .catch(error => dispatch(uploadFail(error));
+    };
+  }
+
+export function GiveClimateData(value){
+    return (dispatch)=> {
+        fetch(`${LocalHost}/give_climate_date`, { 
+            method: 'POST',
+            headers: { 'Content-type': 'application/json'},
+            body: JSON.stringify(value) 
+        })
+        .then(res => console.log(res))
+        .catch(res => console.log(res));
+    }
+}
+
+export function Edit(data, index){
+    return (dispatch) => {
+        fetch(`${LocalHost}/edit_weather_city_buletttin`, {
             method: 'POST',
             headers: { 
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(data) 
+            body: JSON.stringify({data, index}) 
         })
         .then(res => res.json())
         .then(EditDay(data))

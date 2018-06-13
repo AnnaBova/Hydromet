@@ -1,4 +1,5 @@
 const JWT = require('jsonwebtoken');
+const ClimateData = require('../db/model/ClimateData');
 const bcrypt = require('bcrypt');
 const UserController = require('../db/model/user');
 const Station = require('../db/model/Station');
@@ -8,6 +9,8 @@ const waterTemperature = require('../db/model/waterTemerature');
 const ClimateRecords = require('../db/model/ClimateRecords');
 const Phenomena = require('../db/model/MeteorologPhenomena');
 const WeatherCityTable = require('../db/model/WeatherCity');
+const WeatherObservable = require('../db/model/WeatherObservable');
+
 const saltRounds = 10;
 
 
@@ -86,5 +89,36 @@ module.exports = {
             WeatherCity:  resp[1].WeatherTable, 
             TextWeatherCity: resp[1].TextWeather,
         }) );
+    },
+    edit_weather_city_bulletin: function(req, res) {
+        switch(req.body.index){
+            case 0: {
+                WeatherCityTable.EditTableCityRowById(req.body.data);
+                break;
+            }
+            case 1: {
+                WeatherCityTable.EditTextCityRowById(req.body.data)
+                break;
+            }
+            case 2: {
+                WeatherCityTable.EditTableOblRowById(req.body.data);
+                break;
+            }
+            case 3: {
+                WeatherCityTable.EditTextOblRowById(req.body.data)
+                break;
+            }
+            default: res.send()
+        }
+        res.send();
+    },
+    GiveClimateDate: function (req, res) {
+        ClimateData.EditClimateData(req.body);
+        res.send();
+    },
+    GiveWeatherObservable: function(req, res){
+        WeatherObservable.EditObservable(req.body);
+            res.send();
+        
     }
 }

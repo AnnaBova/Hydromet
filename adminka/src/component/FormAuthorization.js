@@ -25,7 +25,7 @@ class FormAuthorization extends Component {
               <label>Password: </label>
               <input placeholder='Password' type="password" name="password" />
             </Form.Field>
-            <Button>Submit</Button>
+            <Button>Войти</Button>
           </Form>
     );
   }

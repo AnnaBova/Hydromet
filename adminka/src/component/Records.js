@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Tabels from './Table';
 import { GetClimateRecords, ChangeRecords, EditRecord, SaveRecords, getPhenomena, SavePhenomena } from '../redux/actions/index';
+import Event from './Event';
 
 class Records extends Component {
     constructor(props){
@@ -33,6 +34,8 @@ class Records extends Component {
                                 EditRecord={this.props.EditRecord}
                             />
                         </Tab.Pane> },
+                {   menuItem: 'События', 
+                render: () => <Tab.Pane><Event /></Tab.Pane> }
             ],
             activeIndex: 0,
         }

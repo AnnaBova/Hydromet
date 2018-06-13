@@ -62,4 +62,10 @@ router.post('/save_phenomena', admincontroller.SavePhenomena);
 
 router.get('/get_hydrometeorologycal_bulletin', admincontroller.GetHydroBulletind);
 
+router.post('/edit_weather_city_buletttin', admincontroller.edit_weather_city_bulletin);
+
+router.post('/give_climate_date', admincontroller.GiveClimateDate);
+
+router.post('/give_weather_observable', admincontroller.GiveWeatherObservable);
+
 module.exports = router;

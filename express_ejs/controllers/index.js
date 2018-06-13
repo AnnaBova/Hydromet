@@ -10,6 +10,7 @@ var WaterTemperature = require('../db/model/waterTemerature');
 var WeatherCityTable = require('../db/model/WeatherCity');
 var ClimateData = require('../db/model/ClimateData');
 var Regular_observable = require('../db/model/Regular_observable');
+var WeatherObservable = require('../db/model/WeatherObservable');
 
 var Init = require('../db/init');
 
@@ -120,13 +121,17 @@ module.exports = {
           ClimateData.Get()
           .then(
             response => {
-              res.render('pages/hedrometeorological_bulletin', 
-              { weatherObl: respons[0].WeatherTable,
-                TextWeatherObl: respons[0].TextWeather, 
-                weatherCity:  respons[1].WeatherTable, 
-                TextWeatherCity: respons[1].TextWeather,
-                ClimaticData: response[0],
-                StormWarning: response[0].StormText
+              WeatherObservable.getAll()
+              .then(answer => {
+                res.render('pages/hedrometeorological_bulletin', 
+                { weatherObl: respons[0].WeatherTable,
+                  TextWeatherObl: respons[0].TextWeather, 
+                  weatherCity:  respons[1].WeatherTable, 
+                  TextWeatherCity: respons[1].TextWeather,
+                  ClimaticData: response[0],
+                  StormWarning: response[0].StormText,
+                  WeatherObservable: answer[0]
+                });
               });
             }
           );

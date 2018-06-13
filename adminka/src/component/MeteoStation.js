@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import  InputComponent  from './InputComponent';
@@ -144,8 +144,9 @@ class MeteoStation extends Component {
                         saveValue = {this.handelSaveValue}
                     />
                 </Form.Field>): <div />
-            }        
+            }       
                 <Button type="submit" primary>Отправить форму</Button>
+                { this.props.water === "zaporozhye" ? <Button onClick={this.handelGygrology}>Заполнить гидрологические наблюдения</Button>: <div />  }
                 <Button type="button" onClick = {this.OnClick} >Выйти</Button>
         </Form>);
     }

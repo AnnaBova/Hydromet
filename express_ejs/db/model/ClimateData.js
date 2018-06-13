@@ -5,6 +5,7 @@ const ClimateDataSchema = mongoose.Schema({
     "day": String,
     "mounth":String,
     "year": String,
+    "DateBulletin":String,
     "SrTemperature": {
         "date":String,
         "value":String
@@ -29,5 +30,8 @@ module.exports = {
     },
     Get: function(){
         return ClimateData.find({});
+    },
+    EditClimateData: function(data){
+        ClimateData.findOneAndUpdate({}, {$set: data}).then(res=>{})
     }
 }

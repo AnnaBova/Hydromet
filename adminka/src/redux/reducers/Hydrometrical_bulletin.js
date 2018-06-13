@@ -1,4 +1,12 @@
-import { GET_BULLETIN, CHANGE_DAY, EDIT_DAY } from '../actions/ActionTypes';
+import { 
+    GET_BULLETIN, 
+    CHANGE_DAY, 
+    EDIT_DAY,
+    CHANGE_WEATHER_OBL,
+    CHANGE_WEATHER_CITY,
+    CHANGE_TEXT_WEATHER_OBL,
+    CHANGE_TEXT_WEATHER_CITY 
+} from '../actions/ActionTypes';
 
 
 const initialState = {
@@ -6,6 +14,7 @@ const initialState = {
     TextWeatherObl: [],
     WeatherCity: [],
     TextWeatherCity: [],
+    SelectWeathers: [],
     WeatherDay: {}
 }
 
@@ -14,6 +23,7 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
         case GET_BULLETIN: {
             return {
                 ...state,
+                SelectWeathers: actions.payload.WeatherCity,
                 WeatherObl: actions.payload.WeatherObl,
                 TextWeatherObl: actions.payload.TextWeatherObl,
                 WeatherCity: actions.payload.WeatherCity,
@@ -24,18 +34,47 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
         case CHANGE_DAY: {
             return {
                 ...state,
-                WeatherDay: state.WeatherCity[actions.payload]
+                WeatherDay: state.SelectWeathers[actions.payload]
+            }
+        }
+        case CHANGE_WEATHER_OBL: {
+            return {
+                ...state,
+                SelectWeathers: state.WeatherObl,
+                WeatherDay: state.WeatherObl[0]
+            }
+        }
+        case CHANGE_WEATHER_CITY: {
+            return {
+                ...state,
+                SelectWeathers: state.WeatherCity,
+                WeatherDay: state.WeatherCity[0]
+            }
+        }
+        case CHANGE_TEXT_WEATHER_OBL: {
+            return {
+                ...state,
+                SelectWeathers: state.TextWeatherObl,
+                WeatherDay: state.TextWeatherObl[0]
+            }
+        }
+        case CHANGE_TEXT_WEATHER_CITY: {
+            return {
+                ...state,
+                SelectWeathers: state.TextWeatherCity,
+                WeatherDay: state.TextWeatherCity[0]
             }
         }
         case EDIT_DAY: {
             return {
                 ...state,
-                WeatherCity: state.WeatherCity.map((item)=> {
+                SelectWeathers: state.SelectWeathers.map((item)=> {
                     if(item._id === actions.payload._id){
                         item = actions.payload;
                     }
                     return item;
                 }),
+
                 WeatherDay: actions.payload
             }
         }

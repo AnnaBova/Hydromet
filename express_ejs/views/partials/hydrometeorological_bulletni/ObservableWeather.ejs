@@ -3,7 +3,7 @@
         <span class="number">03</span>
         Огляд погоди
     </div>  
-    <div class="text-center">день 25 &ndash; ніч 26 листопада 2016 року</div>
+    <div class="text-center">день <%= WeatherObservable.day%> &ndash; ніч <%= WeatherObservable.day+1%> <%= WeatherObservable.mounth%> <%= WeatherObservable.year%> року</div>
     <hr class="dash dash-blue">  
     <div class="container">
         <div class="row">
@@ -13,12 +13,7 @@
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
             <div class="block-white text-j shadow-round-block">
             <div class="list-item">
-                Минулої доби відмічались опади, вночі у вигляді снігу, вдень переважно у вигляді дощу, місцями спостерігалось слабке налипання мокрого снігу, в південних районах тумани, слабка ожеледь.
-                Висота снігового покриву на 8 годину ранку становила 4-10см, в місті Запоріжжя 16-19см. Максимальна швидкість вітру східних напрямків дорівнювала 9-14 м/с, у Бердянську пориви сягали 16 м/с.
-                Температура повітря складала вночі та вдень 1&deg; морозу &ndash; 1&deg; тепла.
-            </div>
-            <div class="list-item">
-                Середня за добу температура повітря у м. Запоріжжя на 2&deg; вище за норму.
+                <%= WeatherObservable.text%>
             </div>
             </div>
             

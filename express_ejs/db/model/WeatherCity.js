@@ -36,5 +36,37 @@ module.exports = {
     },
     GetAll: function(){
         return WeatherCity.find({});
+    },
+    EditTableCityRowById: function(body){
+        WeatherCity.find({})
+        .then(res => {
+            WeatherCity.findByIdAndUpdate(res[1]._id, {$set: { WeatherTable: body }})
+            .then(resp => {
+            });
+        })
+    },
+    EditTableOblRowById: function (body) {
+        WeatherCity.find({})
+        .then(res => {
+            WeatherCity.findByIdAndUpdate(res[0]._id, {$set: { WeatherTable: body }})
+            .then(resp => {
+            });
+        })
+    },
+    EditTextCityRowById: function(body){
+        WeatherCity.find({})
+        .then(res => {
+            WeatherCity.findByIdAndUpdate(res[1]._id, {$set: { TextWeather: body }})
+            .then(resp => {
+            });
+        })
+    },
+    EditTextOblRowById: function(body){
+        WeatherCity.find({})
+        .then(res => {
+            WeatherCity.findByIdAndUpdate(res[0]._id, { $set: { TextWeather: body }})
+            .then(resp => {
+            });
+        })
     }   
 }
