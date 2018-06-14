@@ -10,6 +10,7 @@ const ClimateRecords = require('../db/model/ClimateRecords');
 const Phenomena = require('../db/model/MeteorologPhenomena');
 const WeatherCityTable = require('../db/model/WeatherCity');
 const WeatherObservable = require('../db/model/WeatherObservable');
+const DecadeBulletin = require('../db/model/DecadBulletin');
 
 const saltRounds = 10;
 
@@ -118,7 +119,10 @@ module.exports = {
     },
     GiveWeatherObservable: function(req, res){
         WeatherObservable.EditObservable(req.body);
-            res.send();
-        
-    }
+            res.send();  
+    },
+    GiveDecadBulletin: function(req, res){
+        DecadeBulletin.Edit(req.body);
+        res.send();
+    },
 }

@@ -1,10 +1,19 @@
 var mongoose = require('mongoose');
 
+
+const arrItem = mongoose.Schema({
+    "Station": String,
+    "MaxTemperature": String,
+    "MinTemperature": String,
+    "Precipitation": String,
+    "Phenomen": String
+});
 const weatherObsSchema = mongoose.Schema({
     "day": Number,
     "mounth": String,
     "year": String,
-    "text": String
+    "text": String,
+    "StationWeather": [arrItem]
 });
 
 const WeatherObservable = mongoose.model('weather_observable', weatherObsSchema);

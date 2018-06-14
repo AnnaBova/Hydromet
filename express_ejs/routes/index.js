@@ -68,4 +68,7 @@ router.post('/give_climate_date', admincontroller.GiveClimateDate);
 
 router.post('/give_weather_observable', admincontroller.GiveWeatherObservable);
 
+router.post('/give_decad_bulletin', admincontroller.GiveDecadBulletin);
+
+
 module.exports = router;

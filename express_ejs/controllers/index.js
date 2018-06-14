@@ -11,6 +11,7 @@ var WeatherCityTable = require('../db/model/WeatherCity');
 var ClimateData = require('../db/model/ClimateData');
 var Regular_observable = require('../db/model/Regular_observable');
 var WeatherObservable = require('../db/model/WeatherObservable');
+var DecadBulletin = require('../db/model/DecadBulletin');
 
 var Init = require('../db/init');
 
@@ -97,7 +98,7 @@ module.exports = {
     res.render('pages/hydrology_observable');
   },
   getPollution: function(req, res){
-    res.render('pages/pollution');
+    res.render('pages/pollution', { pollution: [1,2,3,4,5] });
   },
   getRadiation: function(req, res){
     res.render('pages/radiation');
@@ -162,7 +163,11 @@ module.exports = {
     res.render('pages/single_events');
   },
   getDecadeBulletin: function(req, res){
-    res.render('pages/decade_bulletin');
+    DecadBulletin.GetBulletin()
+      .then(response => {
+        console.log(response);
+        res.render('pages/decade_bulletin', {decada: response.Decad});
+      });
   },
   getAdmin: function(req, res){
     res.sendFile(path.resolve('public/build/index.html'))
