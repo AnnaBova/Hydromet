@@ -13,11 +13,105 @@ import {
     CHANGE_WEATHER_OBL,
     CHANGE_WEATHER_CITY,
     CHANGE_TEXT_WEATHER_OBL,
-    CHANGE_TEXT_WEATHER_CITY
+    CHANGE_TEXT_WEATHER_CITY,
+    CHANGE_OBSERV_DAY,
+    GET_AIR_POLLUTION,
+    CHANGE_MATTER,
+    EDIT_MATTER,
+    GET_REGULAR_OBSERVABLE,
+    CHANGE_REGULAR_OBSERVABLE,
+    EDIT_REGULAR_OBSERVABLE 
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
 const LocalHost = 'http://localhost:3001'
+
+export function ChangeRegularObservable(value){
+    return {
+        type: CHANGE_REGULAR_OBSERVABLE,
+        payload: value
+    }
+}
+
+export function SetEditRegularObservable(value){
+    return {
+        type: EDIT_REGULAR_OBSERVABLE,
+        payload: value
+    }
+}
+
+export function EditRegularObservable(value){
+    return (dispatch) => {
+        fetch(`${LocalHost}/edit_regular_observable`, {
+            method: 'POST',
+            headers: { 'Content-type':'application/json' },
+            body: JSON.stringify(value)
+        })
+        .then(res => dispatch(SetEditRegularObservable(value)))
+        .catch(err => console.log(err));
+    }
+} 
+
+export function setRegularObservable(value){
+    return {
+        type: GET_REGULAR_OBSERVABLE,
+        payload: value
+    }
+}
+
+export function getRegularObservable(){
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_regular_observable`)
+        .then(res => res.json())
+        .then(res => dispatch(setRegularObservable(res)))
+        .catch(err => console.log(err));
+    }
+}
+
+export function AirPollution(value) {
+    return {
+        type: GET_AIR_POLLUTION,
+        payload: value
+    }
+}
+
+export function getAirPollution() {
+    return (dispatch) => {
+        fetch(`${LocalHost}/air_pollution`)
+        .then(res => res.json())
+        .then(res => dispatch(AirPollution(res)))
+        .catch(err => console.log(err));
+    }
+}
+
+export function postEditMatter(value){
+    return (dispatch) => {
+        fetch(`${LocalHost}/edit_air_pollution`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(value)
+        })
+        .then(res => dispatch(editMatter(value)))
+        .catch(err => console.log(err));
+    }
+}
+
+export function ChangeMatter(value) {
+    return {
+        type: CHANGE_MATTER,
+        payload: value
+    }
+}
+
+export function editMatter(value) {
+    return {
+        type: EDIT_MATTER,
+        payload: value
+    }
+}
 
 export function getHydroBulletin (){
     return (dispatch) => {
@@ -35,26 +129,45 @@ export function EditDay(obj){
     }
 }
 
+export function GiveDecadeBulletin(value){
+    return (dispatch) => {
+        fetch(`${LocalHost}/give_decad_bulletin`, {
+            method: 'POST',
+            headers: { 
+                'Content-type': 'text/plain',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body:  value
+        })
+            .then(res => {})
+            .catch(err => console.log(err));
+    }
+}
 
 export function ChangeWeathers(value){
-    if(value == 0){
-        return {
-            type: CHANGE_WEATHER_CITY
+    switch(value){
+        case 0: {
+            return {
+                type: CHANGE_WEATHER_CITY
+            };
         }
-    }
-    if(value == 1){
-        return {
-            type: CHANGE_TEXT_WEATHER_CITY
+        case 1: {
+            return {
+                type: CHANGE_TEXT_WEATHER_CITY
+            };
+        } 
+        case 2:{
+            return {
+                type: CHANGE_WEATHER_OBL
+            };
         }
-    }
-    if(value == 2){
-        return {
-            type: CHANGE_WEATHER_OBL
+        case 3: {
+            return {
+                type: CHANGE_TEXT_WEATHER_OBL
+            };
         }
-    }
-    if(value == 3){
-        return {
-            type: CHANGE_TEXT_WEATHER_OBL
+        default: {
+            return {};
         }
     }
 }
@@ -63,7 +176,10 @@ export function GiveWeatherObservable(value){
     return (dispatch)=> {
         fetch(`${LocalHost}/give_weather_observable`, {
             method: 'POST',
-            headers: { 'Content-type': 'application/json'},
+            headers: { 
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
             body: JSON.stringify(value) 
         })
         .then(res => {})
@@ -80,18 +196,28 @@ export function uploadDocumentRequest({ file, name }) {
       fetch('/files', {
             method: 'POST',
             headers: { 'Content-type': 'multipart/form-data'},
-            body: JSON.stringify(value) 
+            body: JSON.stringify(data) 
         })
-        .then(response => dispatch(uploadSuccess(response))
-        .catch(error => dispatch(uploadFail(error));
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
     };
-  }
+}
+
+export function ChandeDayObserv(value){
+    return {
+        type: CHANGE_OBSERV_DAY,
+        payload: value
+    }
+}
 
 export function GiveClimateData(value){
     return (dispatch)=> {
         fetch(`${LocalHost}/give_climate_date`, { 
             method: 'POST',
-            headers: { 'Content-type': 'application/json'},
+            headers: { 
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
             body: JSON.stringify(value) 
         })
         .then(res => console.log(res))
@@ -104,7 +230,8 @@ export function Edit(data, index){
         fetch(`${LocalHost}/edit_weather_city_buletttin`, {
             method: 'POST',
             headers: { 
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({data, index}) 
         })
@@ -127,6 +254,8 @@ export function ChangeDay(value){
         payload: value,
     }
 }
+
+
 
 export function getToken(data){
     return (dispatch) => {
@@ -156,6 +285,10 @@ export function getToken(data){
                         dispatch(push('/hydrometeorologycal_bulletin'));
                         break;
                     }
+                    case 5: {
+                        dispatch(push('/air_pollution'));
+                        break;
+                    } 
                     default: {
                         dispatch(push('/signin'))
                     }
@@ -186,7 +319,10 @@ export function SaveRecords(Records){
     return (dispatch) => {
         fetch(`${LocalHost}/save_records`, { 
             method: 'POST',
-            headers: { 'Content-type': 'application/json'},
+            headers: { 
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
             body: JSON.stringify(Records) 
         })
         .then(res => res.json())
@@ -199,7 +335,10 @@ export function SavePhenomena(Phenomena){
     return (dispatch) => {
         fetch(`${LocalHost}/save_Phenomena`, { 
             method: 'POST',
-            headers: { 'Content-type': 'application/json'},
+            headers: { 
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
             body: JSON.stringify(Phenomena) 
         })
         .then(res => res.json())

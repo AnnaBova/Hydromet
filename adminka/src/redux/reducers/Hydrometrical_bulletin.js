@@ -1,11 +1,12 @@
-import { 
+import {
     GET_BULLETIN, 
     CHANGE_DAY, 
     EDIT_DAY,
     CHANGE_WEATHER_OBL,
     CHANGE_WEATHER_CITY,
     CHANGE_TEXT_WEATHER_OBL,
-    CHANGE_TEXT_WEATHER_CITY 
+    CHANGE_TEXT_WEATHER_CITY,
+    CHANGE_OBSERV_DAY 
 } from '../actions/ActionTypes';
 
 
@@ -15,7 +16,8 @@ const initialState = {
     WeatherCity: [],
     TextWeatherCity: [],
     SelectWeathers: [],
-    WeatherDay: {}
+    WeatherDay: {},
+    WeatherObservable: []
 }
 
 export function hydrometrical_bulletinReducer(state=initialState, actions){
@@ -64,6 +66,24 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 SelectWeathers: state.TextWeatherCity,
                 WeatherDay: state.TextWeatherCity[0]
             }
+        }
+        case CHANGE_OBSERV_DAY: {
+            if(!state.WeatherObservable.find(x => x.Station === actions.payload.Station)){
+                return {
+                    ...state,
+                    WeatherObservable: [...state.WeatherObservable, actions.payload]
+                }
+            };
+            return {
+                ...state,
+                WeatherObservable: [...state.WeatherObservable.map(item => {
+                    if(item.Station === actions.payload.Station){
+                        item = actions.payload;
+                    }
+                    return item;
+                })]
+            }
+            
         }
         case EDIT_DAY: {
             return {

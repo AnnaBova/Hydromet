@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getToken } from '../redux/actions/index';
 
 class FormAuthorization extends Component {
-
+  componentDidMount(){
+  }
+  
   OnSubmit = (event) => {
     const user = {
       login: event.target.login.value,
@@ -16,6 +18,9 @@ class FormAuthorization extends Component {
 
   render() {
     return (
+      <Grid>
+        <Grid.Column width={6} />
+        <Grid.Column width={2}>
           <Form onSubmit={this.OnSubmit}>
             <Form.Field>
               <label>Login: </label>
@@ -27,6 +32,8 @@ class FormAuthorization extends Component {
             </Form.Field>
             <Button>Войти</Button>
           </Form>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

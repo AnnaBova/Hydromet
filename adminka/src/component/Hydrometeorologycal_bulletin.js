@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
-import { Form, TextArea, Button, Tab, Grid } from 'semantic-ui-react';
+import { Form, Button, Tab } from 'semantic-ui-react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Weather from './Weather';
 import TextWeather from './TextWeather';
-import { getHydroBulletin, ChangeDay, Edit, ChangeWeathers, GiveClimateData, GiveWeatherObservable } from '../redux/actions/index';
+import { 
+    getHydroBulletin, 
+    ChangeDay, 
+    Edit, 
+    ChangeWeathers, 
+    GiveClimateData, 
+    GiveWeatherObservable,
+    GiveDecadeBulletin,
+    ChandeDayObserv
+} from '../redux/actions/index';
 import ClimateData from './ClimateData';
 import ObservableWeather from './ObservableWeather';
+import DecadBulletin from './Decad_bulletin';
 
 class Hydrometeorologycal extends Component {
 
@@ -50,23 +60,44 @@ class Hydrometeorologycal extends Component {
                         </Tab.Pane> },
                 {   menuItem: 'Обзор погоды', 
                     render: () => <Tab.Pane>
-                            <ObservableWeather  Submit={this.handelSubmitObserv}/>
+                            <ObservableWeather  
+                                Submit={this.handelSubmitObserv}
+                                ChangeDay={this.handelChangeDayObserv}
+                            />
                         </Tab.Pane> },
                 {   menuItem: 'Климатические данные запорожья', 
                     render: () => <Tab.Pane>
                         <ClimateData 
                             Submit={this.handelSubmitClimate}
                         /></Tab.Pane> },
+                {   menuItem: 'Декадный белютень', 
+                    render: () => <Tab.Pane>
+                        <DecadBulletin SubmitDecadBulletin = {this.handelDecadBulletinSubmit}/></Tab.Pane> },
             ],
         }
     }
 
+    handelChangeDayObserv = (obj) => {
+        this.props.ChandeDayObserv(obj);
+    }
+
     handelSubmitObserv = (value) => {
-        this.props.GiveWeatherObservable(value);
+        var obj2 = {
+            day: value.day,
+            mounth: value.mounth,
+            year: value.year,
+            text:   value.text,
+            StationWeather: this.props.ObservWeather
+        }
+        this.props.GiveWeatherObservable(obj2);
     }
 
     ChangeDay = (value) => {
         this.props.ChangeDay(value);
+    }
+
+    handelDecadBulletinSubmit = (val) => {
+        this.props.GiveDecadeBulletin(val);
     }
 
     handelSubmitClimate = (value) => {
@@ -81,7 +112,6 @@ class Hydrometeorologycal extends Component {
     }
 
     Submit = (obj) => {
-        console.log(obj);
         const newLocal =  this.props.SelectWeathers.map(item => {
             //eslint-disable-next-line
             if (item._id == obj._id) {
@@ -107,21 +137,22 @@ class Hydrometeorologycal extends Component {
     render() {
     return (
         <Form>
-            <Grid.Column>
             <Tab panes={this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange}></Tab>
-            <Button>Сохранить отчет</Button>
-            <Button type="button" onClick={this.LogOut}>Выйти</Button>
-            </Grid.Column>
+            <Button floated="left">Сохранить отчет</Button>
+            <Button type="button" floated="right" onClick={this.LogOut}>Выйти</Button>
         </Form>);
     }
 }
 
 const mapStateToProps = (state) => ({
     WeatherDay: state.hydrometeorolog_bulletin.WeatherDay,
-    SelectWeathers: state.hydrometeorolog_bulletin.SelectWeathers
+    SelectWeathers: state.hydrometeorolog_bulletin.SelectWeathers,
+    ObservWeather: state.hydrometeorolog_bulletin.WeatherObservable
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    ChandeDayObserv: bindActionCreators(ChandeDayObserv, dispatch),
+    GiveDecadeBulletin: bindActionCreators(GiveDecadeBulletin, dispatch),
     GiveWeatherObservable: bindActionCreators(GiveWeatherObservable, dispatch),
     GiveClimateData: bindActionCreators(GiveClimateData, dispatch),
     ChangeWeathers: bindActionCreators(ChangeWeathers, dispatch),

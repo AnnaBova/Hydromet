@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, TextArea } from 'semantic-ui-react';
+import { Form, Button, TextArea, Grid } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 
 const InputSize = 4;
@@ -9,7 +9,7 @@ class ClimateData extends Component {
         super(props);
         this.state = {
             day: "",
-            mounth: "",
+            mounth: "январь",
             year: "",
             date:"",
             value:"",
@@ -27,7 +27,6 @@ class ClimateData extends Component {
     }
 
     handelOnChange = (e) => {
-        console.log(e.target.value);
         this.setState({[this.state.SelectorValue]: {
                 date: this.state.date,
                 value: this.state.value,
@@ -35,25 +34,59 @@ class ClimateData extends Component {
     }
 
     handelSubmit = () => {
-        this.props.Submit({
-            SrTemperature: this.state.SrTemperature,
-            MaxTemperature: this.state.MaxTemperature,
-            MinTemperature: this.state.MinTemperature,
+        var obj = {
             StormText: this.state.StormWarning,
             day: this.state.day,
             mounth: this.state.mounth,
             year: this.state.year,
             DateBulletin:this.state.DateBulletin
-            });
+        }
+        switch(this.state.SelectorValue){
+            case 'MaxTemperature': {
+                obj.MaxTemperature = { 
+                        date: this.state.date,
+                        value: this.state.value
+                    }
+                obj.MinTemperature = this.state.MinTemperature;
+                obj.SrTemperature = this.state.SrTemperature;
+                    break;
+            }
+            case 'MinTemperature': {
+                obj.MinTemperature =  { 
+                        date: this.state.date,
+                        value: this.state.value
+                    }
+                obj.MaxTemperature = this.state.MaxTemperature;
+                obj.SrTemperature = this.state.SrTemperature;
+                    break;
+            }
+            default: {
+                obj.SrTemperature = { 
+                        date: this.state.date,
+                        value: this.state.value
+                }
+                obj.MinTemperature = this.state.MinTemperature;
+                obj.MaxTemperature = this.state.MaxTemperature;
+                    break;
+                }
+            }
+        this.props.Submit(obj);
     }
 
     handelChangeTextArea = (e) => {
         this.setState({StormWarning:e.target.value});
     }
 
+    handelOnChangeMounth = (e) => {
+        this.setState({mounth: e.target.value});
+    }
+
     render() {
     return (
     <div>
+        <Grid>
+        <Grid.Column  width={5}/>
+        <Grid.Column width={8}>
         <Form.Group>
             <Form.Field width={InputSize}>
                 <InputComponent 
@@ -63,13 +96,24 @@ class ClimateData extends Component {
                     saveValue ={this.handelSaveValue}
                 />
             </Form.Field>
-            <Form.Field width={InputSize}>
-                <InputComponent
-                    value = {this.state.mounth} 
-                    name="mounth"
-                    label="Месяц"
-                    saveValue ={this.handelSaveValue}
-                />
+            <Form.Field 
+                width={InputSize}
+                control="select"
+                label="Месяц"
+                value={this.state.mounth}
+                onChange={this.handelOnChangeMounth}
+            >
+                <option value="январь">Январь</option>
+                <option value="февраль">Февраль</option>
+                <option value="апрель">Апрель</option>
+                <option value="май">Май</option>
+                <option value="июнь">Июнь</option>
+                <option value="июль">Июль</option>
+                <option value="август">Август</option>
+                <option value="сентябрь">Сентябрь</option>
+                <option value="октябрь">Октябрь</option>
+                <option value="ноябрь">Ноябрь</option>
+                <option value="декабрь">Декабрь</option>
             </Form.Field>
             <Form.Field width={InputSize}>
                 <InputComponent
@@ -107,7 +151,7 @@ class ClimateData extends Component {
                 <label>Штормовое предупреждение</label>
                 <TextArea autoHeight value={this.state.StormWarning} name="StormWarning" placeholder='Tell us more' onChange={this.handelChangeTextArea} />
         </Form.Field>
-        <Form.Field>
+        <Form.Field width={InputSize}>
         <InputComponent 
                     value = {this.state.DateBulletin}
                     name = "DateBulletin"
@@ -116,6 +160,8 @@ class ClimateData extends Component {
         />
         </Form.Field>
         <Button onClick={this.handelSubmit}>Сохранить</Button>
+        </Grid.Column>
+        </Grid>
     </div>);
     }
 }

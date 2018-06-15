@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Grid } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 
 const InputSize = 4;
@@ -22,7 +22,51 @@ class Weather extends Component {
     }
 
     Submit = () => {
-      this.props.Submit(this.CreateObj());
+      var nday = "";
+      // eslint-disable-next-line
+      if(this.state.isDay == "day"){              
+        nday = "day";
+        var obj = {day: {
+          weather: this.state.Phenomen,
+          temperature: this.state.temperature,
+          wind: this.state.wind,
+          DirectionWind: this.state.DirectionWind
+          },
+          temperature: "",
+          wind: "",
+          date:this.state.date,
+          night:this.state.night,
+          DayName: this.state.DayName
+        };
+      }
+      // eslint-disable-next-line
+      if(this.state.isDay == 'night') {             
+        nday= "night";
+        obj = { night: {
+          weather: this.state.Phenomen,
+          temperature: this.state.temperature,
+          wind: this.state.wind,
+          DirectionWind: this.state.DirectionWind
+          },
+          temperature: "",
+          wind: "",
+          date: this.state.date,
+          day: this.state.day,
+          DayName: this.state.DayName
+        };
+      }
+      this.setState({[nday]: {
+        weather: this.state.Phenomen,
+        temperature: this.state.temperature,
+        wind: this.state.wind,
+        DirectionWind: this.state.DirectionWind
+        },
+        temperature: "",
+        wind: "",
+        date:"",
+      });
+
+      this.props.Submit(this.CreateObj(obj));
     }
 
     handelSaveValue = (obj) => {
@@ -48,16 +92,20 @@ class Weather extends Component {
         temperature: this.state.temperature,
         wind: this.state.wind,
         DirectionWind: this.state.DirectionWind
-      }, isDay: e.target.value});
+      }, 
+      isDay: e.target.value,
+      temperature: "",
+      wind: "",
+      });
     }
 
-    CreateObj = () => {
+    CreateObj = (state) => {
       return {
-        date: this.state.date,
+        date: state.date,
         _id: this.props.data._id,
-        day: this.state.day,
-        night: this.state.night,
-        title: this.state.DayName
+        day: state.day,
+        night: state.night,
+        title: state.DayName
       }
     }
 
@@ -68,6 +116,9 @@ class Weather extends Component {
     render() {
       return (
           <div>
+            <Grid>
+            <Grid.Column  width={5}/>
+            <Grid.Column width={8}>
             <Form.Field control="select" onChange={this.handelDateSelector} width={InputSize}>
               <option value="1">1 день</option>
               <option value="2">2 день</option>
@@ -152,6 +203,8 @@ class Weather extends Component {
                 <option value='fog'>Туман</option>
             </Form.Field>
             <Button onClick={this.Submit}>Сохранить День</Button>
+            </Grid.Column>
+            </Grid>
           </div>
       );
     }

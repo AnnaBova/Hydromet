@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Grid } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 
 const InputSize = 4;
@@ -32,6 +32,9 @@ class TextWeather extends Component {
   render() {
     return (
       <div>
+        <Grid>
+        <Grid.Column  width={5}/>
+        <Grid.Column width={8}>
         <Form.Field control="select" onChange={this.handelDateSelector} width={InputSize}>
           <option value="1">1 день</option>
           <option value="2">2 день</option>
@@ -56,6 +59,8 @@ class TextWeather extends Component {
               /> 
         </Form.Field>
         <Button onClick = {this.handelSubmit}>Сохранить день</Button>
+        </Grid.Column>
+        </Grid>
       </div>  );
   }
 }

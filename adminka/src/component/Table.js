@@ -60,8 +60,8 @@ class Tables extends Component {
                                                             />): <Table.Row /> }       
                 </Table.Body>
             </Table>
-            <Button onClick={this.OnSave}>Save</Button>
-            <Button type="button" onClick ={this.LogOut}>Cansel</Button>
+            <Button onClick={this.OnSave} primary>Сохранить</Button>
+            <Button type="button" onClick ={this.LogOut}>Выйти</Button>
         </Form> );
     }
 }
