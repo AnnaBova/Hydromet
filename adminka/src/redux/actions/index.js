@@ -20,7 +20,9 @@ import {
     EDIT_MATTER,
     GET_REGULAR_OBSERVABLE,
     CHANGE_REGULAR_OBSERVABLE,
-    EDIT_REGULAR_OBSERVABLE 
+    EDIT_REGULAR_OBSERVABLE,
+    GET_EVENTS,
+    DELETE_EVENT 
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
@@ -187,20 +189,57 @@ export function GiveWeatherObservable(value){
     }
 }
 
-export function uploadDocumentRequest({ file, name }) {  
+export function SetEvents(value) {
+    return {
+        type: GET_EVENTS,
+        payload: value
+    }
+}
+
+export function uploadDocumentRequest({file, title, text, date, description}) {  
     let data = new FormData();
-    data.append('file', document);
-    data.append('name', name);
-  
+    data.append('file', file);
+    data.append('title', title);
+    data.append('text', text);
+    data.append('date', date);
+    data.append('description', description);
+
     return (dispatch) => {
-      fetch('/files', {
+      fetch(`${LocalHost}/files`, {
             method: 'POST',
-            headers: { 'Content-type': 'multipart/form-data'},
-            body: JSON.stringify(data) 
+            body: data 
         })
         .then(response => console.log(response))
         .catch(error => console.log(error));
     };
+}
+
+export function getEvents () {
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_events`)
+            .then(res => res.json())
+            .then(res => dispatch(SetEvents(res)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function deleteEvent(value) {
+    return {
+        type: DELETE_EVENT,
+        payload: value,
+    }
+}
+
+export function DeleteEvent (value) {
+    return (dispatch) => {
+        fetch(`${LocalHost}/delete_event`, {
+            method: "POST",
+            headers: {'Contetn-type': 'text/plain'},
+            body: value
+        })
+        .then(res => dispatch(deleteEvent(value)))
+        .catch(err => console.log(err));
+    }
 }
 
 export function ChandeDayObserv(value){
@@ -254,8 +293,6 @@ export function ChangeDay(value){
         payload: value,
     }
 }
-
-
 
 export function getToken(data){
     return (dispatch) => {

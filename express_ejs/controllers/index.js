@@ -1,6 +1,6 @@
-var events = require('../data/event');
 var path = require('path');
 
+var Chart = require('../db/model/Chart');
 var MeteorologFenomena = require('../db/model/MeteorologPhenomena');
 var ClimaticRecords = require('../db/model/ClimateRecords');
 var WeatherTable = require('../db/model/CityWeatherTable');
@@ -12,6 +12,7 @@ var ClimateData = require('../db/model/ClimateData');
 var Regular_observable = require('../db/model/Regular_observable');
 var WeatherObservable = require('../db/model/WeatherObservable');
 var DecadBulletin = require('../db/model/DecadBulletin');
+var Events = require('../db/model/Events');
 
 var Init = require('../db/init');
 
@@ -40,9 +41,8 @@ module.exports = {
           .catch(err => console.log(err));
       });
     
-    
   },
-  
+
   getCurrentWeather: function (req, response) {
     var router = {
       "zaporozhye": false,
@@ -98,7 +98,10 @@ module.exports = {
     res.render('pages/hydrology_observable');
   },
   getPollution: function(req, res){
-    res.render('pages/pollution', { pollution: [1,2,3,4,5] });
+    Chart.GetAll().then(respons => {
+      res.render('pages/pollution', { pollution: respons });
+    })
+    
   },
   getRadiation: function(req, res){
     res.render('pages/radiation');
@@ -157,10 +160,23 @@ module.exports = {
     
   },
   getEvents: function(req, res){
-    res.render('pages/events', {events: events.events});
+    var perPage = 4;
+    Promise.all(Events.GetAll(req.params.page, perPage))
+      .then(respons => {
+        res.render('pages/events', { 
+          events: respons[0],
+          current: req.params.page,
+          pages: Math.ceil(respons[1] / perPage) 
+        });
+      })
+    
   },
   getSingleEvents: function(req, res){
-    res.render('pages/single_events');
+    Events.GetEvent(req.params.id)
+    .then(respons => {
+        res.render('pages/single_events', { event: respons });
+    })
+    
   },
   getDecadeBulletin: function(req, res){
     DecadBulletin.GetBulletin()

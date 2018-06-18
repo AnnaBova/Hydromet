@@ -48,5 +48,5 @@ module.exports = {
     },
     Authorization: function(login){
         return User.findOne({login:login});
-    }
+    },
 };

@@ -4,7 +4,53 @@ var Station = require('./model/Station');
 var WeatherTable = require('./model/CityWeatherTable');
 var Regular_observable = require('./model/Regular_observable');
 var UserController = require('./model/user');
+var Chart = require('./model/Chart');
 
+var chartArr = [{
+    "label": "Пыль",
+    "backgroundColor": "rgb(0, 255, 0)",
+    "data": [13, 10, 5, 2, 20]
+},
+{
+    "label": "Двооксид сірки",
+    "backgroundColor": "rgb(255, 0, 68)",
+    "data": [1.3, 10, 5, 2, 20]
+},
+{
+    "label": "Оксид вуглецю",
+    "backgroundColor": "rgb(0, 171, 255)",
+    "data": [1.3, 10, 5, 2, 20, 30, 45]
+},
+{
+    "label": "Двооксид азоту",
+    "backgroundColor": "rgb(171, 0, 255)",
+    "data": [1.3, 10, 5, 2, 20, 30, 45]
+},
+{
+    "label": "Оксид азоту",
+    "backgroundColor": "rgb(255, 247, 0)",
+    "data": [1.3, 10, 5, 2, 20, 30, 45]
+},
+{
+    "label": "Фенол",
+    "backgroundColor": "rgb(255, 99, 132)",
+    "data": [1.3, 10, 5, 2, 20, 30, 45]
+},
+{
+    "label": "Хлористий водень",
+    "backgroundColor": "rgb(152, 96, 0)",
+    "data": [1.3, 10, 5, 2, 20, 30, 45]
+},
+{
+    "label": "Фтористий водень",
+    "backgroundColor": "rgb(230, 168, 42)",
+    "data": [1.3, 10, 5, 2, 20, 30, 45]
+},
+{
+    "label": "Формальдегід",
+    "backgroundColor": "rgb(0, 7, 223)",
+    "data": [1.3, 10, 5, 2, 20, 30, 45]
+}]
 
 var UsersArray = [
     {
@@ -162,6 +208,8 @@ module.exports = function(){
     //UserController.Init(UsersArray);
     //Regular_observable.Init(ObservArr);
 
+    //Chart.Init(chartArr);
+    
     //var object = {
     //  "date": "20.10.2017"
     //}

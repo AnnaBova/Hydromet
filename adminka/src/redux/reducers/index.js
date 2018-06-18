@@ -6,6 +6,8 @@ import { climateReducer } from './climateRecords';
 import { hydrometrical_bulletinReducer } from './Hydrometrical_bulletin';
 import { AirPollutionReducer } from './AirPollution';
 import { RegularObservableReducer } from './RegularObservable';
+import { EventReducer } from './event';
+
 
 export default combineReducers({
   router: routerReducer,
@@ -14,5 +16,6 @@ export default combineReducers({
   climateRecords: climateReducer,
   hydrometeorolog_bulletin: hydrometrical_bulletinReducer,
   AirPollution: AirPollutionReducer,
-  RegularObservable: RegularObservableReducer 
+  RegularObservable: RegularObservableReducer, 
+  events: EventReducer
 });

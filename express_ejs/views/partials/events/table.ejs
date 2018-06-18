@@ -3,19 +3,40 @@
     <div class="block-title text-center">
         Події
     </div>  
-    <div class="events">
+    <div class="events" >
         <% events.forEach(function (item){%>
             <% include ./item %>
         <% })%>      
-        </div>
+    </div>
         <div class="text-center">
-        <ul class="pagination">
-            <li class="active"><a href="/event/1">1</a></li>
-            <li><a href="/event/2">2</a></li>
-            <li><a href="/event/3">3</a></li>
-            <li><a href="/event/4">4</a></li>
-            <li><a href="/event/5">5</a></li>
-        </ul>
-        </div>
+        <% if (pages > 0) { %>
+            <ul class="pagination text-center">
+                <% if (current == 1) { %>
+                    <li class="disabled"><a>First</a></li>
+                <% } else { %>
+                    <li><a href="/events/1">First</a></li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if (i !== 1) { %>
+                    <li class="disabled"><a>...</a></li>
+                <% } %>
+                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                    <% if (i == current) { %>
+                        <li class="active"><a><%= i %></a></li>
+                    <% } else { %>
+                        <li><a href="/events/<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(current) + 4 && i < pages) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                <% } %>
+                <% if (current == pages) { %>
+                    <li class="disabled"><a>Last</a></li>
+                <% } else { %>
+                    <li><a href="/events/<%= pages %>">Last</a></li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
     </div>      
 </div>

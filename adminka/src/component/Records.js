@@ -4,7 +4,18 @@ import { Tab, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Tabels from './Table';
-import { GetClimateRecords, ChangeRecords, EditRecord, SaveRecords, getPhenomena, SavePhenomena } from '../redux/actions/index';
+import { 
+    GetClimateRecords, 
+    ChangeRecords, 
+    EditRecord, 
+    SaveRecords, 
+    getPhenomena, 
+    SavePhenomena, 
+    uploadDocumentRequest,
+    getEvents,
+    DeleteEvent 
+} from '../redux/actions/index';
+import EventList from './EventList';
 import Event from './Event';
 
 class Records extends Component {
@@ -34,8 +45,10 @@ class Records extends Component {
                                 EditRecord={this.props.EditRecord}
                             />
                         </Tab.Pane> },
-                {   menuItem: 'События', 
-                render: () => <Tab.Pane><Event /></Tab.Pane> }
+                {   menuItem: 'Добавить событие', 
+                render: () => <Tab.Pane><Event UploadFile={this.props.UploadFile} /></Tab.Pane> },
+                {   menuItem: 'Все события', 
+                render: () => <Tab.Pane><EventList  data ={this.props.Events} GetEvents = {this.props.GetEvents} Delete={this.DeleteEvent}/></Tab.Pane> }
             ],
             activeIndex: 0,
         }
@@ -47,6 +60,10 @@ class Records extends Component {
         }else{
             this.props.SavePhenomena(this.props.Records);
         }
+    }
+
+    DeleteEvent = (value) => {
+        this.props.DeleteEvent(value)
     }
 
     OnChange = (value) => {
@@ -77,11 +94,15 @@ class Records extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    Events: state.events.Events,
     Record: state.climateRecords.Record,
     Records: state.climateRecords.Tables,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    DeleteEvent: bindActionCreators(DeleteEvent, dispatch),
+    GetEvents : bindActionCreators(getEvents, dispatch),
+    UploadFile: bindActionCreators(uploadDocumentRequest, dispatch),
     GetRecords: bindActionCreators(GetClimateRecords,  dispatch),
     ChangeRecords: bindActionCreators(ChangeRecords, dispatch),
     noAuthorization: () => dispatch(push('/signup')),

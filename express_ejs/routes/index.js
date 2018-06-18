@@ -38,9 +38,9 @@ router.get('/climatic_records', controller.getClimaticRecords);
 
 router.get('/regular_observations', controller.getRegularObservations);
 
-router.get('/events', controller.getEvents);
+router.get('/events/:page', controller.getEvents);
 
-router.get('/single_events/:nummber', controller.getSingleEvents);
+router.get('/single_events/:id', controller.getSingleEvents);
 
 router.get('/decade_bulletin', controller.getDecadeBulletin);
 
@@ -54,21 +54,34 @@ router.post('/addweather', ExpressJSW({secret: 'hydromet'}), admincontroller.add
 
 router.get('/get_climate_records', admincontroller.GetClimateRecords );
 
-router.post('/save_records', admincontroller.saveRecords);
+router.post('/save_records', ExpressJSW({secret: 'hydromet'}), admincontroller.saveRecords);
 
 router.get('/get_phenomena', admincontroller.GetPhenomena);
 
-router.post('/save_phenomena', admincontroller.SavePhenomena);
+router.post('/save_phenomena', ExpressJSW({secret: 'hydromet'}), admincontroller.SavePhenomena);
 
 router.get('/get_hydrometeorologycal_bulletin', admincontroller.GetHydroBulletind);
 
-router.post('/edit_weather_city_buletttin', admincontroller.edit_weather_city_bulletin);
+router.post('/edit_weather_city_buletttin', ExpressJSW({secret: 'hydromet'}), admincontroller.edit_weather_city_bulletin);
 
-router.post('/give_climate_date', admincontroller.GiveClimateDate);
+router.post('/give_climate_date', ExpressJSW({secret: 'hydromet'}), admincontroller.GiveClimateDate);
 
-router.post('/give_weather_observable', admincontroller.GiveWeatherObservable);
+router.post('/give_weather_observable', ExpressJSW({secret: 'hydromet'}), admincontroller.GiveWeatherObservable);
 
-router.post('/give_decad_bulletin', admincontroller.GiveDecadBulletin);
+router.post('/give_decad_bulletin', ExpressJSW({secret: 'hydromet'}), admincontroller.GiveDecadBulletin);
 
+router.get('/air_pollution', admincontroller.GetAirPollution);
+
+router.post('/edit_air_pollution', ExpressJSW({secret: 'hydromet'}), admincontroller.EditAirPollution);
+
+router.get('/get_regular_observable', admincontroller.GetRegularObservable);
+
+router.post('/edit_regular_observable', admincontroller.EditRegularObservable);
+
+router.post('/files', admincontroller.UploadFile);
+
+router.get('/get_events', admincontroller.getEvents);
+
+router.post('/delete_event', admincontroller.deleteEvent);
 
 module.exports = router;
