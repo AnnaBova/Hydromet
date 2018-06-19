@@ -144,12 +144,8 @@ module.exports = {
         }
     },
     GiveWeatherObservable: function(req, res){
-        if(req.user.role === 3){
             WeatherObservable.EditObservable(req.body);
             res.send(); 
-        }else {
-            res.status(403).send();
-        }
          
     },
     GiveDecadBulletin: function(req, res){

@@ -23,22 +23,44 @@ module.exports = {
     observe = '00';
     arr.push(TimeGaps.GetIdTimeGaps(observe));
     arr.push(Station.GetIdStation('zaporozhye'));
+    arr.push(Station.GetIdStation('prism'));
+    arr.push(Station.GetIdStation('kyrylivka'));
+    arr.push(Station.GetIdStation('gulyaypole'));
+    arr.push(Station.GetIdStation('berdyansk'));
+    arr.push(Station.GetIdStation('melitopol'));
+    arr.push(Station.GetIdStation('botievye'));
     Promise.all(arr)
       .then(res => {
-        WeatherTable.GetZpWeather(res[0][0].id, res[1][0].id)
-          .then(response => {
-              promise.push(Station.GetIdStation('zaporozhye'));
+        var cityarr = [];
+        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[1][0].id));
+        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[2][0].id));
+        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[3][0].id));
+        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[4][0].id));
+        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[5][0].id));
+        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[6][0].id));
+        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[7][0].id));
+        Promise.all(cityarr)
+        .then(response => {
+          promise.push(Station.GetIdStation('zaporozhye'));
               promise.push(WaterTemperature.GetTemperature());
               Promise.all(promise)
                 .then(respons => {
+                  console.log(response);
                   WeatherCityTable.GetAll().then(
-                    answer => { resp.render('pages/home', { ZpTemperature: response[0], observe: observe, weatherObl: answer[0].WeatherTable, Water: respons[1][0]}) }
+                    answer => { resp.render('pages/home', { 
+                        ZpTemperature: response[0][0], 
+                        observe: observe, 
+                        weatherObl: 
+                        answer[0].WeatherTable, 
+                        Water: respons[1][0],
+                        CityesWeather: response
+                      }) 
+                    }
                   )
                     
                 })
                 .catch(err => console.log(err));
-          })
-          .catch(err => console.log(err));
+        });
       });
     
   },
@@ -81,7 +103,31 @@ module.exports = {
                 table.sort(function(a, b){
                   return Number(a.Summer) - Number(b.Summer);
                 });
-                response.render('pages/currentweather', { cityes: router, table: table })
+                var arr = [];
+                observe = '00';
+                arr.push(TimeGaps.GetIdTimeGaps(observe));
+                arr.push(Station.GetIdStation('zaporozhye'));
+                arr.push(Station.GetIdStation('prism'));
+                arr.push(Station.GetIdStation('kyrylivka'));
+                arr.push(Station.GetIdStation('gulyaypole'));
+                arr.push(Station.GetIdStation('berdyansk'));
+                arr.push(Station.GetIdStation('melitopol'));
+                arr.push(Station.GetIdStation('botievye'));
+                Promise.all(arr)
+                  .then(res => {
+                    var cityarr = [];
+                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[1][0].id));
+                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[2][0].id));
+                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[3][0].id));
+                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[4][0].id));
+                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[5][0].id));
+                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[6][0].id));
+                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[7][0].id));
+                    Promise.all(cityarr)
+                      .then(answer => {
+                        response.render('pages/currentweather', { CityesWeather: answer, cityes: router, table: table })
+                       }) });
+                
               })
               .catch(err => console.log(err));
           })
@@ -134,7 +180,8 @@ module.exports = {
                   TextWeatherCity: respons[1].TextWeather,
                   ClimaticData: response[0],
                   StormWarning: response[0].StormText,
-                  WeatherObservable: answer[0]
+                  WeatherObservable: answer[0],
+                  StationWeather: answer[0].StationWeather
                 });
               });
             }
