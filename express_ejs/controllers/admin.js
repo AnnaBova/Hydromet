@@ -14,10 +14,11 @@ const DecadeBulletin = require('../db/model/DecadBulletin');
 const Chart = require('../db/model/Chart');
 const Regular_observable = require('../db/model/Regular_observable');
 const Events = require('../db/model/Events');
-
+const ejs = require('ejs');
+const fs = require('fs');
 const path = require('path');
-const saltRounds = 10;
-
+const DomParser = require('dom-parser');
+const { convert } = require('convert-svg-to-png');
 
 module.exports = {
     getToken: function(req, res){
@@ -101,12 +102,18 @@ module.exports = {
     },
     GetHydroBulletind: function(req, res){
         WeatherCityTable.GetAll()
-        .then(resp => res.json({
-            WeatherObl: resp[0].WeatherTable,
-            TextWeatherObl: resp[0].TextWeather, 
-            WeatherCity:  resp[1].WeatherTable, 
-            TextWeatherCity: resp[1].TextWeather,
-        }) );
+        .then(resp => {
+            var obj = {
+                WeatherObl: resp[0].WeatherTable,
+                TextWeatherObl: resp[0].TextWeather, 
+                WeatherCity:  resp[1].WeatherTable, 
+                TextWeatherCity: resp[1].TextWeather,
+            }
+            WeatherObservable.getAll().then(response => {
+                obj.WeatheObservable = response[0];
+                res.json(obj);
+            })
+    });
     },
     edit_weather_city_bulletin: function(req, res) {
         if(req.user.role == 3 ){
@@ -136,17 +143,28 @@ module.exports = {
         
     },
     GiveClimateDate: function (req, res) {
-        if(req.user.role == 3) {
             ClimateData.EditClimateData(req.body);
             res.send();
-        }else {
-            res.status(403).send();
-        }
     },
     GiveWeatherObservable: function(req, res){
             WeatherObservable.EditObservable(req.body);
-            res.send(); 
-         
+            WeatherObservable.getAll().then(respons => {
+                var template = fs.readFileSync( path.resolve('../express_ejs/views/partials/hydrometeorological_bulletni/svgMap.ejs'), 'utf-8' );
+                var map = ejs.render(template, {StationWeather: respons[0].StationWeather, print: true});
+                convert(map, {width: 668, heidht: 599})
+                    .then(respons=> {
+                        var encoded = new Buffer(respons).toString('base64');
+                        fs.unlink('./public/assets/images/map.png', (err)=> {
+                            fs.writeFile('./public/assets/images/map.png', encoded, 'base64', function(err){
+                                if(err) console.log(err);
+                                res.send();
+                            })
+                        })
+
+                    })              
+            })
+             
+        
     },
     GiveDecadBulletin: function(req, res){
         if(req.user.role === 4){
@@ -209,5 +227,46 @@ module.exports = {
     deleteEvent: function(req, res){
         Events.Delete(req.body);
         res.send();
+    },
+    getStationid: function(req, res){
+        Station.GetIdStation(req.body.station).then(respons => {
+            res.json(respons[0]);
+        })
+        
+    },
+    AddWeatherByStation: function(req, res){
+        var PromiseArr = [];
+        PromiseArr.push(TimeGaps.GetIdTimeGaps(req.body.TimeGaps));
+        PromiseArr.push(Station.GetIdStation(req.body.Station));
+        Promise.all(PromiseArr)
+            .then(respons => {
+                var obj = {
+                    Weather: {
+                        temperature: req.body.temperature,
+                        wind: req.body.wind,
+                        pressure: req.body.pressure,
+                        DirectionWind: req.body.DiractionWind,
+                        phenomena: req.body.phenomena
+                    },
+                    date: req.body.date,
+                    StationID: respons[1][0]._id,
+                    TimaGapsId: respons[0][0]._id
+                }
+                console.log(obj);
+                waterTemperature.AddTemperature(respons[1][0]._id, req.body.waterTemperature, req.body.date, req.body.TimeGaps);
+                WeatherTabel.EditTables(obj);
+            })
+            .catch(err => console.log(err));
+        res.send();
+    },
+    GetClimateData: function(req, res){
+        ClimateData.Get().then(respons => {
+            res.json(respons[0]);
+        })
+    },
+    GetObservableData:function (req, res){
+        WeatherObservable.getAll().then(respons => {
+            res.json(respons[0]);
+        })
     }
 }

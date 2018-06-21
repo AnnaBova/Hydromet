@@ -31,7 +31,6 @@ module.exports = {
         return Events.find({});
     },
     Delete(id){
-        console.log(id);
         Events.findByIdAndRemove(id).then(res => {});
     }
 }

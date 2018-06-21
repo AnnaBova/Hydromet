@@ -1,0 +1,244 @@
+<svg viewBox="0 0 668 599" id="svg-map" <% if(print){ %> style =" background: #ffff" <% } %> >
+    <image xlink:href="http://localhost:3001/public/assets/images/radiation_map.png" width="668" height="599"/>
+    <g class="zaporozhye"> 
+            <path d="m 205.44736,106.22661 v 27.83185 l 22.39046,0.53522 -0.81916,-29.43753 z" fill="#e2e2e2" />
+            <image  
+                xlink:href="http://localhost:3001/public/assets/svg/<%= StationWeather[0].Phenomen %>_big.svg" 
+                height="55.043476" 
+                width="55.043476"  
+                x="193.52562" 
+                y="103.72893" 
+            />
+            <text 
+                x="258.87167" 
+                y="129.72189" 
+                fill="#0098d1" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[0].MinTemperature %> &deg;
+            </text>
+            <text 
+                x="258.87167" 
+                y="142.72189" 
+                fill="red" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[0].MaxTemperature %> &deg;
+            </text>
+            <text 
+                x="310.87167" 
+                y="134.72189" 
+                fill="green" 
+                style="font-weight: bold; font-size: 10px;"
+            >
+                <%= StationWeather[0].Precipitation %> mm
+            </text>
+        </g>
+        <g class="gylaypole"> 
+            <path d="m 429.82194,124.92449 v 27.83185 l 22.39046,0.53522 -0.81916,-29.43753 z" fill="#e2e2e2" />
+            <image  
+                xlink:href="http://localhost:3001/public/assets/svg/<%= StationWeather[3].Phenomen %>_big.svg" 
+                height="55.043476" 
+                width="55.043476"  
+                x="409.54123" 
+                y="124.74899" 
+            />
+            <text 
+                x="476.65619" 
+                y="140.84221" 
+                fill="#0098d1" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[3].MinTemperature %> &deg;
+            </text>
+            <text 
+                x="476.65619" 
+                y="153.84221" 
+                fill="red" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[0].MaxTemperature %> &deg;
+            </text>
+            <text 
+                x="527.65619" 
+                y="147.84221" 
+                fill="green" 
+                style="font-weight: bold; font-size: 10px;"
+            >
+                <%= StationWeather[3].Precipitation %>mm
+            </text>
+        </g>
+        <g class="kyrylivka"> 
+            <path d="m 447.18426,230.72129 v 17.93996 l 22.39046,0.34499 -0.81916,-18.97495 z" fill="#e2e2e2"/>
+            <image  
+                xlink:href="http://localhost:3001/public/assets/svg/<%= StationWeather[5].Phenomen %>_big.svg" 
+                height="55.043476" 
+                width="55.043476"  
+                x="429.57468" 
+                y="228.92624" 
+            />
+            <text 
+                x="490.64917" 
+                y="274.16028" 
+                fill="#0098d1" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[5].MinTemperature %> &deg;
+            </text>
+            <text 
+                x="490.64917" 
+                y="287.16028" 
+                fill="red" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[5].MaxTemperature %> &deg;
+            </text>
+            <text 
+                x="537.64917" 
+                y="279.16028" 
+                fill="green" 
+                style="font-weight: bold; font-size: 10px;"
+            >
+                <%= StationWeather[5].Precipitation %> mm
+            </text>
+        </g>
+        <g class="berdyansk"> 
+            <path 
+                d="m 583.78164,424.95182 c 6.53202,-21.46077 -0.36805,-16.49075 -0.43716,-16.42164 l 19.23532,0.49764 c 1.68451,7.81688 3.90042,16.0153 -1.3115,16.91924 -2.75968,4.7836 -9.41198,3.0795 -17.48666,-0.99524 z" 
+                fill="#e2e2e2"
+            />
+            <image  
+                xlink:href="http://localhost:3001/public/assets/svg/<%= StationWeather[2].Phenomen %>_big.svg" 
+                height="55.043476" 
+                width="55.043476"  
+                x="564.80878" 
+                y="339.4725" 
+            />
+            <text 
+                x="510.49872" 
+                y="371.90131" 
+                fill="#0098d1" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[2].MinTemperature %> &deg;
+            </text>
+            <text 
+                x="510.49872" 
+                y="384.90131" 
+                fill="red" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[2].MaxTemperature %> &deg;
+            </text>
+            <text 
+                x="470.49872" 
+                y="376.90131" 
+                fill="green" 
+                style="font-weight: bold; font-size: 10px;"
+            >
+                <%= StationWeather[2].Precipitation %> mm
+            </text>
+        </g>
+        <g class="botievo"> 
+            <path d="m 341.70311,483.25482 c 0,-15.01909 -0.61342,-16.52101 -0.61342,-16.52101 l 26.99072,0.50065 -1.84027,17.02162 z" fill="#e2e2e2"/>
+            <image  
+                xlink:href="http://localhost:3001/public/assets/svg/<%= StationWeather[4].Phenomen %>_big.svg" 
+                height="55.043476" 
+                width="55.043476"  
+                x="356.78647" 
+                y="422.26068" 
+            />
+            <text 
+                x="420.75943" 
+                y="459.83926" 
+                fill="#0098d1" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[4].MinTemperature %> &deg;
+            </text>
+            <text 
+                x="420.75943" 
+                y="472.83926" 
+                fill="red" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[4].MaxTemperature %> &deg;
+            </text>
+            <text 
+                x="466.75943" 
+                y="472.83926" 
+                fill="green" 
+                style="font-weight: bold; font-size: 10px;"
+            >
+                <%= StationWeather[4].Precipitation %>mm
+            </text>
+        </g>
+        <g class="melitopol"> 
+            <path d="m 261.541,417.7001 v 17.93996 l 22.39046,0.34499 -0.81916,-18.97495 z" fill="#e2e2e2"/>
+            <image  
+                xlink:href="http://localhost:3001/public/assets/svg/<%= StationWeather[6].Phenomen %>_big.svg" 
+                height="55.043476" 
+                width="55.043476"  
+                x="243.9314" 
+                y="404.23059" 
+            />
+            <text 
+                x="190.71616" 
+                y="430.12277" 
+                fill="#0098d1" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[6].MinTemperature %> &deg;
+            </text>
+            <text 
+                x="190.71616" 
+                y="443.12277" 
+                fill="red" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[6].MaxTemperature %> &deg;
+            </text>
+            <text 
+                x="150.71616" 
+                y="435.12277" 
+                fill="green" 
+                style="font-weight: bold; font-size: 10px;"
+            >
+                <%= StationWeather[6].Precipitation %>mm
+            </text>
+        </g>
+        <g class="prishib"> 
+            <path d="m 253.75697,294.49164 c 0,-20.03345 -0.66778,-22.03679 -0.66778,-22.03679 l 29.38238,0.66778 -2.00334,22.70457 z" fill="#e2e2e2"/>
+            <image  
+                xlink:href="http://localhost:3001/public/assets/svg/<%= StationWeather[1].Phenomen %>_big.svg" 
+                height="55.043476" 
+                width="55.043476"  
+                x="242.59583" 
+                y="315.40225" 
+            />
+            <text 
+                x="300.82956" 
+                y="346.4346" 
+                fill="#0098d1" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[1].MinTemperature %> &deg;
+            </text>
+            <text 
+                x="300.82956" 
+                y="359.4346" 
+                fill="red" 
+                style="font-weight: bold; font-size: 13px;"
+            >
+                <%= StationWeather[1].MaxTemperature %> &deg;
+            </text>
+            <text 
+                x="350.82956" 
+                y="351.4346" 
+                fill="green" 
+                style="font-weight: bold; font-size: 10px;"
+            >
+                <%= StationWeather[1].Precipitation %>mm
+            </text>
+        </g>
+</svg>

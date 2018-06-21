@@ -8,15 +8,21 @@
   "dependencies": {
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
+    "canvas2image": "^1.0.5",
     "chart.js": "^2.7.2",
+    "convert-svg-to-png": "^0.4.0",
+    "d3-node": "^2.0.1",
+    "dom-parser": "^0.1.5",
     "ejs": "^2.4.1",
     "ejs-locals": "^1.0.2",
     "express": "^4.13.4",
     "express-jwt": "^5.3.1",
+    "html2canvas": "^1.0.0-alpha.12",
     "jsonwebtoken": "^8.2.2",
     "mongoose": "^5.1.4",
     "nodemon": "^1.17.5",
     "path": "^0.12.7",
+    "save-svg-as-png": "^1.4.5",
     "serve-favicon": "^2.4.5"
   }
 }

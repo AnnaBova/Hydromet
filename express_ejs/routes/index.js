@@ -84,4 +84,12 @@ router.get('/get_events', admincontroller.getEvents);
 
 router.post('/delete_event', admincontroller.deleteEvent);
 
+router.post('/get_station_id', admincontroller.getStationid);
+
+router.post('/add_weather_station', admincontroller.AddWeatherByStation);
+
+router.get('/get_climate_data', admincontroller.GetClimateData);
+
+router.get('/get_observvable_weather', admincontroller.GetObservableData);
+
 module.exports = router;

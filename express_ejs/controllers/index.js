@@ -45,7 +45,6 @@ module.exports = {
               promise.push(WaterTemperature.GetTemperature());
               Promise.all(promise)
                 .then(respons => {
-                  console.log(response);
                   WeatherCityTable.GetAll().then(
                     answer => { resp.render('pages/home', { 
                         ZpTemperature: response[0][0], 
@@ -181,7 +180,8 @@ module.exports = {
                   ClimaticData: response[0],
                   StormWarning: response[0].StormText,
                   WeatherObservable: answer[0],
-                  StationWeather: answer[0].StationWeather
+                  StationWeather: answer[0].StationWeather,
+                  print: false
                 });
               });
             }
