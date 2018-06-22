@@ -13,6 +13,7 @@ var Regular_observable = require('../db/model/Regular_observable');
 var WeatherObservable = require('../db/model/WeatherObservable');
 var DecadBulletin = require('../db/model/DecadBulletin');
 var Events = require('../db/model/Events');
+const DagerGydrolygy = require('../db/model/DangerGydrolygy');
 
 var Init = require('../db/init');
 
@@ -201,9 +202,12 @@ module.exports = {
   },
   getRegularObservations: function(req, res){
     Regular_observable.GetAll()
-    .then(resp => {
-      res.render('pages/regular_observations', { data: resp });
-    });
+      .then(resp => {
+        DagerGydrolygy.GetAll()
+          .then(respons => {
+            res.render('pages/regular_observations', { data: resp, danger:respons[0].text});
+          })
+      });
     
   },
   getEvents: function(req, res){
@@ -219,7 +223,7 @@ module.exports = {
     
   },
   getSingleEvents: function(req, res){
-    Events.GetEvent(req.params.id)
+    Events.GetEventOne(req.params.id)
     .then(respons => {
         res.render('pages/single_events', { event: respons });
     })

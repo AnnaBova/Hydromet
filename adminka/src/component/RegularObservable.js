@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Form, Grid, Button} from 'semantic-ui-react';
+import { Form, Grid, Button, TextArea} from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 import { bindActionCreators } from 'redux';
-import { getRegularObservable, EditRegularObservable } from '../redux/actions/index';
+import { getRegularObservable, EditRegularObservable, SubmitDangerPhenomen } from '../redux/actions/index';
 
 const InputSize = 4;
 
@@ -12,6 +12,7 @@ class Forms extends Component {
     constructor(props){
         super(props);
         this.state = {
+            text: '',
             Position: "с. Осипенко",
             Title: "р. Берда",
             date: "",
@@ -78,6 +79,14 @@ class Forms extends Component {
 
     handelChangeObserv = (e) => {
         this.setState({Observ: e.target.value});
+    }
+
+    handelChangeTextArea = (e) => {
+        this.setState({text: e.target.value})
+    }
+
+    handelSubmittextArea = () => {
+        this.props.SubmitDangerPhenomen(this.state.text);
     }
 
     render() {
@@ -148,9 +157,14 @@ class Forms extends Component {
                         saveValue={this.handelSaveValue}
                     />
                 </Form.Field>
-                <Button primary onClick={this.handelSubmit}>Сохранить</Button>
+                <Button type="button" primary onClick={this.handelSubmit}>Сохранить</Button>
                 <Button type="button" onClick={this.handelLogOut}>Выйти</Button>
                 <Button type="button" onClick={this.handelGetStation}>Заполнить данные на станции</Button>
+                <Form.Field>
+                    <label>Небезпечні гідрологічні явища</label>
+                    <TextArea autoHeight value={this.state.text} onChange={this.handelChangeTextArea}/>
+                </Form.Field>
+                <Button onClick={this.handelSubmittextArea}>Сохранить</Button>
             </Form>
         </Grid.Column>
     </Grid>);
@@ -162,6 +176,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    SubmitDangerPhenomen: bindActionCreators(SubmitDangerPhenomen, dispatch),
     EditRegularObservable: bindActionCreators(EditRegularObservable, dispatch),
     getRegularObservable: bindActionCreators(getRegularObservable, dispatch),
     noAuthorization: () => dispatch(push('/signup')),

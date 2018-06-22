@@ -8,7 +8,6 @@ import  InputComponent  from './InputComponent';
 import { getStation, AddWeather } from '../redux/actions/index';
 
 class MeteoStation extends Component {
-
     constructor(props){
         super(props);
         this.state = {

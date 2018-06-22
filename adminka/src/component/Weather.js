@@ -100,18 +100,26 @@ class Weather extends Component {
     }
 
     CreateObj = (state) => {
-      return {
+      var obj ={
+        ...this.props.data,
         date: state.date,
         _id: this.props.data._id,
-        day: state.day,
         night: state.night,
         title: state.DayName
       }
+      if(this.state.day !== {}) {
+        obj.day = state.day;
+      }
+      if(this.state.night !== {}) {
+        obj.night = state.night;
+      }
+      return obj;
     }
 
     handelDateSelector = (e) => {
       this.props.ChangeDay(e.target.value-1);
     }
+
 
     render() {
       return (

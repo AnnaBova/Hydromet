@@ -35,42 +35,37 @@ class ClimateData extends Component {
 
     handelSubmit = () => {
         var obj = {
+            ...this.props.ClimateData,
             StormText: this.state.StormWarning,
             day: this.state.day,
             mounth: this.state.mounth,
             year: this.state.year,
-            DateBulletin:this.state.DateBulletin
+            DateBulletin:this.state.DateBulletin,
         }
         switch(this.state.SelectorValue){
             case 'MaxTemperature': {
                 obj.MaxTemperature = { 
-                        date: this.state.date,
-                        value: this.state.value
-                    }
-                obj.MinTemperature = this.state.MinTemperature;
-                obj.SrTemperature = this.state.SrTemperature;
-                    break;
+                    date: this.state.date,
+                    value: this.state.value
+                }
+                break;
             }
             case 'MinTemperature': {
                 obj.MinTemperature =  { 
-                        date: this.state.date,
-                        value: this.state.value
-                    }
-                obj.MaxTemperature = this.state.MaxTemperature;
-                obj.SrTemperature = this.state.SrTemperature;
-                    break;
+                    date: this.state.date,
+                    value: this.state.value
+                }
+                break;
             }
             default: {
                 obj.SrTemperature = { 
-                        date: this.state.date,
-                        value: this.state.value
+                    date: this.state.date,
+                    value: this.state.value
                 }
-                obj.MinTemperature = this.state.MinTemperature;
-                obj.MaxTemperature = this.state.MaxTemperature;
-                    break;
+                break;
                 }
             }
-        this.props.Submit(obj);
+            this.props.Submit(obj);
     }
 
     handelChangeTextArea = (e) => {

@@ -5,6 +5,82 @@ var WeatherTable = require('./model/CityWeatherTable');
 var Regular_observable = require('./model/Regular_observable');
 var UserController = require('./model/user');
 var Chart = require('./model/Chart');
+var Email = require('./model/Email');
+
+var EmailArr = [
+    {
+        "Email": "first@zoda.gov.ua",
+        "role": 1
+    },
+    {
+        "Email": "babanin_oo@zoda.gov.ua",
+        "role": 1
+    },
+    {
+        "Email": "mns@express.net.ua",
+        "role": 1
+    },
+    {
+        "Email": "pucs@ukr.net",
+        "role": 1
+    },
+    {
+        "Email": "ods@zp.dsns.gov.ua",
+        "role": 1
+    },
+    {
+        "Email": "dispetcher@zp.dsns.gov.ua",
+        "role": 1
+    },
+    {
+        "Email": "cppl@ukr.net",
+        "role": 1
+    },
+    {
+        "Email": "metprishib@ukr.net",
+        "role": 1
+    },
+    {
+        "Email": "mgberd@ukr.net,",
+        "role": 1
+    },
+    {
+        "Email": "meteomel@ukr.net",
+        "role": 1
+    },
+    {
+        "Email": "msbotievo@meteo.gov.ua",
+        "role": 1
+    },
+    {
+        "Email": "gulyaypole@meteo.gov.ua",
+        "role": 1
+    },
+    {
+        "Email": "mila@atv.zp.ua",
+        "role": 1
+    },
+    {
+        "Email": "trk@atv.zp.ua",
+        "role": 1
+    },
+    {
+        "Email": "milaray1@gmail.com",
+        "role": 1
+    },
+    {
+        "Email": "news@ztv.zp.ua",
+        "role": 1
+    },
+    {
+        "Email": "wgaeva@mig.com.ua",
+        "role": 1
+    },
+    {
+        "Email": "роslugy-bdr.05@patrol.police.gov.ua",
+        "role": 2
+    }
+]
 
 var chartArr = [{
     "label": "Пыль",
@@ -207,7 +283,7 @@ module.exports = function(){
     //Station.Init(StationArray);
     //UserController.Init(UsersArray);
     //Regular_observable.Init(ObservArr);
-
+    Email.Init(EmailArr);
     //Chart.Init(chartArr);
     
     //var object = {

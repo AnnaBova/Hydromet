@@ -22,11 +22,137 @@ import {
     CHANGE_REGULAR_OBSERVABLE,
     EDIT_REGULAR_OBSERVABLE,
     GET_EVENTS,
-    DELETE_EVENT 
+    DELETE_EVENT,
+    EDIT_OBSERV_DAY,
+    SET_CLIMATE_DATA,
+    SET_WEATHER_OBSERVABLE_DATA,
+    SET_EMAIL,
+    SET_EMAIL_ROLE,
+    DELETE_EMAIL_ADDRES,
+    ADD_EMAIL
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
 const LocalHost = 'http://localhost:3001'
+
+export function SubmitEmail(emails){
+    return (dispatch) => {
+        fetch(`${LocalHost}/send_mail`, {
+            method: 'POST',
+            headers: { 'Contetn-type': 'application/json' },
+            body: JSON.stringify(emails)
+        })
+            .then(res => {})
+            //.then(err => console.log(err));
+    }
+}
+
+export function SubmitDangerPhenomen(text){
+    return (dispatch) => {
+        fetch(`${LocalHost}/give_submit_danger`, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({text: text})
+        })
+            .then(res => {})
+            .catch(err => console.log(err));
+    }
+}
+
+export function AddEmailRequest(obj){
+    console.log(obj);
+    return (dispatch) => {
+        fetch(`${LocalHost}/add_email`, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify(obj)
+        })
+            .then(res => res.json())
+            .then(res => dispatch(AddEmail(res)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function AddEmail(obj){
+    return {
+        type: ADD_EMAIL,
+        payload: obj
+    }
+}
+
+export function DeleteEmailRequest(obj){
+    return (dispatch) => {
+        fetch(`${LocalHost}/delete_email`, {
+            method: 'POST',
+            headers: {'Conten-type': 'application/json'},
+            body: JSON.stringify(obj)
+        })
+            .then(res => dispatch(DeleteEmails(obj)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function DeleteEmails(obj){
+    return {
+        type: DELETE_EMAIL_ADDRES,
+        payload: obj
+    }
+}
+
+export function SetRole(obj){
+    return {
+        type: SET_EMAIL_ROLE,
+        payload: obj
+    }
+}
+
+export function GetEmails(){
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_email_addres`)
+            .then(res => res.json())
+            .then(res => dispatch(SetEmail(res)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function SetEmail(value){
+    return {
+        type : SET_EMAIL,
+        payload: value
+    }
+}
+
+export function getWeatherObserv() {
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_observvable_weather`)
+            .then(res=> res.json())
+            .then(res => dispatch(SetWeatherObservable(res)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function SetWeatherObservable (data) {
+    return {
+        type: SET_WEATHER_OBSERVABLE_DATA,
+        payload: data
+    }
+}
+
+export function getClimateData() {
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_climate_data`)
+        .then(res=> res.json())
+        .then(res => dispatch(SetCLimateData(res)))
+        .catch(err => console.log(err));
+    }
+}
+
+export function SetCLimateData(data){
+    return {
+         type:SET_CLIMATE_DATA,
+         payload: data
+    }
+}
 
 export function ChangeRegularObservable(value){
     return {
@@ -184,7 +310,7 @@ export function GiveWeatherObservable(value){
             },
             body: JSON.stringify(value) 
         })
-        .then(res => {})
+        .then(res => dispatch(SetWeatherObservable(value)))
         .catch(err => console.log(err));
     }
 }
@@ -242,9 +368,16 @@ export function DeleteEvent (value) {
     }
 }
 
-export function ChandeDayObserv(value){
+export function ChangeObservDay(number){
+    return{
+        type : CHANGE_OBSERV_DAY,
+        payload: number
+    }
+}
+
+export function EditDayObserv(value){
     return {
-        type: CHANGE_OBSERV_DAY,
+        type: EDIT_OBSERV_DAY,
         payload: value
     }
 }
@@ -259,7 +392,7 @@ export function GiveClimateData(value){
             },
             body: JSON.stringify(value) 
         })
-        .then(res => console.log(res))
+        .then(res => {dispatch(SetCLimateData(value))})
         .catch(res => console.log(res));
     }
 }
@@ -312,6 +445,10 @@ export function getToken(data){
                     case 1:{
                         dispatch(setStationId(res.stationID));
                         dispatch(push('/meteostation'))
+                        break;
+                    }
+                    case 2: {
+                        dispatch(push('/all_meteostation'))
                         break;
                     }
                     case 3: {
@@ -427,6 +564,34 @@ export function AddWeather(weather){
         .then(res => {
             console.log(res)
         })
+        .catch(err => console.log(err));
+    }
+}
+
+export function AddWeatherStation(obj){
+    return (dispatch) => {
+        fetch(`${LocalHost}/add_weather_station`, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify(obj)
+        })
+        .then(res => {})
+        .catch(err => console.log(err))
+    }
+}
+
+export function getStationId(station){
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_station_id`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({station:station})
+        })
+        .then(res => res.json())
+        .then(res => dispatch(setStationId(res._id)))
+        .then(() => dispatch(setStationName(station)))
         .catch(err => console.log(err));
     }
 }

@@ -19,8 +19,36 @@ const fs = require('fs');
 const path = require('path');
 const DomParser = require('dom-parser');
 const { convert } = require('convert-svg-to-png');
+const Email = require('../db/model/Email');
+const EmailSender = require('./EmailSender');
+const DagerGydrolygy = require('../db/model/DangerGydrolygy');
 
 module.exports = {
+    GiveSubmitDangerGydrolog: function(req, res){
+        DagerGydrolygy.Edit(req.body);
+        res.send();
+    },
+    SendMail: function(req, res){
+        data = JSON.parse(req.body);
+        EmailSender.test(data);
+        res.send();
+    },
+    DeleteEmail: function(req, res){
+        Email.Delete(req.body);
+        res.send();
+    },
+    AddEmail: function(req, res){
+        Email.Add(req.body).then(respons => res.json(respons));
+    },
+    EmailSender: function(req, res){
+        res.send();
+    },
+    GetEmailAddres: function(req, res){
+        Email.GetAll()
+            .then(respons => {
+                res.json(respons);
+            })
+    },
     getToken: function(req, res){
         UserController.Authorization(req.body.login)
         .then(respons => {
@@ -43,7 +71,6 @@ module.exports = {
             .catch(err => res.status(403).send(err));
     }, 
     addWeather: function(req, res){
-        if(req.user.role == 1){
             var PromiseArr = [];
             PromiseArr.push(TimeGaps.GetIdTimeGaps(req.body.TimeGaps));
             PromiseArr.push(UserController.Authorization(req.user.login));        
@@ -66,9 +93,6 @@ module.exports = {
                 })
                 .catch(err => console.log(err));
             res.send();
-        }else{
-            res.status(403).send();
-        }
         
     },
     GetClimateRecords: function(req, res) {
@@ -77,28 +101,20 @@ module.exports = {
         
     },
     saveRecords: function(req, res){
-        if(req.user.role == 3){
             for(var i=0;i< req.body.length; i++){
                 ClimateRecords.UpdateRecords(req.body[i]);
             }
             res.send();
-        }else {
-            res.status(403).send();
-        }
     },
     GetPhenomena: function(req, res){
         Phenomena.GetAllPhenomena()
         .then(respons => res.json(respons));
     },
     SavePhenomena: function(req, res){
-        if(user.role ==  3) {
             for(var i=0;i< req.body.length; i++){
                 Phenomena.UpdateRecords(req.body[i]);
             }
             res.send();
-        }else{
-            res.status(403).send();
-        }
     },
     GetHydroBulletind: function(req, res){
         WeatherCityTable.GetAll()
@@ -116,7 +132,6 @@ module.exports = {
     });
     },
     edit_weather_city_bulletin: function(req, res) {
-        if(req.user.role == 3 ){
             switch(req.body.index){
                 case 0: {
                     WeatherCityTable.EditTableCityRowById(req.body.data);
@@ -137,9 +152,6 @@ module.exports = {
                 default: res.send()
             }
             res.send();
-        }else {
-            res.status(403).send();
-        }
         
     },
     GiveClimateDate: function (req, res) {
@@ -167,13 +179,8 @@ module.exports = {
         
     },
     GiveDecadBulletin: function(req, res){
-        if(req.user.role === 4){
             DecadeBulletin.Edit(req.body);
             res.send();
-        }else {
-            res.status(403).send();
-        }
-
     },
     GetAirPollution: function(req, res){
         Chart.GetAll()
@@ -182,12 +189,8 @@ module.exports = {
         })
     },
     EditAirPollution: function (req, res){
-        if(req.user.role == 5){
             Chart.Edit(req.body);
             res.send();
-        }else{
-            res.status(403).send();
-        }
         
     },
     GetRegularObservable: function(req, res){

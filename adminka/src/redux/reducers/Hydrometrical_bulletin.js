@@ -6,7 +6,10 @@ import {
     CHANGE_WEATHER_CITY,
     CHANGE_TEXT_WEATHER_OBL,
     CHANGE_TEXT_WEATHER_CITY,
-    CHANGE_OBSERV_DAY 
+    CHANGE_OBSERV_DAY,
+    EDIT_OBSERV_DAY,
+    SET_CLIMATE_DATA,
+    SET_WEATHER_OBSERVABLE_DATA
 } from '../actions/ActionTypes';
 
 
@@ -17,7 +20,10 @@ const initialState = {
     TextWeatherCity: [],
     SelectWeathers: [],
     WeatherDay: {},
-    WeatherObservable: []
+    WeatherObservable: [],
+    ClimateData: {},
+    ObservDay: {},
+    WeatherObservableData: {}
 }
 
 export function hydrometrical_bulletinReducer(state=initialState, actions){
@@ -31,6 +37,20 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 WeatherCity: actions.payload.WeatherCity,
                 TextWeatherCity: actions.payload.TextWeatherCity,
                 WeatherDay: actions.payload.WeatherCity[0],
+                WeatherObservable: actions.payload.WeatheObservable.StationWeather,
+                ObservDay: actions.payload.WeatheObservable.StationWeather[0]
+            }
+        }
+        case SET_WEATHER_OBSERVABLE_DATA: {
+            return {
+                ...state,
+                WeatherObservableData: actions.payload
+            }
+        }
+        case SET_CLIMATE_DATA : {
+            return {
+                ...state,
+                ClimateData: actions.payload
             }
         }
         case CHANGE_DAY: {
@@ -68,12 +88,12 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
             }
         }
         case CHANGE_OBSERV_DAY: {
-            if(!state.WeatherObservable.find(x => x.Station === actions.payload.Station)){
-                return {
-                    ...state,
-                    WeatherObservable: [...state.WeatherObservable, actions.payload]
-                }
-            };
+            return {
+                ...state,
+                ObservDay: state.WeatherObservable[actions.payload]
+            }
+        }
+        case EDIT_OBSERV_DAY: {
             return {
                 ...state,
                 WeatherObservable: [...state.WeatherObservable.map(item => {
@@ -81,7 +101,8 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                         item = actions.payload;
                     }
                     return item;
-                })]
+                })],
+                ObservDay: actions.payload
             }
             
         }

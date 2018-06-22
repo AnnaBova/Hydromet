@@ -25,7 +25,7 @@ class Tables extends Component {
     }
 
     OnChange = (e) => {
-        this.props.OnChange(e.target.value-1);
+        this.props.OnChange(e.target.value);
     }
 
     OnSave = () => {

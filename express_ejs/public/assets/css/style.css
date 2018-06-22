@@ -496,6 +496,7 @@ section{
 }
 .list-item{
   margin-bottom:30px;
+  word-wrap: break-word;
 }
 .text-bold{
   font-weight: bold;

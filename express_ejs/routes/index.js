@@ -92,4 +92,16 @@ router.get('/get_climate_data', admincontroller.GetClimateData);
 
 router.get('/get_observvable_weather', admincontroller.GetObservableData);
 
+router.get('/get_email_addres', admincontroller.GetEmailAddres);
+
+router.post('/give_email_addres', admincontroller.EmailSender);
+
+router.post('/add_email', admincontroller.AddEmail);
+
+router.post('/delete_email', admincontroller.DeleteEmail);
+
+router.post('/send_mail', admincontroller.SendMail);
+
+router.post('/give_submit_danger', admincontroller.GiveSubmitDangerGydrolog);
+
 module.exports = router;

@@ -7,7 +7,7 @@ import { hydrometrical_bulletinReducer } from './Hydrometrical_bulletin';
 import { AirPollutionReducer } from './AirPollution';
 import { RegularObservableReducer } from './RegularObservable';
 import { EventReducer } from './event';
-
+import { emailReducer } from './EmailReducer';
 
 export default combineReducers({
   router: routerReducer,
@@ -17,5 +17,6 @@ export default combineReducers({
   hydrometeorolog_bulletin: hydrometrical_bulletinReducer,
   AirPollution: AirPollutionReducer,
   RegularObservable: RegularObservableReducer, 
-  events: EventReducer
+  events: EventReducer,
+  emails: emailReducer
 });

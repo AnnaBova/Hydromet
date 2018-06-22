@@ -15,7 +15,7 @@ export function EventReducer(state = initialState, actions) {
         case DELETE_EVENT: {
             return {
                 ...state,
-                Events: state.Events.filter(item => item._id != actions.payload)
+                Events: state.Events.filter(item => item._id !== actions.payload)
             }
         }
         default:  return state;

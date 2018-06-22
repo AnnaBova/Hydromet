@@ -7,7 +7,8 @@ import Records from '../component/Records';
 import Hydrometeorologycal from '../component/Hydrometeorologycal_bulletin';
 import AirPollution from '../component/AirPollution';
 import RegularObservable from '../component/RegularObservable';
-
+import AdminMeteostation from '../component/AdminMeteostation';
+import MailCastomize from '../component/MailCastomize';
 
 class App extends Component {
   componentDidMount(){
@@ -22,6 +23,8 @@ class App extends Component {
             <Route path="/hydrometeorologycal_bulletin" exact component={Hydrometeorologycal} />
             <Route path="/air_pollution" exact component={AirPollution} />
             <Route path="/gydrolygy" exact component={RegularObservable} />
+            <Route path="/all_meteostation" exact component={AdminMeteostation} />
+            <Route path="/mail_castomize" exact component={MailCastomize}/>
           </div>
     );
   }

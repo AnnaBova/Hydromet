@@ -24,7 +24,7 @@ module.exports = {
         answer.push(Events.count());
         return answer;
     },
-    GetEvent: function(id){
+    GetEventOne: function(id){
         return Events.findById(id);
     },
     GetEvent(){

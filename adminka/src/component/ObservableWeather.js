@@ -16,29 +16,43 @@ class ObservableWeather extends Component {
       MinTemperature: "",
       precipitation: "",
       Phenomena: "sun",
-      Station: "zaparozhye"
+      Station: "1"
     }
   }
 
   handelSaveValue = (obj) => {
     this.setState({[obj.name]: obj.value});
   }
-
+  
+  validator = () => {
+    if(this.state.MaxTemperature !== "" ||
+      this.state.MinTemperature !== "" ||
+      this.state.precipitation !== ""){
+        return true;
+      }else {
+        return false;
+      }
+  }
+  
   Submit = () => {
-    this.props.ChangeDay({
-      Station: this.state.Station,
-      MaxTemperature: this.state.MaxTemperature,
-      MinTemperature: this.state.MinTemperature,
-      Precipitation: this.state.precipitation,
-      Phenomen: this.state.Phenomena
-    });
-    this.setState({
-      MaxTemperature: "", 
-      MinTemperature:"", 
-      precipitation:"",
-      Phenomen:""
-    })
-    this.props.Submit(this.state);
+    if(this.validator()){
+      this.props.EditDay({
+        ...this.props.ObservDay,
+        MaxTemperature: this.state.MaxTemperature,
+        MinTemperature: this.state.MinTemperature,
+        Precipitation: this.state.precipitation,
+        Phenomen: this.state.Phenomena
+      });
+      this.setState({
+        MaxTemperature: "", 
+        MinTemperature:"", 
+        precipitation:"",
+        Phenomen:""
+      }, ()=> {
+        this.props.Submit(this.state);
+      })     
+    }
+
   } 
 
   handelOnChange = (e) => {
@@ -46,20 +60,26 @@ class ObservableWeather extends Component {
   } 
 
   handelStationChange = (e) => {
-    this.props.ChangeDay({
-      Station: this.state.Station,
-      MaxTemperature: this.state.MaxTemperature,
-      MinTemperature: this.state.MinTemperature,
-      Precipitation: this.state.precipitation,
-      Phenomen: this.state.Phenomena
-    });
-    this.setState({
-      Station: e.target.value, 
-      MaxTemperature: "", 
-      MinTemperature:"", 
-      precipitation:"",
-      Phenomen:""
-    })
+    if(this.validator()){
+      this.props.EditDay({
+        ...this.props.ObservDay,
+        MaxTemperature: this.state.MaxTemperature,
+        MinTemperature: this.state.MinTemperature,
+        Precipitation: this.state.precipitation,
+        Phenomen: this.state.Phenomena
+      });
+      this.props.ChangeDay(e.target.value-1);
+      this.setState({
+        MaxTemperature: "", 
+        MinTemperature:"", 
+        precipitation:"",
+        Phenomen:""
+      })
+    } 
+  }
+
+  handelChangePhenomen = (e) => {
+    this.setState({Phenomena: e.target.value})
   }
 
   handelOnChangeMounth = (e) =>{
@@ -118,13 +138,13 @@ class ObservableWeather extends Component {
         name ="Station" 
         label="Станции"
       >
-        <option value="zaparozhye">Запорожье</option>
-        <option value="prism">Пришиб</option>
-        <option value="berdyansk">Бердянск</option>
-        <option value="gulyaypole">Гуляйполе</option>
-        <option value="botievye">Ботиево</option>
-        <option value="kyrylivka">Кириловка</option>
-        <option value="melitopol">Мелитополь</option>
+        <option value="1">Запорожье</option>
+        <option value="2">Пришиб</option>
+        <option value="3">Бердянск</option>
+        <option value="4">Гуляйполе</option>
+        <option value="5">Ботиево</option>
+        <option value="6">Кириловка</option>
+        <option value="7">Мелитополь</option>
       </Form.Field>
       <Form.Field width={InputSize}>
         <InputComponent 
@@ -150,7 +170,7 @@ class ObservableWeather extends Component {
           saveValue={this.handelSaveValue}
         />
       </Form.Field>
-      <Form.Field width={InputSize} control="select" defaultValue={this.state.Phenomenas} name ="Phenomena" label="Феномены">
+      <Form.Field width={InputSize} control="select" defaultValue={this.state.Phenomenas} name ="Phenomena" label="Феномены" onChange={this.handelChangePhenomen}>
           <option value='sun'>Солнечно</option>
           <option value='sun_cloud'>Облачно</option>
           <option value='cloud'>Пасмурно</option>
