@@ -16,13 +16,17 @@ import {
     ChangeObservDay,
     EditDayObserv,
     getClimateData,
-    getWeatherObserv
+    getWeatherObserv,
+    GetRaditional,
+    ChangeStationRaditional,
+    EditRaditionalReqest
 } from '../redux/actions/index';
 import ClimateData from './ClimateData';
 import ObservableWeather from './ObservableWeather';
 import DecadBulletin from './Decad_bulletin';
 import pdfMake from 'pdfmake/build/pdfmake';
 import vfsFonts from 'pdfmake/build/vfs_fonts';
+import Radiation from './ radiation';
 
 class Hydrometeorologycal extends Component {
 
@@ -83,6 +87,14 @@ class Hydrometeorologycal extends Component {
                 {   menuItem: 'Декадный белютень', 
                     render: () => <Tab.Pane>
                         <DecadBulletin SubmitDecadBulletin = {this.handelDecadBulletinSubmit}/></Tab.Pane> },
+                {   menuItem: 'Радиационный фон', 
+                    render: () => <Tab.Pane>
+                        <Radiation 
+                            SubmitDecadBulletin = { this.handelDecadBulletinSubmit }
+                            Raditional = { this.props.Raditional }
+                            EditRaditionalReqest = { this.props.EditRaditionalReqest } 
+                            ChangeStationRaditional = { this.props.ChangeStationRaditional }
+                        /></Tab.Pane> },
             ],
         }
     }
@@ -151,6 +163,7 @@ class Hydrometeorologycal extends Component {
     }
 
     componentDidMount(){
+        this.props.GetRaditional();
         this.props.getBuletin();
         this.props.getClimateData();
         this.props.getWeatherObserv();
@@ -315,6 +328,7 @@ class Hydrometeorologycal extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    Raditional: state.RaditionalReducer.raditional,
     ClimateData: state.hydrometeorolog_bulletin.ClimateData,
     WeatherDay: state.hydrometeorolog_bulletin.WeatherDay,
     SelectWeathers: state.hydrometeorolog_bulletin.SelectWeathers,
@@ -326,6 +340,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    EditRaditionalReqest: bindActionCreators(EditRaditionalReqest, dispatch),
+    ChangeStationRaditional: bindActionCreators(ChangeStationRaditional, dispatch),
+    GetRaditional: bindActionCreators(GetRaditional, dispatch),
     getWeatherObserv: bindActionCreators(getWeatherObserv, dispatch),
     getClimateData: bindActionCreators(getClimateData, dispatch),
     ChangeObservDay: bindActionCreators(ChangeObservDay, dispatch),

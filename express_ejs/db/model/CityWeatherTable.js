@@ -38,4 +38,8 @@ module.exports = {
     GetZpWeather: function(observ, station){
         return WeatherTable.find({"StationID": station, "TimeGapsId": observ });
     },
+    reset: function() {
+        WeatherTable.remove({}, function(err){
+        });
+    }
 };

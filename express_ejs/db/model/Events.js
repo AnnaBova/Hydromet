@@ -11,6 +11,12 @@ const EventSchema = mongoose.Schema({
 const Events = mongoose.model('events', EventSchema);
 
 module.exports = {
+    Init: function(arr){
+        for(var i=0;i<arr;i++){
+            const event = new Events(arr[i]);
+            event.save();
+        }
+    },
     AddEvent: function (value) {
         const event = new Events(value);
         event.save();

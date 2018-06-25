@@ -8,6 +8,7 @@ import { AirPollutionReducer } from './AirPollution';
 import { RegularObservableReducer } from './RegularObservable';
 import { EventReducer } from './event';
 import { emailReducer } from './EmailReducer';
+import { RaditionalReducer } from './raditional';
 
 export default combineReducers({
   router: routerReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   AirPollution: AirPollutionReducer,
   RegularObservable: RegularObservableReducer, 
   events: EventReducer,
-  emails: emailReducer
+  emails: emailReducer,
+  RaditionalReducer: RaditionalReducer
 });

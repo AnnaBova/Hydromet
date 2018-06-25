@@ -22,6 +22,7 @@ const { convert } = require('convert-svg-to-png');
 const Email = require('../db/model/Email');
 const EmailSender = require('./EmailSender');
 const DagerGydrolygy = require('../db/model/DangerGydrolygy');
+const radionatial = require('../db/model/radiotional');
 
 module.exports = {
     GiveSubmitDangerGydrolog: function(req, res){
@@ -271,5 +272,14 @@ module.exports = {
         WeatherObservable.getAll().then(respons => {
             res.json(respons[0]);
         })
+    },
+    GetRadionatiol: function(req, res){
+        radionatial.GetAll().then(respons => {
+            res.json(respons);
+        }) 
+    },
+    EditRadionatial: function(req,res){
+        radionatial.Edit(req.body);
+        res.send();
     }
 }

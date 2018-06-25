@@ -17,6 +17,12 @@ const meteorologPhenomenaSchema = mongoose.Schema({
 const meteorologPhenomena = mongoose.model('meteorolog_phenomena', meteorologPhenomenaSchema);
 
 module.exports = {
+    Init: function(arr){
+        for(var i=0;i< arr.length; i++){
+            const phenomen = new meteorologPhenomena(arr[i]);
+            phenomen.save();
+        }
+    },
     AddPhenomena: function(data){
         const phenomena = new meteorologPhenomena(data);
         phenomena.save();

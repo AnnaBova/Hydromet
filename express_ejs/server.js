@@ -11,6 +11,8 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const db = require('./db/index');
 const cors = require('cors');
+const CityWeatherTable = require('./db/model/CityWeatherTable');
+const Initital = require('./db/init');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,5 +28,23 @@ app.set('view engine', 'ejs');
 app.use('/', routes);
 
 app.listen(port, function () {
+  setInterval(function(){
+    var now = new Date();
+    var hour = now.getHours();
+    var minuts = now.getMinutes();
+    var second = now.getSeconds();
+    var mounth = now.getMonth();
+    if(mounth >= 2 || mounth <= 10){
+      if(hour == 0 && minuts == 0 && second == 0){
+        CityWeatherTable.reset();
+        Initital.InitCityWeatrherTable();
+      }
+    }else{
+      if(hour == 2 && minuts == 0 && second == 0){
+        CityWeatherTable.reset();
+        Initital.InitCityWeatrherTable();
+      }
+    }
+  }, 1000);
   console.log('Server listening on port ' + port + '...');
 });

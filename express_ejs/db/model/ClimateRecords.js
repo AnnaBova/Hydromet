@@ -18,6 +18,12 @@ const ClimateRecordsSchema = mongoose.Schema({
 const ClimateRecords = mongoose.model('Climate_Records', ClimateRecordsSchema);
 
 module.exports = {
+    Init: function(arr){
+        for(var i=0;i< arr.length; i++){
+            const record = new ClimateRecords(arr[i]);
+            record.save();
+        }
+    },
     AddRecord: function(data){
         const record = new ClimateRecords(data);
         record.save();

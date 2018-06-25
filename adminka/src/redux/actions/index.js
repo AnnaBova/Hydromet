@@ -29,11 +29,62 @@ import {
     SET_EMAIL,
     SET_EMAIL_ROLE,
     DELETE_EMAIL_ADDRES,
-    ADD_EMAIL
+    ADD_EMAIL,
+    SET_RADITIONAL,
+    EDIT_RADITIONAL,
+    CHANGE_STATION_RADITIONAL
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
 const LocalHost = 'http://localhost:3001'
+
+export function GetClimateCharacteristic(){
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_climate_characteristic`);
+    }
+}
+
+export function EditRadiotional(value){
+    return {
+        type: EDIT_RADITIONAL,
+        payload: value
+    }
+}
+
+export function EditRaditionalReqest(data){
+    return (dispatch)=> {
+        fetch(`${LocalHost}/edit_radionatial`,{
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+            .then(res => dispatch(EditRadiotional(data)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function ChangeStationRaditional(station){
+    return {
+        type: CHANGE_STATION_RADITIONAL,
+        payload: station
+    }
+}
+
+export function SetRaditional(value){
+    return {
+        type:SET_RADITIONAL,
+        payload: value
+    }
+}
+
+export function GetRaditional() {
+    return dispatch => {
+        fetch(`${LocalHost}/get_radionatial`)
+        .then(res => res.json())
+        .then(res => dispatch(SetRaditional(res)))
+        .catch(err => console.log(err));
+    }
+}
 
 export function SubmitEmail(emails){
     return (dispatch) => {
@@ -46,7 +97,6 @@ export function SubmitEmail(emails){
             //.then(err => console.log(err));
     }
 }
-
 export function SubmitDangerPhenomen(text){
     return (dispatch) => {
         fetch(`${LocalHost}/give_submit_danger`, {

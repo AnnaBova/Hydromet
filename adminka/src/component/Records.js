@@ -17,6 +17,7 @@ import {
 } from '../redux/actions/index';
 import EventList from './EventList';
 import Event from './Event';
+import ClimateCharacteristic from './ClimateCharacteristic';
 
 class Records extends Component {
     constructor(props){
@@ -48,7 +49,9 @@ class Records extends Component {
                 {   menuItem: 'Добавить событие', 
                 render: () => <Tab.Pane><Event UploadFile={this.props.UploadFile} /></Tab.Pane> },
                 {   menuItem: 'Все события', 
-                render: () => <Tab.Pane><EventList  data ={this.props.Events} GetEvents = {this.props.GetEvents} Delete={this.DeleteEvent}/></Tab.Pane> }
+                render: () => <Tab.Pane><EventList  data ={this.props.Events} GetEvents = {this.props.GetEvents} Delete={this.DeleteEvent}/></Tab.Pane> },
+                {   menuItem: 'Климатическая характеристика облости', 
+                render: () => <Tab.Pane><ClimateCharacteristic /></Tab.Pane> }
             ],
             activeIndex: 0,
         }

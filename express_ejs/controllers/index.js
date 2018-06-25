@@ -14,6 +14,7 @@ var WeatherObservable = require('../db/model/WeatherObservable');
 var DecadBulletin = require('../db/model/DecadBulletin');
 var Events = require('../db/model/Events');
 const DagerGydrolygy = require('../db/model/DangerGydrolygy');
+var radiotional = require('../db/model/radiotional');
 
 var Init = require('../db/init');
 
@@ -150,7 +151,12 @@ module.exports = {
     
   },
   getRadiation: function(req, res){
-    res.render('pages/radiation');
+    radiotional.GetAll()
+    .then(respons => {
+      res.render('pages/radiation', { data: respons });
+    })
+    .catch(err => console.log(err));
+    
   },
   getContact: function(req, res){
     res.render('pages/contact');
@@ -232,7 +238,6 @@ module.exports = {
   getDecadeBulletin: function(req, res){
     DecadBulletin.GetBulletin()
       .then(response => {
-        console.log(response);
         res.render('pages/decade_bulletin', {decada: response.Decad});
       });
   },

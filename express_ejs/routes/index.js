@@ -44,7 +44,7 @@ router.get('/single_events/:id', controller.getSingleEvents);
 
 router.get('/decade_bulletin', controller.getDecadeBulletin);
 
-router.get('/admin', controller.getAdmin);
+router.get('/signup', controller.getAdmin);
 
 router.post('/token', admincontroller.getToken);
 
@@ -103,5 +103,9 @@ router.post('/delete_email', admincontroller.DeleteEmail);
 router.post('/send_mail', admincontroller.SendMail);
 
 router.post('/give_submit_danger', admincontroller.GiveSubmitDangerGydrolog);
+
+router.get('/get_radionatial', admincontroller.GetRadionatiol);
+
+router.post('/edit_radionatial', admincontroller.EditRadionatial);
 
 module.exports = router;

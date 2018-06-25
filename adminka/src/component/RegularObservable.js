@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import { Form, Grid, Button, TextArea} from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 import { bindActionCreators } from 'redux';
-import { getRegularObservable, EditRegularObservable, SubmitDangerPhenomen } from '../redux/actions/index';
+import { getRegularObservable, EditRegularObservable, SubmitDangerPhenomen, ChangeRegularObservable } from '../redux/actions/index';
 
 const InputSize = 4;
 
@@ -60,6 +60,7 @@ class Forms extends Component {
         }
         var arr = e.target.value.split(';');
         this.setState({Position:arr[1], Title: arr[0]})
+        this.props.ChangeRegularObservable(arr[2]);
     }
 
     handelSubmit = () => {
@@ -97,15 +98,15 @@ class Forms extends Component {
             <h3>Регулярні спостереження в період весняної повені</h3>
             <Form>
                 <Form.Field control="select" label ="Точка наблюдения" onChange={this.handelOnChangePosition}>
-                    <option value="р. Берда;с. Осипенко">р. Берда(с. Осипенко)</option>
-                    <option value="р. Обитічна;м. Приморськ">р. Обитічна(м. Приморськ)</option>
-                    <option value="р. Лозуватка;с. Новоолексіївка">р. Лозуватка(с. Новоолексіївка)</option>
-                    <option value="р. Молочна;м. Токмак">р. Молочна(м. Токмак)</option>
-                    <option value="Дніпровське вдсх.;м. Запоріжжя - верхній б'єф">Дніпровське вдсх.(м. Запоріжжя - верхній б'єф)</option>
-                    <option value="р. Молочна;с. Терпіння">р. Молочна(с. Терпіння)</option>
-                    <option value="Каховське вдсх.;с. Плавні">Каховське вдсх.(с. Плавні)</option>
-                    <option value="Каховське вдсх.;с. Благовіщенка">Каховське вдсх.(с. Благовіщенка)</option>
-                    <option value="Каховське вдсх.;с. Розумівка">Каховське вдсх.(с. Розумівка)</option>
+                    <option value="р. Берда;с. Осипенко;0">р. Берда(с. Осипенко)</option>
+                    <option value="р. Обитічна;м. Приморськ;1">р. Обитічна(м. Приморськ)</option>
+                    <option value="р. Лозуватка;с. Новоолексіївка;2">р. Лозуватка(с. Новоолексіївка)</option>
+                    <option value="р. Молочна;м. Токмак;3">р. Молочна(м. Токмак)</option>
+                    <option value="Дніпровське вдсх.;м. Запоріжжя - верхній б'єф;4">Дніпровське вдсх.(м. Запоріжжя - верхній б'єф)</option>
+                    <option value="р. Молочна;с. Терпіння;5">р. Молочна(с. Терпіння)</option>
+                    <option value="Каховське вдсх.;с. Плавні;6">Каховське вдсх.(с. Плавні)</option>
+                    <option value="Каховське вдсх.;с. Благовіщенка;7">Каховське вдсх.(с. Благовіщенка)</option>
+                    <option value="Каховське вдсх.;с. Розумівка;8">Каховське вдсх.(с. Розумівка)</option>
                 </Form.Field>
                 <Form.Field>
                     <InputComponent
@@ -176,6 +177,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    ChangeRegularObservable: bindActionCreators(ChangeRegularObservable, dispatch),
     SubmitDangerPhenomen: bindActionCreators(SubmitDangerPhenomen, dispatch),
     EditRegularObservable: bindActionCreators(EditRegularObservable, dispatch),
     getRegularObservable: bindActionCreators(getRegularObservable, dispatch),

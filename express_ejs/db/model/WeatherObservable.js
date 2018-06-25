@@ -19,6 +19,10 @@ const weatherObsSchema = mongoose.Schema({
 const WeatherObservable = mongoose.model('weather_observable', weatherObsSchema);
 
 module.exports = {
+    Init: function (data){
+        const observ = new WeatherObservable(data);
+        observ.save();
+    },
     getAll: function () {
         return WeatherObservable.find({});
     },

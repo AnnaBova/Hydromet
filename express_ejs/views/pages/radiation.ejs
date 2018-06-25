@@ -25,9 +25,82 @@
             </div>
             <div class="background background_12_2">
               <div class="container m-b-md">
-                <div class="text-center p-t-lg">Потужність експозиційної дози гамма-випромінювання (мкР/год) на території Запорізької області <br> 04.02.2017</div> 
+                <div class="text-center p-t-lg">Потужність експозиційної дози гамма-випромінювання (мкР/год) на території Запорізької області <br> <%= data[0].Date %></div> 
                 <hr class="dash dash-blue">  
-                <div class="background img_gray_map"></div>
+                <div class="background img_gray_map">
+                  <svg viewBox="0 0 668 599" id="svg-map">
+                    <image xlink:href="http://localhost:3001/public/assets/images/radiation_map.png" width="668" height="599"/>
+                    <g class="zaporozhye"> 
+                            <text 
+                                x="230.87167" 
+                                y="124.72189" 
+                                fill="red" 
+                                style="font-weight: bold; font-size: 14px;"
+                            >
+                                <%= data[0].value %>
+                            </text>
+                        </g>
+                        <g class="gylaypole"> 
+                            <text 
+                                x="453.65619" 
+                                y="143.84221" 
+                                fill="red" 
+                                style="font-weight: bold; font-size: 14px;"
+                            >
+                                <%= data[6].value %>
+                            </text>
+                        </g>
+                        <g class="kyrylivka"> 
+                            <text 
+                                x="469.64917" 
+                                y="244.16028" 
+                                fill="red" 
+                                style="font-weight: bold; font-size: 14px;"
+                            >
+                                <%= data[5].value %>
+                            </text>
+                        </g>
+                        <g class="berdyansk"> 
+                            <text 
+                                x="560.49872" 
+                                y="420.90131" 
+                                fill="red" 
+                                style="font-weight: bold; font-size: 14px;"
+                            >
+                                <%= data[1].value %>
+                            </text>
+                        </g>
+                        <g class="botievo">
+                          <text 
+                                x="370.75943" 
+                                y="478.83926" 
+                                fill="red" 
+                                style="font-weight: bold; font-size: 14px;"
+                            >
+                                <%= data[3].value %>
+                        </g>
+                        <g class="melitopol">
+                            <text 
+                                x="234.71616" 
+                                y="430.12277" 
+                                fill="red" 
+                                style="font-weight: bold; font-size: 14px;"
+                            >
+                                <%= data[2].value %>
+                            </text>
+                        </g>
+                        <g class="prishib">
+                          <text 
+                                x="280.82956" 
+                                y="289.4346" 
+                                fill="red" 
+                                style="font-weight: bold; font-size: 14px;"
+                            >
+                                <%= data[4].value %>
+                            </text>
+                        </g>
+                  </svg>
+                </div>
               </div>
             </div>
     </section>
