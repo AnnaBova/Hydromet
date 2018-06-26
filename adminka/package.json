@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "history": "^4.7.2",
+    "ncp": "^2.0.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-quill": "^1.2.7",
@@ -20,8 +21,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL='/public/build' NODE_ENV=development react-scripts build  && node after.js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:dist": "webpack --progress"
   }
 }
