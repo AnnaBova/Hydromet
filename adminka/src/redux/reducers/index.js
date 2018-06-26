@@ -9,6 +9,7 @@ import { RegularObservableReducer } from './RegularObservable';
 import { EventReducer } from './event';
 import { emailReducer } from './EmailReducer';
 import { RaditionalReducer } from './raditional';
+import { ClimateCharacteristicReducer } from './ClimateCharacteristic';
 
 export default combineReducers({
   router: routerReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
   RegularObservable: RegularObservableReducer, 
   events: EventReducer,
   emails: emailReducer,
-  RaditionalReducer: RaditionalReducer
+  RaditionalReducer: RaditionalReducer,
+  ClimateCharacteristic: ClimateCharacteristicReducer,
 });

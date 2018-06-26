@@ -17,7 +17,7 @@ export function climateReducer(state = initialState, actions){
         case CHANGE_RECORDS: {
             return{ 
                 ...state,
-                Record: state.Tables.find(el => el.id == actions.payload)
+                Record: state.Tables.find(el => el.id === actions.payload)
             }
         }
         case EDIT_RECORD:{

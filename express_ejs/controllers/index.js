@@ -1,21 +1,21 @@
 var path = require('path');
 
-var Chart = require('../db/model/Chart');
-var MeteorologFenomena = require('../db/model/MeteorologPhenomena');
-var ClimaticRecords = require('../db/model/ClimateRecords');
-var WeatherTable = require('../db/model/CityWeatherTable');
-var Station = require('../db/model/Station');
-var TimeGaps = require('../db/model/TimeGaps');
-var WaterTemperature = require('../db/model/waterTemerature');
-var WeatherCityTable = require('../db/model/WeatherCity');
-var ClimateData = require('../db/model/ClimateData');
-var Regular_observable = require('../db/model/Regular_observable');
-var WeatherObservable = require('../db/model/WeatherObservable');
-var DecadBulletin = require('../db/model/DecadBulletin');
-var Events = require('../db/model/Events');
+const Chart = require('../db/model/Chart');
+const MeteorologFenomena = require('../db/model/MeteorologPhenomena');
+const ClimaticRecords = require('../db/model/ClimateRecords');
+const WeatherTable = require('../db/model/CityWeatherTable');
+const Station = require('../db/model/Station');
+const TimeGaps = require('../db/model/TimeGaps');
+const WaterTemperature = require('../db/model/waterTemerature');
+const WeatherCityTable = require('../db/model/WeatherCity');
+const ClimateData = require('../db/model/ClimateData');
+const Regular_observable = require('../db/model/Regular_observable');
+const WeatherObservable = require('../db/model/WeatherObservable');
+const DecadBulletin = require('../db/model/DecadBulletin');
+const Events = require('../db/model/Events');
 const DagerGydrolygy = require('../db/model/DangerGydrolygy');
-var radiotional = require('../db/model/radiotional');
-
+const radiotional = require('../db/model/radiotional');
+const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
 var Init = require('../db/init');
 
 module.exports = {
@@ -199,7 +199,9 @@ module.exports = {
    
   },
   getClimaticCharacteristic: function(req, res){
-    res.render('pages/climatic_characteristic');    
+    ClimateCharacteristic.GetAll().then(respons => {
+      res.render('pages/climatic_characteristic', {data: respons[0]}); 
+    })
   },
   getClimaticRecords: function(req, res){
     ClimaticRecords.getAllRecords().then(respons => {

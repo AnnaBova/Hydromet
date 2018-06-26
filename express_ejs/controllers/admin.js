@@ -17,14 +17,23 @@ const Events = require('../db/model/Events');
 const ejs = require('ejs');
 const fs = require('fs');
 const path = require('path');
-const DomParser = require('dom-parser');
 const { convert } = require('convert-svg-to-png');
 const Email = require('../db/model/Email');
 const EmailSender = require('./EmailSender');
 const DagerGydrolygy = require('../db/model/DangerGydrolygy');
 const radionatial = require('../db/model/radiotional');
+const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
 
 module.exports = {
+    EditClimateCharacteristic: function(req,res){
+        ClimateCharacteristic.Edit(req.body.data);
+        res.send();
+    },
+    GetClimateCharacteristick: function(req, res){
+        ClimateCharacteristic.GetAll() 
+            .then(respons => res.json(respons))
+            .catch(err => console.log(err));
+    },
     GiveSubmitDangerGydrolog: function(req, res){
         DagerGydrolygy.Edit(req.body);
         res.send();

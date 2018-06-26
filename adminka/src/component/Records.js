@@ -13,7 +13,9 @@ import {
     SavePhenomena, 
     uploadDocumentRequest,
     getEvents,
-    DeleteEvent 
+    DeleteEvent,
+    GetClimateCharacteristic,
+    EditClimateCharacteristicReqest 
 } from '../redux/actions/index';
 import EventList from './EventList';
 import Event from './Event';
@@ -51,7 +53,11 @@ class Records extends Component {
                 {   menuItem: 'Все события', 
                 render: () => <Tab.Pane><EventList  data ={this.props.Events} GetEvents = {this.props.GetEvents} Delete={this.DeleteEvent}/></Tab.Pane> },
                 {   menuItem: 'Климатическая характеристика облости', 
-                render: () => <Tab.Pane><ClimateCharacteristic /></Tab.Pane> }
+                render: () => <Tab.Pane>
+                            <ClimateCharacteristic
+                                ClimateCharacteristic = {this.props.ClimateCharacteristic}
+                                EditClimate={this.props.EditClimate} 
+                            /></Tab.Pane> }
             ],
             activeIndex: 0,
         }
@@ -83,6 +89,7 @@ class Records extends Component {
     }
 
     componentDidMount() {
+        this.props.GetClimateCharacteristic();
         this.props.GetRecords();
     }
 
@@ -97,12 +104,15 @@ class Records extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    ClimateCharacteristic: state.ClimateCharacteristic.DataArr,
     Events: state.events.Events,
     Record: state.climateRecords.Record,
     Records: state.climateRecords.Tables,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    EditClimate: bindActionCreators(EditClimateCharacteristicReqest, dispatch),
+    GetClimateCharacteristic: bindActionCreators(GetClimateCharacteristic, dispatch),
     DeleteEvent: bindActionCreators(DeleteEvent, dispatch),
     GetEvents : bindActionCreators(getEvents, dispatch),
     UploadFile: bindActionCreators(uploadDocumentRequest, dispatch),

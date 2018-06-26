@@ -108,4 +108,8 @@ router.get('/get_radionatial', admincontroller.GetRadionatiol);
 
 router.post('/edit_radionatial', admincontroller.EditRadionatial);
 
+router.get('/get_climate_characteristic', admincontroller.GetClimateCharacteristick)
+
+router.post('/edit_climate_records', admincontroller.EditClimateCharacteristic)
+
 module.exports = router;

@@ -32,15 +32,46 @@ import {
     ADD_EMAIL,
     SET_RADITIONAL,
     EDIT_RADITIONAL,
-    CHANGE_STATION_RADITIONAL
+    CHANGE_STATION_RADITIONAL,
+    GET_CLIMATE_CHARACTERISTIC,
+    EDIT_CLIMATE_CHARACTERISTIC
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
 const LocalHost = 'http://localhost:3001'
 
+export function EditClimateCharacteristicReqest(data){
+    return (dispatch) => {
+        fetch(`${LocalHost}/edit_climate_records`, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({ data: data})
+        })
+            .then(res => dispatch(EditClimateCharacteristic(data)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function EditClimateCharacteristic(data){
+    return {
+        type: EDIT_CLIMATE_CHARACTERISTIC,
+        payload: data
+    }
+}
+
 export function GetClimateCharacteristic(){
     return (dispatch) => {
-        fetch(`${LocalHost}/get_climate_characteristic`);
+        fetch(`${LocalHost}/get_climate_characteristic`)
+            .then(res => res.json())
+            .then(res => dispatch(SetClimateCharacteristik(res)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function SetClimateCharacteristik(data){
+    return {
+        type: GET_CLIMATE_CHARACTERISTIC,
+        payload: data
     }
 }
 

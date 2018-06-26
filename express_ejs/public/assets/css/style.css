@@ -196,7 +196,7 @@ svg{
   background-image: url(../images/background_3.jpg);
 }
 .background_4_1{
-  background-image: url(../images/background_4_1.jpg);
+  background-image: url(../images/background_4_1.JPG);
 }
 .background_4_2{
   background-image: url(../images/background_4_2.jpg);
@@ -290,7 +290,7 @@ svg{
   margin:0 auto 20px;
 }
 .img_hydrological_map, .img_gray_map{
-  background-image: url(../images/hydrological_map.jpg); 
+  background-image: url(../images/hydrological_map.png); 
   background-size: contain;
   max-width:912px;
   max-height:875px;

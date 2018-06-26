@@ -6,21 +6,31 @@ class ClimateCharacteristic extends Component {
     constructor(props){
         super(props);
         this.state={
-            "1block": "",
-            "2block": "",
-            "3block": "",
-            "4block": "",
-            "5block": "",
-            "6block": "",
-            "7block": "",
+            "1block": this.props.ClimateCharacteristic['1block'] || "",
+            "2block": this.props.ClimateCharacteristic['2block'] || "",
+            "3block": this.props.ClimateCharacteristic['3block'] || "",
+            "4block": this.props.ClimateCharacteristic['4block'] || "",
+            "5block": this.props.ClimateCharacteristic['5block'] || "",
+            "6block": this.props.ClimateCharacteristic['6block'] || "",
+            "7block": this.props.ClimateCharacteristic['7block'] || "",
         }
     }
-
 
     handelAreaOnChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
     }
-
+    handelOnSubmit = () => {
+        this.props.EditClimate({
+            ...this.props.ClimateCharacteristic,
+            "1block": this.state["1block"],
+            "2block": this.state["2block"],
+            "3block": this.state["3block"],
+            "4block": this.state["4block"],
+            "5block": this.state["5block"],
+            "6block": this.state["6block"],
+            "7block": this.state["7block"]
+        });
+    }
     render() {
         return (
             <Grid>
@@ -30,47 +40,61 @@ class ClimateCharacteristic extends Component {
                     <h3>Кліматична характеристика Запорізької області</h3>
                     <Form.Field>
                         <TextArea 
+                            autoHeight
+                            value = {this.state['1block']}
                             name="1block"
                             onChange={this.handelAreaOnChange}
                         />
                     </Form.Field>
                     <Form.Field>
-                        <TextArea 
+                        <TextArea
+                            autoHeight 
+                            value = {this.state['2block']}
                             name="2block"
                             onChange={this.handelAreaOnChange}
                         />
                     </Form.Field>
                     <Form.Field>
-                        <TextArea 
+                        <TextArea
+                            autoHeight
+                            value = {this.state['3block']} 
                             name="3block"
                             onChange={this.handelAreaOnChange}
                         />
                     </Form.Field>
                     <Form.Field>
-                        <TextArea 
+                        <TextArea
+                            autoHeight
+                            value = {this.state['4block']} 
                             name="4block"
                             onChange={this.handelAreaOnChange}
                         />
                     </Form.Field>
                     <Form.Field>
-                        <TextArea 
+                        <TextArea
+                            autoHeight
+                            value = {this.state['5block']} 
                             name="5block"
                             onChange={this.handelAreaOnChange}
                         />
                     </Form.Field>
                     <Form.Field>
-                        <TextArea 
+                        <TextArea
+                            autoHeight
+                            value = {this.state['6block']} 
                             name="6block"
                             onChange={this.handelAreaOnChange}
                         />
                     </Form.Field>
                     <Form.Field>
-                        <TextArea 
+                        <TextArea
+                            autoHeight
+                            value = {this.state['7block']} 
                             name="7block"
                             onChange={this.handelAreaOnChange}
                         />
                     </Form.Field>
-                    <Button>Сохранить</Button>
+                    <Button onClick={this.handelOnSubmit}>Сохранить</Button>
                 </Form>
                 </Grid.Column>
             </Grid>
