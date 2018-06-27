@@ -124,16 +124,8 @@ var WeatherObservableObj = {
     StationWeather: observableItem
 }
 
-var WeatherData = [
-    {
-        WeatherTable: WeatherDay,
-        TextWeather: TextWeatherDay,
-    },
-    {
-        WeatherTable: WeatherDay,
-        TextWeather: TextWeatherDay,
-    }
-]
+
+
 
 var WeatherDay = 
 [
@@ -239,6 +231,17 @@ var TextWeatherDay = [
     {
         date: "24.11",
         text: "В запорожье тепло"
+    }
+]
+
+var WeatherData = [
+    {
+        WeatherTable: WeatherDay,
+        TextWeather: TextWeatherDay,
+    },
+    {
+        WeatherTable: WeatherDay,
+        TextWeather: TextWeatherDay,
     }
 ]
 

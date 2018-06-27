@@ -48,11 +48,12 @@ module.exports = {
               Promise.all(promise)
                 .then(respons => {
                   WeatherCityTable.GetAll().then(
-                    answer => { resp.render('pages/home', { 
+                    answer => { 
+                      console.log(answer);
+                      resp.render('pages/home', { 
                         ZpTemperature: response[0][0], 
                         observe: observe, 
-                        weatherObl: 
-                        answer[0].WeatherTable, 
+                        weatherObl: answer[0].WeatherTable, 
                         Water: respons[1][0],
                         CityesWeather: response
                       }) 
