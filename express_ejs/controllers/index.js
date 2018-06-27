@@ -18,8 +18,39 @@ const radiotional = require('../db/model/radiotional');
 const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
 var Init = require('../db/init');
 
+function getObserv(){
+  var now = new Date();
+  var hour = now.getHours();
+  console.log(hour);
+    if(hour >= 0 && hour <= 2) {
+      return '00'
+    }
+    if(hour >= 3 && hour <= 5){
+      return '03'
+    }
+    if(hour >= 6 && hour <= 8){
+      return '06'
+    }
+    if(hour >= 9 && hour <= 11){
+      return '09'
+    }
+    if(hour >= 12 && hour <= 14){
+      return '12'
+    }
+    if(hour >= 15 && hour <= 17){
+      return '15'
+    }
+    if(hour >= 18 && hour <= 20){
+      return '18'
+    }
+    if(hour >= 21 && hour <= 23){
+      return '21'
+    }
+}
+
 module.exports = {
   getMainPage: function (req, resp) {
+    console.log(getObserv());
     var promise = [];
     const arr = [];
     observe = '00';
@@ -49,7 +80,6 @@ module.exports = {
                 .then(respons => {
                   WeatherCityTable.GetAll().then(
                     answer => { 
-                      console.log(answer);
                       resp.render('pages/home', { 
                         ZpTemperature: response[0][0], 
                         observe: observe, 
