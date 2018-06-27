@@ -38,7 +38,7 @@ import {
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
-const LocalHost = "http://localhost:3001";
+const LocalHost = "http://77.120.115.201:3001";
 
 export function EditClimateCharacteristicReqest(data){
     return (dispatch) => {
