@@ -35,6 +35,6 @@ module.exports = {
         return regular_observable.find({});
     },
     Edit: function(data){
-        return regular_observable.findByIdAndUpdate(data._id, data)
+        regular_observable.findByIdAndUpdate(data._id, data).then(res => {})
     }
 }

@@ -243,6 +243,7 @@ module.exports = {
       .then(resp => {
         DagerGydrolygy.GetAll()
           .then(respons => {
+            console.log(resp);
             res.render('pages/regular_observations', { data: resp, danger:respons[0].text});
           })
       });

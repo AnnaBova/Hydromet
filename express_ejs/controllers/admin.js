@@ -210,10 +210,8 @@ module.exports = {
             }) 
     },
     EditRegularObservable: function(req, res){
-        Regular_observable.Edit(req.body)
-            .then(respons => {
-                res.send();
-            });  
+        Regular_observable.Edit(req.body);
+        res.send();
     },
     UploadFile: function(req, res){
         console.log(req.body);
