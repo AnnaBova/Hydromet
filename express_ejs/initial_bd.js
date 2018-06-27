@@ -1,0 +1,1 @@
+var Init = require('./db/init').Init();
