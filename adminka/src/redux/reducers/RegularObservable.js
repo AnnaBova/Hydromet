@@ -28,7 +28,7 @@ export function RegularObservableReducer(state=initialState, actions){
             return {
                 ...state,
                 RegularObservable: state.RegularObservable.map(item => {
-                    if(item._id === actions.payload){
+                    if(item._id == actions.payload){
                         item = actions.payload;
                     }
                     return item;

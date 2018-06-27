@@ -33,36 +33,41 @@ class Tables extends Component {
     }
 
     render() {
-        return (
-        <Form>
-            <Form.Field control='select' onChange= {this.OnChange}>
-                {this.props.Records.map((item)=> <option key={item._id} value={item.id}>{item.modalTitle || item.modalName}</option>)}
-            </Form.Field>
-            <Table>
-                {this.props.Record.date ? 
-                    (<Table.Header>
-                        <TableItem id={this.props.Record._id} item={this.props.Record} Change={this.ChangeTitle}/>
-                    </Table.Header>): <Table.Body />
-                }
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell> Дата</Table.HeaderCell>
-                        <Table.HeaderCell> Значение</Table.HeaderCell>
-                        <Table.HeaderCell> Станция</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-               
-                <Table.Body>
-                    { this.props.Record.table ? 
-                        this.props.Record.table.map((item)=><TableItem item={item}
-                                                                key={item._id}
-                                                                Change={this.Change}
-                                                            />): <Table.Row /> }       
-                </Table.Body>
-            </Table>
-            <Button onClick={this.OnSave} primary>Сохранить</Button>
-            <Button type="button" onClick ={this.LogOut}>Выйти</Button>
-        </Form> );
+        if(this.props.Record !== undefined){
+            console.log(this.props.Record);
+            return (
+                <Form>
+                    <Form.Field control='select' onChange= {this.OnChange}>
+                        {this.props.Records.map((item)=> <option key={item._id} value={item.id}>{item.modalTitle || item.modalName}</option>)}
+                    </Form.Field>
+                    <Table>
+                        {this.props.Record.date ? 
+                            (<Table.Header>
+                                <TableItem id={this.props.Record._id} item={this.props.Record} Change={this.ChangeTitle}/>
+                            </Table.Header>): <Table.Body />
+                        } 
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell> Дата</Table.HeaderCell>
+                                <Table.HeaderCell> Значение</Table.HeaderCell>
+                                <Table.HeaderCell> Станция</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                       
+                        <Table.Body>
+                            { this.props.Record.table ? 
+                                this.props.Record.table.map((item)=><TableItem item={item}
+                                                                        key={item._id}
+                                                                        Change={this.Change}
+                                                                    />): <Table.Row /> }       
+                        </Table.Body>
+                    </Table>
+                    <Button onClick={this.OnSave} primary>Сохранить</Button>
+                    <Button type="button" onClick ={this.LogOut}>Выйти</Button>
+                </Form> );
+        }else {
+            return <div></div>
+        }  
     }
 }
 
