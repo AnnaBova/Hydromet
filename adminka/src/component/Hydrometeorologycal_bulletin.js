@@ -192,8 +192,8 @@ class Hydrometeorologycal extends Component {
     SaveReport = () => {
         const {vfs} = vfsFonts.pdfMake;
 	    pdfMake.vfs = vfs;
-        this.toDataURL('http://localhost:3001/public/assets/images/doc_header.png', (img1) => { 
-            this.toDataURL('http://localhost:3001/public/assets/images/map.png', (img2) => {
+        this.toDataURL('http://77.120.115.201:3001/public/assets/images/doc_header.png', (img1) => { 
+            this.toDataURL('http://77.120.115.201:3001/public/assets/images/map.png', (img2) => {
                 var obj = {
                     pageSize: 'A4',
                     content: [

@@ -50,10 +50,9 @@ function getObserv(){
 
 module.exports = {
   getMainPage: function (req, resp) {
-    console.log(getObserv());
     var promise = [];
     const arr = [];
-    observe = '00';
+    observe = getObserv();
     arr.push(TimeGaps.GetIdTimeGaps(observe));
     arr.push(Station.GetIdStation('zaporozhye'));
     arr.push(Station.GetIdStation('prism'));
