@@ -21,7 +21,7 @@ export function RegularObservableReducer(state=initialState, actions){
         case CHANGE_REGULAR_OBSERVABLE:{
             return {
                 ...state,
-                Observ: state.RegularObservable[actions.payload]
+                Observ: state.RegularObservable.find(item => item._id == actions.payload)
             };
         }
         case EDIT_REGULAR_OBSERVABLE:{

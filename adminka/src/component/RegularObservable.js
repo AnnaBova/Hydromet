@@ -58,17 +58,13 @@ class Forms extends Component {
         if(this.Validation()){
             this.handelSubmit();
         }
-        var arr = e.target.value.split(';');
-        this.setState({Position:arr[1], Title: arr[0]})
-        this.props.ChangeRegularObservable(arr[2]);
+        this.props.ChangeRegularObservable(e.target.value);
     }
 
     handelSubmit = () => {
         if(this.Validation()){
             this.props.EditRegularObservable({
                 ...this.props.Observ,
-                Position: this.state.Position,
-                Title: this.state.Title,
                 date: this.state.date,
                 LvlWater: this.state.LvlWater,
                 OutWater: this.state.OutWater,
@@ -91,89 +87,95 @@ class Forms extends Component {
     }
 
     render() {
-    return (
-    <Grid>
-        <Grid.Column width={InputSize}/>
-        <Grid.Column width={InputSize+1}>
-            <h3>Регулярні спостереження в період весняної повені</h3>
-            <Form>
-                <Form.Field control="select" label ="Точка наблюдения" onChange={this.handelOnChangePosition}>
-                    <option value="р. Берда;с. Осипенко;0">р. Берда(с. Осипенко)</option>
-                    <option value="р. Обитічна;м. Приморськ;1">р. Обитічна(м. Приморськ)</option>
-                    <option value="р. Лозуватка;с. Новоолексіївка;2">р. Лозуватка(с. Новоолексіївка)</option>
-                    <option value="р. Молочна;м. Токмак;3">р. Молочна(м. Токмак)</option>
-                    <option value="Дніпровське вдсх.;м. Запоріжжя - верхній б'єф;4">Дніпровське вдсх.(м. Запоріжжя - верхній б'єф)</option>
-                    <option value="р. Молочна;с. Терпіння;5">р. Молочна(с. Терпіння)</option>
-                    <option value="Каховське вдсх.;с. Плавні;6">Каховське вдсх.(с. Плавні)</option>
-                    <option value="Каховське вдсх.;с. Благовіщенка;7">Каховське вдсх.(с. Благовіщенка)</option>
-                    <option value="Каховське вдсх.;с. Розумівка;8">Каховське вдсх.(с. Розумівка)</option>
-                </Form.Field>
-                <Form.Field>
-                    <InputComponent
-                        name="date" 
-                        value={this.state.date}
-                        label="Дата"
-                        saveValue={this.handelSaveValue}
-                    />
-                </Form.Field>
-                <Form.Field control="select" label="Время наблюдения" onChange={this.handelChangeObserv}>
-                    <option value="02">02</option>
-                    <option value="05">05</option>
-                    <option value="08">08</option>
-                    <option value="11">11</option>
-                    <option value="14">14</option>
-                    <option value="17">17</option>
-                    <option value="20">20</option>
-                    <option value="23">23</option>
-                </Form.Field>
-                <Form.Field>
-                    <InputComponent 
-                        value = {this.state.LvlWater}
-                        name="LvlWater"
-                        label="Відмітка виходу води на заплаву"
-                        saveValue={this.handelSaveValue}
-                    />
-                </Form.Field>
-                <Form.Field>
-                    <InputComponent
-                        value = {this.state.OutWater} 
-                        name="OutWater"
-                        label="Фактичний рівень води"
-                        saveValue={this.handelSaveValue}
-                    />
-                </Form.Field>
-                <Form.Field>
-                    <InputComponent 
-                        value = {this.state.EditLvl}
-                        name="EditLvl"
-                        label="Зміна рівня води за добу"
-                        saveValue={this.handelSaveValue}
-                    />
-                </Form.Field>
-                <Form.Field>
-                    <InputComponent
-                        value = {this.state.phenomena} 
-                        name="phenomena"
-                        label="Льодові явища"
-                        saveValue={this.handelSaveValue}
-                    />
-                </Form.Field>
-                <Button type="button" primary onClick={this.handelSubmit}>Сохранить</Button>
-                <Button type="button" onClick={this.handelLogOut}>Выйти</Button>
-                <Button type="button" onClick={this.handelGetStation}>Заполнить данные на станции</Button>
-                <Form.Field>
-                    <label>Небезпечні гідрологічні явища</label>
-                    <TextArea autoHeight value={this.state.text} onChange={this.handelChangeTextArea}/>
-                </Form.Field>
-                <Button onClick={this.handelSubmittextArea}>Сохранить</Button>
-            </Form>
-        </Grid.Column>
-    </Grid>);
+        if(this.props.Observs != false){
+            console.log(typeof this.props.Observs);
+            return (
+                <Grid>
+                    <Grid.Column width={InputSize}/>
+                    <Grid.Column width={InputSize+1}>
+                        <h3>Регулярні спостереження в період весняної повені</h3>
+                        <Form>
+                            <Form.Field control="select" label ="Точка наблюдения" onChange={this.handelOnChangePosition}>
+                                <option value={this.props.Observs[0]._id}>{this.props.Observs[0].Title}({this.props.Observs[0].Position})</option>
+                                <option value={this.props.Observs[1]._id}>{this.props.Observs[1].Title}({this.props.Observs[1].Position})</option>
+                                <option value={this.props.Observs[2]._id}>{this.props.Observs[2].Title}({this.props.Observs[2].Position})</option>
+                                <option value={this.props.Observs[3]._id}>{this.props.Observs[3].Title}({this.props.Observs[3].Position})</option>
+                                <option value={this.props.Observs[4]._id}>{this.props.Observs[4].Title}({this.props.Observs[4].Position})</option>
+                                <option value={this.props.Observs[5]._id}>{this.props.Observs[5].Title}({this.props.Observs[5].Position})</option>
+                                <option value={this.props.Observs[6]._id}>{this.props.Observs[6].Title}({this.props.Observs[6].Position})</option>
+                                <option value={this.props.Observs[7]._id}>{this.props.Observs[7].Title}({this.props.Observs[7].Position})</option>
+                                <option value={this.props.Observs[8]._id}>{this.props.Observs[8].Title}({this.props.Observs[8].Position})</option>
+                            </Form.Field>
+                            <Form.Field>
+                                <InputComponent
+                                    name="date" 
+                                    value={this.state.date}
+                                    label="Дата"
+                                    saveValue={this.handelSaveValue}
+                                />
+                            </Form.Field>
+                            <Form.Field control="select" label="Время наблюдения" onChange={this.handelChangeObserv}>
+                                <option value="02">02</option>
+                                <option value="05">05</option>
+                                <option value="08">08</option>
+                                <option value="11">11</option>
+                                <option value="14">14</option>
+                                <option value="17">17</option>
+                                <option value="20">20</option>
+                                <option value="23">23</option>
+                            </Form.Field>
+                            <Form.Field>
+                                <InputComponent 
+                                    value = {this.state.LvlWater}
+                                    name="LvlWater"
+                                    label="Відмітка виходу води на заплаву"
+                                    saveValue={this.handelSaveValue}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <InputComponent
+                                    value = {this.state.OutWater} 
+                                    name="OutWater"
+                                    label="Фактичний рівень води"
+                                    saveValue={this.handelSaveValue}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <InputComponent 
+                                    value = {this.state.EditLvl}
+                                    name="EditLvl"
+                                    label="Зміна рівня води за добу"
+                                    saveValue={this.handelSaveValue}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <InputComponent
+                                    value = {this.state.phenomena} 
+                                    name="phenomena"
+                                    label="Льодові явища"
+                                    saveValue={this.handelSaveValue}
+                                />
+                            </Form.Field>
+                            <Button type="button" primary onClick={this.handelSubmit}>Сохранить</Button>
+                            <Button type="button" onClick={this.handelLogOut}>Выйти</Button>
+                            <Button type="button" onClick={this.handelGetStation}>Заполнить данные на станции</Button>
+                            <Form.Field>
+                                <label>Небезпечні гідрологічні явища</label>
+                                <TextArea autoHeight value={this.state.text} onChange={this.handelChangeTextArea}/>
+                            </Form.Field>
+                            <Button onClick={this.handelSubmittextArea}>Сохранить</Button>
+                        </Form>
+                    </Grid.Column>
+                </Grid>);
+        }else{
+            return <div />
+        }
     }
 }
 
 const mapStateToProps = (state) => ({
-    Observ: state.RegularObservable.Observ
+    Observ: state.RegularObservable.Observ,
+    Observs: state.RegularObservable.RegularObservable
 });
 
 const mapDispatchToProps = (dispatch) => ({
