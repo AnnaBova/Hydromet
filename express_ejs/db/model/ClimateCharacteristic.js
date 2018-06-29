@@ -13,6 +13,9 @@ var ClimateSchema = mongoose.Schema({
 var ClimateCharacteristik = mongoose.model('climate_characteristic', ClimateSchema);
 
 module.exports = {
+    UnInit: function(){
+        ClimateCharacteristik.remove({}).then(res => {});
+    },
     Init: function(arr){
         var obj = {
             "1block": arr[0],

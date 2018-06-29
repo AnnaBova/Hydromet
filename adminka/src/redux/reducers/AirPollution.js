@@ -1,14 +1,16 @@
 import { 
     GET_AIR_POLLUTION,
     CHANGE_MATTER,
-    EDIT_MATTER 
+    EDIT_MATTER,
+    SET_AIR_POLLUTION_MESSAGE 
 } from '../actions/ActionTypes';
 
 const initialState = {
     data: [],
     matter: {
 
-    }
+    },
+    Message: false
 }
 
 export function AirPollutionReducer (state = initialState, actions){
@@ -34,7 +36,14 @@ export function AirPollutionReducer (state = initialState, actions){
                         item = actions.payload;
                     }
                     return item;
-                })
+                }),
+                Message: true
+            }
+        }
+        case SET_AIR_POLLUTION_MESSAGE: {
+            return{
+                ...state,
+                Message: false
             }
         }
         default: {

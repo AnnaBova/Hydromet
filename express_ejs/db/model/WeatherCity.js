@@ -30,6 +30,9 @@ const WeatherCitySchema = mongoose.Schema({
 const WeatherCity = mongoose.model('weather_city', WeatherCitySchema);
 
 module.exports = {
+    UnInit: function(){
+        WeatherCity.remove({}).then(res => {});
+    },
     Init: function(arr) {
         for(var i=0; i< arr.length; i++){
             const weather = new WeatherCity(arr[i]);

@@ -9,6 +9,9 @@ var radiotionalScheme = mongoose.Schema({
 var radiotional = mongoose.model('radiotional', radiotionalScheme);
 
 module.exports= {
+    UnInit: function(){
+        radiotional.remove({}).then(res => {});
+    },
     Init: function(arr){
         for(var i=0;i<arr.length;i++){
             const raio = new radiotional(arr[i]);

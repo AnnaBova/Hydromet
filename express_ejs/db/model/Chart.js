@@ -9,6 +9,9 @@ const ChartSchema = mongoose.Schema({
 const Chart = mongoose.model('Chart', ChartSchema);
 
 module.exports = {
+    UnInit: function(){
+        Chart.remove({}).then(res => {})
+    },
     Init: function(array){
         for(var i=0; i< array.length; i++){
             const chart = new Chart(array[i]);

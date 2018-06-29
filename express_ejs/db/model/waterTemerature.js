@@ -16,6 +16,9 @@ const WaterTemperatureSchema = mongoose.Schema({
 const WaterTemperature = mongoose.model('WaterTemperature', WaterTemperatureSchema);
 
 module.exports = {  
+    UnInit: function(){
+        WaterTemperature.remove({}).then(res => {});
+    },
     Init: function(data){
         const water = new WaterTemperature(data);
         water.save();

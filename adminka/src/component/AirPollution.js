@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Grid, Button } from 'semantic-ui-react';
+import { Form, Grid, Button, Message } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
@@ -33,6 +33,7 @@ class Forms extends Component {
     }
 
     handelSaveValue = (obj) => {
+        this.props.setMessage()
         this.setState({[obj.name]:obj.value});
     }
 
@@ -50,6 +51,7 @@ class Forms extends Component {
     }
 
     handelOnChange = (e) => {
+        this.props.setMessage();
         if(this.Validation()){
             this.props.editMatter({
                 ...this.props.Matter,
@@ -105,6 +107,7 @@ class Forms extends Component {
                 <Grid.Column width={4}/>   
                 <Grid.Column width={3}>
                     <h3>Диаграма Загрязнения воздуха</h3>
+                    {this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены" />: <div />}
                     <Form>
                         <Form.Field 
                             control="select" 
@@ -170,6 +173,7 @@ class Forms extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    Message: state.AirPollution.Message,
     AirData: state.AirPollution.data,
     Matter: state.AirPollution.matter
 })
@@ -178,7 +182,8 @@ const mapDispatchToProps = (dispatch) => ({
     getAirPollution: bindActionCreators(getAirPollution, dispatch),
     ChangeMatter: bindActionCreators(ChangeMatter, dispatch),
     editMatter: bindActionCreators(postEditMatter, dispatch),
-    noAuthorization: () => dispatch(push('/signup'))
+    noAuthorization: () => dispatch(push('/signup')),
+    setMessage: () => dispatch({type: 'SET_AIR_POLLUTION_MESSAGE'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);

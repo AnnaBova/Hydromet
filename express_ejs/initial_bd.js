@@ -1,18 +1,30 @@
 var mongoose = require('mongoose');
-var Init = require('./db/init').Init;
+var Init = require('./db/init').Init,
+    UnInit = require('./db/init').UnInit;
 mongoose.connect('mongodb://localhost/Hydromet');
 
-const db = mongoose.connection;
-
-db.on('error', err => {
-    console.log('error', err)
-})
+var flag = process.argv[2];
 
 
-db.once('open', () => {
-    Init();
-    console.log('we are connected')
-})
+
+if(flag == 'init'){
+    const db = mongoose.connection;
+    
+    db.on('error', err => {
+        console.log('error', err)
+    })
+    
+    
+    db.once('open', () => {
+        console.log('we are connected')
+        Init();
+    })
+}
+if(flag == 'remove'){
+    UnInit();
+}
+
+
 
 
 

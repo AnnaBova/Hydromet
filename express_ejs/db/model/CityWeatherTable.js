@@ -19,6 +19,9 @@ const WeatherTable = mongoose.model('WeatherTable', WeatherTableSchema);
 
 
 module.exports = {
+    UnInit: function(){
+        WeatherTable.remove({}).then(res => {});
+    },
     AddEntry: function(data){
         const entry = new WeatherTable(data);
         entry.save(); 

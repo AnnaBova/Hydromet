@@ -17,6 +17,9 @@ const meteorologPhenomenaSchema = mongoose.Schema({
 const meteorologPhenomena = mongoose.model('meteorolog_phenomena', meteorologPhenomenaSchema);
 
 module.exports = {
+    UnInit: function(){
+        meteorologPhenomena.remove({}).then(res => {});
+    },
     Init: function(arr){
         for(var i=0;i< arr.length; i++){
             const phenomen = new meteorologPhenomena(arr[i]);

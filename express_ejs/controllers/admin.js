@@ -214,7 +214,6 @@ module.exports = {
         res.send();
     },
     UploadFile: function(req, res){
-        console.log(req.body);
         let imageFile = req.files.file;
         var path1 = path.resolve(__dirname, '../public/Events');
         imageFile.mv(`${path1}/${req.files.file.name}`, function(err){
@@ -263,7 +262,6 @@ module.exports = {
                     StationID: respons[1][0]._id,
                     TimaGapsId: respons[0][0]._id
                 }
-                console.log(obj);
                 waterTemperature.AddTemperature(respons[1][0]._id, req.body.waterTemperature, req.body.date, req.body.TimeGaps);
                 WeatherTabel.EditTables(obj);
             })

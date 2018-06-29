@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
 const User = mongoose.model('Users', userSchema);
 
 module.exports = {
+    UnInit:function() {
+        User.remove({}).then(res => {});
+    },
     Init:function(arr){
         var user = {}
 

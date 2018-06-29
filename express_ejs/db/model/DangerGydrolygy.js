@@ -7,6 +7,9 @@ var DangerObservSchema = mongoose.Schema({
 var DangerGydrolygy = mongoose.model('dager_gydrolygy', DangerObservSchema);
 
 module.exports = {
+    UnInit: function(){
+        DangerGydrolygy.remove({}).then(res => {});
+    },
     Init: function(data){
         const danger = new DangerGydrolygy(data);
         danger.save();

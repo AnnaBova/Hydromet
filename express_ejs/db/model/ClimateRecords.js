@@ -18,6 +18,9 @@ const ClimateRecordsSchema = mongoose.Schema({
 const ClimateRecords = mongoose.model('Climate_Records', ClimateRecordsSchema);
 
 module.exports = {
+    UnInit: function(){
+        ClimateRecords.remove({}).then(res => {});
+    },
     Init: function(arr){
         for(var i=0;i< arr.length; i++){
             const record = new ClimateRecords(arr[i]);

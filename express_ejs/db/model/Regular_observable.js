@@ -14,6 +14,9 @@ const regular_observableSchema = mongoose.Schema({
 const regular_observable = mongoose.model('regular_observal', regular_observableSchema);
 
 module.exports = {
+    UnInit: function(){
+        regular_observable.remove({}).then(res => {});
+    },
     Init: function(arr){
         for(var i=0; i < 9; i++){
             var obj = {

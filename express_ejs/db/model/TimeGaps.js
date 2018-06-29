@@ -8,6 +8,9 @@ const TimeGapsSchema = mongoose.Schema({
 const TimeGaps = mongoose.model('TimeGaps', TimeGapsSchema);
 
 module.exports = {
+    UnInit: function(){
+        TimeGaps.remove({}).then(res => {});
+    },
     Init: function(array){
         for(let i=0; i< array.length; i++){
             const timeGaps = new TimeGaps(array[i]);

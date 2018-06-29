@@ -11,6 +11,9 @@ const EventSchema = mongoose.Schema({
 const Events = mongoose.model('events', EventSchema);
 
 module.exports = {
+    UnInit: function(){
+        Events.remove({}).then(res => {});
+    },
     Init: function(arr){
         for(var i=0;i<arr;i++){
             const event = new Events(arr[i]);

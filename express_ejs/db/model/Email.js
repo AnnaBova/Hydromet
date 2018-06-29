@@ -9,6 +9,9 @@ var EmailSchema = mongoose.Schema({
 var Email = mongoose.model('email', EmailSchema);
 
 module.exports = {
+    UnInit: function(){
+        Email.remove({}).then(res => {});
+    },
     GetAll: function(){
         return Email.find({});
     },

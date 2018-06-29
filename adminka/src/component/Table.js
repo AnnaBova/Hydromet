@@ -34,7 +34,6 @@ class Tables extends Component {
 
     render() {
         if(this.props.Record !== undefined){
-            console.log(this.props.Record);
             return (
                 <Form>
                     <Form.Field control='select' onChange= {this.OnChange}>

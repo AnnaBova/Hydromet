@@ -34,11 +34,18 @@ import {
     EDIT_RADITIONAL,
     CHANGE_STATION_RADITIONAL,
     GET_CLIMATE_CHARACTERISTIC,
-    EDIT_CLIMATE_CHARACTERISTIC
+    EDIT_CLIMATE_CHARACTERISTIC,
+    NO_AUTHORIZATION_MESSAGE
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
 const LocalHost = "http://77.120.115.201:3001";
+
+export function NoAthorizationMessage(){
+    return {
+        type: NO_AUTHORIZATION_MESSAGE
+    }
+}
 
 export function EditClimateCharacteristicReqest(data){
     return (dispatch) => {
@@ -550,7 +557,7 @@ export function getToken(data){
                 }
                 
             })
-            .catch(err => console.log(err));
+            .catch(err => dispatch(NoAthorizationMessage()));
     }
 }
 

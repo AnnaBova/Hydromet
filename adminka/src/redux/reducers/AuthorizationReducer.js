@@ -1,9 +1,16 @@
-import { SET_TOKEN, SET_STATION_ID, SET_STATION_NAME } from '../actions/ActionTypes';
+import { 
+    SET_TOKEN,
+    SET_STATION_ID, 
+    SET_STATION_NAME, 
+    NO_AUTHORIZATION_MESSAGE,
+    SET_AUTHORIZATION_MESSAGE 
+} from '../actions/ActionTypes';
 
 const initialState = {
     token: "",
     stationId:"",
     StationName: "",
+    Message: false,
 }
 
 export function AuthorizationReducer(state = initialState, actions){
@@ -11,8 +18,9 @@ export function AuthorizationReducer(state = initialState, actions){
         
         case SET_TOKEN: {
             return {
+                ...state,               
                 token: actions.payload.token,
-                ...state
+                Message: false,
             }
         }
 
@@ -29,6 +37,14 @@ export function AuthorizationReducer(state = initialState, actions){
                 StationName: actions.payload
             }
         }
+
+        case NO_AUTHORIZATION_MESSAGE: {
+            return {
+                ...state,
+                Message: true
+            }
+        }
+
 
         default:{ 
             return state;

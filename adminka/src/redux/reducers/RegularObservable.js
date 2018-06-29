@@ -1,12 +1,14 @@
 import {
     GET_REGULAR_OBSERVABLE,
     CHANGE_REGULAR_OBSERVABLE,
-    EDIT_REGULAR_OBSERVABLE
+    EDIT_REGULAR_OBSERVABLE,
+    SET_MESSAGE_REGULAR_OBSERVABLE
 } from '../actions/ActionTypes';
 
 const initialState = {
     RegularObservable: [],
-    Observ: {}
+    Observ: {}, 
+    Message: false
 }
 
 export function RegularObservableReducer(state=initialState, actions){
@@ -33,8 +35,16 @@ export function RegularObservableReducer(state=initialState, actions){
                     }
                     return item;
                 }),
-                Observ: actions.payload 
+                Observ: actions.payload ,
+                Message: true
             };
+        }
+
+        case SET_MESSAGE_REGULAR_OBSERVABLE: {
+            return {
+                ...state,
+                Message: false
+            }
         }
         default: {
             return state;

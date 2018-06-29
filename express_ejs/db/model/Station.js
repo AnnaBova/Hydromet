@@ -7,6 +7,9 @@ const StationSchema = mongoose.Schema({
 const Station = mongoose.model('Stations', StationSchema);
 
 module.exports = {
+    UnInit: function(){
+        Station.remove({}).then(res => {});
+    },
     Init: function(array){
         for(var i=0; i< array.length; i++){
             const station = new Station(array[i]);

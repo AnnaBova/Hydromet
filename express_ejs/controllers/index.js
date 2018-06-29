@@ -16,12 +16,12 @@ const Events = require('../db/model/Events');
 const DagerGydrolygy = require('../db/model/DangerGydrolygy');
 const radiotional = require('../db/model/radiotional');
 const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
-var Init = require('../db/init');
+var Init = require('../db/init').Init;
+Init();
 
 function getObserv(){
   var now = new Date();
   var hour = now.getHours();
-  console.log(hour);
     if(hour >= 0 && hour <= 2) {
       return '00'
     }
@@ -79,6 +79,7 @@ module.exports = {
                 .then(respons => {
                   WeatherCityTable.GetAll().then(
                     answer => { 
+                      console.log(response)
                       resp.render('pages/home', { 
                         ZpTemperature: response[0][0], 
                         observe: observe, 
@@ -243,7 +244,6 @@ module.exports = {
       .then(resp => {
         DagerGydrolygy.GetAll()
           .then(respons => {
-            console.log(resp);
             res.render('pages/regular_observations', { data: resp, danger:respons[0].text});
           })
       });

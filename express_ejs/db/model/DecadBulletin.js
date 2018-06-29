@@ -7,6 +7,9 @@ var DecadeSchema = mongoose.Schema({
 var DecadBulletin = mongoose.model('decade_bulletin', DecadeSchema);
 
 module.exports = {
+    UnInit: function() {
+        DecadBulletin.remove({}).then(res => {});
+    },
     Init: function(data) {
         const decad = new DecadBulletin(data);
         decad.save();

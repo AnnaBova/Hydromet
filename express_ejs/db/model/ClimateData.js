@@ -24,6 +24,9 @@ const ClimateDataSchema = mongoose.Schema({
 const ClimateData = mongoose.model('Climate_Data', ClimateDataSchema);
 
 module.exports = {
+    UnInit: function(){
+        ClimateData.remove({}).then(res => {});
+    },
     Init:function(data){
         const Climat = new ClimateData(data);
         Climat.save();
