@@ -859,12 +859,10 @@ module.exports = {
         ClimateData.Init(ClimateDataObject)
         TimeGaps.Init(TimeGapsArray);
         Station.Init(StationArray);
-        UserController.Init(UsersArray);
         Regular_observable.Init(ObservArr);
         Email.Init(EmailArr);
         Chart.Init(chartArr);
         radionatioal.Init(radiotionalArr);
-        InitCityWeatrherTable();
         DangerGydrolygy.Init({text: DangerGydrolygyText});
         DecadeBulletin.Init({Decad: decad});
         event.Init(events);
@@ -872,6 +870,10 @@ module.exports = {
         waterTemperature.Init(waterObj);
         WeatherCity.Init(WeatherData)
         WeatherObservable.Init(WeatherObservableObj);
+        InitCityWeatrherTable();
+        setTimeout(() => {
+            UserController.Init(UsersArray)
+        },5000) 
         console.log('Initial');
     },
     UnInit: function(){

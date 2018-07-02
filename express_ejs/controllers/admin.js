@@ -144,19 +144,19 @@ module.exports = {
     edit_weather_city_bulletin: function(req, res) {
             switch(req.body.index){
                 case 0: {
-                    WeatherCityTable.EditTableCityRowById(req.body.data);
+                    WeatherCityTable.EditTableCityRowById(req.body.data, res);
                     break;
                 }
                 case 1: {
-                    WeatherCityTable.EditTextCityRowById(req.body.data)
+                    WeatherCityTable.EditTextCityRowById(req.body.data, res)
                     break;
                 }
                 case 2: {
-                    WeatherCityTable.EditTableOblRowById(req.body.data);
+                    WeatherCityTable.EditTableOblRowById(req.body.data, res);
                     break;
                 }
                 case 3: {
-                    WeatherCityTable.EditTextOblRowById(req.body.data)
+                    WeatherCityTable.EditTextOblRowById(req.body.data, res)
                     break;
                 }
                 default: res.send()

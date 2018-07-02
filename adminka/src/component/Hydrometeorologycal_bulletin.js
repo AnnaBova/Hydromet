@@ -41,6 +41,7 @@ class Hydrometeorologycal extends Component {
                             data={this.props.WeatherDay} 
                             Submit={this.Submit} 
                             ChangeDay={this.ChangeDay}
+                            setMessage= {this.props.setMessage}
                         />
                         </Tab.Pane> },
                 {   menuItem: 'Текстовая погода по Запорожью', 
@@ -49,6 +50,7 @@ class Hydrometeorologycal extends Component {
                             data={this.props.WeatherDay} 
                             ChangeDay={this.ChangeDay}
                             Submit={this.Submit}
+                            setMessage= {this.props.setMessage}
                         />
                         </Tab.Pane> },
                 {   menuItem: 'Погода по облости', 
@@ -57,6 +59,7 @@ class Hydrometeorologycal extends Component {
                         data={this.props.WeatherDay} 
                         Submit={this.Submit} 
                         ChangeDay={this.ChangeDay}
+                        setMessage= {this.props.setMessage}
                     />
                     </Tab.Pane> },
                 {   menuItem: 'Текстовая погода по облости', 
@@ -65,6 +68,7 @@ class Hydrometeorologycal extends Component {
                             data={this.props.WeatherDay}
                             ChangeDay={this.ChangeDay}
                             Submit={this.Submit}
+                            setMessage= {this.props.setMessage}
                         />
                         </Tab.Pane> },
                 {   menuItem: 'Обзор погоды', 
@@ -76,6 +80,7 @@ class Hydrometeorologycal extends Component {
                                 ObservDay = {this.props.ObservDay}
                                 ObservWeather= {this.props.ObservWeather}
                                 WeatherObservableData = {this.props.WeatherObservableData}
+                                setMessage= {this.props.setMessage}
                             />
                         </Tab.Pane> },
                 {   menuItem: 'Климатические данные запорожья', 
@@ -83,10 +88,11 @@ class Hydrometeorologycal extends Component {
                         <ClimateData 
                             Submit={this.handelSubmitClimate}
                             ClimateData={this.props.ClimateData}
+                            setMessage= {this.props.setMessage}
                         /></Tab.Pane> },
                 {   menuItem: 'Декадный белютень', 
                     render: () => <Tab.Pane>
-                        <DecadBulletin SubmitDecadBulletin = {this.handelDecadBulletinSubmit}/></Tab.Pane> },
+                        <DecadBulletin SubmitDecadBulletin = {this.handelDecadBulletinSubmit} setMessage= {this.props.setMessage}/></Tab.Pane> },
                 {   menuItem: 'Радиационный фон', 
                     render: () => <Tab.Pane>
                         <Radiation 
@@ -94,6 +100,7 @@ class Hydrometeorologycal extends Component {
                             Raditional = { this.props.Raditional }
                             EditRaditionalReqest = { this.props.EditRaditionalReqest } 
                             ChangeStationRaditional = { this.props.ChangeStationRaditional }
+                            setMessage= {this.props.setMessage}
                         /></Tab.Pane> },
             ],
         }
@@ -318,7 +325,7 @@ class Hydrometeorologycal extends Component {
 
     render() {
     return (
-        <Form>
+        <Form success={this.props.Message}>
             <Tab panes={this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange}></Tab>
             <Button floated="left" onClick={this.SaveReport}>Сохранить отчет</Button>
             <Button onClick={this.handelSendMail}>Отправить пользователям</Button>
@@ -328,6 +335,7 @@ class Hydrometeorologycal extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    Message: state.hydrometeorolog_bulletin.Message,
     Raditional: state.RaditionalReducer.raditional,
     ClimateData: state.hydrometeorolog_bulletin.ClimateData,
     WeatherDay: state.hydrometeorolog_bulletin.WeatherDay,
@@ -355,7 +363,8 @@ const mapDispatchToProps = (dispatch) => ({
     ChangeDay: bindActionCreators(ChangeDay, dispatch),
     getBuletin: bindActionCreators(getHydroBulletin, dispatch),
     noAuthorization: () => dispatch(push('/signup')),
-    GoTyMailCastomize: () => dispatch(push('/mail_castomize'))
+    GoTyMailCastomize: () => dispatch(push('/mail_castomize')),
+    setMessage: () => dispatch({type: 'SET_HYDRO_BULLETIN_MESSAGE'}),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Hydrometeorologycal);

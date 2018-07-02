@@ -39,7 +39,7 @@ import {
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
-const LocalHost = "http://77.120.115.201:3001";
+const LocalHost = "http://localhost:3001";
 
 export function NoAthorizationMessage(){
     return {
@@ -329,11 +329,12 @@ export function editMatter(value) {
     }
 }
 
-export function getHydroBulletin (){
+export function getHydroBulletin (index = 0){
     return (dispatch) => {
         fetch(`${LocalHost}/get_hydrometeorologycal_bulletin`)
         .then(res => res.json())
         .then(res => dispatch(setBulletin(res)))
+        .then(() => dispatch(ChangeWeathers(index)))
         .catch(err => console.log(err));
     }
 }
@@ -495,8 +496,7 @@ export function Edit(data, index){
             },
             body: JSON.stringify({data, index}) 
         })
-        .then(res => res.json())
-        .then(EditDay(data))
+        .then(() => dispatch(getHydroBulletin(index)))
         .catch(err => console.log(err));
     }
 }

@@ -3,7 +3,6 @@ import {
     SET_STATION_ID, 
     SET_STATION_NAME, 
     NO_AUTHORIZATION_MESSAGE,
-    SET_AUTHORIZATION_MESSAGE 
 } from '../actions/ActionTypes';
 
 const initialState = {

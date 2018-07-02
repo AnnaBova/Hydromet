@@ -17,6 +17,7 @@ export function climateReducer(state = initialState, actions){
         case CHANGE_RECORDS: {
             return{ 
                 ...state,
+                // eslint-disable-next-line
                 Record: state.Tables.find(el => el.id == actions.payload)
             }
         }

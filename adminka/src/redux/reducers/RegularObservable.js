@@ -23,6 +23,7 @@ export function RegularObservableReducer(state=initialState, actions){
         case CHANGE_REGULAR_OBSERVABLE:{
             return {
                 ...state,
+                // eslint-disable-next-line
                 Observ: state.RegularObservable.find(item => item._id == actions.payload)
             };
         }
@@ -30,6 +31,7 @@ export function RegularObservableReducer(state=initialState, actions){
             return {
                 ...state,
                 RegularObservable: state.RegularObservable.map(item => {
+                    // eslint-disable-next-line
                     if(item._id == actions.payload){
                         item = actions.payload;
                     }
