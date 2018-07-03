@@ -60,14 +60,6 @@ class ObservableWeather extends Component {
   } 
 
   handelStationChange = (e) => {
-    if(this.validator()){
-      this.props.EditDay({
-        ...this.props.ObservDay,
-        MaxTemperature: this.state.MaxTemperature,
-        MinTemperature: this.state.MinTemperature,
-        Precipitation: this.state.precipitation,
-        Phenomen: this.state.Phenomena
-      });
       this.props.ChangeDay(e.target.value-1);
       this.setState({
         MaxTemperature: "", 
@@ -75,7 +67,7 @@ class ObservableWeather extends Component {
         precipitation:"",
         Phenomen:""
       })
-    } 
+
   }
 
   handelChangePhenomen = (e) => {

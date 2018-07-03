@@ -107,6 +107,7 @@ class Hydrometeorologycal extends Component {
     }
 
     handelEditDayObserv = (obj) => {
+        console.log(obj);
         this.props.EditDayObserv(obj);
     }
 
