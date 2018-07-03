@@ -112,4 +112,6 @@ router.get('/get_climate_characteristic', admincontroller.GetClimateCharacterist
 
 router.post('/edit_climate_records', admincontroller.EditClimateCharacteristic)
 
+router.get('/info/:station', controller.GetInfoStation);
+
 module.exports = router;

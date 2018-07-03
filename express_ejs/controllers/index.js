@@ -95,6 +95,12 @@ module.exports = {
     
   },
 
+  GetInfoStation: function(req, res){
+    Station.GetIdStation(req.params.station).then(respons => {
+      res.render('pages/Station',{station: respons[0]});
+    })
+    
+  },
   getCurrentWeather: function (req, response) {
     var router = {
       "zaporozhye": false,

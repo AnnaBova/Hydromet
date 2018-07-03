@@ -773,13 +773,48 @@ var ObservArr = [
 ]
 
 var StationArray = [
-    {"Title":'zaporozhye'},
-    {"Title":'prism'},
-    {"Title":'kyrylivka'},
-    {"Title":'gulyaypole'},
-    {"Title":'botievye'},
-    {"Title":'melitopol'},
-    {"Title":'berdyansk'}
+    {
+        "Title":'zaporozhye',
+        "addres":"м. Запоріжжя, вул. Блакитна, 4, територія аеропорту Запоріжжя",
+        "email": "metzaporozh@meteo.gov.ua",
+        "full_name": "Авіаційна метеорологічна станція цивільна Запоріжжя"
+    },
+    {
+        "Title":'prism',
+        "addres":"смт. Пришиб Михайлівський район, пров. Східний, 18",
+        "email": "mspryshyb@meteo.gov.ua",
+        "full_name": "Метеорологічна станція Пришиб"
+    },
+    {
+        "Title":'kyrylivka',
+        "addres":"с. Семенівка Пологівського району, вул. Дружби, 151",
+        "email": "",
+        "full_name": "Метеорологічна станція Кирилівка"
+    },
+    {
+        "Title":'gulyaypole',
+        "addres":"м. Гуляйполе, вул. Потайна, 16",
+        "email": "msgulyaypole@meteo.gov.ua",
+        "full_name": "Метеорологічна станція Гуляйполе"
+    },
+    {
+        "Title":'botievye',
+        "addres":"с. Ботієве Приазовського району, вул. Тараса Шевченка, 68",
+        "email": "msbotievo@meteo.gov.ua",
+        "full_name": "Метеорологічна станція Ботієве"
+    },
+    {
+        "Title":'melitopol',
+        "addres":"м. Мелітополь, вул. Вакуленчука, 99",
+        "email": "msmelitopol@meteo.gov.ua",
+        "full_name": "Метеорологічна станція  Мелітополь"
+    },
+    {
+        "Title":'berdyansk',
+        "addres":"м. Бердянськ, вул. Горького,6, територія  морського торговельного порту",
+        "email": "msberdyansk@meteo.gov.ua",
+        "full_name": "Морська гідрометеорологічна станція Бердянськ"
+    }
 ]
 
 var TimeGapsArray = [

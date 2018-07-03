@@ -14,6 +14,58 @@ html {
   font-style: normal; 
   font-weight: normal; 
 }
+.map::before{
+  padding-right: 20px; 
+  content: url(../images/marker.png);
+}
+.address::before{
+  padding-right: 12px; 
+  content: url(../images/envelope.png);
+
+}
+
+/* * {
+  box-sizing: border-box;
+} */
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.slide-img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+.slideShow {
+	max-width: 700px;
+	width: 100%;
+	margin: 20px auto;
+}
+
+.slide__list {
+	margin: 2px 0;
+}
+
+.slide__item {
+	width: 25%;
+	padding: 1px;
+	position: relative;
+    display: block;
+    float: left;
+  border: 1px solid transparent;
+}
+
+.slide__item:hover {
+  border: 1px solid #333;
+}
+
+.m-l-20{
+  margin-left: 20%;
+}
 body{
   font-family: 'Tahoma';
   font-size:14px;
@@ -134,7 +186,7 @@ button.btn-blue{
 .dropdown-submenu > .dropdown-menu{
   top:0;
   left:100%;
-  margin-top:-6px;
+  margin-top:-7px;
   margin-left:-1px;
 }
 .navbar-toggle .icon-bar{

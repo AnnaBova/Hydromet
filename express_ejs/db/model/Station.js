@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
 
 const StationSchema = mongoose.Schema({
-    "Title":String
+    "Title":String,
+    "addres": String,
+    "email": String,
+    "full_name": String,
 });
 
 const Station = mongoose.model('Stations', StationSchema);
@@ -16,7 +19,7 @@ module.exports = {
             station.save();
         }
     },
-    GetIdStation: function(string, callback){
+    GetIdStation: function(string){
         return Station.find({'Title': string});
     },
     GetStationById: function(id){

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ../partials/head %>
+
+<body>
+
+    <% include ../partials/header %>
+    <section>
+        <div class="container m-b-md">
+            <div class="text-blue text-center block-title"><%= station.full_name%></div>
+            <div class="m-l-20 m-b-md map"><%= station.addres %></div>
+            <div class="m-l-20 m-b-xl address"><%= station.email %></div>
+            
+            <div class="slideShow">
+                <div class="slide__gap">
+                    <img src="/public/assets/images/<%= station.Title %>1.jpg" class="slide-img" alt="">
+                </div>
+                
+                <ul class="slide__list flex-row">
+                    <li class="slide__item">
+                    <a href="#" class="slide__link">
+                            <img src="/public/assets/images/<%= station.Title %>1.jpg" class="slide-img" alt="">
+                    </a>
+                    </li>
+                    <li class="slide__item">
+                    <a href="#" class="slide__link">
+                            <img src="/public/assets/images/<%= station.Title %>2.jpg" class="slide-img" alt="">
+                    </a>
+                    </li>
+                    <li class="slide__item">
+                    <a href="#" class="slide__link">
+                            <img src="/public/assets/images/<%= station.Title %>3.jpg" class="slide-img" alt="">
+                    </a>
+                    </li>
+                    <li class="slide__item">
+                    <a href="#" class="slide__link">
+                            <img src="/public/assets/images/<%= station.Title %>4.jpg" class="slide-img" alt="">
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+    <% include ../partials/slideScript %>
+    <% include ../partials/footer %>
+</body>
+</html>
