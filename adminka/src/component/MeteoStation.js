@@ -162,6 +162,8 @@ class MeteoStation extends Component {
                             <option value='cloud_rain'>Дождь</option>
                             <option value='cloud_snow'>Снег</option>
                             <option value='fog'>Туман</option>
+                            <option value="mist">Мряка</option>
+                            <option value="snower">Град</option>
                         </Form.Field> 
                         { this.props.water === "zaporozhye" || this.props.water === "berdyansk"? 
                             (<Form.Field>

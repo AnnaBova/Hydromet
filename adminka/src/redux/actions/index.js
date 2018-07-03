@@ -132,7 +132,7 @@ export function SubmitEmail(emails){
             body: JSON.stringify(emails)
         })
             .then(res => {})
-            //.then(err => console.log(err));
+            .then(err => console.log(err));
     }
 }
 export function SubmitDangerPhenomen(text){
@@ -424,7 +424,7 @@ export function uploadDocumentRequest({file, title, text, date, description}) {
             method: 'POST',
             body: data 
         })
-        .then(response => console.log(response))
+        .then(response => {})
         .catch(error => console.log(error));
     };
 }
@@ -649,9 +649,7 @@ export function AddWeather(weather){
             },
             body: JSON.stringify(weather) 
         })
-        .then(res => {
-            console.log(res)
-        })
+        .then(res => {})
         .catch(err => console.log(err));
     }
 }

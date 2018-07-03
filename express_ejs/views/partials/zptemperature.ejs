@@ -10,7 +10,9 @@
           </div>
           <div class="today-weather-footer">
             <span> <%= ZpTemperature.Weather.wind %> м/с<i class="la la-long-arrow-<%= ZpTemperature.Weather.DirectionWind %> la-lg"></i></span>
-            <img src="public/assets/svg/<%= ZpTemperature.Weather.phenomena %>.svg" class="f-r">
+            <%if(ZpTemperature.Weather.phenomena != ""){%>
+              <img src="public/assets/svg/<%= ZpTemperature.Weather.phenomena %>.svg" class="f-r">
+            <%}%>
           </div>
     </div>
 </div>
