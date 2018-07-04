@@ -10,40 +10,52 @@
         <div class="container m-b-md">
             <div class="text-blue text-center block-title"><%= station.full_name%></div>
             <div class="m-l-20 m-b-md map"><%= station.addres %></div>
-            <div class="m-l-20 m-b-xl address"><%= station.email %></div>
-            
-            <div class="slideShow">
-                <div class="slide__gap">
-                    <img src="/public/assets/images/<%= station.Title %>1.jpg" class="slide-img" alt="">
+            <div class="m-l-20 m-b-xl address"><%= station.email %></div>  
+            <div id="page">
+                    <div class="row">
+                        <div class="column small-11 small-centered">
+                            <div class="slider slider-single">
+                                <div class="img-slide">
+                                    <img  src="/public/assets/images/<%= station.Title%>1.jpg" alt=""/>
+                                </div>
+                                <div class="img-slide"> 
+                                    <img  src="/public/assets/images/<%= station.Title%>2.jpg" alt=""/> 
+                                </div>
+                                <div class="img-slide"> 
+                                    <img  src="/public/assets/images/<%= station.Title%>3.jpg" alt=""/>
+                                </div>
+                                <div class="img-slide"> 
+                                    <img  src="/public/assets/images/<%= station.Title%>4.jpg" alt=""/>
+                                </div>
+                            </div>
+                            <div class="slider slider-nav">
+                                <div>
+                                    <div class="img-slide"> 
+                                        <img  src="/public/assets/images/<%= station.Title%>1.jpg" alt=""/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="img-slide"> 
+                                        <img  src="/public/assets/images/<%= station.Title%>2.jpg" alt=""/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="img-slide"> 
+                                        <img  src="/public/assets/images/<%= station.Title%>3.jpg" alt=""/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="img-slide"> 
+                                        <img  src="/public/assets/images/<%= station.Title%>4.jpg" alt=""/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <ul class="slide__list flex-row">
-                    <li class="slide__item">
-                    <a href="#" class="slide__link">
-                            <img src="/public/assets/images/<%= station.Title %>1.jpg" class="slide-img" alt="">
-                    </a>
-                    </li>
-                    <li class="slide__item">
-                    <a href="#" class="slide__link">
-                            <img src="/public/assets/images/<%= station.Title %>2.jpg" class="slide-img" alt="">
-                    </a>
-                    </li>
-                    <li class="slide__item">
-                    <a href="#" class="slide__link">
-                            <img src="/public/assets/images/<%= station.Title %>3.jpg" class="slide-img" alt="">
-                    </a>
-                    </li>
-                    <li class="slide__item">
-                    <a href="#" class="slide__link">
-                            <img src="/public/assets/images/<%= station.Title %>4.jpg" class="slide-img" alt="">
-                    </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
     </section>
     <% include ../partials/slideScript %>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <% include ../partials/footer %>
 </body>
 </html>
