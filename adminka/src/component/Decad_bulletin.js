@@ -51,7 +51,8 @@ class DecadBulletin extends Component {
     render() {
         return (
             <Grid>
-                <Grid.Row>   
+                <Grid.Row> 
+                    <Grid.Column width={4} />  
                 <ReactQuill
                     className="QuillWrap"
                     theme="snow"
@@ -62,7 +63,7 @@ class DecadBulletin extends Component {
                 />
                 </Grid.Row>
                 <Grid.Row>
-                <Grid.Column width={3}/>
+                <Grid.Column width={7}/>
                 <Grid.Column>
                     <Button onClick = {this.handelSubmit} primary>Сохранить</Button>
                 </Grid.Column>

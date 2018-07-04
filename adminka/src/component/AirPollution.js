@@ -104,7 +104,7 @@ class Forms extends Component {
 
         return (
             <Grid>
-                <Grid.Column width={4}/>   
+                <Grid.Column width={6}/>   
                 <Grid.Column width={3}>
                     <h3>Диаграма Загрязнения воздуха</h3>
                     {this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены" />: <div />}

@@ -52,6 +52,7 @@ class MailCastomize extends Component {
     render() {
         return (
                 <Grid>
+                    <Grid.Row>
                     <Grid.Column width={5}/>
                     <Grid.Column width={6}>
                         <Form>
@@ -71,13 +72,19 @@ class MailCastomize extends Component {
                             <Button onClick={this.handelSubmitMail}>Отправить письма</Button>
                             <Button onClick={this.handelBackToGydrpomet}>Вернуться к Гидрометрическому белютеню</Button>
                         </Form>
-                        { this.props.Emails.map(item => <Email 
-                                key={item._id} 
-                                SetRole={this.SetRole} 
-                                DeleteEmails={this.props.DeleteEmails} 
-                                email={item} 
-                            />) }
                     </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={6}/>
+                        <Grid.Column width={5}>
+                            { this.props.Emails.map(item => <Email 
+                                        key={item._id} 
+                                        SetRole={this.SetRole} 
+                                        DeleteEmails={this.props.DeleteEmails} 
+                                        email={item} 
+                                    />) }
+                        </Grid.Column>
+                    </Grid.Row>
                 </Grid>);
     }
 }

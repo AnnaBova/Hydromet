@@ -5,10 +5,7 @@ import TableItem from './TableItem';
 
 class Tables extends Component {
 
-    LogOut = () => {
-        localStorage.removeItem('token');
-        this.props.noAuthorization()
-    }
+
 
     Change = (value) => {
         this.props.Record.table = this.props.Record.table.map((item)=> {
@@ -62,7 +59,7 @@ class Tables extends Component {
                         </Table.Body>
                     </Table>
                     <Button onClick={this.OnSave} primary>Сохранить</Button>
-                    <Button type="button" onClick ={this.LogOut}>Выйти</Button>
+                    
                 </Form> );
         }else {
             return <div></div>

@@ -88,16 +88,18 @@ class MeteoStation extends Component {
     render() {
         return (
         <Grid>
+            
             <Grid.Row>
                 <Grid.Column width={4}/>
                 <Grid.Column width={7}>
                     { this.state.Message ? <Message success header="Сохранение" content="Данные успешно сохранены  "/> : <div /> }
                 </Grid.Column>
             </Grid.Row>
+               
             <Grid.Row>
                 <Grid.Column  width={5}/>
+                <Form onSubmit={this.handelSubmit}>
                 <Grid.Column width={5}> 
-                    <Form onSubmit={this.handelSubmit}>
                         <Form.Field  >
                             <InputComponent 
                                 value = {this.state.date}
@@ -179,9 +181,11 @@ class MeteoStation extends Component {
                             <Button type="submit" primary>Отправить форму</Button>
                             { this.props.water === "zaporozhye" ? <Link to="/gydrolygy"><Button type="button">Заполнить гидрологические наблюдения</Button></Link>: <div />  }
                             <Button type="button" onClick = {this.OnClick} >Выйти</Button>
-                    </Form>
+                   
                 </Grid.Column>
+                </Form>
             </Grid.Row>
+
         </Grid>);
     }
 }

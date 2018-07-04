@@ -62,11 +62,15 @@ module.exports = {
     getToken: function(req, res){
         UserController.Authorization(req.body.login)
         .then(respons => {
-            bcrypt.compare(req.body.password, respons.password).then(
-                resp => {
-                    resp ? res.status(200).json(respons): res.status(401).send();
-                }
-            );
+            if(respons !== null){
+                bcrypt.compare(req.body.password, respons.password).then(
+                    resp => {
+                        resp ? res.status(200).json(respons): res.status(401).send();
+                    }
+                );
+            }else {
+                res.status(401).send();
+            }
         });       
     }, 
     getStation: function(req, res){

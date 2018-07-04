@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { Tab, Grid } from 'semantic-ui-react';
+import { Tab, Grid, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Tabels from './Table';
@@ -88,6 +88,11 @@ class Records extends Component {
         }
     }
 
+    LogOut = () => {
+        localStorage.removeItem('token');
+        this.props.noAuthorization()
+    }
+
     componentDidMount() {
         this.props.GetClimateCharacteristic();
         this.props.GetRecords();
@@ -96,9 +101,14 @@ class Records extends Component {
     render() {
 
         return (
-        <Grid.Column width = {4}>
-            <Tab panes = {this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.ChangeTab}></Tab> 
-        </Grid.Column>
+            <Grid.Row>
+                <Grid.Column width = {4}>
+                    <Tab panes = {this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.ChangeTab}></Tab> 
+                </Grid.Column>
+                <Grid.Column width={5}>
+                    <Button type="button" floated="right" onClick ={this.LogOut}>Выйти</Button>
+                </Grid.Column>
+            </Grid.Row>
         );
     }
 }

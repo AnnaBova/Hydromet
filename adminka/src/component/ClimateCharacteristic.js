@@ -94,7 +94,7 @@ class ClimateCharacteristic extends Component {
                             onChange={this.handelAreaOnChange}
                         />
                     </Form.Field>
-                    <Button onClick={this.handelOnSubmit}>Сохранить</Button>
+                    <Button primary onClick={this.handelOnSubmit}>Сохранить</Button>
                 </Form>
                 </Grid.Column>
             </Grid>
