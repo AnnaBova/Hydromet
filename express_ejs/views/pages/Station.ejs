@@ -10,7 +10,7 @@
         <div class="container m-b-md">
             <div class="text-blue text-center block-title"><%= station.full_name%></div>
             <div class="m-l-20 m-b-md map"><%= station.addres %></div>
-            <div class="m-l-20 m-b-xl address"><%= station.email %></div>  
+            <%if(station.email != ""){ %><div class="m-l-20 m-b-xl address"><%= station.email %></div><%}%>
             <div id="page">
                     <div class="row">
                         <div class="column small-11 small-centered">
