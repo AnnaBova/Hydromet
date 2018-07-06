@@ -44,7 +44,7 @@ router.get('/single_events/:id', controller.getSingleEvents);
 
 router.get('/decade_bulletin', controller.getDecadeBulletin);
 
-router.get('/signup', controller.getAdmin);
+router.get('/signin', controller.getAdmin);
 
 router.post('/token', admincontroller.getToken);
 

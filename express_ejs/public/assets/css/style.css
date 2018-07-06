@@ -14,14 +14,27 @@ html {
   font-style: normal; 
   font-weight: normal; 
 }
-.map::before{
+
+
+.map-icon::before{
+  vertical-align: -30%;
+  height: 33px;
   padding-right: 20px; 
   content: url(../images/marker.png);
 }
+
 .address::before{
-  padding-right: 12px; 
+  margin-left: -3px;
+  vertical-align: -15%;
+  padding-right: 16px; 
   content: url(../images/envelope.png);
 
+}
+
+.line-item{
+  height: 46px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .js .slider-single > div:nth-child(1n+2) { display: none }
@@ -570,7 +583,7 @@ section{
   margin:0 auto;
 }
 .list-item{
-  margin-bottom:30px;
+  margin-bottom:20px;
   word-wrap: break-word;
 }
 .text-bold{
@@ -665,6 +678,13 @@ section{
   height: auto;
   min-height: 364px;
 }
+
+.line-item-55{
+  height: 55px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .posts-block{
   border-radius:10px;
   box-shadow: 0px 4px 14.58px 3.42px rgba(0, 0, 0, 0.2);
@@ -709,7 +729,8 @@ ul.info-list li:before {
   float: left;
   margin-right: 25px; 
   position: relative;
-  z-index: 5;  
+  z-index: 5; 
+  margin-top: 5px; 
 }
 .stage-item{
   line-height: 1.1;
@@ -748,6 +769,11 @@ ul.info-list li:before {
 .table-responsive >.table > thead > tr > th{
   white-space: normal;
 }
+
+.text-style{
+  white-space: pre-wrap;
+}
+
 table#regular_observations td, 
 table#current_weather td,
 table.phenomena-table td{
@@ -812,9 +838,19 @@ span.number{
 .tabs{
   margin: 20px 0 30px;
 }
+.zaparozhye,
+.prism,
+.gylaypole,
+.kyrylivka,
+.berdyansk,
+.botievo,
+.melitopol:hover{
+  cursor: pointer;
+}
 .tabs a{
   display: block;
   min-width:106px;
+  width: 125px;
   color: #ffffff;
   text-decoration: none;
   margin: 10px;
@@ -1081,6 +1117,9 @@ span.number{
   }
 }
 @media (max-width:768px){
+  .line-item-55{
+    height: 37px;
+  }
   body{
     font-size:12px;
   }
@@ -1150,9 +1189,6 @@ span.number{
   }
   .list{
     width:100%;
-  }
-  .list-item{
-    margin-bottom:25px;
   }
   .list-item .m-l-xl{
     margin-left: 0;
