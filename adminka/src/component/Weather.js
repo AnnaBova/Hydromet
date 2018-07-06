@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Grid, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
+import { DataValid } from '../utils/DataValid';
 
 const InputSize = 4;
 
@@ -17,7 +18,8 @@ class Weather extends Component {
         wind:"",
         temperature: "",
         day:{},
-        night:{}
+        night:{}, 
+        Message: false
       }
     }
 
@@ -55,18 +57,22 @@ class Weather extends Component {
           DayName: this.state.DayName
         };
       }
-      this.setState({[nday]: {
-        weather: this.state.Phenomen,
-        temperature: this.state.temperature,
-        wind: this.state.wind,
-        DirectionWind: this.state.DirectionWind
-        },
-        temperature: "",
-        wind: "",
-        date:"",
-      });
-
-      this.props.Submit(this.CreateObj(obj));
+      if( DataValid(this.state.date) ){
+        this.setState({[nday]: {
+          weather: this.state.Phenomen,
+          temperature: this.state.temperature,
+          wind: this.state.wind,
+          DirectionWind: this.state.DirectionWind
+          },
+          temperature: "",
+          wind: "",
+          date:"",
+        });
+  
+        this.props.Submit(this.CreateObj(obj));
+      }else{
+        this.setState({Message: true})
+      }
     }
 
     handelSaveValue = (obj) => {
@@ -136,6 +142,7 @@ class Weather extends Component {
                 <Grid.Column width={4} />
                 <Grid.Column width={6}>
                   <Message success header="Сохранение" content="Данные успешно сохранены "/>
+                  <Message error header="Ошибка" content="Неправильная дата" visible={this.state.Message}/>
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>

@@ -35,11 +35,41 @@ import {
     CHANGE_STATION_RADITIONAL,
     GET_CLIMATE_CHARACTERISTIC,
     EDIT_CLIMATE_CHARACTERISTIC,
-    NO_AUTHORIZATION_MESSAGE
+    NO_AUTHORIZATION_MESSAGE,
+    SET_HYDROMET_MESSAGE,
+    SET_CLIMATE_RECORD_MESSAGE_TRUE,
+    SET_CLIMATE_RECORD_MESSAGE_FALSE,
+    SET_EVENT_MESSAGE_TRUE,
+    SET_EVENT_MESSAGE_FALSE, 
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
-const LocalHost = "http://77.120.123.202:3001";
+const LocalHost = "http://localhost:3001";
+
+export function setEventMessageTrue(){
+    return {
+        type: SET_EVENT_MESSAGE_TRUE
+    }
+}
+
+export function setEventMessageFalse(){
+    return {
+        type: SET_EVENT_MESSAGE_FALSE
+    }
+}
+
+
+export function setRecordMessageTrue(){
+    return {
+        type: SET_CLIMATE_RECORD_MESSAGE_TRUE
+    }
+}
+
+export function setRecordMessageFalse(){
+    return {
+        type: SET_CLIMATE_RECORD_MESSAGE_FALSE
+    }
+}
 
 export function NoAthorizationMessage(){
     return {
@@ -411,6 +441,20 @@ export function SetEvents(value) {
     }
 }
 
+export function uploadCaruselImage(file){
+    let data = new FormData();
+    data.append('file', file);
+    
+    return (dispatch) => {
+        fetch(`${LocalHost}/files_carusel`, {
+                method: 'POST',
+                body: data 
+            })
+            .then(response => {})
+            .catch(error => console.log(error));
+    };
+}
+
 export function uploadDocumentRequest({file, title, text, date, description}) {  
     let data = new FormData();
     data.append('file', file);
@@ -498,6 +542,12 @@ export function Edit(data, index){
         })
         .then(() => dispatch(getHydroBulletin(index)))
         .catch(err => console.log(err));
+    }
+}
+
+export function SetHydrometMessage(){
+    return {
+        type: SET_HYDROMET_MESSAGE
     }
 }
 

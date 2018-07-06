@@ -17,7 +17,7 @@ class App extends Component {
     return (
           <div>
             <Route path="/" exact component= {Forms} />
-            <Route path="/signup" exact component= {FormAuthorization}/>
+            <Route path="/signin" exact component= {FormAuthorization}/>
             <Route path="/meteostation" exact component = {MeteoStation} />
             <Route path="/climate_records" exact component={Records} />
             <Route path="/hydrometeorologycal_bulletin" exact component={Hydrometeorologycal} />

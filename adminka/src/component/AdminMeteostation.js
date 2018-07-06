@@ -199,7 +199,7 @@ class AdminMeteostation extends Component {
 
 
 const mapDispatchToProps = (dispatch) => ({
-    noAuthorization: () => dispatch(push('/signup')),
+    noAuthorization: () => dispatch(push('/signin')),
     getStationId: bindActionCreators(getStationId ,dispatch),
     AddWeatherStation: bindActionCreators(AddWeatherStation, dispatch),
 });

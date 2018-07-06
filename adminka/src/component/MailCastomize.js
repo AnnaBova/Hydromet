@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
     SetRole: bindActionCreators(SetRole, dispatch),
     GetEmails: bindActionCreators(GetEmails, dispatch),
     DeleteEmails: bindActionCreators(DeleteEmailRequest, dispatch),
-    noAuthorization: () => dispatch(push('/signup')),
+    noAuthorization: () => dispatch(push('/signin')),
     BackToGydromet: () => dispatch(push('/hydrometeorologycal_bulletin'))
 });
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Form, Button } from 'semantic-ui-react';
+import { Table, Form, Button, Message } from 'semantic-ui-react';
 import TableItem from './TableItem';
 
 
@@ -8,6 +8,7 @@ class Tables extends Component {
 
 
     Change = (value) => {
+        this.props.setMessage();
         this.props.Record.table = this.props.Record.table.map((item)=> {
             if(item._id === value._id){
                 item = value; 
@@ -18,10 +19,12 @@ class Tables extends Component {
     }
 
     ChangeTitle = (value) => {
+        this.props.setMessage();
         this.props.EditRecord(value);
     }
 
     OnChange = (e) => {
+        this.props.setMessage();
         this.props.OnChange(e.target.value);
     }
 
@@ -32,7 +35,8 @@ class Tables extends Component {
     render() {
         if(this.props.Record !== undefined){
             return (
-                <Form>
+                <Form success={this.props.Message}>
+                    <Message success header="Сохранение" content="Данные успешно сохранены"/>
                     <Form.Field control='select' onChange= {this.OnChange}>
                         {this.props.Records.map((item)=> <option key={item._id} value={item.id}>{item.modalTitle || item.modalName}</option>)}
                     </Form.Field>

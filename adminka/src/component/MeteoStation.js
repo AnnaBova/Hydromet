@@ -195,7 +195,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    noAuthorization: () => dispatch(push('/signup')),
+    noAuthorization: () => dispatch(push('/signin')),
     getStation: bindActionCreators(getStation ,dispatch),
     AddWeather: bindActionCreators(AddWeather, dispatch)
 });

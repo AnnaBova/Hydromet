@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Grid} from 'semantic-ui-react';
+import { Button, Grid, Message } from 'semantic-ui-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -41,16 +41,24 @@ class DecadBulletin extends Component {
     
     
     handleChange(value) {
+        this.props.setMessage();
         this.setState({ text: value });
     }
 
     handelSubmit = () => {
+        this.props.setMessage();
         this.props.SubmitDecadBulletin(this.state.text);
     }
     
     render() {
         return (
             <Grid>
+                <Grid.Row>
+                    <Grid.Column width={4}/>
+                    <Grid.Column width={7}>
+                        <Message success header="Сохранение" content="Данные успешно сохранены"/>
+                    </Grid.Column>
+                </Grid.Row>
                 <Grid.Row> 
                     <Grid.Column width={4} />  
                 <ReactQuill

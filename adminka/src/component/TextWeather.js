@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Grid, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
+import { DataValid } from '../utils/DataValid';
 
 const InputSize = 4;
 
@@ -9,7 +10,8 @@ class TextWeather extends Component {
     super(props);
     this.state = {
       date:"",
-      text:""
+      text:"",
+      Message: false,
     }
   }
 
@@ -32,7 +34,16 @@ class TextWeather extends Component {
   }
 
   handelSubmit = () => {
-    this.props.Submit(this.CreateObj());
+    if(DataValid(this.state.date)){
+      this.props.Submit(this.CreateObj());
+      this.setState({
+        date: "",
+        text: "",
+        Message: false,
+      });
+    }else{
+      this.setState({Message: true});
+    }
   }
 
   render() {
@@ -43,6 +54,7 @@ class TextWeather extends Component {
             <Grid.Column width={4} />
             <Grid.Column width={6}>
               <Message success header="Сохранение" content="Данные успешно сохранены "/>
+              <Message error header="Ошибка" content="Неправильная дата" visible={this.state.Message}/>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -61,6 +73,7 @@ class TextWeather extends Component {
                       label="Дата"
                       name="date"
                       saveValue = {this.handelSaveValue}
+                      placeholder="формат дд.мм"
                   /> 
             </Form.Field>
             <Form.Field width={InputSize}>

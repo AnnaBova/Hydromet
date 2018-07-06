@@ -114,4 +114,6 @@ router.post('/edit_climate_records', admincontroller.EditClimateCharacteristic)
 
 router.get('/info/:station', controller.GetInfoStation);
 
+router.post('/files_carusel', admincontroller.CaruselUpload)
+
 module.exports = router;

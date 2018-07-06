@@ -22,7 +22,7 @@ class FormAuthorization extends Component {
         <Grid.Row>
           <Grid.Column width={5} />
           <Grid.Column width={5}>
-            { this.props.Message ? <Message negative header="Неавторизированы" content="Сожелею возможно вы неправильно ввели логин или пароль"/>: <div /> }
+            { this.props.Message ? <Message negative header="Неавторизированы" content="Сожелею, возможно вы неправильно ввели логин или пароль"/>: <div /> }
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>

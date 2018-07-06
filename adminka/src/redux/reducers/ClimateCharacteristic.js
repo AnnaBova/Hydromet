@@ -1,7 +1,10 @@
-import {GET_CLIMATE_CHARACTERISTIC, EDIT_CLIMATE_CHARACTERISTIC} from '../actions/ActionTypes';
+import {
+    GET_CLIMATE_CHARACTERISTIC, 
+    EDIT_CLIMATE_CHARACTERISTIC
+} from '../actions/ActionTypes';
 
 const initialState = {
-    DataArr: {}
+    DataArr: {},
 }
 
 export function ClimateCharacteristicReducer(state = initialState, actions){

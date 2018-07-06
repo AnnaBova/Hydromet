@@ -182,7 +182,7 @@ const mapDispatchToProps = (dispatch) => ({
     getAirPollution: bindActionCreators(getAirPollution, dispatch),
     ChangeMatter: bindActionCreators(ChangeMatter, dispatch),
     editMatter: bindActionCreators(postEditMatter, dispatch),
-    noAuthorization: () => dispatch(push('/signup')),
+    noAuthorization: () => dispatch(push('/signin')),
     setMessage: () => dispatch({type: 'SET_AIR_POLLUTION_MESSAGE'})
 });
 

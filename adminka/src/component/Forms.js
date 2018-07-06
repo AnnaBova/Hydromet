@@ -16,7 +16,7 @@ class Forms extends Component {
 
 
 const mapDispatchToProps = (dispatch) => ({
-    noAuthorization: () => dispatch(push('/signup'))
+    noAuthorization: () => dispatch(push('/signin'))
 });
 
 export default connect(null,mapDispatchToProps)(Forms);

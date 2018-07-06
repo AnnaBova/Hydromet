@@ -10,7 +10,8 @@ import {
     EDIT_OBSERV_DAY,
     SET_CLIMATE_DATA,
     SET_WEATHER_OBSERVABLE_DATA,
-    SET_HYDRO_BULLETIN_MESSAGE
+    SET_HYDRO_BULLETIN_MESSAGE,
+    SET_HYDROMET_MESSAGE
 } from '../actions/ActionTypes';
 
 
@@ -42,25 +43,28 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 ObservDay: actions.payload.WeatheObservable.StationWeather[0],
             }
         }
+        case SET_HYDROMET_MESSAGE: {
+            return {
+                ...state,
+                Message: true,
+            }
+        }
         case SET_WEATHER_OBSERVABLE_DATA: {
             return {
                 ...state,
                 WeatherObservableData: actions.payload,
-                Message: false,
             }
         }
         case SET_CLIMATE_DATA : {
             return {
                 ...state,
                 ClimateData: actions.payload,
-                Message: false,
             }
         }
         case CHANGE_DAY: {
             return {
                 ...state,
                 WeatherDay: state.SelectWeathers[actions.payload],
-                Message: false,
             }
         }
         case CHANGE_WEATHER_OBL: {
@@ -68,7 +72,6 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 ...state,
                 SelectWeathers: state.WeatherObl,
                 WeatherDay: state.WeatherObl[0],
-                Message: false,
             }
         }
         case CHANGE_WEATHER_CITY: {
@@ -76,7 +79,6 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 ...state,
                 SelectWeathers: state.WeatherCity,
                 WeatherDay: state.WeatherCity[0],
-                Message: false,
             }
         }
         case CHANGE_TEXT_WEATHER_OBL: {
@@ -84,7 +86,6 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 ...state,
                 SelectWeathers: state.TextWeatherObl,
                 WeatherDay: state.TextWeatherObl[0],
-                Message: false,
             }
         }
         case CHANGE_TEXT_WEATHER_CITY: {
@@ -92,14 +93,12 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 ...state,
                 SelectWeathers: state.TextWeatherCity,
                 WeatherDay: state.TextWeatherCity[0],
-                Message: false,
             }
         }
         case CHANGE_OBSERV_DAY: {
             return {
                 ...state,
                 ObservDay: state.WeatherObservable[actions.payload],
-                Message: false,
             }
         }
         case EDIT_OBSERV_DAY: {

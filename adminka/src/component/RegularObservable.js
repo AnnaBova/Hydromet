@@ -84,8 +84,11 @@ class Forms extends Component {
     }
 
     handelSubmittextArea = () => {
-        this.props.setMessage();
+        this.props.setMessageTrue();
         this.props.SubmitDangerPhenomen(this.state.text);
+        this.setState({
+            text: ''
+        });
     }
 
     render() {
@@ -194,9 +197,10 @@ const mapDispatchToProps = (dispatch) => ({
     SubmitDangerPhenomen: bindActionCreators(SubmitDangerPhenomen, dispatch),
     EditRegularObservable: bindActionCreators(EditRegularObservable, dispatch),
     getRegularObservable: bindActionCreators(getRegularObservable, dispatch),
-    noAuthorization: () => dispatch(push('/signup')),
+    noAuthorization: () => dispatch(push('/signin')),
     GetStation: () => dispatch(push('/meteostation')),
-    setMessage: () => dispatch({type: 'SET_MESSAGE_REGULAR_OBSERVABLE'})
+    setMessage: () => dispatch({type: 'SET_MESSAGE_REGULAR_OBSERVABLE'}),
+    setMessageTrue: () => dispatch({type: 'SET_MESSAGE_REGULAR_OBSERVABLE_TRUE'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);

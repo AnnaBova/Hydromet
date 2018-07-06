@@ -1,9 +1,16 @@
-import { GET_CLIMATE_RECORDS, CHANGE_RECORDS, EDIT_RECORD } from '../actions/ActionTypes';
+import { 
+    GET_CLIMATE_RECORDS, 
+    CHANGE_RECORDS, 
+    EDIT_RECORD,
+    SET_CLIMATE_RECORD_MESSAGE_TRUE,
+    SET_CLIMATE_RECORD_MESSAGE_FALSE 
+} from '../actions/ActionTypes';
 
 const initialState = {
     Tables:[],
     Record: {
-    }
+    },
+    Message: false
 }
 
 export function climateReducer(state = initialState, actions){
@@ -19,6 +26,18 @@ export function climateReducer(state = initialState, actions){
                 ...state,
                 // eslint-disable-next-line
                 Record: state.Tables.find(el => el.id == actions.payload)
+            }
+        }
+        case SET_CLIMATE_RECORD_MESSAGE_TRUE: {
+            return {
+                ...state,
+                Message: true
+            }
+        }
+        case SET_CLIMATE_RECORD_MESSAGE_FALSE : {
+            return {
+                ...state,
+                Message: false
             }
         }
         case EDIT_RECORD:{

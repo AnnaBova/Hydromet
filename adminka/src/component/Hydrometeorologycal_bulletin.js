@@ -19,7 +19,8 @@ import {
     getWeatherObserv,
     GetRaditional,
     ChangeStationRaditional,
-    EditRaditionalReqest
+    EditRaditionalReqest,
+    SetHydrometMessage,
 } from '../redux/actions/index';
 import ClimateData from './ClimateData';
 import ObservableWeather from './ObservableWeather';
@@ -98,7 +99,8 @@ class Hydrometeorologycal extends Component {
                         <Radiation 
                             SubmitDecadBulletin = { this.handelDecadBulletinSubmit }
                             Raditional = { this.props.Raditional }
-                            EditRaditionalReqest = { this.props.EditRaditionalReqest } 
+                            EditRaditionalReqest = { this.props.EditRaditionalReqest }
+                            SetMessageTrue={this.props.SetHydrometMessageTrue }  
                             ChangeStationRaditional = { this.props.ChangeStationRaditional }
                             setMessage= {this.props.setMessage}
                         /></Tab.Pane> },
@@ -107,7 +109,6 @@ class Hydrometeorologycal extends Component {
     }
 
     handelEditDayObserv = (obj) => {
-        console.log(obj);
         this.props.EditDayObserv(obj);
     }
 
@@ -124,19 +125,23 @@ class Hydrometeorologycal extends Component {
     }
 
     ChangeDay = (value) => {
+        this.props.setMessage();
         this.props.ChangeDay(value);
     }
 
     handelDecadBulletinSubmit = (val) => {
         this.props.GiveDecadeBulletin(val);
+        this.props.SetHydrometMessageTrue(); 
     }
 
     handelSubmitClimate = (value) => {
-        this.props.GiveClimateData(value);     
+        this.props.GiveClimateData(value);
+        this.props.SetHydrometMessageTrue();     
     }
 
     handleTabChange = (e, { activeIndex }) => {
         if(activeIndex < 4){
+            this.props.setMessage();
             this.props.ChangeWeathers(activeIndex);
         }
         this.setState({ activeIndex })
@@ -167,6 +172,7 @@ class Hydrometeorologycal extends Component {
             }
             return item;
         });
+        this.props.SetHydrometMessageTrue();
         this.props.EditDay(newLocal, this.state.activeIndex);
     }
 
@@ -349,6 +355,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    SetHydrometMessageTrue: bindActionCreators(SetHydrometMessage, dispatch),
     EditRaditionalReqest: bindActionCreators(EditRaditionalReqest, dispatch),
     ChangeStationRaditional: bindActionCreators(ChangeStationRaditional, dispatch),
     GetRaditional: bindActionCreators(GetRaditional, dispatch),
@@ -363,7 +370,7 @@ const mapDispatchToProps = (dispatch) => ({
     EditDay: bindActionCreators(Edit, dispatch),
     ChangeDay: bindActionCreators(ChangeDay, dispatch),
     getBuletin: bindActionCreators(getHydroBulletin, dispatch),
-    noAuthorization: () => dispatch(push('/signup')),
+    noAuthorization: () => dispatch(push('/signin')),
     GoTyMailCastomize: () => dispatch(push('/mail_castomize')),
     setMessage: () => dispatch({type: 'SET_HYDRO_BULLETIN_MESSAGE'}),
 });

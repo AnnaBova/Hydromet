@@ -23,6 +23,7 @@ const EmailSender = require('./EmailSender');
 const DagerGydrolygy = require('../db/model/DangerGydrolygy');
 const radionatial = require('../db/model/radiotional');
 const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
+const pngToJpeg = require('png-to-jpeg');
 
 module.exports = {
     EditClimateCharacteristic: function(req,res){
@@ -58,6 +59,25 @@ module.exports = {
             .then(respons => {
                 res.json(respons);
             })
+    },
+    CaruselUpload: function(req, res){
+        var arr = req.files.file.name.split('.');
+        let imageFile = req.files.file;
+        var path1 = path.resolve(__dirname, '../public/assets/images');
+        imageFile.mv(`${path1}/${req.files.file.name}`, function(err){
+                if(err) {
+                    console.log(err); return res.status(500).send();
+                }
+                if(req.files.file.mimetype != 'image/jpeg'){
+                    let buffer = fs.readFileSync(path.resolve(__dirname, "../public/assets/images/" + req.files.file.name));
+                    pngToJpeg({quality: 90})(buffer)
+                        .then(output => {
+                            fs.writeFileSync(path.resolve(__dirname, "../public/assets/images/"+ arr[0] + '.jpg'), output)
+                            fs.unlinkSync(path.resolve(__dirname, "../public/assets/images/" + req.files.file.name));
+                        });
+                }
+                res.send();
+        })
     },
     getToken: function(req, res){
         UserController.Authorization(req.body.login)

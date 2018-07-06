@@ -1,7 +1,13 @@
-import { GET_EVENTS, DELETE_EVENT } from '../actions/ActionTypes';
+import { 
+    GET_EVENTS, 
+    DELETE_EVENT,
+    SET_EVENT_MESSAGE_TRUE,
+    SET_EVENT_MESSAGE_FALSE,  
+} from '../actions/ActionTypes';
 
 const initialState = {
-    Events: []
+    Events: [],
+    Message: false
 }
 
 export function EventReducer(state = initialState, actions) {
@@ -10,6 +16,18 @@ export function EventReducer(state = initialState, actions) {
             return {
                 ...state,
                 Events: actions.payload,
+            }
+        }
+        case SET_EVENT_MESSAGE_TRUE: {
+            return {
+                ...state,
+                Message: true
+            }
+        }
+        case SET_EVENT_MESSAGE_FALSE : {
+            return {
+                ...state,
+                Message: false
             }
         }
         case DELETE_EVENT: {
