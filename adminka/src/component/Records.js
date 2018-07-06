@@ -78,7 +78,10 @@ class Records extends Component {
                             /></Tab.Pane> },
                 {   menuItem: 'Фото на страници станции', 
                 render: () => <Tab.Pane><AddPhoto
-                uploadCaruselImage={this.props.uploadCaruselImage}
+                    uploadCaruselImage={this.props.uploadCaruselImage}
+                    Message = {this.props.EventMessage}
+                    setMessageTrue={this.props.setEventMessageTrue}
+                    setMessageFalse={this.props.setEventMessageFasle}
                 /></Tab.Pane> },
             ],
             activeIndex: 0,

@@ -22,18 +22,22 @@ class AddPhoto extends Component {
         var blob = file.slice(0, file.size, file.type); 
         const NewFileName = new File([blob], name, {type: file.type});
         this.props.uploadCaruselImage(NewFileName);  
+        this.props.setMessageTrue();
     }
 
     handelStationChange = (e) => {
+        this.props.setMessageFalse();
         this.setState({station: e.target.value});
     }
 
     handelSaveValue = (obj)=>{
+        this.props.setMessageFalse();
         this.setState({[obj.name]: obj.value})
     }
 
     handelOnChange = (e) => {
         e.preventDefault()
+        this.props.setMessageFalse();
         this.setState({file: e.target.files[0]});
     }
 
@@ -43,6 +47,7 @@ class AddPhoto extends Component {
             <Grid.Row>
                 <Grid.Column width={4} />
                 <Grid.Column width={6}>
+                    { this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены" /> : <div /> }
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
