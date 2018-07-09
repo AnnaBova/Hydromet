@@ -176,6 +176,7 @@ class Weather extends Component {
                       label="Дата"
                       name="date"
                       saveValue = {this.handelSaveValue}
+                      placeholder="формат дд:мм"
                   /> 
                 </Form.Field>
                 <Form.Field control="select" value={this.state.isDay} onChange={this.handelIsDaySelector} width={InputSize}>

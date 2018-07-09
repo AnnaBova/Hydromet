@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button, TextArea, Grid, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
-
+import { DayValid, FullDataValid, YearsValid } from '../utils/DataValid';
+import { HourValid } from '../utils/TimeValid';
 const InputSize = 4;
 
 class ClimateData extends Component {
@@ -19,17 +20,19 @@ class ClimateData extends Component {
             MinTemperature: {},
             StormWarning: "",
             DateBulletin: "",
+            Time:"",
+            ErrorMessage: false
         }
     }
 
     handelSaveValue = (obj) => {
         this.props.setMessage();
-        this.setState({[obj.name]:obj.value});
+        this.setState({[obj.name]:obj.value, ErrorMessage: false});
     }
 
     handelOnChange = (e) => {
         this.props.setMessage();
-        this.setState({ SelectorValue: e.target.value, date: "", value: ""})
+        this.setState({ SelectorValue: e.target.value, date: "", value: "", ErrorMessage: false})
     }
 
     handelSubmit = () => {
@@ -64,22 +67,35 @@ class ClimateData extends Component {
                 break;
                 }
             }
-            this.props.Submit(obj);
-            this.setState({
-                date:"",
-                value:"",
-                DateBulletin: "",
-            });
+            if(DayValid(this.state.day) && 
+                FullDataValid(this.state.DateBulletin) && 
+                HourValid(this.state.Time) && 
+                YearsValid(this.state.year) &&
+                YearsValid(this.state.date)){
+                this.props.Submit(obj);
+                this.setState({
+
+                    date:"",
+                    value:"",
+                    DateBulletin: "",
+                    Time: "",
+                    ErrorMessage: false
+                });
+            }
+            else{
+                this.setState({ErrorMessage: true});
+            }
+           
     }
 
     handelChangeTextArea = (e) => {
         this.props.setMessage();
-        this.setState({StormWarning:e.target.value});
+        this.setState({StormWarning:e.target.value, ErrorMessage: false});
     }
 
     handelOnChangeMounth = (e) => {
         this.props.setMessage();
-        this.setState({mounth: e.target.value});
+        this.setState({mounth: e.target.value, ErrorMessage: false});
     }
 
     render() {
@@ -90,6 +106,7 @@ class ClimateData extends Component {
                 <Grid.Column width={4}/>
                 <Grid.Column width={7}>
                     <Message success header="Сохранение" content="Данные успешно сохранены" />
+                    <Message error header="Ошибка" content="Неправильно введена дата или время" visible={this.state.ErrorMessage}/>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -159,14 +176,26 @@ class ClimateData extends Component {
                         <label>Штормовое предупреждение</label>
                         <TextArea autoHeight value={this.state.StormWarning} name="StormWarning" placeholder='Tell us more' onChange={this.handelChangeTextArea} />
                 </Form.Field>
+                <Form.Group>
                 <Form.Field width={InputSize}>
                 <InputComponent 
                             value = {this.state.DateBulletin}
                             name = "DateBulletin"
-                            label="Белютень составлен: "
-                            saveValue ={this.handelSaveValue}
+                            label="Белютень составлен дата: "
+                            saveValue = {this.handelSaveValue}
+                            placeholder = "дд:мм:гггг"
                 />
                 </Form.Field>
+                <Form.Field>
+                    <InputComponent 
+                        value={this.state.time}
+                        name="Time"
+                        label="Время составления: "
+                        saveValue={this.handelSaveValue}
+                        placeholder="Во сколько часов?"
+                    />
+                </Form.Field>
+                </Form.Group>
                 <Button onClick={this.handelSubmit}>Сохранить</Button>
                 </Grid.Column>
             </Grid.Row>

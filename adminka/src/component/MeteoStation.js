@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import  InputComponent  from './InputComponent';
 import { getStation, AddWeather } from '../redux/actions/index';
+import { FullDataValid } from '../utils/DataValid';
 
 class MeteoStation extends Component {
     constructor(props){
@@ -22,6 +23,7 @@ class MeteoStation extends Component {
                 waterTemperature: "",
                 date: "",
                 Message: false,
+                ErrorMessage: false,
             }   
         }
 
@@ -44,36 +46,41 @@ class MeteoStation extends Component {
             waterTemperature: this.state.waterTemperature,
             date: this.state.date
         }
-        this.props.AddWeather(weather);
-        this.setState({
-            TimeGaps: "00",
-            temperature: "",
-            DiractionWind: "up",
-            wind: "",
-            pressure: "",
-            phenomena: "sun",
-            validation: false,
-            waterField: true,
-            waterTemperature: "",
-            date: "",
-            Message: true,
-        })
+        if(FullDataValid(this.state.date)){
+            this.props.AddWeather(weather);
+            this.setState({
+                TimeGaps: "00",
+                temperature: "",
+                DiractionWind: "up",
+                wind: "",
+                pressure: "",
+                phenomena: "sun",
+                validation: false,
+                waterField: true,
+                waterTemperature: "",
+                date: "",
+                Message: true,
+                ErrorMessage: false
+            })
+        }else{
+            this.setState({ErrorMessage: true});
+        } 
     } 
 
     handelSaveValue = (obj) => {
-        this.setState({[obj.name]:obj.value, Message: false });
+        this.setState({[obj.name]:obj.value, Message: false, ErrorMessage: false });
     }
 
     OnChangeTimeGaps = (e) => {
-        this.setState({ TimeGaps:e.target.value, Message: false });
+        this.setState({ TimeGaps:e.target.value, Message: false, ErrorMessage: false });
     }
 
     OnChangeDiraction = (e) => {
-        this.setState({ DiractionWind: e.target.value, Message: false });
+        this.setState({ DiractionWind: e.target.value, Message: false, ErrorMessage: false });
     }
 
     OnChangePhenomena = (e) => {
-        this.setState({ phenomena: e.target.value, Message: false });
+        this.setState({ phenomena: e.target.value, Message: false, ErrorMessage: false });
     }
 
     OnClick = () => {
@@ -92,7 +99,8 @@ class MeteoStation extends Component {
             <Grid.Row>
                 <Grid.Column width={4}/>
                 <Grid.Column width={7}>
-                    { this.state.Message ? <Message success header="Сохранение" content="Данные успешно сохранены  "/> : <div /> }
+                    { this.state.Message ? <Message success header="Сохранение" content="Данные успешно сохранены"/> : <div /> }
+                    { this.state.ErrorMessage ? <Message error header="Ошибка" content="Неправильно введена дата"/> : <div /> }
                 </Grid.Column>
             </Grid.Row>
                
@@ -107,6 +115,7 @@ class MeteoStation extends Component {
                                 name="date"
                                 type="text" 
                                 saveValue = {this.handelSaveValue}
+                                placeholder = "формат дд:мм:гггг"
                             />
                         </Form.Field>
                         <Form.Field label='Время наблюдения' control='select' name="TimeGaps" onChange={this.OnChangeTimeGaps}>

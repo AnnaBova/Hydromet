@@ -40,7 +40,8 @@ import {
     SET_CLIMATE_RECORD_MESSAGE_TRUE,
     SET_CLIMATE_RECORD_MESSAGE_FALSE,
     SET_EVENT_MESSAGE_TRUE,
-    SET_EVENT_MESSAGE_FALSE, 
+    SET_EVENT_MESSAGE_FALSE,
+    SET_STATION_PHOTO 
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
@@ -441,9 +442,10 @@ export function SetEvents(value) {
     }
 }
 
-export function uploadCaruselImage(file){
+export function uploadCaruselImage(file, station){
     let data = new FormData();
     data.append('file', file);
+    data.append('station', station);
     
     return (dispatch) => {
         fetch(`${LocalHost}/files_carusel`, {
@@ -744,6 +746,7 @@ export function getStation() {
         .then(res => {
             dispatch(setStationId(res._id));
             dispatch(setStationName(res.Title));
+            dispatch(setStationPhoto(res.photo));
             dispatch(setToken(localStorage.getItem('token')));
         })
         .catch(err => console.log(err));
@@ -768,5 +771,12 @@ export function setStationName(name){
     return {
         type: SET_STATION_NAME,
         payload:name
+    }
+}
+
+export function setStationPhoto(photo){
+    return{
+        type: SET_STATION_PHOTO,
+        payload: photo
     }
 }

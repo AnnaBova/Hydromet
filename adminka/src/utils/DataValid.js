@@ -17,6 +17,26 @@ export function DataValid(datestr){
     return true;
 }
 
+export function DayValid(string){
+    if(isNaN(Number(string)) == true){
+        return false;
+    }
+    if(Number(string)< 1 || Number(string)>31){
+        return false;
+    }
+    return true;
+}
+
+export function YearsValid(string){
+    if(isNaN(Number(string)) == true){
+        return false;
+    }
+    if(Number(string)< 0 || Number(string)>new Date().getFullYear()){
+        return false;
+    }
+    return true;
+}
+
 export function FullDataValid(datestr){
     var arr = datestr.split('.');
     if(arr.length != 3){

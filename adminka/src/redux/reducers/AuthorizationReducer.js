@@ -3,6 +3,7 @@ import {
     SET_STATION_ID, 
     SET_STATION_NAME, 
     NO_AUTHORIZATION_MESSAGE,
+    SET_STATION_PHOTO,
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
     stationId:"",
     StationName: "",
     Message: false,
+    photo: 1,
 }
 
 export function AuthorizationReducer(state = initialState, actions){
@@ -44,6 +46,12 @@ export function AuthorizationReducer(state = initialState, actions){
             }
         }
 
+        case SET_STATION_PHOTO: {
+            return {
+                ...state,
+                photo: actions.payload
+            }
+        }
 
         default:{ 
             return state;

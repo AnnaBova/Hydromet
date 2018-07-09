@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, TextArea, Grid, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
+import { DayValid } from '../utils/DataValid';
 
 const InputSize = 4;
 
@@ -16,13 +17,14 @@ class ObservableWeather extends Component {
       MinTemperature: "",
       precipitation: "",
       Phenomena: "sun",
-      Station: "1"
+      Station: "1",
+      ErrorMessage: false,
     }
   }
 
   handelSaveValue = (obj) => {
     this.props.setMessage();
-    this.setState({[obj.name]: obj.value});
+    this.setState({[obj.name]: obj.value, ErrorMessage: false});
   }
   
   validator = () => {
@@ -36,29 +38,33 @@ class ObservableWeather extends Component {
   }
   
   Submit = () => {
-    if(this.validator()){
-      this.props.EditDay({
-        ...this.props.ObservDay,
-        MaxTemperature: this.state.MaxTemperature,
-        MinTemperature: this.state.MinTemperature,
-        Precipitation: this.state.precipitation,
-        Phenomen: this.state.Phenomena
-      });
-      this.setState({
-        MaxTemperature: "", 
-        MinTemperature:"", 
-        precipitation:"",
-        Phenomen:""
-      }, ()=> {
-        this.props.Submit(this.state);
-      })     
+    if(DayValid(this.state.day)){
+      if(this.validator()){
+        this.props.EditDay({
+          ...this.props.ObservDay,
+          MaxTemperature: this.state.MaxTemperature,
+          MinTemperature: this.state.MinTemperature,
+          Precipitation: this.state.precipitation,
+          Phenomen: this.state.Phenomena
+        });
+        this.setState({
+          MaxTemperature: "", 
+          MinTemperature:"", 
+          precipitation:"",
+          Phenomen:"",
+          ErrorMessage: false
+        }, ()=> {
+          this.props.Submit(this.state);
+        })     
+      }
+    }else{
+      this.setState({ErrorMessage: true});
     }
-
   } 
 
   handelOnChange = (e) => {
     this.props.setMessage();
-    this.setState({text:e.target.value});
+    this.setState({text:e.target.value, ErrorMessage: false});
   } 
 
   handelStationChange = (e) => {
@@ -68,19 +74,20 @@ class ObservableWeather extends Component {
         MaxTemperature: "", 
         MinTemperature:"", 
         precipitation:"",
-        Phenomen:""
+        Phenomen:"",
+        ErrorMessage: false
       })
 
   }
 
   handelChangePhenomen = (e) => {
     this.props.setMessage();
-    this.setState({Phenomena: e.target.value})
+    this.setState({Phenomena: e.target.value, ErrorMessage: false})
   }
 
   handelOnChangeMounth = (e) =>{
     this.props.setMessage();
-    this.setState({mounth:e.target.value})
+    this.setState({mounth:e.target.value, ErrorMessage: false})
   }
 
   render() {
@@ -90,6 +97,7 @@ class ObservableWeather extends Component {
           <Grid.Column width={4}/>
           <Grid.Column width={7}>
             <Message success header="Сохранение" content="Данные успешно сохранены" />
+            <Message error header="Ошибка" content="Неправильный введена дата"  visible={this.state.ErrorMessage}/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>

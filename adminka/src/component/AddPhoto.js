@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Form, Button, Icon } from 'semantic-ui-react';
+import { Grid, Form, Button, Icon, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 import '../style/Event.css';
 class AddPhoto extends Component {
@@ -8,20 +8,21 @@ class AddPhoto extends Component {
         this.state = {
             file: undefined,
             station: 'zaporozhye',
-            number: '1'
+            number: this.props.photo || '1'
         }
     }
 
     handelSubmit = () => {
         var { file, number, station } = this.state;
         var arr = file.name.split('.');
+        // eslint-disable-next-line
         if(arr[1] == 'jpeg' || arr[1]=="JPEG" || arr[1] =="JPG"){
             arr[1]="jpg";
         }
         let name =`${station}${number}.${arr[1]}`
         var blob = file.slice(0, file.size, file.type); 
         const NewFileName = new File([blob], name, {type: file.type});
-        this.props.uploadCaruselImage(NewFileName);  
+        this.props.uploadCaruselImage(NewFileName, this.state.station);  
         this.props.setMessageTrue();
     }
 

@@ -20,7 +20,8 @@ import {
     setRecordMessageFalse,
     setEventMessageTrue,
     setEventMessageFalse, 
-    uploadCaruselImage
+    uploadCaruselImage,
+    getStation
 } from '../redux/actions/index';
 import AddPhoto from './AddPhoto';
 import EventList from './EventList';
@@ -82,6 +83,7 @@ class Records extends Component {
                     Message = {this.props.EventMessage}
                     setMessageTrue={this.props.setEventMessageTrue}
                     setMessageFalse={this.props.setEventMessageFasle}
+                    photo={this.props.photo}
                 /></Tab.Pane> },
             ],
             activeIndex: 0,
@@ -147,9 +149,11 @@ const mapStateToProps = (state) => ({
     Records: state.climateRecords.Tables,
     Message: state.climateRecords.Message,
     EventMessage: state.events.Message,
+    photo: state.authorization.photo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    getStation: bindActionCreators(getStation, dispatch),
     setEventMessageTrue: bindActionCreators(setEventMessageTrue, dispatch),
     setEventMessageFasle: bindActionCreators(setEventMessageFalse, dispatch),
     setRecordMessageTrue: bindActionCreators(setRecordMessageTrue, dispatch),

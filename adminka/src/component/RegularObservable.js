@@ -5,6 +5,7 @@ import { Form, Grid, Button, TextArea, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 import { bindActionCreators } from 'redux';
 import { getRegularObservable, EditRegularObservable, SubmitDangerPhenomen, ChangeRegularObservable } from '../redux/actions/index';
+import { FullDataValid } from '../utils/DataValid';
 
 const InputSize = 5;
 
@@ -19,7 +20,8 @@ class Forms extends Component {
             LvlWater: "",
             OutWater: "",
             EditLvl: "",
-            phenomena: ""
+            phenomena: "",
+            ErrorMessage: false,
         }
     }
     componentDidMount(){
@@ -40,7 +42,7 @@ class Forms extends Component {
     
     handelSaveValue = (obj) => {
         this.props.setMessage();
-        this.setState({ [obj.name]:obj.value });
+        this.setState({ [obj.name]:obj.value, ErrorMessage: false });
     }
 
     Validation = () => {
@@ -61,33 +63,39 @@ class Forms extends Component {
     }
 
     handelSubmit = () => {
-        if(this.Validation()){
-            this.props.EditRegularObservable({
-                ...this.props.Observ,
-                date: this.state.date,
-                LvlWater: this.state.LvlWater,
-                OutWater: this.state.OutWater,
-                EditLvl: this.state.EditLvl,
-                phenomena: this.state.phenomena
-            })
+        if(FullDataValid(this.state.date)){
+            if(this.Validation()){
+                this.props.EditRegularObservable({
+                    ...this.props.Observ,
+                    date: this.state.date,
+                    LvlWater: this.state.LvlWater,
+                    OutWater: this.state.OutWater,
+                    EditLvl: this.state.EditLvl,
+                    phenomena: this.state.phenomena, 
+                    ErrorMessage: false
+                })
+            }
+        }else{
+            this.setState({ErrorMessage: true})
         }
     }
 
     handelChangeObserv = (e) => {
         this.props.setMessage();
-        this.setState({Observ: e.target.value});
+        this.setState({Observ: e.target.value, ErrorMessage: false});
     }
 
     handelChangeTextArea = (e) => {
         this.props.setMessage();
-        this.setState({text: e.target.value})
+        this.setState({text: e.target.value, ErrorMessage: false})
     }
 
     handelSubmittextArea = () => {
         this.props.setMessageTrue();
         this.props.SubmitDangerPhenomen(this.state.text);
         this.setState({
-            text: ''
+            text: '',
+            ErrorMessage: false
         });
     }
 
@@ -100,6 +108,7 @@ class Forms extends Component {
                         <Grid.Column width={4}/>
                         <Grid.Column width={7}>
                             { this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены"/> : <div /> }
+                            { this.state.ErrorMessage ? <Message error header="Ошибка" content="Неправильно введена дата"/> : <div /> }
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -124,6 +133,7 @@ class Forms extends Component {
                                         value={this.state.date}
                                         label="Дата"
                                         saveValue={this.handelSaveValue}
+                                        placeholder="формат дд:мм:гггг"
                                     />
                                 </Form.Field>
                                 <Form.Field control="select" label="Время наблюдения" onChange={this.handelChangeObserv}>

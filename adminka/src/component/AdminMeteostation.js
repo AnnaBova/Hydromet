@@ -5,6 +5,7 @@ import { Grid, Form, Button, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 import { bindActionCreators } from 'redux';
 import { getStationId, AddWeatherStation } from '../redux/actions/index';
+import { FullDataValid } from '../utils/DataValid';
 
 class AdminMeteostation extends Component {
     constructor(props){
@@ -21,7 +22,8 @@ class AdminMeteostation extends Component {
             waterField: true,
             waterTemperature: "",
             date: "",
-            Message: false
+            Message: false,
+            ErrorMessage: false
         }    
     }
 
@@ -37,23 +39,23 @@ class AdminMeteostation extends Component {
 
     handelStationChange = (e) => {
         this.props.getStationId(e.target.value);
-        this.setState({ Station: e.target.value, Message: false });
+        this.setState({ Station: e.target.value, Message: false, ErrorMessage: false });
     }
 
     handelSaveValue = (obj) => {
-        this.setState({ [obj.name]:obj.value, Message: false });
+        this.setState({ [obj.name]:obj.value, Message: false, ErrorMessage: false });
     }
 
     OnChangeTimeGaps = (e) => {
-        this.setState({ TimeGaps:e.target.value, Message: false });
+        this.setState({ TimeGaps:e.target.value, Message: false, ErrorMessage: false });
     }
 
     OnChangeDiraction = (e) => {
-        this.setState({ DiractionWind: e.target.value, Message: false });
+        this.setState({ DiractionWind: e.target.value, Message: false, ErrorMessage: false });
     }
 
     OnChangePhenomena = (e) => {
-        this.setState({ phenomena: e.target.value, Message: false });
+        this.setState({ phenomena: e.target.value, Message: false, ErrorMessage: false });
     }
 
     handelSubmit = (e) => {
@@ -68,21 +70,26 @@ class AdminMeteostation extends Component {
             date: this.state.date,
             Station: this.state.Station
         }
-        this.props.AddWeatherStation(weather);
-        this.setState({
-            Station: "zaporozhye",
-            TimeGaps: "00",
-            temperature: "",
-            DiractionWind: "up",
-            wind: "",
-            pressure: "",
-            phenomena: "sun",
-            validation: false,
-            waterField: true,
-            waterTemperature: "",
-            date: "",
-            Message: true
-        })
+        if(FullDataValid(this.state.date)){
+            this.props.AddWeatherStation(weather);
+            this.setState({
+                Station: "zaporozhye",
+                TimeGaps: "00",
+                temperature: "",
+                DiractionWind: "up",
+                wind: "",
+                pressure: "",
+                phenomena: "sun",
+                validation: false,
+                waterField: true,
+                waterTemperature: "",
+                date: "",
+                Message: true,
+                ErrorMessage: false
+            })
+        }else{
+            this.setState({ErrorMessage: true});
+        } 
     } 
 
     OnClick = () => {
@@ -97,6 +104,7 @@ class AdminMeteostation extends Component {
             <Grid.Column width={4}/>
             <Grid.Column width={7}>
                 {this.state.Message ? <Message success header="Сохранение" content="Данные успешно сохранены" /> : <div /> }
+                {this.state.ErrorMessage ? <Message error header="Ошибка" content="Непраильно введена дата" /> : <div /> }
             </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -119,6 +127,7 @@ class AdminMeteostation extends Component {
                             name="date"
                             type="text" 
                             saveValue = {this.handelSaveValue}
+                            placeholder = "формат дд:мм:гггг"
                         />
                     </Form.Field>
                     <Form.Field label='Время наблюдения' control='select' name="TimeGaps" onChange={this.OnChangeTimeGaps}>
