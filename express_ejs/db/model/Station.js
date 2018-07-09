@@ -5,6 +5,7 @@ const StationSchema = mongoose.Schema({
     "addres": String,
     "email": String,
     "full_name": String,
+    "photo": Number,
 });
 
 const Station = mongoose.model('Stations', StationSchema);
@@ -24,5 +25,10 @@ module.exports = {
     },
     GetStationById: function(id){
         return Station.findById(id);
+    },
+    AddPhoto: function(station){
+        Station.findOneAndUpdate({Title: station}, {$inc:{ quantity: -2, photo: 1 }}).then(res => {
+            
+        });
     }
 }

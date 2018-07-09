@@ -64,6 +64,7 @@ module.exports = {
         var arr = req.files.file.name.split('.');
         let imageFile = req.files.file;
         var path1 = path.resolve(__dirname, '../public/assets/images');
+        Station.AddPhoto(req.body.station);
         imageFile.mv(`${path1}/${req.files.file.name}`, function(err){
                 if(err) {
                     console.log(err); return res.status(500).send();

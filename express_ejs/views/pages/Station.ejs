@@ -17,40 +17,20 @@
                     <div class="row">
                         <div class="column small-11 small-centered">
                             <div class="slider slider-single">
-                                <div class="img-slide">
-                                    <img  src="/public/assets/images/<%= station.Title%>1.jpg" alt=""/>
-                                </div>
-                                <div class="img-slide"> 
-                                    <img  src="/public/assets/images/<%= station.Title%>2.jpg" alt=""/> 
-                                </div>
-                                <div class="img-slide"> 
-                                    <img  src="/public/assets/images/<%= station.Title%>3.jpg" alt=""/>
-                                </div>
-                                <div class="img-slide"> 
-                                    <img  src="/public/assets/images/<%= station.Title%>4.jpg" alt=""/>
-                                </div>
+                                <%for(var i=0; i < station.photo; i++){%>
+                                    <div class="img-slide">
+                                        <img  src="/public/assets/images/<%= station.Title%><%= i+1%>.jpg" alt=""/>
+                                    </div>
+                                <%}%>
                             </div>
                             <div class="slider slider-nav">
-                                <div>
-                                    <div class="img-slide"> 
-                                        <img  src="/public/assets/images/<%= station.Title%>1.jpg" alt=""/>
+                                <%for(var i=0; i< station.photo; i++){%>
+                                    <div>
+                                        <div class="img-slide"> 
+                                            <img  src="/public/assets/images/<%= station.Title%><%= i+1 %>.jpg" alt=""/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="img-slide"> 
-                                        <img  src="/public/assets/images/<%= station.Title%>2.jpg" alt=""/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-slide"> 
-                                        <img  src="/public/assets/images/<%= station.Title%>3.jpg" alt=""/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-slide"> 
-                                        <img  src="/public/assets/images/<%= station.Title%>4.jpg" alt=""/>
-                                    </div>
-                                </div>
+                                <%}%>
                             </div>
                         </div>
                     </div>
