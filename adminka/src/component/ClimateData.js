@@ -42,7 +42,7 @@ class ClimateData extends Component {
             day: this.state.day,
             mounth: this.state.mounth,
             year: this.state.year,
-            DateBulletin:this.state.DateBulletin,
+            DateBulletin:`${this.state.Time} годині ${this.state.DateBulletin}`,
         }
         switch(this.state.SelectorValue){
             case 'MaxTemperature': {
