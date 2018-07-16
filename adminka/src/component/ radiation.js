@@ -29,7 +29,7 @@ class Radiation extends Component {
             this.props.EditRaditionalReqest({
                 ...this.props.Raditional,
                 Date: this.state.date,
-                value: this.state.value 
+                value: this.state.value
             })
             this.props.SetMessageTrue();
             this.setState({Message: false})
@@ -46,15 +46,15 @@ class Radiation extends Component {
                 <Grid.Row>
                     <Grid.Column width={4} />
                     <Grid.Column width={7}>
-                        <Message success header="Сохранение" content="Данные успешно сохранены" />
-                        <Message error header="Ошибка" content="Неправильная дата" visible={this.state.Message}/>
+                        <Message success header="Збереження" content="Дані успішно збережені" />
+                        <Message error header="Помилка" content="Неправильна дата" visible={this.state.Message}/>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column width={5}/>
                     <Grid.Column width={5}>
                             <Form.Field>
-                                <InputComponent 
+                                <InputComponent
                                     label="Дата"
                                     name="date"
                                     value={this.state.date}
@@ -62,17 +62,17 @@ class Radiation extends Component {
                                 />
                             </Form.Field>
                             <Form.Field control="select" label="Город" value={this.state.station} onChange={this.handelOnChange}>
-                                <option value="0">Запорожье</option>
+                                <option value="0">Запоріжжя</option>
                                 <option value="1">Бердянск</option>
-                                <option value="2">Мелитополь</option>
+                                <option value="2">Мелітополь</option>
                                 <option value="3">Ботиево</option>
                                 <option value="4">Пришиб</option>
-                                <option value="5">Кириловка</option>
+                                <option value="5">Кирилівка</option>
                                 <option value="6">Гуляйполе</option>
                             </Form.Field>
                             <Form.Field>
-                                <InputComponent 
-                                    label="Значение"
+                                <InputComponent
+                                    label="Значення"
                                     name="value"
                                     value={this.state.value}
                                     saveValue={this.handelSaveValue}

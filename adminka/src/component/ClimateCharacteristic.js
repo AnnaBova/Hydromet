@@ -39,7 +39,7 @@ class ClimateCharacteristic extends Component {
                 <Grid.Row>
                     <Grid.Column width={4}/>
                     <Grid.Column width={7}>
-                        { this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены" /> : <div /> }
+                        { this.props.Message ?   <Message success header="Збереження" content="Дані успішно збережені" /> : <div /> }
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
@@ -48,7 +48,7 @@ class ClimateCharacteristic extends Component {
                     <Form>
                         <h3>Кліматична характеристика Запорізької області</h3>
                         <Form.Field>
-                            <TextArea 
+                            <TextArea
                                 autoHeight
                                 value = {this.state['1block']}
                                 name="1block"
@@ -57,7 +57,7 @@ class ClimateCharacteristic extends Component {
                         </Form.Field>
                         <Form.Field>
                             <TextArea
-                                autoHeight 
+                                autoHeight
                                 value = {this.state['2block']}
                                 name="2block"
                                 onChange={this.handelAreaOnChange}
@@ -66,7 +66,7 @@ class ClimateCharacteristic extends Component {
                         <Form.Field>
                             <TextArea
                                 autoHeight
-                                value = {this.state['3block']} 
+                                value = {this.state['3block']}
                                 name="3block"
                                 onChange={this.handelAreaOnChange}
                             />
@@ -74,7 +74,7 @@ class ClimateCharacteristic extends Component {
                         <Form.Field>
                             <TextArea
                                 autoHeight
-                                value = {this.state['4block']} 
+                                value = {this.state['4block']}
                                 name="4block"
                                 onChange={this.handelAreaOnChange}
                             />
@@ -82,7 +82,7 @@ class ClimateCharacteristic extends Component {
                         <Form.Field>
                             <TextArea
                                 autoHeight
-                                value = {this.state['5block']} 
+                                value = {this.state['5block']}
                                 name="5block"
                                 onChange={this.handelAreaOnChange}
                             />
@@ -90,7 +90,7 @@ class ClimateCharacteristic extends Component {
                         <Form.Field>
                             <TextArea
                                 autoHeight
-                                value = {this.state['6block']} 
+                                value = {this.state['6block']}
                                 name="6block"
                                 onChange={this.handelAreaOnChange}
                             />
@@ -98,7 +98,7 @@ class ClimateCharacteristic extends Component {
                         <Form.Field>
                             <TextArea
                                 autoHeight
-                                value = {this.state['7block']} 
+                                value = {this.state['7block']}
                                 name="7block"
                                 onChange={this.handelAreaOnChange}
                             />

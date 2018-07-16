@@ -27,8 +27,8 @@ class Forms extends Component {
     componentDidMount(){
         this.props.getRegularObservable();
         if(!localStorage.getItem('token')){
-            this.props.noAuthorization(); 
-        }  
+            this.props.noAuthorization();
+        }
     }
 
     handelLogOut = () => {
@@ -39,7 +39,7 @@ class Forms extends Component {
     handelGetStation = () => {
         this.props.GetStation();
     }
-    
+
     handelSaveValue = (obj) => {
         this.props.setMessage();
         this.setState({ [obj.name]:obj.value, ErrorMessage: false });
@@ -71,7 +71,7 @@ class Forms extends Component {
                     LvlWater: this.state.LvlWater,
                     OutWater: this.state.OutWater,
                     EditLvl: this.state.EditLvl,
-                    phenomena: this.state.phenomena, 
+                    phenomena: this.state.phenomena,
                     ErrorMessage: false
                 })
             }
@@ -107,8 +107,8 @@ class Forms extends Component {
                     <Grid.Row>
                         <Grid.Column width={4}/>
                         <Grid.Column width={7}>
-                            { this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены"/> : <div /> }
-                            { this.state.ErrorMessage ? <Message error header="Ошибка" content="Неправильно введена дата"/> : <div /> }
+                            { this.props.Message ? <Message success header="Збереження" content="Дані успішно збережені" /> : <div /> }
+                            { this.state.ErrorMessage ? <Message error header="Помилка" content="Неправильна дата" /> : <div /> }
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -116,7 +116,7 @@ class Forms extends Component {
                         <Grid.Column width={InputSize}>
                             <h3>Регулярні спостереження в період весняної повені</h3>
                             <Form>
-                                <Form.Field control="select" label ="Точка наблюдения" onChange={this.handelOnChangePosition}>
+                                <Form.Field control="select" label ="Точка спостереження" onChange={this.handelOnChangePosition}>
                                     <option value={this.props.Observs[0]._id}>{this.props.Observs[0].Title}({this.props.Observs[0].Position})</option>
                                     <option value={this.props.Observs[1]._id}>{this.props.Observs[1].Title}({this.props.Observs[1].Position})</option>
                                     <option value={this.props.Observs[2]._id}>{this.props.Observs[2].Title}({this.props.Observs[2].Position})</option>
@@ -129,14 +129,14 @@ class Forms extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <InputComponent
-                                        name="date" 
+                                        name="date"
                                         value={this.state.date}
                                         label="Дата"
                                         saveValue={this.handelSaveValue}
-                                        placeholder="формат дд:мм:гггг"
+                                        placeholder="формат дд.мм.гггг"
                                     />
                                 </Form.Field>
-                                <Form.Field control="select" label="Время наблюдения" onChange={this.handelChangeObserv}>
+                                <Form.Field control="select" label="Час спостереження" onChange={this.handelChangeObserv}>
                                     <option value="02">02</option>
                                     <option value="05">05</option>
                                     <option value="08">08</option>
@@ -147,7 +147,7 @@ class Forms extends Component {
                                     <option value="23">23</option>
                                 </Form.Field>
                                 <Form.Field>
-                                    <InputComponent 
+                                    <InputComponent
                                         value = {this.state.LvlWater}
                                         name="LvlWater"
                                         label="Відмітка виходу води на заплаву"
@@ -156,14 +156,14 @@ class Forms extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <InputComponent
-                                        value = {this.state.OutWater} 
+                                        value = {this.state.OutWater}
                                         name="OutWater"
                                         label="Фактичний рівень води"
                                         saveValue={this.handelSaveValue}
                                     />
                                 </Form.Field>
                                 <Form.Field>
-                                    <InputComponent 
+                                    <InputComponent
                                         value = {this.state.EditLvl}
                                         name="EditLvl"
                                         label="Зміна рівня води за добу"
@@ -172,20 +172,20 @@ class Forms extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <InputComponent
-                                        value = {this.state.phenomena} 
+                                        value = {this.state.phenomena}
                                         name="phenomena"
                                         label="Льодові явища"
                                         saveValue={this.handelSaveValue}
                                     />
                                 </Form.Field>
-                                <Button type="button" primary onClick={this.handelSubmit}>Сохранить</Button>
-                                <Button type="button" onClick={this.handelLogOut}>Выйти</Button>
-                                <Button type="button" onClick={this.handelGetStation}>Заполнить данные на станции</Button>
+                                <Button type="button" primary onClick={this.handelSubmit}>Зберегти</Button>
+                                <Button type="button" onClick={this.handelLogOut}>Вийти</Button>
+                                <Button type="button" onClick={this.handelGetStation}>Заповнити дані на станції</Button>
                                 <Form.Field>
                                     <label>Небезпечні гідрологічні явища</label>
                                     <TextArea autoHeight value={this.state.text} onChange={this.handelChangeTextArea}/>
                                 </Form.Field>
-                                <Button onClick={this.handelSubmittextArea}>Сохранить</Button>
+                                <Button onClick={this.handelSubmittextArea}>Зберегти</Button>
                             </Form>
                         </Grid.Column>
                     </Grid.Row>

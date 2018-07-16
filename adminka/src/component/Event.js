@@ -63,8 +63,8 @@ class Event extends Component {
                 <Grid.Row>
                     <Grid.Column width={3} />
                     <Grid.Column width={6}>
-                        { this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены" /> : <div /> }
-                        { this.state.Message ? <Message error header="Ошибка" content="Неправильная дата" /> : <div /> }
+                        { this.props.Message ? <Message success header="Збереження" content="Дані успішно збережені" /> : <div /> }
+                        { this.state.Message ? <Message error header="Помилка" content="Неправильно введена дата" /> : <div /> }
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
@@ -72,24 +72,25 @@ class Event extends Component {
                     <Grid.Column width={4}>
                         <Form>
                                 <Form.Field>
-                                    <InputComponent 
+                                    <InputComponent
                                         label="Дата"
                                         name="date"
                                         value={this.state.date}
                                         saveValue={this.handelSaveValue}
+                                        placeholder="формат дд.мм.рррр"
                                     />
                                 </Form.Field>
                                 <Form.Field>
-                                    <InputComponent 
-                                        label="Название"
+                                    <InputComponent
+                                        label="Назва"
                                         name="title"
                                         value={this.state.title}
                                         saveValue={this.handelSaveValue}
                                     />
                                 </Form.Field>
                                 <Form.Field>
-                                    <InputComponent 
-                                        label="Описание"
+                                    <InputComponent
+                                        label="Опис"
                                         name="description"
                                         value={this.state.description}
                                         saveValue={this.handelSaveValue}
@@ -97,20 +98,20 @@ class Event extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Текст</label>
-                                    <TextArea 
+                                    <TextArea
                                         value={this.state.text}
-                                        autoHeight 
+                                        autoHeight
                                         onChange={this.handelOnChangeText}
                                     />
                                 </Form.Field>
                                 <Form.Field>
                                     <input type="file" name="file" id="file" className="inputfile" onChange={this.handelOnChange} />
                                     <label htmlFor="file" className="ui huge green floated button">
-                                        <Icon name="upload"></Icon> 
-                                        Загрузить фотографию
+                                        <Icon name="upload"></Icon>
+                                        Завантажити фотографію
                                     </label>
                                 </Form.Field>
-                                <Button primary onClick={this.handelSubmit}>Сохранить событие</Button>
+                                <Button primary onClick={this.handelSubmit}>зберегти подію</Button>
                         </Form>
                     </Grid.Column>
                 </Grid.Row>

@@ -11,11 +11,12 @@ class Forms extends Component {
     }
 
   render() {
+  let outputArray = this.props.data.map(item => (<EventItem key={item._id} Delete={this.props.Delete} item={item}/>));
   return (
         <Grid>
             <Grid.Column width= {columnSize} />
             <Grid.Column width= {columnSize}>
-                {this.props.data.map(item => (<EventItem key={item._id} Delete={this.props.Delete} item={item}/>))}
+                {(outputArray.length === 0)? "Ви не створили жодної події" : outputArray}
             </Grid.Column>
         </Grid>);
   }

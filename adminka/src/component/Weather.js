@@ -3,30 +3,66 @@ import { Form, Button, Grid, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 import { DataValid } from '../utils/DataValid';
 
-const InputSize = 4;
+const InputSize = 16;
+
+const DAY_DEFAULT = {
+  weekDay: 0,
+  day:{
+    Phenomen:"sun",
+    DirectionWind:"up",
+    wind:"",
+    temperature: "",
+  },
+  night:{
+    Phenomen:"sun",
+    DirectionWind:"up",
+    wind:"",
+    temperature: "",
+  }
+};
+
+const WEEK_DAYS = [
+  "Понедiлок",
+  "Вівторок",
+  "Середа",
+  "Четвер",
+  "П'ятниця",
+  "Суббота",
+  "Неділя"
+];
 
 class Weather extends Component {
     constructor(props){
       super(props);
+
       this.state = {
-        DayName: "Понедiлок",
-        Phenomen:"sun",
-        DirectionWind:"up",
-        isDay:"day",
-        NumbDay: "1",
+        DayName: 4,
         date: "",
-        wind:"",
-        temperature: "",
-        day:{},
-        night:{}, 
+        days: [],
         Message: false
-      }
+      };
+
+      let daysArray = [
+        Object.assign({},DAY_DEFAULT),
+        Object.assign({},DAY_DEFAULT),
+        Object.assign({},DAY_DEFAULT),
+        Object.assign({},DAY_DEFAULT),
+        Object.assign({},DAY_DEFAULT),
+      ];
+
+      daysArray = daysArray.map((item, index)=>{
+        let nextDay = item.weekDay + this.state.DayName + index;
+        item.weekDay = (nextDay > 6)? -1 + (nextDay - 6) : nextDay;
+        return item;
+      });
+
+      this.state.days = daysArray;
     }
 
     Submit = () => {
       var nday = "";
       // eslint-disable-next-line
-      if(this.state.isDay == "day"){              
+      if(this.state.isDay == "day"){
         nday = "day";
         var obj = {day: {
           weather: this.state.Phenomen,
@@ -42,7 +78,7 @@ class Weather extends Component {
         };
       }
       // eslint-disable-next-line
-      if(this.state.isDay == 'night') {             
+      if(this.state.isDay == 'night') {
         nday= "night";
         obj = { night: {
           weather: this.state.Phenomen,
@@ -68,7 +104,7 @@ class Weather extends Component {
           wind: "",
           date:"",
         });
-  
+
         this.props.Submit(this.CreateObj(obj));
       }else{
         this.setState({Message: true})
@@ -89,11 +125,11 @@ class Weather extends Component {
       this.props.setMessage();
       var nday = "";
       // eslint-disable-next-line
-      if(e.target.value == "day"){              
+      if(e.target.value == "day"){
         nday = "night";
       }
       // eslint-disable-next-line
-      if(e.target.value == 'night') {             
+      if(e.target.value == 'night') {
         nday= "day";
       }
       this.setState({[nday]: {
@@ -101,7 +137,7 @@ class Weather extends Component {
         temperature: this.state.temperature,
         wind: this.state.wind,
         DirectionWind: this.state.DirectionWind
-      }, 
+      },
       isDay: e.target.value,
       temperature: "",
       wind: "",
@@ -133,7 +169,6 @@ class Weather extends Component {
       this.props.ChangeDay(e.target.value-1);
     }
 
-
     render() {
       return (
           <div>
@@ -141,102 +176,164 @@ class Weather extends Component {
               <Grid.Row>
                 <Grid.Column width={4} />
                 <Grid.Column width={6}>
-                  <Message success header="Сохранение" content="Данные успешно сохранены "/>
-                  <Message error header="Ошибка" content="Неправильная дата" visible={this.state.Message}/>
+                  <Message success header="Збереження" content="Дані успішно збережені" />
+                  <Message error header="Помилка" content="Неправильна дата" visible={this.state.Message}/>
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
-                <Grid.Column  width={5}/>
-                <Grid.Column width={8}>
-                <Form.Field control="select" onChange={this.handelDateSelector} width={InputSize}>
-                  <option value="1">1 день</option>
-                  <option value="2">2 день</option>
-                  <option value="3">3 день</option>
-                  <option value="4">4 день</option>
-                  <option value="5">5 день</option>
-                </Form.Field>
-                <Form.Field 
-                  width={InputSize}
-                  control="select"
-                  value={this.state.DayName} 
-                  name="DayName" 
-                  onChange={this.handelChangeSelector}
-                >
-                  <option value="Понедiлок">Понедельник</option>
-                  <option value="Вiвторок">Вторник</option>
-                  <option value="Середа">Среда</option>
-                  <option value="Четверг">Четверг</option>
-                  <option value="П'ятниця">Пятница</option>
-                  <option value="Субота">Суббота</option>
-                  <option value="Неділя">Воскресенье</option>
-                </Form.Field>
-                <Form.Field width={InputSize}>
-                  <InputComponent 
-                      value={this.state.date}
-                      label="Дата"
-                      name="date"
-                      saveValue = {this.handelSaveValue}
-                      placeholder="формат дд:мм"
-                  /> 
-                </Form.Field>
-                <Form.Field control="select" value={this.state.isDay} onChange={this.handelIsDaySelector} width={InputSize}>
-                  <option value="day">День</option>
-                  <option value="night">Ночь</option>
-                </Form.Field>
-                <Form.Field width={InputSize}>
-                  <InputComponent 
-                      value ={this.state.temperature }
-                      label="Температура"
-                      name= "temperature"
-                      saveValue = {this.handelSaveValue}
-                  /> 
-                </Form.Field>
-                <Form.Field width={InputSize}>
-                <InputComponent 
-                      value={this.state.wind }
-                      label="Ветер"
-                      name="wind"
-                      saveValue = {this.handelSaveValue}
-                  /> 
-                </Form.Field>
-                <Form.Field 
-                  width={InputSize}
-                  control="select" 
-                  value={this.state.DirectionWind} 
-                  label="Направление ветра" 
-                  name="DirectionWind" 
-                  onChange={this.handelChangeSelector}
-                >
-                    <option value='up'>Северное</option>
-                    <option value='down'>Южное</option>
-                    <option value='left'>Западное</option>
-                    <option value='right'>Восточное</option>
-                    <option value='up rot-45'>Северо-Заподное</option>
-                    <option value='left rot-45'>Северо-Восточное</option>
-                    <option value='down rot-45'>Юго-Западное</option>
-                    <option value='right rot-45'>Юго-Восточное</option>
-                </Form.Field>
-                <Form.Field 
-                  width={InputSize}
-                  control="select"
-                  value={this.state.Phenomen } 
-                  label="Феномены" 
-                  name="Phenomen" 
-                  onChange={this.handelChangeSelector}
-                >
-                    <option value='sun'>Солнечно</option>
-                    <option value='sun_cloud'>Облачно</option>
-                    <option value='cloud'>Пасмурно</option>
-                    <option value='cloud_rain_snow'>Снег с дождем</option>
-                    <option value='cloud_rain'>Дождь</option>
-                    <option value='cloud_snow'>Снег</option>
-                    <option value='fog'>Туман</option>
-                    <option value='moon'>Чистая луна</option>
-                    <option value='cloud_moon'>Облочная луна</option>
-                </Form.Field>
-                <Button onClick={this.Submit}>Сохранить День</Button>
+                <Grid.Column width={3}>
+                  <Form.Field
+                    width={InputSize}
+                    control="select"
+                    value={this.state.DayName}
+                    name="DayName"
+                    onChange={this.handelChangeSelector}
+                  >
+                    <option value={0}>Понедiлок</option>
+                    <option value={1}>Вiвторок</option>
+                    <option value={2}>Середа</option>
+                    <option value={3}>Четверг</option>
+                    <option value={4}>П’ятниця</option>
+                    <option value={5}>Субота</option>
+                    <option value={6}>Неділя</option>
+                  </Form.Field>
+                  <Form.Field width={InputSize}>
+                    <InputComponent
+                        value={this.state.date}
+                        label="Дата"
+                        name="date"
+                        saveValue = {this.handelSaveValue}
+                        onchange = {this.handleChangeTest}
+                        placeholder="формат дд.мм"
+                    />
+                  </Form.Field>
                 </Grid.Column>
               </Grid.Row>
+              <Grid.Row>
+                {/*<Grid.Column  width={5}/>*/}
+                {this.state.days.map((item)=>{
+                   return (
+                     <div className = "dayInput">
+                      {WEEK_DAYS[item.weekDay]} <br />
+
+                      <span className = "formTitle">День</span>
+
+                       <Grid.Column width={3}>
+                       <Form.Field width={InputSize}>
+                         <InputComponent
+                             value ={this.state.temperature }
+                             label="Температура"
+                             name= "temperature"
+                             saveValue = {this.handelSaveValue}
+                         />
+                       </Form.Field>
+                       <Form.Field width={InputSize}>
+                       <InputComponent
+                             value={this.state.wind }
+                             label="Вітер"
+                             name="wind"
+                             saveValue = {this.handelSaveValue}
+                         />
+                       </Form.Field>
+                       <Form.Field
+                         width={InputSize}
+                         control="select"
+                         value={this.state.DirectionWind}
+                         label="Напрямок вітру"
+                         name="DirectionWind"
+                         onChange={this.handelChangeSelector}
+                       >
+                         <option value='up'>Північне</option>
+                         <option value='down'>Південне</option>
+                         <option value='left'>Західне</option>
+                         <option value='right'>Східне</option>
+                         <option value='up rot-45'>Північно-Західне</option>
+                         <option value='left rot-45'>Північно-Східне</option>
+                         <option value='down rot-45'>Південно-Західне</option>
+                         <option value='right rot-45'>Південно-Східне</option>
+                       </Form.Field>
+                       <Form.Field
+                         width={InputSize}
+                         control="select"
+                         value={this.state.Phenomen }
+                         label="Феномени"
+                         name="Phenomen"
+                         onChange={this.handelChangeSelector}
+                       >
+                           <option value='sun'>Сонячно</option>
+                           <option value='sun_cloud'>Хмарно</option>
+                           <option value='cloud'>Похмуро</option>
+                           <option value='cloud_rain_snow'>Сніг з дощем</option>
+                           <option value='cloud_rain'>Дощ</option>
+                           <option value='cloud_snow'>Сніг</option>
+                           <option value='fog'>Туман</option>
+                           <option value='moon'>Чистий місяць</option>
+                           <option value='cloud_moon'>Захмарений місяцьа</option>
+                       </Form.Field>
+                       </Grid.Column>
+
+                       <span className = "formTitle">Ніч</span>
+
+                       <Grid.Column width={3}>
+                       <Form.Field width={InputSize}>
+                         <InputComponent
+                             value ={this.state.temperature }
+                             label="Температура"
+                             name= "temperature"
+                             saveValue = {this.handelSaveValue}
+                         />
+                       </Form.Field>
+                       <Form.Field width={InputSize}>
+                       <InputComponent
+                             value={this.state.wind }
+                             label="Вітер"
+                             name="wind"
+                             saveValue = {this.handelSaveValue}
+                         />
+                       </Form.Field>
+                       <Form.Field
+                         width={InputSize}
+                         control="select"
+                         value={this.state.DirectionWind}
+                         label="Напрямок вітру"
+                         name="DirectionWind"
+                         onChange={this.handelChangeSelector}
+                       >
+                         <option value='up'>Північне</option>
+                         <option value='down'>Південне</option>
+                         <option value='left'>Західне</option>
+                         <option value='right'>Східне</option>
+                         <option value='up rot-45'>Північно-Західне</option>
+                         <option value='left rot-45'>Північно-Східне</option>
+                         <option value='down rot-45'>Південно-Західне</option>
+                         <option value='right rot-45'>Південно-Східне</option>
+                       </Form.Field>
+                       <Form.Field
+                         width={InputSize}
+                         control="select"
+                         value={this.state.Phenomen }
+                         label="Феномени"
+                         name="Phenomen"
+                         onChange={this.handelChangeSelector}
+                       >
+                           <option value='sun'>Сонячно</option>
+                           <option value='sun_cloud'>Хмарно</option>
+                           <option value='cloud'>Похмуро</option>
+                           <option value='cloud_rain_snow'>Сніг з дощем</option>
+                           <option value='cloud_rain'>Дощ</option>
+                           <option value='cloud_snow'>Сніг</option>
+                           <option value='fog'>Туман</option>
+                           <option value='moon'>Чистий місяць</option>
+                           <option value='cloud_moon'>Захмарений місяцьа</option>
+                       </Form.Field>
+                       </Grid.Column>
+                    </div>
+                  );
+                })}
+
+
+              </Grid.Row>
+              <Grid.Row> <Button onClick={this.Submit}>Зберегти день</Button></Grid.Row>
             </Grid>
           </div>
       );

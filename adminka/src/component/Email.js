@@ -29,12 +29,12 @@ class Email extends Component {
                         <Card.Description>Email-adders: {this.props.email.Email}</Card.Description>
                         <Form>
                             <Form.Field control="select" value={this.state.role} onChange={this.handelChangeRole}>
-                                <option value="1">Полный гидрометрический белютень</option>
-                                <option value="2">Только штормовое предупреждение</option>
+                                <option value="1">Повний гідрометричний бюлетень</option>
+                                <option value="2">Тільки штормове попередження</option>
                             </Form.Field>
                         </Form>
                     </Card.Content>
-                    <Button basic color='red' onClick={this.handelDelete}>Удалить</Button>
+                    <Button basic color='red' onClick={this.handelDelete}>Видалити</Button>
                 </Card>
             </div>
         );

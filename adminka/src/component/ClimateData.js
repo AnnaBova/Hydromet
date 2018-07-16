@@ -46,30 +46,30 @@ class ClimateData extends Component {
         }
         switch(this.state.SelectorValue){
             case 'MaxTemperature': {
-                obj.MaxTemperature = { 
+                obj.MaxTemperature = {
                     date: this.state.date,
                     value: this.state.value
                 }
                 break;
             }
             case 'MinTemperature': {
-                obj.MinTemperature =  { 
+                obj.MinTemperature =  {
                     date: this.state.date,
                     value: this.state.value
                 }
                 break;
             }
             default: {
-                obj.SrTemperature = { 
+                obj.SrTemperature = {
                     date: this.state.date,
                     value: this.state.value
                 }
                 break;
                 }
             }
-            if(DayValid(this.state.day) && 
-                FullDataValid(this.state.DateBulletin) && 
-                HourValid(this.state.Time) && 
+            if(DayValid(this.state.day) &&
+                FullDataValid(this.state.DateBulletin) &&
+                HourValid(this.state.Time) &&
                 YearsValid(this.state.year) &&
                 YearsValid(this.state.date)){
                 this.props.Submit(obj);
@@ -85,7 +85,7 @@ class ClimateData extends Component {
             else{
                 this.setState({ErrorMessage: true});
             }
-           
+
     }
 
     handelChangeTextArea = (e) => {
@@ -102,11 +102,11 @@ class ClimateData extends Component {
     return (
     <div>
         <Grid>
-            <Grid.Row>  
+            <Grid.Row>
                 <Grid.Column width={4}/>
                 <Grid.Column width={7}>
-                    <Message success header="Сохранение" content="Данные успешно сохранены" />
-                    <Message error header="Ошибка" content="Неправильно введена дата или время" visible={this.state.ErrorMessage}/>
+                <Message success header="Збереження" content="Дані успішно збережені" />
+                <Message error header="Помилка" content="Неправильно введені дата або час" visible={this.state.ErrorMessage}/>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -114,89 +114,90 @@ class ClimateData extends Component {
                 <Grid.Column width={8}>
                 <Form.Group>
                     <Form.Field width={InputSize}>
-                        <InputComponent 
+                        <InputComponent
                             value = {this.state.day}
                             name="day"
                             label="День"
                             saveValue ={this.handelSaveValue}
                         />
                     </Form.Field>
-                    <Form.Field 
+                    <Form.Field
                         width={InputSize}
                         control="select"
-                        label="Месяц"
+                        label="Місяць"
                         value={this.state.mounth}
                         onChange={this.handelOnChangeMounth}
                     >
-                        <option value="январь">Январь</option>
-                        <option value="февраль">Февраль</option>
-                        <option value="апрель">Апрель</option>
-                        <option value="май">Май</option>
-                        <option value="июнь">Июнь</option>
-                        <option value="июль">Июль</option>
-                        <option value="август">Август</option>
-                        <option value="сентябрь">Сентябрь</option>
-                        <option value="октябрь">Октябрь</option>
-                        <option value="ноябрь">Ноябрь</option>
-                        <option value="декабрь">Декабрь</option>
+                        <option value="січень">Січень</option>
+                        <option value="лютий">Лютий</option>
+                        <option value="березень">Березень</option>
+                        <option value="квітень">Квітень</option>
+                        <option value="травень">Травень</option>
+                        <option value="червень">Червень</option>
+                        <option value="липень">Липень</option>
+                        <option value="серпень">Серпень</option>
+                        <option value="вересень">Вересень</option>
+                        <option value="жовтень"> Жовтень</option>
+                        <option value="листопад">Листопад</option>
+                        <option value="грудень">Грудень</option>
                     </Form.Field>
                     <Form.Field width={InputSize}>
                         <InputComponent
-                            value = {this.state.year} 
+                            value = {this.state.year}
                             name="year"
-                            label="Год"
+                            label="Рік"
                             saveValue ={this.handelSaveValue}
                         />
                     </Form.Field>
-                </Form.Group> 
+                </Form.Group>
                 <Form.Field control="select" width={InputSize} onChange={this.handelOnChange} value={this.state.SelectorValue}>
-                    <option value="SrTemperature">Средняя температура</option>
-                    <option value="MaxTemperature">Максимальная температура</option>
-                    <option value="MinTemperature">Минимальная температура</option>
+                    <option value="SrTemperature">Середня температура</option>
+                    <option value="MaxTemperature">Максимальна температура</option>
+                    <option value="MinTemperature">Мінімальна температура</option>
                 </Form.Field>
                 <Form.Group>
                     <Form.Field width={InputSize}>
-                        <InputComponent 
+                        <InputComponent
                             value = {this.state.value}
                             name="value"
-                            label="Значение"
+                            label="Значення"
                             saveValue ={this.handelSaveValue}
                         />
-                    </Form.Field>   
+                    </Form.Field>
                     <Form.Field>
-                        <InputComponent 
+                        <InputComponent
                             value = {this.state.date}
                             name = "date"
-                            label="Год"
+                            label="Рік"
                             saveValue ={this.handelSaveValue}
                         />
-                    </Form.Field> 
+                    </Form.Field>
                 </Form.Group>
                 <Form.Field width={InputSize}>
-                        <label>Штормовое предупреждение</label>
+                        <label>Штормове попередження</label>
                         <TextArea autoHeight value={this.state.StormWarning} name="StormWarning" placeholder='Tell us more' onChange={this.handelChangeTextArea} />
                 </Form.Field>
                 <Form.Group>
                 <Form.Field width={InputSize}>
-                <InputComponent 
+                <InputComponent
                             value = {this.state.DateBulletin}
                             name = "DateBulletin"
-                            label="Белютень составлен дата: "
+                            label="Белютень складено дата: "
                             saveValue = {this.handelSaveValue}
-                            placeholder = "дд:мм:гггг"
+                            placeholder = "дд.мм.гггг"
                 />
                 </Form.Field>
                 <Form.Field>
-                    <InputComponent 
+                    <InputComponent
                         value={this.state.time}
                         name="Time"
-                        label="Время составления: "
+                        label="Час складання: "
                         saveValue={this.handelSaveValue}
-                        placeholder="Во сколько часов?"
+                        placeholder="О котрій годині?"
                     />
                 </Form.Field>
                 </Form.Group>
-                <Button onClick={this.handelSubmit}>Сохранить</Button>
+                <Button onClick={this.handelSubmit}>Зберегти</Button>
                 </Grid.Column>
             </Grid.Row>
         </Grid>

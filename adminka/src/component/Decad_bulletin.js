@@ -30,7 +30,7 @@ const formats = [
     'code-block',
     'clean', 'header'
 ];
-  
+
 
 class DecadBulletin extends Component {
     constructor(props) {
@@ -38,8 +38,8 @@ class DecadBulletin extends Component {
         this.state = { text: '' };
         this.handleChange = this.handleChange.bind(this);
     }
-    
-    
+
+
     handleChange(value) {
         this.props.setMessage();
         this.setState({ text: value });
@@ -49,18 +49,18 @@ class DecadBulletin extends Component {
         this.props.setMessage();
         this.props.SubmitDecadBulletin(this.state.text);
     }
-    
+
     render() {
         return (
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={4}/>
                     <Grid.Column width={7}>
-                        <Message success header="Сохранение" content="Данные успешно сохранены"/>
+                        <Message success header="Збереження" content="Дані успішно збережені" />
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row> 
-                    <Grid.Column width={4} />  
+                <Grid.Row>
+                    <Grid.Column width={4} />
                 <ReactQuill
                     className="QuillWrap"
                     theme="snow"
@@ -73,10 +73,10 @@ class DecadBulletin extends Component {
                 <Grid.Row>
                 <Grid.Column width={7}/>
                 <Grid.Column>
-                    <Button onClick = {this.handelSubmit} primary>Сохранить</Button>
+                    <Button onClick = {this.handelSubmit} primary>Зберегти</Button>
                 </Grid.Column>
                 </Grid.Row>
-            </Grid>) 
+            </Grid>)
     }
 }
 

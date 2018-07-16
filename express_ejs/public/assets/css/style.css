@@ -3,30 +3,30 @@ html {
   min-height: 100%;
 }
 @font-face {
-  font-family: 'Tahoma'; 
-  src: url("../fonts/Tahoma/Tahoma.ttf") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
-} 
+  font-family: 'Tahoma';
+  src: url("../fonts/Tahoma/Tahoma.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
 @font-face {
-  font-family: 'MyriadPro'; 
-  src: url("../fonts/MyriadPro/MyriadProRegular.ttf") format("truetype"); 
-  font-style: normal; 
-  font-weight: normal; 
+  font-family: 'MyriadPro';
+  src: url("../fonts/MyriadPro/MyriadProRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
 }
 
 
 .map-icon::before{
   vertical-align: -30%;
   height: 33px;
-  padding-right: 20px; 
+  padding-right: 20px;
   content: url(../images/marker.png);
 }
 
 .address::before{
   margin-left: -3px;
   vertical-align: -15%;
-  padding-right: 16px; 
+  padding-right: 16px;
   content: url(../images/envelope.png);
 
 }
@@ -53,7 +53,7 @@ html {
 }
 
 .slider-nav .img-slide{
-  height: 20rem; 
+  height: 20rem;
   overflow: hidden;
 }
 
@@ -66,7 +66,7 @@ html {
 .slider-single .img-slide img{
   height: 80rem;
   display: block;
-  margin: auto; 
+  margin: auto;
 }
 
 .slick-prev, .slick-next{
@@ -106,7 +106,7 @@ body{
   margin-bottom: 80px;
 }
 a{
-  font-size:14px;  
+  font-size:14px;
 }
 a:hover{
   text-decoration:none;
@@ -192,7 +192,7 @@ button.btn-blue{
   font-family: 'MyriadPro';
   font-size: 21px;
   font-style: italic;
-  margin-top:10px; 
+  margin-top:10px;
   line-height:1;
 }
 .header-buttons span{
@@ -211,8 +211,8 @@ button.btn-blue{
 .dropdown-menu .divider{
   margin:5px 0;
 }
-.dropdown-menu > li > a, 
-.dropdown-menu > li > a:hover, 
+.dropdown-menu > li > a,
+.dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus{
   color:#0098d1;
 }
@@ -231,21 +231,21 @@ button.btn-blue{
 .nav a{
   color: #ffffff;
 }
-.nav > li > a:focus, 
-.nav > li > a:hover, 
-.nav .open > a, 
-.nav .open > a:focus, 
+.nav > li > a:focus,
+.nav > li > a:hover,
+.nav .open > a,
+.nav .open > a:focus,
 .nav .open > a:hover{
-  background-color: #0098d1; 
+  background-color: #0098d1;
 }
-.nav .open > a.toggle-right, 
-.nav .open > a.toggle-right:focus, 
+.nav .open > a.toggle-right,
+.nav .open > a.toggle-right:focus,
 .nav .open > a.toggle-right:hover{
-  background-color: #ffffff; 
+  background-color: #ffffff;
 }
 .logo{
-  background: url(../svg/logo.svg) no-repeat center center; 
-  background-size: cover; 
+  background: url(../svg/logo.svg) no-repeat center center;
+  background-size: cover;
   width: 132px;
   height:132px;
   float:left;
@@ -311,7 +311,7 @@ svg{
   background-image: url(../images/background_10.jpg);
 }
 .background_11{
-  background-image: url(../images/background_11.jpg);  
+  background-image: url(../images/background_11.jpg);
 }
 .background_12_1{
   background-image: url(../images/background_12_1.jpg);
@@ -331,7 +331,7 @@ svg{
   background-image: url(../images/background_17.jpg);
 }
 .background_event{
-  background-image: url(../images/event_1.jpg);  
+  background-image: url(../images/event_1.jpg);
 }
 .img_sunset{
   background-image: url(../images/img_sunset.jpg);
@@ -360,16 +360,16 @@ svg{
   max-height:200px;
 }
 .img_posts_map{
-  background-image: url(../images/posts_map.jpg); 
+  background-image: url(../images/posts_map.jpg);
   background-size: contain;
   max-width:670px;
   max-height:562px;
   min-height: 235px;
   height:43vw;
-  margin:0 auto 20px;  
+  margin:0 auto 20px;
 }
 .img_diagram{
-  background-image: url(../images/diagram.jpg); 
+  background-image: url(../images/diagram.jpg);
   background-size: contain;
   max-width:705px;
   max-height:490px;
@@ -378,7 +378,7 @@ svg{
   margin:0 auto 20px;
 }
 .img_hydrological_map, .img_gray_map{
-  background-image: url(../images/hydrological_map.png); 
+  background-image: url(../images/hydrological_map.png);
   background-size: contain;
   max-width:912px;
   max-height:875px;
@@ -387,7 +387,7 @@ svg{
   margin:0 auto 20px;
 }
 .img_gray_map{
-  background-image: url(../images/radiation_map.png); 
+  background-image: url(../images/radiation_map.png);
 }
 .img_gray_map_small{
   height:35vw;
@@ -395,104 +395,104 @@ svg{
 .img_squall{
   background-image: url(../svg/squall.svg);
   max-width:56px;
-  max-height:56px; 
-  margin:50px auto 30px;  
+  max-height:56px;
+  margin:50px auto 30px;
 }
 .img_black_ice{
   background-image: url(../svg/black_ice.svg);
   max-width:53px;
-  max-height:33px; 
-  margin:50px auto 30px; 
+  max-height:33px;
+  margin:50px auto 30px;
 }
 .img_blizzard{
   background-image: url(../svg/blizzard.svg);
   max-width:93px;
-  max-height:93px; 
-  margin:50px auto 30px; 
+  max-height:93px;
+  margin:50px auto 30px;
 }
 .img_cloud_snow_big{
   background-image: url(../svg/cloud_snow_big.svg);
   max-width:93px;
-  max-height:85px; 
-  margin:50px auto 30px; 
+  max-height:85px;
+  margin:50px auto 30px;
 }
 .img_cloud_rain_big{
   background-image: url(../svg/cloud_rain_big.svg);
   max-width:93px;
-  max-height:83px; 
-  margin:50px auto 30px; 
+  max-height:83px;
+  margin:50px auto 30px;
 }
 .img_max_snow{
-  background-image: url(../svg/max_snow.svg);  
+  background-image: url(../svg/max_snow.svg);
   max-width:78px;
-  max-height:78px; 
-  margin:50px auto 30px; 
+  max-height:78px;
+  margin:50px auto 30px;
 }
 .img_dust_storm{
   background-image: url(../svg/dust_storm.svg);
   max-width:33px;
-  max-height:101px; 
-  margin:50px auto 30px; 
+  max-height:101px;
+  margin:50px auto 30px;
 }
 .img_fog_big{
   background-image: url(../svg/fog_big.svg);
   max-width:104px;
-  max-height:56px; 
-  margin:50px auto 30px; 
+  max-height:56px;
+  margin:50px auto 30px;
 }
 .img_min_temp{
-  background-image: url(../svg/min_temp.svg);  
+  background-image: url(../svg/min_temp.svg);
   max-width:55px;
-  max-height:94px; 
+  max-height:94px;
   margin:50px auto 30px;
 }
 .img_sun_big{
   background-image: url(../svg/sun_big.svg);
   max-width:86px;
-  max-height:86px; 
-  margin:50px auto 30px; 
+  max-height:86px;
+  margin:50px auto 30px;
 }
 .img_snower_big{
   background-image: url(../svg/snower_big.svg);
   max-width:61px;
-  max-height:61px; 
-  margin:50px auto 30px; 
+  max-height:61px;
+  margin:50px auto 30px;
 }
 .img_max_temp{
-  background-image: url(../svg/max_temp.svg);  
+  background-image: url(../svg/max_temp.svg);
   max-width:55px;
-  max-height:94px; 
+  max-height:94px;
   margin:50px auto 30px;
 }
 .img_max_temp_soil{
-  background-image: url(../svg/max_temp_soil.svg);  
+  background-image: url(../svg/max_temp_soil.svg);
   max-width:179px;
-  max-height:95px; 
+  max-height:95px;
   margin:50px auto 30px;
 }
 .img_min_temp_soil{
-  background-image: url(../svg/min_temp_soil.svg);  
+  background-image: url(../svg/min_temp_soil.svg);
   max-width:179px;
-  max-height:95px; 
+  max-height:95px;
   margin:50px auto 30px;
 }
 .img_max_speed{
-  background-image: url(../svg/max_speed.svg);  
+  background-image: url(../svg/max_speed.svg);
   max-width:45px;
-  max-height:71px; 
-  margin:50px auto 30px; 
+  max-height:71px;
+  margin:50px auto 30px;
 }
 .img_max_rain_month{
-  background-image: url(../svg/max_rain_month.svg);  
+  background-image: url(../svg/max_rain_month.svg);
   max-width:100px;
-  max-height:83px; 
-  margin:50px auto 30px; 
+  max-height:83px;
+  margin:50px auto 30px;
 }
 .img_max_rain_day{
-  background-image: url(../svg/max_rain_day.svg);  
+  background-image: url(../svg/max_rain_day.svg);
   max-width:93px;
-  max-height:83px; 
-  margin:50px auto 30px; 
+  max-height:83px;
+  margin:50px auto 30px;
 }
 /* FOOTER */
 footer{
@@ -624,11 +624,6 @@ section{
   float: right;
   display: inline-block;
 }
-.signature::before{
-  display: inline-block;
-  vertical-align: middle;
-  content: url(../images/signature.png);
-}
 
 .block-white{
   background-color:#ffffff;
@@ -718,7 +713,7 @@ ul.info-list li:before {
   position: absolute;
   top: 20px;
   left: 20px;
-  bottom: 20px;  
+  bottom: 20px;
 }
 .stage-ellipse{
   width: 39px;
@@ -729,10 +724,10 @@ ul.info-list li:before {
   text-align: center;
   color: #ffffff;
   float: left;
-  margin-right: 25px; 
+  margin-right: 25px;
   position: relative;
-  z-index: 5; 
-  margin-top: 5px; 
+  z-index: 5;
+  margin-top: 5px;
 }
 .stage-item{
   line-height: 1.1;
@@ -743,7 +738,7 @@ ul.info-list li:before {
 .table{
   background-color: #f9f9f9;
   font-size: 14px;
-  color: #0098d1; 
+  color: #0098d1;
   min-width:650px;
 }
 .table-hover > tbody > tr:hover {
@@ -767,7 +762,7 @@ ul.info-list li:before {
 .table th{
   text-align:center;
 }
-.table-responsive >.table > tbody > tr > td, 
+.table-responsive >.table > tbody > tr > td,
 .table-responsive >.table > thead > tr > th{
   white-space: normal;
 }
@@ -776,7 +771,7 @@ ul.info-list li:before {
   white-space: pre-wrap;
 }
 
-table#regular_observations td, 
+table#regular_observations td,
 table#current_weather td,
 table.phenomena-table td{
   text-align:center;
@@ -784,8 +779,8 @@ table.phenomena-table td{
 table#current_weather > tbody > tr > td:last-child{
   background-color:  rgba(0, 152, 209, 0.15);
 }
-table.records-table, 
-table.phenomena-table, 
+table.records-table,
+table.phenomena-table,
 table.posts-table{
   min-width:450px;
   width:100%;
@@ -810,10 +805,10 @@ table.table.posts-table > tbody > tr > td {
   margin:0 5px;
   color: #333;
 }
-.pagination> .active > a, 
+.pagination> .active > a,
 .pagination > .active> a:hover{
   background-color: #0098d1;
-  border-color: #0098d1;  
+  border-color: #0098d1;
 }
 span.number{
   font-size:60px;
@@ -829,13 +824,13 @@ span.number{
   flex-wrap: wrap;
 }
 .just-inh{
-  justify-content: inherit;  
+  justify-content: inherit;
 }
 .just-sp-ar{
   justify-content: space-around;
 }
 .just-sp-btw{
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 .tabs{
   margin: 20px 0 30px;
@@ -896,7 +891,7 @@ span.number{
 }
 .warning-block{
   background-color:  #f9f9f9;
-  background-image: url(../images/warning_sign.png);  
+  background-image: url(../images/warning_sign.png);
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -958,7 +953,7 @@ span.number{
   background: -o-linear-gradient(90deg, #01b0f1 0%, #21d5fc 100%);
   background: -ms-linear-gradient(90deg, #01b0f1 0%, #21d5fc 100%);
   background: linear-gradient(0deg, #01b0f1 0%, #21d5fc 100%);
-  box-shadow: 0px 4px 25.92px 6.08px rgba(0, 150, 198, 0.41); 
+  box-shadow: 0px 4px 25.92px 6.08px rgba(0, 150, 198, 0.41);
   max-width: 297px;
   margin: 4% 0 4% 19%;
   font-size:14px;
@@ -992,16 +987,16 @@ span.number{
 @media (max-width:1200px){
   .logo{
     width: 100px;
-    height:100px;    
+    height:100px;
   }
   .header-title, .header-buttons{
     margin-top:20px;
   }
   .header-title-big{
-    font-size:22px;    
+    font-size:22px;
   }
   .header-title-small{
-    font-size:18px;       
+    font-size:18px;
   }
   .block-title{
     font-size:22px;
@@ -1017,7 +1012,7 @@ span.number{
   }
   .img_gray_map_small {
     height: 45vw;
-  } 
+  }
   .events{
     line-height:1.1;
   }
@@ -1039,14 +1034,14 @@ span.number{
   .shadow-round-block-small{
     width:50%;
   }
-  .today-weather-block{  
+  .today-weather-block{
     margin-left:10%;
   }
 }
 @media (max-width:992px){
   .logo{
     width: 85px;
-    height:85px;    
+    height:85px;
   }
   .header-title{
     margin-top:10px;
@@ -1055,7 +1050,7 @@ span.number{
     margin-top:0;
   }
   .header-title-small{
-    margin-top:5px;     
+    margin-top:5px;
   }
   .item.i1{
     width: 270px;
@@ -1126,13 +1121,13 @@ span.number{
     font-size:12px;
   }
   a{
-    font-size:12px;  
+    font-size:12px;
   }
   section{
     font-size:14px;
   }
   .logo{
-    display:none;  
+    display:none;
   }
   .header-title{
     text-align:center;
@@ -1147,10 +1142,10 @@ span.number{
     margin:0 5px;
   }
   .header-title-big{
-    font-size:20px;    
+    font-size:20px;
   }
   .header-title-small{
-    font-size:16px;       
+    font-size:16px;
   }
   .dropdown-menu > li > a{
     color:#ffffff;
@@ -1174,7 +1169,7 @@ span.number{
   }
   .block-title{
     font-size:18px;
-    margin:15px 0 10px;    
+    margin:15px 0 10px;
   }
   .block-sub-title{
     font-size:14px;
@@ -1184,7 +1179,7 @@ span.number{
     height:65vw;
   }
   .img_posts_map{
-    height:75vw;    
+    height:75vw;
   }
   .img_hydrological_map, .img_gray_map{
     height: 90vw;
@@ -1241,7 +1236,7 @@ span.number{
     font-size: 26px;
     width: 70px;
     height: 58px;
-    line-height: 58px;    
+    line-height: 58px;
   }
 }
 @media (max-width:500px){
@@ -1249,10 +1244,10 @@ span.number{
     margin:10px;
   }
   .header-title-big{
-    font-size:16px;    
+    font-size:16px;
   }
   .header-title-small{
-    font-size:14px;       
+    font-size:14px;
   }
   span.number {
     display:none;
@@ -1264,7 +1259,7 @@ span.number{
     font-size: 20px;
     width: 60px;
     height: 50px;
-    line-height: 50px;   
+    line-height: 50px;
   }
   .shadow-round-block-small, .today-weather-block{
     width:90%;

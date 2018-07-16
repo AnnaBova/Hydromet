@@ -5,7 +5,7 @@ import { Grid, Button, Form} from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 import Email from './Email';
 import InputComponent from './InputComponent';
-import { GetEmails, SetRole, DeleteEmailRequest, AddEmailRequest, SubmitEmail } from '../redux/actions/index'; 
+import { GetEmails, SetRole, DeleteEmailRequest, AddEmailRequest, SubmitEmail } from '../redux/actions/index';
 
 
 class MailCastomize extends Component {
@@ -26,7 +26,7 @@ class MailCastomize extends Component {
     }
 
     handelAddEmail = () => {
-        this.props.AddEmail(this.state); 
+        this.props.AddEmail(this.state);
     }
 
     handelChangeRole = (e) => {
@@ -56,32 +56,32 @@ class MailCastomize extends Component {
                     <Grid.Column width={5}/>
                     <Grid.Column width={6}>
                         <Form>
-                            <Form.Field control="select" label="Вид Рассылки" value={this.state.role} onChange = {this.handelChangeRole}>
-                                <option value="1">Полный гидрометрический белютень</option>
-                                <option value="2">Только штормовое предупреждение</option>
+                            <Form.Field control="select" label="Вид Розсилання" value={this.state.role} onChange = {this.handelChangeRole}>
+                                <option value="1">Повний гідрометричний бюлетень</option>
+                                <option value="2">Тільки штормове попередження</option>
                             </Form.Field>
                             <Form.Field>
-                                <InputComponent 
+                                <InputComponent
                                     label="E-mail адресс"
                                     name="Email"
                                     value={this.state.email}
                                     saveValue = {this.handelSaveValue}
                                 />
                             </Form.Field>
-                            <Button onClick={this.handelAddEmail}>Добавить</Button>
-                            <Button onClick={this.handelSubmitMail}>Отправить письма</Button>
-                            <Button onClick={this.handelBackToGydrpomet}>Вернуться к Гидрометрическому белютеню</Button>
+                            <Button onClick={this.handelAddEmail}>Додати</Button>
+                            <Button onClick={this.handelSubmitMail}>Выдправити листи</Button>
+                              <Button onClick={this.handelBackToGydrpomet}>Повернутися до гідрометричного бюлетеню</Button>
                         </Form>
                     </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={6}/>
                         <Grid.Column width={5}>
-                            { this.props.Emails.map(item => <Email 
-                                        key={item._id} 
-                                        SetRole={this.SetRole} 
-                                        DeleteEmails={this.props.DeleteEmails} 
-                                        email={item} 
+                            { this.props.Emails.map(item => <Email
+                                        key={item._id}
+                                        SetRole={this.SetRole}
+                                        DeleteEmails={this.props.DeleteEmails}
+                                        email={item}
                                     />) }
                         </Grid.Column>
                     </Grid.Row>

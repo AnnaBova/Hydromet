@@ -11,7 +11,7 @@ class Tables extends Component {
         this.props.setMessage();
         this.props.Record.table = this.props.Record.table.map((item)=> {
             if(item._id === value._id){
-                item = value; 
+                item = value;
             }
             return item;
         });
@@ -36,38 +36,38 @@ class Tables extends Component {
         if(this.props.Record !== undefined){
             return (
                 <Form success={this.props.Message}>
-                    <Message success header="Сохранение" content="Данные успешно сохранены"/>
+                    <Message success header="Збереження" content="Дані успішно збережені" />
                     <Form.Field control='select' onChange= {this.OnChange}>
                         {this.props.Records.map((item)=> <option key={item._id} value={item.id}>{item.modalTitle || item.modalName}</option>)}
                     </Form.Field>
                     <Table>
-                        {this.props.Record.date ? 
+                        {this.props.Record.date ?
                             (<Table.Header>
                                 <TableItem id={this.props.Record._id} item={this.props.Record} Change={this.ChangeTitle}/>
                             </Table.Header>): <Table.Body />
-                        } 
+                        }
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell> Дата</Table.HeaderCell>
-                                <Table.HeaderCell> Значение</Table.HeaderCell>
-                                <Table.HeaderCell> Станция</Table.HeaderCell>
+                                <Table.HeaderCell> Значення</Table.HeaderCell>
+                                <Table.HeaderCell> Станція</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
-                       
+
                         <Table.Body>
-                            { this.props.Record.table ? 
+                            { this.props.Record.table ?
                                 this.props.Record.table.map((item)=><TableItem item={item}
                                                                         key={item._id}
                                                                         Change={this.Change}
-                                                                    />): <Table.Row /> }       
+                                                                    />): <Table.Row /> }
                         </Table.Body>
                     </Table>
-                    <Button onClick={this.OnSave} primary>Сохранить</Button>
-                    
+                    <Button onClick={this.OnSave} primary>Зберегти</Button>
+
                 </Form> );
         }else {
             return <div></div>
-        }  
+        }
     }
 }
 

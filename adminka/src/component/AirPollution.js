@@ -8,7 +8,7 @@ import { getAirPollution, ChangeMatter, postEditMatter } from '../redux/actions/
 
 class Forms extends Component {
     constructor(props){
-        
+
         super(props);
         this.state = {
             Matter: "0",
@@ -39,10 +39,10 @@ class Forms extends Component {
 
     Validation = () => {
         if(
-            this.state.Post9 === "" || 
-            this.state.Post10 === "" || 
-            this.state.Post11 === "" || 
-            this.state.Post12 === "" || 
+            this.state.Post9 === "" ||
+            this.state.Post10 === "" ||
+            this.state.Post11 === "" ||
+            this.state.Post12 === "" ||
             this.state.Post13 === ""){
             return false;
         }else {
@@ -56,10 +56,10 @@ class Forms extends Component {
             this.props.editMatter({
                 ...this.props.Matter,
                 data: [
-                    this.state.Post9, 
-                    this.state.Post10, 
-                    this.state.Post11, 
-                    this.state.Post12, 
+                    this.state.Post9,
+                    this.state.Post10,
+                    this.state.Post11,
+                    this.state.Post12,
                     this.state.Post13
                 ]
             });
@@ -82,10 +82,10 @@ class Forms extends Component {
             this.props.editMatter({
                 ...this.props.Matter,
                 data: [
-                    this.state.Post9, 
-                    this.state.Post10, 
-                    this.state.Post11, 
-                    this.state.Post12, 
+                    this.state.Post9,
+                    this.state.Post10,
+                    this.state.Post11,
+                    this.state.Post12,
                     this.state.Post13
                 ]
             });
@@ -98,23 +98,23 @@ class Forms extends Component {
             Post12: "",
             Post13: ""
         });
-    } 
+    }
 
     render() {
 
         return (
             <Grid>
-                <Grid.Column width={6}/>   
+                <Grid.Column width={6}/>
                 <Grid.Column width={3}>
-                    <h3>Диаграма Загрязнения воздуха</h3>
-                    {this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены" />: <div />}
+                    <h3>Діаграма Забруднення повітря</h3>
+                    {this.props.Message ?   <Message success header="Збереження" content="Дані успішно збережені" /> : <div />}
                     <Form>
-                        <Form.Field 
-                            control="select" 
+                        <Form.Field
+                            control="select"
                             value={this.state.Matter}
                             onChange={this.handelOnChange}
                         >
-                            <option value="0">Пиль</option>
+                            <option value="0">Пил</option>
                             <option value="1">Двооксид сірки</option>
                             <option value="2">Оксид вуглецю</option>
                             <option value="3">Двооксид азоту</option>
@@ -126,46 +126,46 @@ class Forms extends Component {
                         </Form.Field>
                         <Form.Field>
                             <InputComponent
-                                value={this.state.Post9}  
+                                value={this.state.Post9}
                                 label="Пост №9"
-                                name = "Post9" 
+                                name = "Post9"
                                 saveValue={this.handelSaveValue}
                             />
                         </Form.Field>
                         <Form.Field>
                             <InputComponent
-                                value={this.state.Post10}  
-                                label="Пост №10" 
+                                value={this.state.Post10}
+                                label="Пост №10"
                                 name ="Post10"
                                 saveValue={this.handelSaveValue}
                             />
                         </Form.Field>
                         <Form.Field>
                             <InputComponent
-                                value={this.state.Post11}  
+                                value={this.state.Post11}
                                 label="Пост №11"
                                 name="Post11"
-                                saveValue={this.handelSaveValue} 
-                            />
-                        </Form.Field>
-                        <Form.Field>
-                            <InputComponent 
-                                value={this.state.Post12} 
-                                label="Пост №12"
-                                name="Post12"
-                                saveValue={this.handelSaveValue} 
+                                saveValue={this.handelSaveValue}
                             />
                         </Form.Field>
                         <Form.Field>
                             <InputComponent
-                                value={this.state.Post13} 
-                                label="Пост №13"
-                                name="Post13"
-                                saveValue={this.handelSaveValue} 
+                                value={this.state.Post12}
+                                label="Пост №12"
+                                name="Post12"
+                                saveValue={this.handelSaveValue}
                             />
                         </Form.Field>
-                        <Button primary onClick={this.handelOnClickSave}>Сохранить</Button>
-                        <Button type="button" onClick={this.handelOnClick}>Выйти</Button>
+                        <Form.Field>
+                            <InputComponent
+                                value={this.state.Post13}
+                                label="Пост №13"
+                                name="Post13"
+                                saveValue={this.handelSaveValue}
+                            />
+                        </Form.Field>
+                        <Button primary onClick={this.handelOnClickSave}>Зберегти</Button>
+                        <Button type="button" onClick={this.handelOnClick}>Вийти</Button>
                     </Form>
                 </Grid.Column>
             </Grid>);

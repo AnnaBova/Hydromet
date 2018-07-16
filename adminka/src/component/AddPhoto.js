@@ -20,9 +20,9 @@ class AddPhoto extends Component {
             arr[1]="jpg";
         }
         let name =`${station}${number}.${arr[1]}`
-        var blob = file.slice(0, file.size, file.type); 
+        var blob = file.slice(0, file.size, file.type);
         const NewFileName = new File([blob], name, {type: file.type});
-        this.props.uploadCaruselImage(NewFileName, this.state.station);  
+        this.props.uploadCaruselImage(NewFileName, this.state.station);
         this.props.setMessageTrue();
     }
 
@@ -48,25 +48,25 @@ class AddPhoto extends Component {
             <Grid.Row>
                 <Grid.Column width={4} />
                 <Grid.Column width={6}>
-                    { this.props.Message ? <Message success header="Сохранение" content="Данные успешно сохранены" /> : <div /> }
+                    { this.props.Message ? <Message success header="Збереження" content="Дані успішно збережені" /> : <div /> }
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column width={5} />
                 <Grid.Column width={5}>
                     <Form>
-                        <Form.Field label="Станция" control="select"  onChange={this.handelStationChange}>
-                            <option value="zaporozhye">Запорожье</option>
+                        <Form.Field label="Станція" control="select"  onChange={this.handelStationChange}>
+                            <option value="zaporozhye">Запоріжжя</option>
                             <option value="berdyansk">Бердянск</option>
-                            <option value="melitopol">Мелитополь</option>
+                            <option value="melitopol">Мелітополь</option>
                             <option value="botievye">Ботиево</option>
                             <option value="prism">Пришиб</option>
-                            <option value="kyrylivka">Кириловка</option>
+                            <option value="kyrylivka">Кирилівка</option>
                             <option value="gulyaypole">Гуляйполе</option>
                         </Form.Field>
                         <Form.Field>
-                            <InputComponent 
-                                label="Номер фото" 
+                            <InputComponent
+                                label="Номер фото"
                                 value={this.state.number}
                                 name="number"
                                 saveValue={this.handelSaveValue}
@@ -75,11 +75,11 @@ class AddPhoto extends Component {
                         <Form.Field>
                             <input type="file" name="file" id="file" className="inputfile" onChange={this.handelOnChange} />
                             <label htmlFor="file" className="ui huge green floated button">
-                                <Icon name="upload"></Icon> 
-                                Загрузить фотографию
+                                <Icon name="upload"></Icon>
+                                Завантажити фотографію
                             </label>
                         </Form.Field>
-                        <Button onClick={this.handelSubmit}>Сохранить фото</Button>
+                        <Button onClick={this.handelSubmit}>Зберегти фото</Button>
                     </Form>
                 </Grid.Column>
             </Grid.Row>

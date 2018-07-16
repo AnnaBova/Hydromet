@@ -1,11 +1,11 @@
-import { 
-    SET_TOKEN, 
-    SET_STATION_ID, 
-    SET_STATION_NAME, 
-    GET_CLIMATE_RECORDS, 
-    CHANGE_RECORDS, 
-    EDIT_RECORD, 
-    SAVE_RECORD, 
+import {
+    SET_TOKEN,
+    SET_STATION_ID,
+    SET_STATION_NAME,
+    GET_CLIMATE_RECORDS,
+    CHANGE_RECORDS,
+    EDIT_RECORD,
+    SAVE_RECORD,
     GET_PHENOMENA,
     GET_BULLETIN,
     CHANGE_DAY,
@@ -41,11 +41,11 @@ import {
     SET_CLIMATE_RECORD_MESSAGE_FALSE,
     SET_EVENT_MESSAGE_TRUE,
     SET_EVENT_MESSAGE_FALSE,
-    SET_STATION_PHOTO 
+    SET_STATION_PHOTO
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
-const LocalHost = "http://77.120.123.202:3001";
+const LocalHost = "http://localhost:3001";
 
 export function setEventMessageTrue(){
     return {
@@ -297,7 +297,7 @@ export function EditRegularObservable(value){
         .then(res => dispatch(SetEditRegularObservable(value)))
         .catch(err => console.log(err));
     }
-} 
+}
 
 export function setRegularObservable(value){
     return {
@@ -381,7 +381,7 @@ export function GiveDecadeBulletin(value){
     return (dispatch) => {
         fetch(`${LocalHost}/give_decad_bulletin`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-type': 'text/plain',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
@@ -403,7 +403,7 @@ export function ChangeWeathers(value){
             return {
                 type: CHANGE_TEXT_WEATHER_CITY
             };
-        } 
+        }
         case 2:{
             return {
                 type: CHANGE_WEATHER_OBL
@@ -424,11 +424,11 @@ export function GiveWeatherObservable(value){
     return (dispatch)=> {
         fetch(`${LocalHost}/give_weather_observable`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(value) 
+            body: JSON.stringify(value)
         })
         .then(res => dispatch(SetWeatherObservable(value)))
         .catch(err => console.log(err));
@@ -446,18 +446,18 @@ export function uploadCaruselImage(file, station){
     let data = new FormData();
     data.append('file', file);
     data.append('station', station);
-    
+
     return (dispatch) => {
         fetch(`${LocalHost}/files_carusel`, {
                 method: 'POST',
-                body: data 
+                body: data
             })
             .then(response => {})
             .catch(error => console.log(error));
     };
 }
 
-export function uploadDocumentRequest({file, title, text, date, description}) {  
+export function uploadDocumentRequest({file, title, text, date, description}) {
     let data = new FormData();
     data.append('file', file);
     data.append('title', title);
@@ -468,7 +468,7 @@ export function uploadDocumentRequest({file, title, text, date, description}) {
     return (dispatch) => {
       fetch(`${LocalHost}/files`, {
             method: 'POST',
-            body: data 
+            body: data
         })
         .then(response => {})
         .catch(error => console.log(error));
@@ -519,13 +519,13 @@ export function EditDayObserv(value){
 
 export function GiveClimateData(value){
     return (dispatch)=> {
-        fetch(`${LocalHost}/give_climate_date`, { 
+        fetch(`${LocalHost}/give_climate_date`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(value) 
+            body: JSON.stringify(value)
         })
         .then(res => {dispatch(SetCLimateData(value))})
         .catch(res => console.log(res));
@@ -536,11 +536,11 @@ export function Edit(data, index){
     return (dispatch) => {
         fetch(`${LocalHost}/edit_weather_city_buletttin`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({data, index}) 
+            body: JSON.stringify({data, index})
         })
         .then(() => dispatch(getHydroBulletin(index)))
         .catch(err => console.log(err));
@@ -569,11 +569,11 @@ export function ChangeDay(value){
 
 export function getToken(data){
     return (dispatch) => {
-        fetch(`${LocalHost}/token`, { 
+        fetch(`${LocalHost}/token`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json'},
-            body: JSON.stringify(data) 
-        })  
+            body: JSON.stringify(data)
+        })
             .then(res => res.json())
             .then(res => { localStorage.setItem('token', res.token); return res;})
             .then(res => {
@@ -602,12 +602,12 @@ export function getToken(data){
                     case 5: {
                         dispatch(push('/air_pollution'));
                         break;
-                    } 
+                    }
                     default: {
                         dispatch(push('/signin'))
                     }
                 }
-                
+
             })
             .catch(err => dispatch(NoAthorizationMessage()));
     }
@@ -631,13 +631,13 @@ export function setPhenomena(value){
 
 export function SaveRecords(Records){
     return (dispatch) => {
-        fetch(`${LocalHost}/save_records`, { 
+        fetch(`${LocalHost}/save_records`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(Records) 
+            body: JSON.stringify(Records)
         })
         .then(res => res.json())
         .then(res => dispatch({type: SAVE_RECORD, payload:res}))
@@ -647,13 +647,13 @@ export function SaveRecords(Records){
 
 export function SavePhenomena(Phenomena){
     return (dispatch) => {
-        fetch(`${LocalHost}/save_Phenomena`, { 
+        fetch(`${LocalHost}/save_Phenomena`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(Phenomena) 
+            body: JSON.stringify(Phenomena)
         })
         .then(res => res.json())
         .then(res => dispatch({type: SAVE_RECORD, payload:res}))
@@ -695,11 +695,11 @@ export function AddWeather(weather){
     return (dispatch) => {
         fetch(`${LocalHost}/addweather`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(weather) 
+            body: JSON.stringify(weather)
         })
         .then(res => {})
         .catch(err => console.log(err));

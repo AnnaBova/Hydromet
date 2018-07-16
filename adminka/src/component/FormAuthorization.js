@@ -3,11 +3,12 @@ import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getToken } from '../redux/actions/index';
+import { Link } from 'react-router-dom';
 
 class FormAuthorization extends Component {
   componentDidMount(){
   }
-  
+
   OnSubmit = (event) => {
     const user = {
       login: event.target.login.value,
@@ -22,7 +23,7 @@ class FormAuthorization extends Component {
         <Grid.Row>
           <Grid.Column width={5} />
           <Grid.Column width={5}>
-            { this.props.Message ? <Message negative header="Неавторизированы" content="Сожелею, возможно вы неправильно ввели логин или пароль"/>: <div /> }
+            { this.props.Message ? <Message negative header="Неавторизовано" content="Шкодую, можливо ви неправильно ввели логін або пароль"/>: <div /> }
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -38,7 +39,9 @@ class FormAuthorization extends Component {
                 <label>Password: </label>
                 <input placeholder='Password' type="password" name="password" />
               </Form.Field>
-              <Button>Войти</Button>
+              <Button>Увійти</Button>
+              <br />
+              <a href='http://zapcgm.com.ua/'>На головну сторінку</a>
             </Form>
           </Grid.Column>
         </Grid.Row>

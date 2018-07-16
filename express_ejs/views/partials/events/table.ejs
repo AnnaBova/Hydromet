@@ -2,19 +2,19 @@
     <div class="container m-b-md">
     <div class="block-title text-center">
         Події
-    </div>  
+    </div>
     <div class="events" >
         <% events.forEach(function (item){%>
             <% include ./item %>
-        <% })%>      
+        <% })%>
     </div>
         <div class="text-center">
         <% if (pages > 0) { %>
             <ul class="pagination text-center">
                 <% if (current == 1) { %>
-                    <li class="disabled"><a>First</a></li>
+                    <li class="disabled"><a>Перша</a></li>
                 <% } else { %>
-                    <li><a href="/events/1">First</a></li>
+                    <li><a href="/events/1">Перша</a></li>
                 <% } %>
                 <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
                 <% if (i !== 1) { %>
@@ -31,12 +31,12 @@
                     <% } %>
                 <% } %>
                 <% if (current == pages) { %>
-                    <li class="disabled"><a>Last</a></li>
+                    <li class="disabled"><a>Остання</a></li>
                 <% } else { %>
-                    <li><a href="/events/<%= pages %>">Last</a></li>
+                    <li><a href="/events/<%= pages %>">Остання</a></li>
                 <% } %>
             </ul>
         <% } %>
     </div>
-    </div>      
+    </div>
 </div>

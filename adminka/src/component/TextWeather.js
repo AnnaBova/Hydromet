@@ -53,8 +53,8 @@ class TextWeather extends Component {
           <Grid.Row>
             <Grid.Column width={4} />
             <Grid.Column width={6}>
-              <Message success header="Сохранение" content="Данные успешно сохранены "/>
-              <Message error header="Ошибка" content="Неправильная дата" visible={this.state.Message}/>
+              <Message success header="Збереження" content="Дані успішно збережені" />
+              <Message error header="Помилка" content="Неправильна дата" visible={this.state.Message}/>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -68,23 +68,23 @@ class TextWeather extends Component {
               <option value="5">5 день</option>
             </Form.Field>
             <Form.Field width={InputSize}>
-                  <InputComponent 
+                  <InputComponent
                       value={this.state.date}
                       label="Дата"
                       name="date"
                       saveValue = {this.handelSaveValue}
                       placeholder="формат дд.мм"
-                  /> 
+                  />
             </Form.Field>
             <Form.Field width={InputSize}>
-                  <InputComponent 
+                  <InputComponent
                       value={this.state.text}
                       label="Текст"
                       name="text"
                       saveValue = {this.handelSaveValue}
-                  /> 
+                  />
             </Form.Field>
-            <Button onClick = {this.handelSubmit}>Сохранить день</Button>
+            <Button onClick = {this.handelSubmit}>Зберегти день</Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -4,13 +4,13 @@ import { Tab, Grid, Button} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Tabels from './Table';
-import { 
-    GetClimateRecords, 
-    ChangeRecords, 
-    EditRecord, 
-    SaveRecords, 
-    getPhenomena, 
-    SavePhenomena, 
+import {
+    GetClimateRecords,
+    ChangeRecords,
+    EditRecord,
+    SaveRecords,
+    getPhenomena,
+    SavePhenomena,
     uploadDocumentRequest,
     getEvents,
     DeleteEvent,
@@ -19,7 +19,7 @@ import {
     setRecordMessageTrue,
     setRecordMessageFalse,
     setEventMessageTrue,
-    setEventMessageFalse, 
+    setEventMessageFalse,
     uploadCaruselImage,
     getStation
 } from '../redux/actions/index';
@@ -33,51 +33,51 @@ class Records extends Component {
         super(props);
         this.state = {
             panas: [
-                {   menuItem: 'Климатические рекорды', 
+                {   menuItem: 'Кліматичні рекорди',
                     render: () => <Tab.Pane>
-                            <Tabels 
+                            <Tabels
                                 Submit = {this.Submit}
-                                Records={this.props.Records} 
-                                Record={this.props.Record} 
-                                OnChange={this.OnChange} 
+                                Records={this.props.Records}
+                                Record={this.props.Record}
+                                OnChange={this.OnChange}
                                 noAuthorization={this.props.noAuthorization}
                                 EditRecord={this.props.EditRecord}
                                 setMessage = {this.props.setRecordMessageFalse}
                                 Message = {this.props.Message}
                             />
                         </Tab.Pane> },
-                {   menuItem: 'Стихийные феномены', 
+                {   menuItem: 'Стихійні феномени',
                     render: () => <Tab.Pane>
-                            <Tabels 
+                            <Tabels
                                 Submit = {this.Submit}
-                                Records={this.props.Records} 
-                                Record={this.props.Record} 
-                                OnChange={this.OnChange} 
+                                Records={this.props.Records}
+                                Record={this.props.Record}
+                                OnChange={this.OnChange}
                                 noAuthorization={this.props.noAuthorization}
                                 EditRecord={this.props.EditRecord}
                                 setMessage = {this.props.setRecordMessageFalse}
                                 Message = {this.props.Message}
                             />
                         </Tab.Pane> },
-                {   menuItem: 'Добавить событие', 
-                render: () => <Tab.Pane><Event 
+                {   menuItem: 'Додати подію',
+                render: () => <Tab.Pane><Event
                     Message = {this.props.EventMessage}
                     setMessageTrue={this.props.setEventMessageTrue}
                     setMessageFalse={this.props.setEventMessageFasle}
                     UploadFile={this.props.UploadFile}
                     /></Tab.Pane> },
-                {   menuItem: 'Все события', 
+                {   menuItem: 'Всі події',
                 render: () => <Tab.Pane><EventList  data ={this.props.Events} GetEvents = {this.props.GetEvents} Delete={this.DeleteEvent}/></Tab.Pane> },
-                {   menuItem: 'Климатическая характеристика облости', 
+                {   menuItem: 'Кліматична характеристика області',
                 render: () => <Tab.Pane>
                             <ClimateCharacteristic
                                 Message = {this.props.EventMessage}
                                 setMessageTrue={this.props.setEventMessageTrue}
                                 setMessageFalse={this.props.setEventMessageFasle}
                                 ClimateCharacteristic = {this.props.ClimateCharacteristic}
-                                EditClimate={this.props.EditClimate} 
+                                EditClimate={this.props.EditClimate}
                             /></Tab.Pane> },
-                {   menuItem: 'Фото на страници станции', 
+                {   menuItem: 'Фото на сторінці станції', 
                 render: () => <Tab.Pane><AddPhoto
                     uploadCaruselImage={this.props.uploadCaruselImage}
                     Message = {this.props.EventMessage}
@@ -132,7 +132,7 @@ class Records extends Component {
         return (
             <Grid.Row>
                 <Grid.Column width = {4}>
-                    <Tab panes = {this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.ChangeTab}></Tab> 
+                    <Tab panes = {this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.ChangeTab}></Tab>
                 </Grid.Column>
                 <Grid.Column width={5}>
                     <Button type="button" floated="right" onClick ={this.LogOut}>Выйти</Button>

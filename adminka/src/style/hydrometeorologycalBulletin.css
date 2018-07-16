@@ -1,0 +1,21 @@
+.menu{
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+
+.ui.tabular.menu .active.item{
+  border: 1px solid lightgray !important;
+  border-radius: .28571429rem !important;
+}
+
+.dayInput{
+  margin: 20px 20px;
+  border: 2px solid black;
+  padding: 10px;
+  /* display: flex; */
+}
+
+.formTitle{
+  font-weight: bold;
+}
