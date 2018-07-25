@@ -51,7 +51,7 @@ export function FullDataValid(datestr){
     if(Number(arr[1])<1 || Number(arr[1])>12){
         return false
     }
-    if(Number(arr[2])<1 || Number(arr[2])> new Date().getFullYear()){
+    if(Number(arr[2])<1){
         return false
     }
     return true;

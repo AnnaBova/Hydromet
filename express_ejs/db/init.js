@@ -13,7 +13,7 @@ const DangerGydrolygy = require('./model/DangerGydrolygy');
 const DecadeBulletin = require('./model/DecadBulletin');
 const event = require('./model/Events');
 const meteorologPhenomena = require('./model/MeteorologPhenomena');
-const waterTemperature = require('./model/waterTemerature');
+const waterTemperature = require('./model/waterTemperature');
 const WeatherCity = require('./model/WeatherCity');
 const WeatherObservable = require('./model/WeatherObservable');
 const ClimateCharacteristic = require('./model/ClimateCharacteristic');
@@ -164,8 +164,8 @@ var WeatherObservableObj = {
 var WeatherDay =
 [
     {
-        title: "Понедельник",
-        date: "20.11",
+        title: "Понедiлок",
+        date: "20.11.2011",
         day:{
             weather: "sun",
             temperature: "+12",
@@ -173,7 +173,7 @@ var WeatherDay =
             DirectionWind: "up"
         },
         night:{
-            weather: "sun",
+            weather: "moon",
             temperature: "+12",
             wind: "2.2",
             DirectionWind: "up"
@@ -181,7 +181,7 @@ var WeatherDay =
     },
     {
         title: "Вторник",
-        date: "20.11",
+        date: "20.11.2011",
         day:{
             weather: "sun",
             temperature: "+12",
@@ -189,7 +189,7 @@ var WeatherDay =
             DirectionWind: "up"
         },
         night:{
-            weather: "sun",
+            weather: "moon",
             temperature: "+12",
             wind: "2.2",
             DirectionWind: "up"
@@ -197,7 +197,7 @@ var WeatherDay =
     },
     {
         title: "Среда",
-        date: "20.11",
+        date: "20.11.2011",
         day:{
             weather: "sun",
             temperature: "+12",
@@ -205,7 +205,7 @@ var WeatherDay =
             DirectionWind: "up"
         },
         night:{
-            weather: "sun",
+            weather: "moon",
             temperature: "+12",
             wind: "2.2",
             DirectionWind: "up"
@@ -213,7 +213,7 @@ var WeatherDay =
     },
     {
         title: "Четверг",
-        date: "20.11",
+        date: "20.11.2011",
         day:{
             weather: "sun",
             temperature: "+12",
@@ -221,7 +221,7 @@ var WeatherDay =
             DirectionWind: "up"
         },
         night:{
-            weather: "sun",
+            weather: "moon",
             temperature: "+12",
             wind: "2.2",
             DirectionWind: "up"
@@ -229,7 +229,7 @@ var WeatherDay =
     },
     {
         title: "Пятница",
-        date: "20.11",
+        date: "20.11.2011",
         day:{
             weather: "sun",
             temperature: "+12",
@@ -237,7 +237,7 @@ var WeatherDay =
             DirectionWind: "up"
         },
         night:{
-            weather: "sun",
+            weather: "moon",
             temperature: "+12",
             wind: "2.2",
             DirectionWind: "up"
@@ -247,23 +247,23 @@ var WeatherDay =
 
 var TextWeatherDay = [
     {
-        date: "20.11",
+        date: "20.11.2011",
         text: "В запорожье тепло"
     },
     {
-        date: "21.11",
+        date: "21.11.2011",
         text: "В запорожье тепло"
     },
     {
-        date: "22.11",
+        date: "22.11.2011",
         text: "В запорожье тепло"
     },
     {
-        date: "23.11",
+        date: "23.11.2011",
         text: "В запорожье тепло"
     },
     {
-        date: "24.11",
+        date: "24.11.2011",
         text: "В запорожье тепло"
     }
 ]
@@ -282,7 +282,7 @@ var WeatherData = [
 var waterObj = {
     Date: "20.12.2017",
     Dnipro: {
-        Observable: "08",
+        Observable: "00",
         Temperature: "24.4"
     },
     Azov: {
@@ -432,79 +432,105 @@ var meteorologPhenomenaArr = [
         id: 1,
         modalName: "Вітер, у т.ч. шквали, смерчі",
         modalConvention: "максимальна швидкість",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"25 м/с і більше",
+		    duration:"Будь-яка"
     },
     {
         id: 2,
         modalName: "Сильна ожеледь",
         modalConvention: "диаметр",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"20 мм і більше",
+		    duration:"Будь-яка"
     },
     {
         id: 3,
         modalName: "Сильні хуртовини",
         modalConvention: "швидкість вітру",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"15 м/с і більше",
+		    duration:"12 годин і більше"
     },
     {
         id: 4,
         modalName: "Дуже сильні снігопади",
         modalConvention: "кількість опадів",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"20 мм і більше",
+		    duration:"12 годин і меньше"
     },
     {
         id: 5,
         modalName: "Дуже сильний дощ",
         modalConvention: "кількість опадів",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"50 мм і більше",
+		    duration:"12 годин і меньше"
     },
     {
         id: 6,
         modalName: "Сильне налипання мокрого снігу",
         modalConvention: "діаметр відкладень (д)",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"35 мм і більше",
+		    duration:"Будь-яка"
     },
     {
         id: 7,
         modalName: "Сильна пилова буря",
         modalConvention: "швидкість вітру",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"15 м/с і більше",
+		    duration:"12 годин і більше"
     },
     {
         id: 8,
         modalName: "Сильний туман",
         modalConvention: "видимість",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"до 100м",
+		    duration:"12 годин і більше"
     },
     {
         id: 9,
         modalName: "Сильний мороз",
         modalConvention: "температура повітря",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"Нижче -30​​°",
+		    duration:"Будь-яка"
     },
     {
         id: 10,
         modalName: "Сильна спека",
         modalConvention: "температура повітря",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"+40° і вище",
+		    duration:"Будь-яка"
     },
     {
         id: 11,
         modalName: "Крупний град",
         modalConvention: "діаметр",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"20 мм і більше",
+		    duration:"Будь-яка"
     },
     {
         id: 12,
         modalName: "Сильні зливи",
         modalConvention: "кількість опадів",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"30 мм і більше",
+		    duration:"1 година і меньше"
     },
     {
         id: 13,
         modalName: "Тривалі дощі",
         modalConvention: "кількість опадів",
-        table: ClimateRecordsArr
+        table: ClimateRecordsArr,
+        strength:"100 мм і більше",
+		    duration:"> 12 < 48 годин"
     }
 ]
 
@@ -623,49 +649,49 @@ var EmailArr = [
 
 var chartArr = [
     {
-        "label": "Пыль",
+        "label": "Пил",
         "backgroundColor": "rgb(0, 255, 0)",
-        "data": [13, 10, 5, 2, 20]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     },
     {
         "label": "Двооксид сірки",
         "backgroundColor": "rgb(255, 0, 68)",
-        "data": [1.3, 10, 5, 2, 20]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     },
     {
         "label": "Оксид вуглецю",
         "backgroundColor": "rgb(0, 171, 255)",
-        "data": [1.3, 10, 5, 2, 20, 30, 45]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     },
     {
         "label": "Двооксид азоту",
         "backgroundColor": "rgb(171, 0, 255)",
-        "data": [1.3, 10, 5, 2, 20, 30, 45]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     },
     {
         "label": "Оксид азоту",
         "backgroundColor": "rgb(255, 247, 0)",
-        "data": [1.3, 10, 5, 2, 20, 30, 45]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     },
     {
         "label": "Фенол",
         "backgroundColor": "rgb(255, 99, 132)",
-        "data": [1.3, 10, 5, 2, 20, 30, 45]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     },
     {
         "label": "Хлористий водень",
         "backgroundColor": "rgb(152, 96, 0)",
-        "data": [1.3, 10, 5, 2, 20, 30, 45]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     },
     {
         "label": "Фтористий водень",
         "backgroundColor": "rgb(230, 168, 42)",
-        "data": [1.3, 10, 5, 2, 20, 30, 45]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     },
     {
         "label": "Формальдегід",
         "backgroundColor": "rgb(0, 7, 223)",
-        "data": [1.3, 10, 5, 2, 20, 30, 45]
+        "data": [1.3, 5.6, 5, 2, 2.8, 39, 4.5]
     }
 ]
 
@@ -716,6 +742,7 @@ var UsersArray = [
         login: "sappi",
         password: "martunenko",
         role: "2",
+        station: "zaporozhye"
 
     },
     {
@@ -780,49 +807,57 @@ var StationArray = [
         "addres":"м. Запоріжжя, вул. Блакитна, 4, територія аеропорту Запоріжжя",
         "email": "metzaporozh@meteo.gov.ua",
         "full_name": "Авіаційна метеорологічна станція цивільна Запоріжжя",
-        "photo": 4
+        "photo": ["zaporozhye1.jpg","zaporozhye2.jpg","zaporozhye3.jpg"]
     },
     {
         "Title":'prism',
         "addres":"смт. Пришиб Михайлівський район, пров. Східний, 18",
         "email": "mspryshyb@meteo.gov.ua",
         "full_name": "Метеорологічна станція Пришиб",
-        "photo": 4
+        "photo": ["prism1.jpg","prism2.jpg","prism3.jpg","prism4.jpg"]
     },
     {
         "Title":'kyrylivka',
         "addres":"с. Семенівка Пологівського району, вул. Дружби, 151",
         "email": "",
         "full_name": "Метеорологічна станція Кирилівка",
-        "photo": 3
+        "photo": ['kyrylivka1.jpg', 'kyrylivka2.jpg', 'kyrylivka3.jpg']
     },
     {
         "Title":'gulyaypole',
         "addres":"м. Гуляйполе, вул. Потайна, 16",
         "email": "msgulyaypole@meteo.gov.ua",
         "full_name": "Метеорологічна станція Гуляйполе",
-        "photo": 1
+        "photo": ['gulyaypole1.jpg']
     },
     {
         "Title":'botievye',
         "addres":"с. Ботієве Приазовського району, вул. Тараса Шевченка, 68",
         "email": "msbotievo@meteo.gov.ua",
         "full_name": "Метеорологічна станція Ботієве",
-        "photo": 3
+        "photo": ['botievye1.jpg', 'botievye2.jpg', 'botievye3.jpg']
     },
     {
         "Title":'melitopol',
         "addres":"м. Мелітополь, вул. Вакуленчука, 99",
         "email": "msmelitopol@meteo.gov.ua",
         "full_name": "Метеорологічна станція  Мелітополь",
-        "photo": 4
+        "photo": ['melitopol1.jpg', 'melitopol2.jpg', 'melitopol3.jpg']
     },
     {
         "Title":'berdyansk',
         "addres":"м. Бердянськ, вул. Горького,6, територія  морського торговельного порту",
         "email": "msberdyansk@meteo.gov.ua",
         "full_name": "Морська гідрометеорологічна станція Бердянськ",
-        "photo": 4
+        "photo": ['berdyansk1.jpg', 'berdyansk2.jpg', 'berdyansk3.jpg', 'berdyansk4.jpg']
+    },
+    ,
+    {
+        "Title":'hydrology',
+        "addres":"м. Запоріжжя, провулок Черкаський, 19",
+        "email": "hydrozaporozh@meteo.gov.ua",
+        "full_name": "Відділ гідрології",
+        "photo": ['hydrology1.jpg', 'hydrology2.jpg','hydrology3.jpg']
     }
 ]
 
@@ -886,8 +921,9 @@ function InitCityWeatrherTable(){
                 object.StationID = res[i][0].id;
                 for(var j=0;j<respons.length; j++){
                    object.TimeGapsId = respons[j][0].id;
+                   object.gap = respons[j][0].Summer;
                    object.Weather = weather;
-                  WeatherTable.AddEntry(object);
+                   WeatherTable.AddEntry(object);
                 }
             }
        })
@@ -916,7 +952,8 @@ module.exports = {
         WeatherObservable.Init(WeatherObservableObj);
         InitCityWeatrherTable();
         setTimeout(() => {
-            UserController.Init(UsersArray).then(data => console.log('Initial'))
+            UserController.Init(UsersArray);
+            console.log('Initial');
         },5000)
     },
     UnInit: function(){

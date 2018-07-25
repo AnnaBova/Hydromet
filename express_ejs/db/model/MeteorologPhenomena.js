@@ -10,7 +10,9 @@ const meteorologPhenomenaSchema = mongoose.Schema({
     "id": Number,
     "modalName": String,
     "modalConvention": String,
-    "table": [ item ]
+    "table": [ item ],
+    "strength": String,
+    "duration": String
 })
 
 

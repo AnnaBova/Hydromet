@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Weather from './Weather';
 import TextWeather from './TextWeather';
-import { 
-    getHydroBulletin, 
-    ChangeDay, 
-    Edit, 
-    ChangeWeathers, 
-    GiveClimateData, 
+import {
+    getHydroBulletin,
+    ChangeDay,
+    Edit,
+    ChangeWeathers,
+    GiveClimateData,
     GiveWeatherObservable,
     GiveDecadeBulletin,
     ChangeObservDay,
@@ -21,13 +21,26 @@ import {
     ChangeStationRaditional,
     EditRaditionalReqest,
     SetHydrometMessage,
+    UpdateDate
 } from '../redux/actions/index';
 import ClimateData from './ClimateData';
 import ObservableWeather from './ObservableWeather';
 import DecadBulletin from './Decad_bulletin';
 import pdfMake from 'pdfmake/build/pdfmake';
 import vfsFonts from 'pdfmake/build/vfs_fonts';
-import Radiation from './ radiation';
+import Radiation from './radiation';
+import '../style/hydrometeorologycalBulletin.css';
+
+const WEEK_DAYS = [
+  "Неділя",
+  "Понедiлок",
+  "Вівторок",
+  "Середа",
+  "Четвер",
+  "П'ятниця",
+  "Суббота",
+];
+
 
 class Hydrometeorologycal extends Component {
 
@@ -36,47 +49,55 @@ class Hydrometeorologycal extends Component {
         this.state = {
             activeIndex: 0,
             panas: [
-                {   menuItem: 'Погода по Запорожью', 
+                {   menuItem: 'Погода по Запоріжжю',
                     render: () => <Tab.Pane>
-                        <Weather 
-                            data={this.props.WeatherDay} 
-                            Submit={this.Submit} 
+                        <Weather
+                            data={this.props.WeatherDay}
+                            index={this.state.activeIndex}
+                            Submit={this.saveBulletin}
                             ChangeDay={this.ChangeDay}
                             setMessage= {this.props.setMessage}
+                            updateDate = {this.updateDate}
                         />
                         </Tab.Pane> },
-                {   menuItem: 'Текстовая погода по Запорожью', 
+                {   menuItem: 'Текстова погода по Запоріжжю',
                     render: () => <Tab.Pane>
                         <TextWeather
-                            data={this.props.WeatherDay} 
-                            ChangeDay={this.ChangeDay}
-                            Submit={this.Submit}
-                            setMessage= {this.props.setMessage}
-                        />
-                        </Tab.Pane> },
-                {   menuItem: 'Погода по облости', 
-                    render: () => <Tab.Pane>
-                    <Weather 
-                        data={this.props.WeatherDay} 
-                        Submit={this.Submit} 
-                        ChangeDay={this.ChangeDay}
-                        setMessage= {this.props.setMessage}
-                    />
-                    </Tab.Pane> },
-                {   menuItem: 'Текстовая погода по облости', 
-                    render: () => <Tab.Pane> 
-                        <TextWeather 
                             data={this.props.WeatherDay}
                             ChangeDay={this.ChangeDay}
-                            Submit={this.Submit}
+                            Submit={this.saveBulletin}
+                            index={this.state.activeIndex}
                             setMessage= {this.props.setMessage}
+                            updateDate = {this.updateDate}
                         />
                         </Tab.Pane> },
-                {   menuItem: 'Обзор погоды', 
+                {   menuItem: 'Погода по області',
                     render: () => <Tab.Pane>
-                            <ObservableWeather  
-                                Submit={this.handelSubmitObserv}
-                                EditDay={this.handelEditDayObserv}
+                    <Weather
+                        data={this.props.WeatherDay}
+                        Submit={this.saveBulletin}
+                        ChangeDay={this.ChangeDay}
+                        setMessage= {this.props.setMessage}
+                        index={this.state.activeIndex}
+                        updateDate = {this.updateDate}
+                    />
+                    </Tab.Pane> },
+                {   menuItem: 'Текстова погода по області',
+                    render: () => <Tab.Pane>
+                        <TextWeather
+                            data={this.props.WeatherDay}
+                            ChangeDay={this.ChangeDay}
+                            Submit={this.saveBulletin}
+                            setMessage= {this.props.setMessage}
+                            updateDate = {this.updateDate}
+                            index={this.state.activeIndex}
+                        />
+                        </Tab.Pane> },
+                {   menuItem: 'Огляд погоди',
+                    render: () => <Tab.Pane>
+                            <ObservableWeather
+                                Submit={this.handleSubmitObserv}
+                                EditDay={this.handleEditDayObserv}
                                 ChangeDay={this.props.ChangeObservDay}
                                 ObservDay = {this.props.ObservDay}
                                 ObservWeather= {this.props.ObservWeather}
@@ -84,23 +105,23 @@ class Hydrometeorologycal extends Component {
                                 setMessage= {this.props.setMessage}
                             />
                         </Tab.Pane> },
-                {   menuItem: 'Климатические данные запорожья', 
+                {   menuItem: 'Кліматичні дані Запоріжжя',
                     render: () => <Tab.Pane>
-                        <ClimateData 
-                            Submit={this.handelSubmitClimate}
+                        <ClimateData
+                            Submit={this.handleSubmitClimate}
                             ClimateData={this.props.ClimateData}
                             setMessage= {this.props.setMessage}
                         /></Tab.Pane> },
-                {   menuItem: 'Декадный белютень', 
+                {   menuItem: 'Декадний бюлетень',
                     render: () => <Tab.Pane>
-                        <DecadBulletin SubmitDecadBulletin = {this.handelDecadBulletinSubmit} setMessage= {this.props.setMessage}/></Tab.Pane> },
-                {   menuItem: 'Радиационный фон', 
+                        <DecadBulletin SubmitDecadBulletin = {this.handleDecadBulletinSubmit} setMessage= {this.props.setMessage}/></Tab.Pane> },
+                {   menuItem: 'Радіаційний фон',
                     render: () => <Tab.Pane>
-                        <Radiation 
-                            SubmitDecadBulletin = { this.handelDecadBulletinSubmit }
+                        <Radiation
+                            SubmitDecadBulletin = { this.handleDecadBulletinSubmit }
                             Raditional = { this.props.Raditional }
                             EditRaditionalReqest = { this.props.EditRaditionalReqest }
-                            SetMessageTrue={this.props.SetHydrometMessageTrue }  
+                            SetMessageTrue={this.props.SetHydrometMessageTrue }
                             ChangeStationRaditional = { this.props.ChangeStationRaditional }
                             setMessage= {this.props.setMessage}
                         /></Tab.Pane> },
@@ -108,18 +129,27 @@ class Hydrometeorologycal extends Component {
         }
     }
 
-    handelEditDayObserv = (obj) => {
+    handleEditDayObserv = (obj) => {
         this.props.EditDayObserv(obj);
     }
 
-    handelSubmitObserv = (value) => {
+    handleSubmitObserv = (value) => {
+        const arr = this.props.WeatherObservableData.StationWeather.map((item, index)=>{
+          if(index === value.Station)return {
+            ...item,
+            MaxTemperature : value.MaxTemperature,
+            MinTemperature : value.MinTemperature,
+            Precipitation : value.precipitation
+          }
+          return item;
+        });
         var obj2 = {
             ...this.props.WeatherObservableData,
             day: value.day,
             mounth: value.mounth,
             year: value.year,
             text:   value.text,
-            StationWeather: this.props.ObservWeather
+            StationWeather: arr
         }
         this.props.GiveWeatherObservable(obj2);
     }
@@ -129,14 +159,14 @@ class Hydrometeorologycal extends Component {
         this.props.ChangeDay(value);
     }
 
-    handelDecadBulletinSubmit = (val) => {
+    handleDecadBulletinSubmit = (val) => {
         this.props.GiveDecadeBulletin(val);
-        this.props.SetHydrometMessageTrue(); 
+        this.props.SetHydrometMessageTrue();
     }
 
-    handelSubmitClimate = (value) => {
+    handleSubmitClimate = (value) => {
         this.props.GiveClimateData(value);
-        this.props.SetHydrometMessageTrue();     
+        this.props.SetHydrometMessageTrue();
     }
 
     handleTabChange = (e, { activeIndex }) => {
@@ -148,32 +178,83 @@ class Hydrometeorologycal extends Component {
     }
 
     toDataURL = (src, callback) => {
-        var image = new Image();
+        let image = new Image();
         image.crossOrigin = 'Anonymous';
-     
+
         image.onload = function() {
-            var canvas = document.createElement('canvas');
-            var context = canvas.getContext('2d');
-            canvas.height = this.naturalHeight;
-            canvas.width = this.naturalWidth;
+            let canvas = document.createElement('canvas');
+            let context = canvas.getContext('2d');
+            canvas.height = this.naturalHeight-1;
+            canvas.width = this.naturalWidth-1;
             context.drawImage(this, 0, 0);
-            var dataURL = canvas.toDataURL('image/jpeg');
+            var dataURL = canvas.toDataURL();
             callback(dataURL);
         };
-        
+
         image.src = src;
     }
 
     Submit = (obj) => {
-        const newLocal =  this.props.SelectWeathers.map(item => {
-            //eslint-disable-next-line
-            if (item._id == obj._id) {
-                item = obj;
-            }
-            return item;
-        });
         this.props.SetHydrometMessageTrue();
-        this.props.EditDay(newLocal, this.state.activeIndex);
+        this.props.EditDay(obj, this.state.activeIndex);
+    }
+
+    updateDate = (dateString) => {
+      const dates = dateString.split('.');
+      const textDates = [];
+      const weekDays = [];
+      const enteredDate = new Date(`${dates[2]}-${dates[1]}-${+dates[0]}`);
+      for (var i = 0; i < 5; i++) {
+        const date = new Date(enteredDate.getTime() + 24 * 3600 * 1000 * i);
+        weekDays.push(WEEK_DAYS[date.getDay()]);
+        let day = date.getDate();
+        day = (`${day}`.length === 1)? `0${day}` : day;
+        let month = date.getMonth() + 1;
+        month = (`${month}`.length === 1)? `0${month}` : month;
+        textDates.push(`${day}.${month}.${enteredDate.getFullYear()}`);
+      }
+
+      const map = (item, index) => {
+        item.title = weekDays[index];
+        item.date = textDates[index];
+        return item;
+      }
+
+      const textMap = (item, index) => {
+        item.date = textDates[index];
+        return item;
+      }
+
+      const city = this.props.WeatherCity.map(map);
+      const obl = this.props.WeatherObl.map(map);
+      const textCity = this.props.TextWeatherCity.map(textMap);
+      const textObl = this.props.TextWeatherObl.map(textMap);
+
+      this.props.UpdateDate({
+        city,
+        obl,
+        textCity,
+        textObl
+      });
+    }
+
+    saveBulletin = () => {
+      switch (this.state.activeIndex) {
+        case 0:
+          this.props.EditDay(this.props.WeatherCity, 0);
+          break;
+        case 1:
+          this.props.EditDay(this.props.TextWeatherCity, 1);
+          break;
+        case 2:
+          this.props.EditDay(this.props.WeatherObl, 2);
+          break;
+        case 3:
+          this.props.EditDay(this.props.TextWeatherObl, 3);
+          break;
+        default:
+
+      }
     }
 
     componentDidMount(){
@@ -204,33 +285,53 @@ class Hydrometeorologycal extends Component {
         return arr;
     }
     SaveReport = () => {
-        const {vfs} = vfsFonts.pdfMake;
+      const {vfs} = vfsFonts.pdfMake;
 	    pdfMake.vfs = vfs;
-        this.toDataURL('http://77.120.123.202:3001/public/assets/images/doc_header.png', (img1) => { 
+        this.toDataURL('http://localhost:3001/public/assets/images/herb.jpg', (img1) => {
             this.toDataURL('http://77.120.123.202:3001/public/assets/images/map.png', (img2) => {
+              this.toDataURL('http://77.120.123.202:3001/public/assets/images/signature.png', (signature) => {
                 var obj = {
                     pageSize: 'A4',
                     content: [
                         {
                             image: img1,
-                            width:530
+                            alignment: 'center'
                         },
                         {
-                            text:'Гидрометрический белютень',
+                          text: 'ДЕРЖАВНА СЛУЖБА УКРАЇНИ З НАДЗВИЧАЙНИХ СИТУАЦІЙ',
+                          style: 'bold',
+                          alignment: 'center',
+                          margin: [0,35,0,0]
+                        },
+                        {
+                          text: 'ЗАПОРІЗЬКИЙ ОБЛАСНИЙ ЦЕНТР З ГІДРОМЕТЕОРОЛОГІЇ',
+                          style: 'bold',
+                          fontSize: 20,
+                          alignment: 'center'
+                        },
+                        {
+                          text: '(ЗАПОРІЗЬКИЙ ЦГМ)',
+                          style: 'bold',
+                          alignment: 'center'
+                        },
+                        {
+                            text:'69095, м. Запоріжжя, пр. Соборний, 105,  тел/факс. (061) 787-62-06, 787-62-09',
+                            alignment: 'center',
+                        },
+                        {
+                            text:'E-mail: pgdzaporozh@meteo.gov.ua, zcgm@ukr.net',
+                            alignment: 'center',
+                        },
+                        {
+                            text:'Гідрометеорологічний белютень',
                             style: 'bold',
                             alignment: 'center',
                             margin: [0,35,0,0]
                         },
                         {
-                            text:this.props.ClimateData.day + ' ' + this.props.ClimateData.mounth + ' ' + this.props.ClimateData.year + ' року ',
-                            style: 'bold',
-                            margin: [0,13,0,0]
-                        },
-                        {
-                            text: '№207',
+                            text: `№${this.props.ClimateData.number}`,
                             alignment: 'right',
-                            style: 'bold',
-                            margin: [0,-15,0,0]
+                            style: 'bold'
                         },
                         {
                             text: "Прогноз погоди по Запорізькій області",
@@ -247,21 +348,26 @@ class Hydrometeorologycal extends Component {
                         },
                         this.GetWeatherTable(this.props.TextWeatherCity),
                         {
-                           stack: [ 
-                                { 
+                           stack: [
+                                {
                                     text: 'Начальник центру',
                                     alignment: 'left'
-                                }, 
-                                { 
+                                },
+                                {
+                                    image: signature,
+                                    alignment: 'right',
+                                    margin: [0, 0, 30, 0]
+                                },
+                                {
                                     text: 'І.Г.Черник',
                                     alignment: 'right',
                                     margin:[0,-14,0,0],
-                                }
+                                },
                             ],
                             margin: [0,20, 0 ,0]
-                        }, 
+                        },
                         {
-                            text: 'Бюллетень складений ' + this.props.ClimateData.DateBulletin,
+                            text: 'Бюллетень складений о' + this.props.ClimateData.DateBulletin,
                             margin: [0,20,0,0],
                             pageBreak: 'after'
                         },
@@ -306,27 +412,28 @@ class Hydrometeorologycal extends Component {
                         }
                     }
                 }
-    
+
                 if(this.props.ClimateData.StormText !== ""){
-                    obj.content.splice(4, 0,  {
+                    obj.content.splice(8, 0,  {
                         text: 'Штормове попередження про найважливіші гідрометеорологічні явища ',
                         alignment: 'center',
                         style: 'bold',
                         margin: [5,20,0,0],
                     });
-                    obj.content.splice(5, 0,{
+                    obj.content.splice(9, 0,{
                         text: this.props.ClimateData.StormText,
                         alignment: 'center',
                     });
                 }
-                pdfMake.createPdf(obj).download('гидрометрический белютень.pdf');
+                pdfMake.createPdf(obj).download('Гідрометеорологічний белютень.pdf');
             });
+          });
         });
-        
-        
+
+
     }
 
-    handelSendMail = () => {
+    handleSendMail = () => {
         this.props.GoTyMailCastomize();
     }
 
@@ -334,9 +441,9 @@ class Hydrometeorologycal extends Component {
     return (
         <Form success={this.props.Message}>
             <Tab panes={this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange}></Tab>
-            <Button floated="left" onClick={this.SaveReport}>Сохранить отчет</Button>
-            <Button onClick={this.handelSendMail}>Отправить пользователям</Button>
-            <Button type="button" floated="right" onClick={this.LogOut}>Выйти</Button>
+            <Button floated="left" onClick={this.SaveReport}>Зберегти звіт</Button>
+            <Button onClick={this.handleSendMail}>Надіслати користувачам</Button>
+            <Button type="button" floated="right" onClick={this.LogOut}>Вийти</Button>
         </Form>);
     }
 }
@@ -346,6 +453,8 @@ const mapStateToProps = (state) => ({
     Raditional: state.RaditionalReducer.raditional,
     ClimateData: state.hydrometeorolog_bulletin.ClimateData,
     WeatherDay: state.hydrometeorolog_bulletin.WeatherDay,
+    WeatherCity: state.hydrometeorolog_bulletin.WeatherCity,
+    WeatherObl: state.hydrometeorolog_bulletin.WeatherObl,
     SelectWeathers: state.hydrometeorolog_bulletin.SelectWeathers,
     ObservWeather: state.hydrometeorolog_bulletin.WeatherObservable,
     ObservDay: state.hydrometeorolog_bulletin.ObservDay,
@@ -370,6 +479,7 @@ const mapDispatchToProps = (dispatch) => ({
     EditDay: bindActionCreators(Edit, dispatch),
     ChangeDay: bindActionCreators(ChangeDay, dispatch),
     getBuletin: bindActionCreators(getHydroBulletin, dispatch),
+    UpdateDate: bindActionCreators(UpdateDate, dispatch),
     noAuthorization: () => dispatch(push('/signin')),
     GoTyMailCastomize: () => dispatch(push('/mail_castomize')),
     setMessage: () => dispatch({type: 'SET_HYDRO_BULLETIN_MESSAGE'}),

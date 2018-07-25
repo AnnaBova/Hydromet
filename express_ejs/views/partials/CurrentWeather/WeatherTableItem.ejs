@@ -3,14 +3,14 @@
       <div class="flex-block just-sp-ar">
       <div><%= item.Summer %></div>
       <div><%= item.Winter %></div>
-    </div>                    
+    </div>
   </td>
   <td> <%= item.Weather.temperature %> </td>
   <td> <%= item.Weather.wind %> <%if (item.Weather.wind){%>м/с<%}%><i class="la la-long-arrow-<%= item.Weather.DirectionWind %> la-lg"></i></td>
-  <td> <%= item.Weather.pressure %> </td>     
+  <td> <%= item.Weather.pressure %> </td>
   <td>
       <% if(item.Weather.phenomena != ""){ %>
-      <img src="/public/assets/svg/<%= item.Weather.phenomena %>_small.svg">
+      <img src="/public/assets/svg/<%= item.Weather.phenomena %>.png" height="30" width="30">
     <% } %>
   </td>
 </tr>

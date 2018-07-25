@@ -31,16 +31,16 @@ class InputComponent extends Component {
     handleSaveValue = () => {
         this.props.saveValue(this.createObj(this.state.value));
     }
-    
+
     render(){
         const { value } = this.state;
         const { type, label, placeholder, disabled} = this.props;
         return (
-            <div>
+            <div className={this.props.className}>
             {
               label &&
               <label >{`${label}`}</label>
-            } 
+            }
             <input
             type={type}
             value={value}
@@ -48,8 +48,8 @@ class InputComponent extends Component {
             onBlur={this.handleSaveValue}
             placeholder={placeholder}
             disabled={disabled}
-          />  
-          </div> 
+          />
+          </div>
         )
     }
 

@@ -19,7 +19,6 @@ import {
     CHANGE_MATTER,
     EDIT_MATTER,
     GET_REGULAR_OBSERVABLE,
-    CHANGE_REGULAR_OBSERVABLE,
     EDIT_REGULAR_OBSERVABLE,
     GET_EVENTS,
     DELETE_EVENT,
@@ -41,7 +40,20 @@ import {
     SET_CLIMATE_RECORD_MESSAGE_FALSE,
     SET_EVENT_MESSAGE_TRUE,
     SET_EVENT_MESSAGE_FALSE,
-    SET_STATION_PHOTO
+    SET_STATION_PHOTO,
+    UPDATE_WEATHER_CITY,
+    UPDATE_WEATHER_OBL,
+    UPDATE_WEATHER_CITY_TEXT,
+    UPDATE_WEATHER_OBL_TEXT,
+    UPDATE_DATE,
+    SET_CURRENT_WEATHER,
+    SET_TIME_GAPS,
+    CHANGE_SELECTED_GAP,
+    CHANGE_RIVER,
+    CHANGE_REGULAR_OBSERVABLE,
+    UPDATE_REGULAR_OBSERVABLE,
+    UPDATE_WATTER_TEMPERATURE,
+    SET_STATION_PHOTOS
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
@@ -179,7 +191,6 @@ export function SubmitDangerPhenomen(text){
 }
 
 export function AddEmailRequest(obj){
-    console.log(obj);
     return (dispatch) => {
         fetch(`${LocalHost}/add_email`, {
             method: 'POST',
@@ -342,6 +353,7 @@ export function postEditMatter(value){
             body: JSON.stringify(value)
         })
         .then(res => dispatch(editMatter(value)))
+        .then(() => dispatch({type: 'SET_AIR_POLLUTION_MESSAGE', payload: true}))
         .catch(err => console.log(err));
     }
 }
@@ -422,7 +434,7 @@ export function ChangeWeathers(value){
 
 export function GiveWeatherObservable(value){
     return (dispatch)=> {
-        fetch(`${LocalHost}/give_weather_observable`, {
+        fetch(`${LocalHost}/give_weather_observable_api`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -430,7 +442,9 @@ export function GiveWeatherObservable(value){
             },
             body: JSON.stringify(value)
         })
-        .then(res => dispatch(SetWeatherObservable(value)))
+        .then(res => {
+          dispatch(SetWeatherObservable(value))
+        })
         .catch(err => console.log(err));
     }
 }
@@ -452,7 +466,7 @@ export function uploadCaruselImage(file, station){
                 method: 'POST',
                 body: data
             })
-            .then(response => {})
+            .then(response => dispatch(GetStationPhotos(station)))
             .catch(error => console.log(error));
     };
 }
@@ -527,7 +541,7 @@ export function GiveClimateData(value){
             },
             body: JSON.stringify(value)
         })
-        .then(res => {dispatch(SetCLimateData(value))})
+        .then(res => dispatch(SetCLimateData(value)))
         .catch(res => console.log(res));
     }
 }
@@ -567,6 +581,47 @@ export function ChangeDay(value){
     }
 }
 
+export function setTimeGaps(arr) {
+  return {
+    type: SET_TIME_GAPS,
+    payload: arr
+  }
+}
+
+export function getTimeGaps() {
+  return dispatch => {
+    fetch(`${LocalHost}/get_gaps`, {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(res => {
+      dispatch(setTimeGaps(res))
+      // dispatch(push('/meteostation'));
+    })
+  }
+}
+
+export function setWeather(arr) {
+  return {
+    type: SET_CURRENT_WEATHER,
+    payload: arr
+  }
+}
+
+export function getWeather(stationId) {
+  return dispatch => {
+    fetch(`${LocalHost}/get_station_weather/${stationId}`, {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(res => {
+      dispatch(setWeather(res));
+      dispatch(getWaterTemperature());
+      dispatch(getTimeGaps());
+    })
+  }
+}
+
 export function getToken(data){
     return (dispatch) => {
         fetch(`${LocalHost}/token`, {
@@ -584,10 +639,12 @@ export function getToken(data){
                 switch(res.role){
                     case 1:{
                         dispatch(setStationId(res.stationID));
-                        dispatch(push('/meteostation'))
+                        dispatch(getWeather(res.stationID));
+                        dispatch(push('/meteostation'));
                         break;
                     }
                     case 2: {
+                        dispatch(setStationId(res.stationID));
                         dispatch(push('/all_meteostation'))
                         break;
                     }
@@ -728,7 +785,12 @@ export function getStationId(station){
             body: JSON.stringify({station:station})
         })
         .then(res => res.json())
-        .then(res => dispatch(setStationId(res._id)))
+        .then(res => {
+          dispatch(setStationId(res._id))
+          return res;
+        })
+        .then(res => dispatch(getWeather(res._id)))
+        .then(res => dispatch(getTimeGaps()))
         .then(() => dispatch(setStationName(station)))
         .catch(err => console.log(err));
     }
@@ -745,6 +807,9 @@ export function getStation() {
         .then(res => res.json())
         .then(res => {
             dispatch(setStationId(res._id));
+            dispatch(getWeather(res._id));
+            dispatch(getWaterTemperature());
+            dispatch(getTimeGaps());
             dispatch(setStationName(res.Title));
             dispatch(setStationPhoto(res.photo));
             dispatch(setToken(localStorage.getItem('token')));
@@ -779,4 +844,168 @@ export function setStationPhoto(photo){
         type: SET_STATION_PHOTO,
         payload: photo
     }
+}
+
+export function updateCity({index, item}){
+    return{
+        type: UPDATE_WEATHER_CITY,
+        payload: {
+          item,
+          index
+        }
+    }
+}
+
+export function updateObl({index, item}){
+    return{
+        type: UPDATE_WEATHER_OBL,
+        payload: {
+          item,
+          index
+        }
+    }
+}
+
+export function updateDate({city, obl, textCity, textObl}){
+    return{
+        type: UPDATE_DATE,
+        payload: {
+          city,
+          obl,
+          textCity,
+          textObl
+        }
+    }
+}
+
+export function UpdateDate({city, obl, textCity, textObl}){
+  return (dispatch)=>dispatch(updateDate({city, obl, textCity, textObl}))
+}
+
+export function UpdateWeatherCity(item, index) {
+    return (dispatch) => dispatch(updateCity({item, index}))
+}
+
+export function UpdateWeatherObl(item, index) {
+    return (dispatch) => dispatch(updateObl({item, index}))
+}
+
+export function updateOblText({index, item}){
+    return{
+        type: UPDATE_WEATHER_OBL_TEXT,
+        payload: {
+          item,
+          index
+        }
+    }
+}
+
+export function updateCityText({index, item}){
+    return{
+        type: UPDATE_WEATHER_CITY_TEXT,
+        payload: {
+          item,
+          index
+        }
+    }
+}
+
+export function UpdateWeatherCityText(item, index) {
+    return (dispatch) => dispatch(updateCityText({item, index}))
+}
+
+export function UpdateWeatherOblText(item, index) {
+    return (dispatch) => dispatch(updateOblText({item, index}))
+}
+
+export function changeSelectedGap(newGap) {
+  return {
+    type: CHANGE_SELECTED_GAP,
+    payload: newGap
+  }
+}
+
+export function ChangeSelectedGap(newGap) {
+  return dispatch => dispatch(changeSelectedGap(newGap));
+}
+
+export function ChangeRiver(newRiver) {
+    return (dispatch) => dispatch(changeRiver(newRiver))
+}
+
+export function changeRiver(newRiver) {
+    return {
+        type: CHANGE_RIVER,
+        payload: newRiver
+    }
+}
+
+export function UpdateRegularObservable(value) {
+    return (dispatch) => dispatch(updateRegularObservable(value))
+}
+
+export function updateRegularObservable(value) {
+    return {
+        type: UPDATE_REGULAR_OBSERVABLE,
+        payload: value
+    }
+}
+
+export function getWaterTemperature(){
+  return (dispatch) => {
+      fetch(`${LocalHost}/water`)
+      .then(res => res.json())
+      .then(res => dispatch(setWater(res)))
+      .catch(err => console.log(err));
+  }
+}
+
+export function SetWaterTemperature(data){
+  return (dispatch) => fetch(`${LocalHost}/water`, {
+      method: 'POST',
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => dispatch(setWater(res)));
+}
+
+export function setWater(data){
+  return {
+    type: UPDATE_WATTER_TEMPERATURE,
+    payload: data
+  }
+}
+
+export function GetStationPhotos(station){
+  return (dispatch) => fetch(`${LocalHost}/photos/${station}`, {
+      method: 'GET',
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+  })
+  .then(res => res.json())
+  .then(res => dispatch(setStationPhotos(res)));
+}
+
+export function setStationPhotos(data){
+  return {
+    type: SET_STATION_PHOTOS,
+    payload: data
+  }
+}
+
+export function DeleteStationPhoto(station, photo){
+  return (dispatch) => fetch(`${LocalHost}/photos/${station}`, {
+      method: 'POST',
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-type': 'application/json'
+      },
+      body: JSON.stringify({photo})
+  })
+  .then(res => dispatch(GetStationPhotos(station)));
 }

@@ -10,19 +10,19 @@ class ObservableWeather extends Component {
     super(props);
     this.state = {
       day: "",
-      mounth: "січень",
+      mounth: "січня",
       year: "",
       text:"",
       MaxTemperature: "",
       MinTemperature: "",
       precipitation: "",
       Phenomena: "sun",
-      Station: "1",
+      Station: 0,
       ErrorMessage: false,
     }
   }
 
-  handelSaveValue = (obj) => {
+  handleSaveValue = (obj) => {
     this.props.setMessage();
     this.setState({[obj.name]: obj.value, ErrorMessage: false});
   }
@@ -45,47 +45,39 @@ class ObservableWeather extends Component {
           MaxTemperature: this.state.MaxTemperature,
           MinTemperature: this.state.MinTemperature,
           Precipitation: this.state.precipitation,
-          Phenomen: this.state.Phenomena
+          Phenomen: this.state.Phenomena,
+          Station: this.state.Station,
         });
-        this.setState({
-          MaxTemperature: "",
-          MinTemperature:"",
-          precipitation:"",
-          Phenomen:"",
-          ErrorMessage: false
-        }, ()=> {
-          this.props.Submit(this.state);
-        })
+        this.props.Submit(this.state);
       }
     }else{
       this.setState({ErrorMessage: true});
     }
   }
 
-  handelOnChange = (e) => {
+  handleOnChange = (e) => {
     this.props.setMessage();
     this.setState({text:e.target.value, ErrorMessage: false});
   }
 
-  handelStationChange = (e) => {
+  handleStationChange = (e) => {
       this.props.setMessage();
-      this.props.ChangeDay(e.target.value-1);
       this.setState({
         MaxTemperature: "",
-        MinTemperature:"",
-        precipitation:"",
-        Phenomen:"",
-        ErrorMessage: false
+        MinTemperature: "",
+        precipitation: "",
+        ErrorMessage: false,
+        Station: +e.target.value
       })
 
   }
 
-  handelChangePhenomen = (e) => {
+  handleChangePhenomen = (e) => {
     this.props.setMessage();
     this.setState({Phenomena: e.target.value, ErrorMessage: false})
   }
 
-  handelOnChangeMounth = (e) =>{
+  handleOnChangeMounth = (e) =>{
     this.props.setMessage();
     this.setState({mounth:e.target.value, ErrorMessage: false})
   }
@@ -108,7 +100,7 @@ class ObservableWeather extends Component {
               value={this.state.day}
               label="День"
               name = "day"
-              saveValue={this.handelSaveValue}
+              saveValue={this.handleSaveValue}
             />
           </Form.Field >
           <Form.Field
@@ -116,9 +108,9 @@ class ObservableWeather extends Component {
             control="select"
             label="Місяць"
             value={this.state.mounth}
-            onChange={this.handelOnChangeMounth}
+            onChange={this.handleOnChangeMounth}
           >
-            <option value="січень">Січень</option>
+            <option value="січня">Січень</option>
             <option value="лютий">Лютий</option>
             <option value="березень">Березень</option>
             <option value="квітень">Квітень</option>
@@ -136,35 +128,35 @@ class ObservableWeather extends Component {
               value={this.state.year}
               label="Рік"
               name = "year"
-              saveValue={this.handelSaveValue}
+              saveValue={this.handleSaveValue}
             />
           </Form.Field>
           <Form.Field width={InputSize}>
             <label>Осмотр погоды</label>
-            <TextArea autoHeight onChange={this.handelOnChange}/>
+            <TextArea autoHeight onChange={this.handleOnChange}/>
           </Form.Field>
           <Form.Field
             width={InputSize}
             control="select"
             defaultValue={this.state.Station}
-            onChange={this.handelStationChange}
+            onChange={this.handleStationChange}
             name ="Station"
             label="Станції"
           >
-            <option value="1">Запоріжжя</option>
-            <option value="2">Пришиб</option>
-            <option value="3">Бердянск</option>
-            <option value="4">Гуляйполе</option>
-            <option value="5">Ботиево</option>
-            <option value="6">Кирилівка</option>
-            <option value="7">Мелітополь</option>
+            <option value="0">Запоріжжя</option>
+            <option value="1">Пришиб</option>
+            <option value="2">Бердянск</option>
+            <option value="3">Гуляйполе</option>
+            <option value="4">Ботиево</option>
+            <option value="5">Кирилівка</option>
+            <option value="6">Мелітополь</option>
           </Form.Field>
           <Form.Field width={InputSize}>
             <InputComponent
               value={this.state.MinTemperature}
               label="Мінімальна температура"
               name = "MinTemperature"
-              saveValue={this.handelSaveValue}
+              saveValue={this.handleSaveValue}
             />
           </Form.Field>
           <Form.Field width={InputSize}>
@@ -172,7 +164,7 @@ class ObservableWeather extends Component {
               value={this.state.MaxTemperature}
               label="Максимальна температура"
               name = "MaxTemperature"
-              saveValue={this.handelSaveValue}
+              saveValue={this.handleSaveValue}
             />
           </Form.Field>
           <Form.Field width={InputSize}>
@@ -180,17 +172,8 @@ class ObservableWeather extends Component {
               value={this.state.precipitation}
               label="Кількість опадів"
               name = "precipitation"
-              saveValue={this.handelSaveValue}
+              saveValue={this.handleSaveValue}
             />
-          </Form.Field>
-          <Form.Field width={InputSize} control="select" defaultValue={this.state.Phenomenas} name ="Phenomena" label="Феномены" onChange={this.handelChangePhenomen}>
-              <option value='sun'>Сонячно</option>
-              <option value='sun_cloud'>Хмарно</option>
-              <option value='cloud'>Похмуро</option>
-              <option value='cloud_rain_snow'>Сніг з дощем</option>
-              <option value='cloud_rain'>Дощ</option>
-              <option value='cloud_snow'>Сніг</option>
-              <option value='fog'>Туман</option>
           </Form.Field>
           <Button onClick={this.Submit}>Зберегти</Button>
           </Grid.Column>

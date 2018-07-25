@@ -3,7 +3,6 @@ import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getToken } from '../redux/actions/index';
-import { Link } from 'react-router-dom';
 
 class FormAuthorization extends Component {
   componentDidMount(){

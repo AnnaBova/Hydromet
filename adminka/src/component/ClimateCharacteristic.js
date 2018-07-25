@@ -16,11 +16,11 @@ class ClimateCharacteristic extends Component {
         }
     }
 
-    handelAreaOnChange = (e) => {
+    handleAreaOnChange = (e) => {
         this.props.setMessageFalse();
         this.setState({[e.target.name]: e.target.value});
     }
-    handelOnSubmit = () => {
+    handleOnSubmit = () => {
         this.props.EditClimate({
             ...this.props.ClimateCharacteristic,
             "1block": this.state["1block"],
@@ -52,7 +52,7 @@ class ClimateCharacteristic extends Component {
                                 autoHeight
                                 value = {this.state['1block']}
                                 name="1block"
-                                onChange={this.handelAreaOnChange}
+                                onChange={this.handleAreaOnChange}
                             />
                         </Form.Field>
                         <Form.Field>
@@ -60,7 +60,7 @@ class ClimateCharacteristic extends Component {
                                 autoHeight
                                 value = {this.state['2block']}
                                 name="2block"
-                                onChange={this.handelAreaOnChange}
+                                onChange={this.handleAreaOnChange}
                             />
                         </Form.Field>
                         <Form.Field>
@@ -68,7 +68,7 @@ class ClimateCharacteristic extends Component {
                                 autoHeight
                                 value = {this.state['3block']}
                                 name="3block"
-                                onChange={this.handelAreaOnChange}
+                                onChange={this.handleAreaOnChange}
                             />
                         </Form.Field>
                         <Form.Field>
@@ -76,7 +76,7 @@ class ClimateCharacteristic extends Component {
                                 autoHeight
                                 value = {this.state['4block']}
                                 name="4block"
-                                onChange={this.handelAreaOnChange}
+                                onChange={this.handleAreaOnChange}
                             />
                         </Form.Field>
                         <Form.Field>
@@ -84,7 +84,7 @@ class ClimateCharacteristic extends Component {
                                 autoHeight
                                 value = {this.state['5block']}
                                 name="5block"
-                                onChange={this.handelAreaOnChange}
+                                onChange={this.handleAreaOnChange}
                             />
                         </Form.Field>
                         <Form.Field>
@@ -92,7 +92,7 @@ class ClimateCharacteristic extends Component {
                                 autoHeight
                                 value = {this.state['6block']}
                                 name="6block"
-                                onChange={this.handelAreaOnChange}
+                                onChange={this.handleAreaOnChange}
                             />
                         </Form.Field>
                         <Form.Field>
@@ -100,10 +100,10 @@ class ClimateCharacteristic extends Component {
                                 autoHeight
                                 value = {this.state['7block']}
                                 name="7block"
-                                onChange={this.handelAreaOnChange}
+                                onChange={this.handleAreaOnChange}
                             />
                         </Form.Field>
-                        <Button primary onClick={this.handelOnSubmit}>Сохранить</Button>
+                        <Button primary onClick={this.handleOnSubmit}>Сохранить</Button>
                     </Form>
                     </Grid.Column>
                 </Grid.Row>

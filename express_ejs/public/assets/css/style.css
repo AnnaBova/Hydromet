@@ -983,6 +983,11 @@ span.number{
   line-height:60px;
 }
 
+.modalDate{
+  min-width: 130px;
+}
+
+
 /* MEDIA */
 @media (max-width:1200px){
   .logo{

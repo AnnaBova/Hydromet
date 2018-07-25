@@ -10,19 +10,19 @@
         </div>
         <div class="modal-body">
             <div class="flex-block just-sp-ar m-b-sm">
-            <div class="text-gray m-l-r-10">Інтенсивність: 25 м/с  і більше</div>
-            <div class="text-gray m-l-r-10">Тривалість: будь-яка</div>
-            </div>               
+            <div class="text-gray m-l-r-10">Інтенсивність: <%= item.strength %></div>
+            <div class="text-gray m-l-r-10">Тривалість: <%= item.duration %></div>
+            </div>
             <div class="table-responsive">
             <table class="table phenomena-table">
                 <tbody>
                     <% item.table.forEach(function(items){%>
                         <tr>
-                            <td><%= items.date %></td>
+                            <td class='modalDate'><%= items.date %></td>
                             <td><%= items.value %></td>
                             <td><%= items.post %></td>
                         </tr>
-                    <% })%>             
+                    <% })%>
                 </tbody>
             </table>
             </div>

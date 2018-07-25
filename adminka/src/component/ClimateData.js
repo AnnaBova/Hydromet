@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, TextArea, Grid, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
-import { DayValid, FullDataValid, YearsValid } from '../utils/DataValid';
-import { HourValid } from '../utils/TimeValid';
+import { FullDataValid  } from '../utils/DataValid';
 const InputSize = 4;
 
 class ClimateData extends Component {
@@ -10,90 +9,78 @@ class ClimateData extends Component {
         super(props);
         this.state = {
             day: "",
-            mounth: "январь",
+            mounth: "сiчень",
             year: "",
             date:"",
             value:"",
-            SelectorValue: "SrTemperature",
-            SrTemperature:{},
+            SrTemperature: {},
             MaxTemperature: {},
             MinTemperature: {},
             StormWarning: "",
             DateBulletin: "",
             Time:"",
+            number: '',
             ErrorMessage: false
         }
     }
 
-    handelSaveValue = (obj) => {
+    handleSaveProperties = (objName) => (obj) => {
         this.props.setMessage();
-        this.setState({[obj.name]:obj.value, ErrorMessage: false});
+        const current = this.state[objName];
+        current[obj.name] = obj.value;
+        this.setState({
+          [objName]: current,
+          ErrorMessage: false
+        });
     }
 
-    handelOnChange = (e) => {
+    handleSaveValue = (event) => {
+      this.props.setMessage();
+      this.setState({
+        [event.name]:event.value,
+        ErrorMessage:false
+      });
+    }
+
+    handleOnChange = (e) => {
         this.props.setMessage();
         this.setState({ SelectorValue: e.target.value, date: "", value: "", ErrorMessage: false})
     }
 
-    handelSubmit = () => {
+    handleSubmit = () => {
         var obj = {
             ...this.props.ClimateData,
             StormText: this.state.StormWarning,
             day: this.state.day,
-            mounth: this.state.mounth,
+            mounth: this.state.month,
             year: this.state.year,
+            SrTemperature: this.state.SrTemperature,
+            MaxTemperature: this.state.MaxTemperature,
+            number: this.state.number,
+            MinTemperature: this.state.MinTemperature,
             DateBulletin:`${this.state.Time} годині ${this.state.DateBulletin}`,
         }
-        switch(this.state.SelectorValue){
-            case 'MaxTemperature': {
-                obj.MaxTemperature = {
-                    date: this.state.date,
-                    value: this.state.value
-                }
-                break;
-            }
-            case 'MinTemperature': {
-                obj.MinTemperature =  {
-                    date: this.state.date,
-                    value: this.state.value
-                }
-                break;
-            }
-            default: {
-                obj.SrTemperature = {
-                    date: this.state.date,
-                    value: this.state.value
-                }
-                break;
-                }
-            }
-            if(DayValid(this.state.day) &&
-                FullDataValid(this.state.DateBulletin) &&
-                HourValid(this.state.Time) &&
-                YearsValid(this.state.year) &&
-                YearsValid(this.state.date)){
-                this.props.Submit(obj);
-                this.setState({
-
-                    date:"",
-                    value:"",
-                    DateBulletin: "",
-                    Time: "",
-                    ErrorMessage: false
-                });
-            }
-            else{
-                this.setState({ErrorMessage: true});
-            }
-
+        if(
+            FullDataValid(this.state.DateBulletin) &&
+            Number.isInteger(+this.state.day.split('-')[0])
+          )
+            {
+            this.props.Submit(obj);
+            this.setState({
+                ErrorMessage: false
+            });
+        }
+        else{
+            this.setState({ErrorMessage: true});
+        }
     }
 
-    handelChangeTextArea = (e) => {
+    handleChangeTextArea = (e) => {
         this.props.setMessage();
         this.setState({StormWarning:e.target.value, ErrorMessage: false});
     }
 
-    handelOnChangeMounth = (e) => {
+    handleOnChangeMounth = (e) => {
         this.props.setMessage();
         this.setState({mounth: e.target.value, ErrorMessage: false});
     }
@@ -112,70 +99,82 @@ class ClimateData extends Component {
             <Grid.Row>
                 <Grid.Column  width={5}/>
                 <Grid.Column width={8}>
+                  <Form.Field width={InputSize}>
+                      <InputComponent
+                          value = {this.state.day}
+                          name="day"
+                          label="День"
+                          saveValue ={this.handleSaveValue}
+                      />
+                  </Form.Field>
+                  <Form.Field width={InputSize}>
+                      <InputComponent
+                          value = {this.state.month}
+                          name="month"
+                          label="Мiсяць"
+                          saveValue ={this.handleSaveValue}
+                      />
+                  </Form.Field>
+                  <Form.Field width={InputSize}>
+                      <InputComponent
+                          value = {this.state.year}
+                          name="year"
+                          label="Рік"
+                          saveValue ={this.handleSaveValue}
+                      />
+                  </Form.Field>
+                <p className="label">Середня температура</p>
                 <Form.Group>
                     <Form.Field width={InputSize}>
                         <InputComponent
-                            value = {this.state.day}
-                            name="day"
-                            label="День"
-                            saveValue ={this.handelSaveValue}
-                        />
-                    </Form.Field>
-                    <Form.Field
-                        width={InputSize}
-                        control="select"
-                        label="Місяць"
-                        value={this.state.mounth}
-                        onChange={this.handelOnChangeMounth}
-                    >
-                        <option value="січень">Січень</option>
-                        <option value="лютий">Лютий</option>
-                        <option value="березень">Березень</option>
-                        <option value="квітень">Квітень</option>
-                        <option value="травень">Травень</option>
-                        <option value="червень">Червень</option>
-                        <option value="липень">Липень</option>
-                        <option value="серпень">Серпень</option>
-                        <option value="вересень">Вересень</option>
-                        <option value="жовтень"> Жовтень</option>
-                        <option value="листопад">Листопад</option>
-                        <option value="грудень">Грудень</option>
-                    </Form.Field>
-                    <Form.Field width={InputSize}>
-                        <InputComponent
-                            value = {this.state.year}
-                            name="year"
-                            label="Рік"
-                            saveValue ={this.handelSaveValue}
+                            value = {this.state.SrTemperature.value}
+                            name="value"
+                            label="Значення"
+                            saveValue ={this.handleSaveProperties('SrTemperature')}
                         />
                     </Form.Field>
                 </Form.Group>
-                <Form.Field control="select" width={InputSize} onChange={this.handelOnChange} value={this.state.SelectorValue}>
-                    <option value="SrTemperature">Середня температура</option>
-                    <option value="MaxTemperature">Максимальна температура</option>
-                    <option value="MinTemperature">Мінімальна температура</option>
-                </Form.Field>
+                <p className="label">Максимальна температура</p>
                 <Form.Group>
                     <Form.Field width={InputSize}>
                         <InputComponent
-                            value = {this.state.value}
+                            value = {this.state.MaxTemperature.value}
                             name="value"
                             label="Значення"
-                            saveValue ={this.handelSaveValue}
+                            saveValue ={this.handleSaveProperties('MaxTemperature')}
                         />
                     </Form.Field>
                     <Form.Field>
                         <InputComponent
-                            value = {this.state.date}
+                            value = {this.state.MaxTemperature.date}
                             name = "date"
                             label="Рік"
-                            saveValue ={this.handelSaveValue}
+                            saveValue ={this.handleSaveProperties('MaxTemperature')}
+                        />
+                    </Form.Field>
+                </Form.Group>
+                <p className="label">Мінімальна температура</p>
+                <Form.Group>
+                    <Form.Field width={InputSize}>
+                        <InputComponent
+                            value = {this.state.MinTemperature.value}
+                            name="value"
+                            label="Значення"
+                            saveValue ={this.handleSaveProperties('MinTemperature')}
+                        />
+                    </Form.Field>
+                    <Form.Field>
+                        <InputComponent
+                            value = {this.state.MinTemperature.date}
+                            name = "date"
+                            label="Рік"
+                            saveValue ={this.handleSaveProperties('MinTemperature')}
                         />
                     </Form.Field>
                 </Form.Group>
                 <Form.Field width={InputSize}>
                         <label>Штормове попередження</label>
-                        <TextArea autoHeight value={this.state.StormWarning} name="StormWarning" placeholder='Tell us more' onChange={this.handelChangeTextArea} />
+                        <TextArea autoHeight value={this.state.StormWarning} name="StormWarning" onChange={this.handleChangeTextArea} />
                 </Form.Field>
                 <Form.Group>
                 <Form.Field width={InputSize}>
@@ -183,21 +182,30 @@ class ClimateData extends Component {
                             value = {this.state.DateBulletin}
                             name = "DateBulletin"
                             label="Белютень складено дата: "
-                            saveValue = {this.handelSaveValue}
+                            saveValue = {this.handleSaveValue}
                             placeholder = "дд.мм.гггг"
                 />
                 </Form.Field>
                 <Form.Field>
                     <InputComponent
-                        value={this.state.time}
+                        value={this.state.Time}
                         name="Time"
                         label="Час складання: "
-                        saveValue={this.handelSaveValue}
+                        saveValue={this.handleSaveValue}
                         placeholder="О котрій годині?"
                     />
                 </Form.Field>
+                <Form.Field>
+                    <InputComponent
+                        value={this.state.number}
+                        name="number"
+                        label="Номер бюлетеню:"
+                        saveValue={this.handleSaveValue}
+                        placeholder="Номер бюлетеню"
+                    />
+                </Form.Field>
                 </Form.Group>
-                <Button onClick={this.handelSubmit}>Зберегти</Button>
+                <Button onClick={this.handleSubmit}>Зберегти</Button>
                 </Grid.Column>
             </Grid.Row>
         </Grid>

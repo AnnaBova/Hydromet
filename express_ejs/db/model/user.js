@@ -29,8 +29,8 @@ module.exports = {
             PromisArr.push(i);
             PromisArr.push(bcrypt.hash(arr[i].password, saltRounds));
             PromisArr.push(JWT.sign({role: arr[i].role, login: arr[i].login}, 'hydromet'));
-            if(arr[i].role == 1) { 
-                PromisArr.push(Station.GetIdStation(arr[i].station));  
+            if(arr[i].role < 3) {
+                PromisArr.push(Station.GetIdStation(arr[i].station));
             }
             Promise.all(PromisArr)
                 .then(res => {
@@ -38,7 +38,7 @@ module.exports = {
                         user.role = arr[res[0]].role;
                         user.password = res[1];
                         user.token = res[2];
-                        if(arr[res[0]].role == 1){
+                        if(arr[res[0]].role < 3){
                             user.stationID = res[3][0].id;
                         }else{
                             user.stationID = "";

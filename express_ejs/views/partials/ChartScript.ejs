@@ -10,6 +10,17 @@ var chart = new Chart(ctx, {
     datasets: testValue
     },
     // Configuration options go here
-    options: {}
+    options: {
+      scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                    stepSize: 1,
+                    max: 10
+                }
+            }]
+        }
+    },
+
 });
 </script>

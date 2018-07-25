@@ -3,7 +3,7 @@
         <div class="today-weather-body">
           <div class="flex-block just-sp-btw m-b-sm">
             <div>ЗАПОРІЖЖЯ</div>
-            <div> <%= ZpTemperature.date %></div>
+            <div> <%= day %>.<%= month %>.<%= year %></div>
           </div>
             <p class="text-gray">Поточна погода о <%= observe %>:00</p>
             <div class="today-temp text-center text-bold "> <%= ZpTemperature.Weather.temperature %></div>
@@ -11,7 +11,7 @@
           <div class="today-weather-footer">
             <span> <%= ZpTemperature.Weather.wind %> м/с<i class="la la-long-arrow-<%= ZpTemperature.Weather.DirectionWind %> la-lg"></i></span>
             <%if(ZpTemperature.Weather.phenomena != ""){%>
-              <img src="public/assets/svg/<%= ZpTemperature.Weather.phenomena %>.svg" class="f-r">
+              <img src="public/assets/svg/<%= ZpTemperature.Weather.phenomena %>.png" class="f-r">
             <%}%>
           </div>
     </div>

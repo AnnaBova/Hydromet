@@ -5,7 +5,7 @@ const UserController = require('../db/model/user');
 const Station = require('../db/model/Station');
 const TimeGaps = require('../db/model/TimeGaps');
 const WeatherTabel = require('../db/model/CityWeatherTable');
-const waterTemperature = require('../db/model/waterTemerature');
+const waterTemperature = require('../db/model/waterTemperature');
 const ClimateRecords = require('../db/model/ClimateRecords');
 const Phenomena = require('../db/model/MeteorologPhenomena');
 const WeatherCityTable = require('../db/model/WeatherCity');
@@ -31,7 +31,7 @@ module.exports = {
         res.send();
     },
     GetClimateCharacteristick: function(req, res){
-        ClimateCharacteristic.GetAll() 
+        ClimateCharacteristic.GetAll()
             .then(respons => res.json(respons))
             .catch(err => console.log(err));
     },
@@ -60,11 +60,46 @@ module.exports = {
                 res.json(respons);
             })
     },
+    getStationWeather: function (req, res){
+      Promise.all([Station.GetIdStation('berdyansk'), Station.GetIdStation('zaporozhye')]).then(stationIds=>{
+        WeatherTabel.GetCityTable(req.params.stationId).then(data => {
+          if(req.params.stationId == stationIds[0][0]._id || req.params.stationId == stationIds[1][0]._id){
+            waterTemperature.GetTemperature().then(waterTemperature=>{
+              res.json({
+                data,
+                waterTemperature
+              })
+            })
+          } else {
+            res.json({data});
+          }
+        })
+      }).catch(err =>{
+        if(err){
+          console.log(err.message);
+          res.sendStatus(500);
+        }
+      });
+    },
+
+    GetAllGaps: function (req, res) {
+        TimeGaps.GetAllTimeGaps().then(data => {
+          data.sort((a, b)=>{
+            return a.Summer - b.Summer;
+          });
+          res.json(data);
+        }).catch(err => {
+          if(err){
+            console.log(err.message);
+            res.sendStatus(500);
+          }
+        });
+    },
+
     CaruselUpload: function(req, res){
         var arr = req.files.file.name.split('.');
         let imageFile = req.files.file;
         var path1 = path.resolve(__dirname, '../public/assets/images');
-        Station.AddPhoto(req.body.station);
         imageFile.mv(`${path1}/${req.files.file.name}`, function(err){
                 if(err) {
                     console.log(err); return res.status(500).send();
@@ -77,8 +112,29 @@ module.exports = {
                             fs.unlinkSync(path.resolve(__dirname, "../public/assets/images/" + req.files.file.name));
                         });
                 }
+                Station.AddPhoto(req.body.station,req.files.file.name);
                 res.send();
         })
+    },
+    GetWaterTemperature: function (req, res){
+      waterTemperature.GetTemperature().then(data => {
+        res.json(data);
+      }).catch(err => {
+        if(err){
+          console.log(err.message);
+        }
+        res.sendStatus(500);
+      });
+    },
+    SetWaterTemperature: function (req, res){
+      waterTemperature.UpdateTemperature(req.body).then(data => {
+        res.json(data);
+      }).catch(err => {
+        if(err){
+          console.log(err.message);
+        }
+        res.sendStatus(500);
+      });
     },
     getToken: function(req, res){
         UserController.Authorization(req.body.login)
@@ -92,8 +148,8 @@ module.exports = {
             }else {
                 res.status(401).send();
             }
-        });       
-    }, 
+        });
+    },
     getStation: function(req, res){
         UserController.Authorization(req.user.login)
             .then(respons => {
@@ -104,36 +160,39 @@ module.exports = {
                     .catch(err => res.status(401).send(err));
                 })
             .catch(err => res.status(403).send(err));
-    }, 
+    },
     addWeather: function(req, res){
             var PromiseArr = [];
             PromiseArr.push(TimeGaps.GetIdTimeGaps(req.body.TimeGaps));
-            PromiseArr.push(UserController.Authorization(req.user.login));        
+            PromiseArr.push(UserController.Authorization(req.user.login));
             Promise.all(PromiseArr)
                 .then(respons => {
-                    var obj = {
-                        Weather: {
-                            temperature: req.body.temperature,
-                            wind: req.body.wind,
-                            pressure: req.body.pressure,
-                            DirectionWind: req.body.DiractionWind,
-                            phenomena: req.body.phenomena
-                        },
-                        date: req.body.date,
-                        StationID: respons[1].stationID,
-                        TimaGapsId: respons[0][0].id
-                    }
-                    waterTemperature.AddTemperature(respons[1].stationID, req.body.waterTemperature, req.body.date, req.body.TimeGaps);
-                    WeatherTabel.EditTables(obj);
+                    const queryArray = req.body.map((item)=>{
+                      return WeatherTabel.EditTables(item);
+                    });
+                    Promise.all(queryArray).then(()=>{
+                      res.end();
+                    })
+                    // let obj = {
+                    //     Weather: {
+                    //         temperature: req.body.temperature,
+                    //         wind: req.body.wind,
+                    //         pressure: req.body.pressure,
+                    //         DirectionWind: req.body.DiractionWind,
+                    //         phenomena: req.body.phenomena
+                    //     },
+                    //     date: req.body.date,
+                    //     StationID: respons[1].stationID,
+                    //     TimaGapsId: respons[0][0].id
+                    // }
+                    // waterTemperature.AddTemperature(respons[1].stationID, req.body.waterTemperature, req.body.date, req.body.TimeGaps);
                 })
                 .catch(err => console.log(err));
-            res.send();
-        
     },
     GetClimateRecords: function(req, res) {
         ClimateRecords.getAllRecords()
         .then(resp => res.json(resp));
-        
+
     },
     saveRecords: function(req, res){
             for(var i=0;i< req.body.length; i++){
@@ -156,8 +215,8 @@ module.exports = {
         .then(resp => {
             var obj = {
                 WeatherObl: resp[0].WeatherTable,
-                TextWeatherObl: resp[0].TextWeather, 
-                WeatherCity:  resp[1].WeatherTable, 
+                TextWeatherObl: resp[0].TextWeather,
+                WeatherCity:  resp[1].WeatherTable,
                 TextWeatherCity: resp[1].TextWeather,
             }
             WeatherObservable.getAll().then(response => {
@@ -187,7 +246,7 @@ module.exports = {
                 default: res.send()
             }
             res.send();
-        
+
     },
     GiveClimateDate: function (req, res) {
             ClimateData.EditClimateData(req.body);
@@ -208,11 +267,24 @@ module.exports = {
                             })
                         })
 
-                    })              
+                    })
             })
-             
-        
+
+
     },
+
+    GiveWeatherObservableApi: function(req, res){
+            WeatherObservable.EditObservable(req.body);
+            WeatherObservable.getAll().then(respons => {
+              res.json(respons);
+            }).catch(err => {
+              if(err){
+                console.log(err.message);
+                res.sendStatus(500);
+              }
+            });
+    },
+
     GiveDecadBulletin: function(req, res){
             DecadeBulletin.Edit(req.body);
             res.send();
@@ -224,15 +296,16 @@ module.exports = {
         })
     },
     EditAirPollution: function (req, res){
+      console.log(req.body);
             Chart.Edit(req.body);
             res.send();
-        
+
     },
     GetRegularObservable: function(req, res){
         Regular_observable.GetAll()
             .then(respons => {
                 res.json(respons);
-            }) 
+            })
     },
     EditRegularObservable: function(req, res){
         Regular_observable.Edit(req.body);
@@ -260,14 +333,25 @@ module.exports = {
             .catch(err => console.log(err));
     },
     deleteEvent: function(req, res){
-        Events.Delete(req.body);
-        res.send();
+        Events.GetEventOne(req.body).then(data => {
+          fs.unlink(`${path.resolve(__dirname, '../public/Events')}/${data.Picture}`, (err => {
+            if(err){
+              return console.log(err.message);
+            }
+            Events.Delete(req.body);
+            res.end();
+          }));
+        }).catch(err => {
+          if(err){
+            console.log(err.message);
+          }
+        });
     },
     getStationid: function(req, res){
         Station.GetIdStation(req.body.station).then(respons => {
             res.json(respons[0]);
         })
-        
+
     },
     AddWeatherByStation: function(req, res){
         var PromiseArr = [];
@@ -306,10 +390,35 @@ module.exports = {
     GetRadionatiol: function(req, res){
         radionatial.GetAll().then(respons => {
             res.json(respons);
-        }) 
+        })
     },
     EditRadionatial: function(req,res){
         radionatial.Edit(req.body);
         res.send();
+    },
+
+    GetStationPhotos: function(req, res){
+      Station.GetPhotosByName(req.params.stationId).then(data => {
+        res.json(data.photo);
+      }).catch(err => {
+        if(err){
+          console.log(err.message);
+        }
+      });
+    },
+
+    DeleteStationPhoto: function(req, res) {
+      Station.DeletePhoto(req.params.stationId, req.body.photo).then(data => {
+        fs.unlink(`${path.resolve(__dirname, '../public/assets/images')}/${req.body.photo}`, (err => {
+          if(err){
+            return console.log(err.message);
+          }
+          res.end();
+        }));
+      }).catch(err => {
+        if(err){
+          console.log(err.message);
+        }
+      })
     }
 }

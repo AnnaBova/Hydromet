@@ -1,61 +1,87 @@
 import React, { Component } from 'react';
 import { Grid, Form, Button, Icon, Message } from 'semantic-ui-react';
-import InputComponent from './InputComponent';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { GetStationPhotos,
+         DeleteStationPhoto } from '../redux/actions';
 import '../style/Event.css';
+
 class AddPhoto extends Component {
     constructor(props){
         super(props);
         this.state = {
             file: undefined,
+            imageTypeError: false,
             station: 'zaporozhye',
-            number: this.props.photo || '1'
         }
     }
 
-    handelSubmit = () => {
-        var { file, number, station } = this.state;
+    componentDidMount () {
+      this.props.GetStationPhotos(this.state.station);
+    }
+
+    handleSubmit = () => {
+        var { file, station } = this.state;
         var arr = file.name.split('.');
         // eslint-disable-next-line
-        if(arr[1] == 'jpeg' || arr[1]=="JPEG" || arr[1] =="JPG"){
+        if(arr[1] === 'jpeg' || arr[1]==="JPEG" ||
+           arr[1] ==="JPG" || arr[1] === 'jpg'){
             arr[1]="jpg";
+            let name =`${station}_${arr[0]}.${arr[1]}`
+            var blob = file.slice(0, file.size, file.type);
+            const NewFileName = new File([blob], name, {type: file.type});
+            this.props.uploadCaruselImage(NewFileName, this.state.station);
+            this.props.setMessageTrue();
+        } else {
+          this.setState({
+            imageTypeError: true
+          });
         }
-        let name =`${station}${number}.${arr[1]}`
-        var blob = file.slice(0, file.size, file.type);
-        const NewFileName = new File([blob], name, {type: file.type});
-        this.props.uploadCaruselImage(NewFileName, this.state.station);
-        this.props.setMessageTrue();
     }
 
-    handelStationChange = (e) => {
+    handleStationChange = (e) => {
         this.props.setMessageFalse();
         this.setState({station: e.target.value});
+        this.props.GetStationPhotos(e.target.value)
     }
 
-    handelSaveValue = (obj)=>{
+    handleSaveValue = (obj)=>{
         this.props.setMessageFalse();
         this.setState({[obj.name]: obj.value})
     }
 
-    handelOnChange = (e) => {
+    handleOnChange = (e) => {
         e.preventDefault()
         this.props.setMessageFalse();
         this.setState({file: e.target.files[0]});
     }
 
+    handleImageClick = (image) => (event) => {
+      this.setState({
+        imageTypeError: false
+      });
+      this.props.setMessageFalse();
+      const check = window.confirm('Ви впевнені, що хочете видалити це фото?');
+      if(!check)return;
+      this.props.DeleteStationPhoto(this.state.station, image);
+    }
+
     render() {
+        if(!this.props.photos) return 'Завантаження';
         return (
         <Grid>
             <Grid.Row>
                 <Grid.Column width={4} />
                 <Grid.Column width={6}>
                     { this.props.Message ? <Message success header="Збереження" content="Дані успішно збережені" /> : <div /> }
+                    { this.state.imageTypeError && <Message error header="Помилка" content="Зображення повинно бути типу .jpg" /> }
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column width={5} />
                 <Grid.Column width={5}>
                     <Form>
-                        <Form.Field label="Станція" control="select"  onChange={this.handelStationChange}>
+                        <Form.Field label="Станція" control="select" onChange={this.handleStationChange}>
                             <option value="zaporozhye">Запоріжжя</option>
                             <option value="berdyansk">Бердянск</option>
                             <option value="melitopol">Мелітополь</option>
@@ -63,28 +89,45 @@ class AddPhoto extends Component {
                             <option value="prism">Пришиб</option>
                             <option value="kyrylivka">Кирилівка</option>
                             <option value="gulyaypole">Гуляйполе</option>
+                            <option value="hydrology">Відділ гідрології</option>
                         </Form.Field>
                         <Form.Field>
-                            <InputComponent
-                                label="Номер фото"
-                                value={this.state.number}
-                                name="number"
-                                saveValue={this.handelSaveValue}
-                            />
-                        </Form.Field>
-                        <Form.Field>
-                            <input type="file" name="file" id="file" className="inputfile" onChange={this.handelOnChange} />
+                            <input disable="true" type="text" value={(this.state.file)?this.state.file.name : ''} />
+                            <input type="file" name="file" id="file" className="inputfile" accept="image/jpeg" onChange={this.handleOnChange} />
                             <label htmlFor="file" className="ui huge green floated button">
                                 <Icon name="upload"></Icon>
                                 Завантажити фотографію
                             </label>
                         </Form.Field>
-                        <Button onClick={this.handelSubmit}>Зберегти фото</Button>
+                        <Button onClick={this.handleSubmit}>Зберегти фото</Button>
                     </Form>
                 </Grid.Column>
+                <div className="imgWrapper">
+                  {this.props.photos.map(item => {
+                    const style = {
+                      backgroundImage: `url(http://localhost:3001/public/assets/images/${item})`
+                    };
+                    return <div key={item} style={style} className="stationPhoto">
+                      <span className="deleteCross" onClick={this.handleImageClick(item)}>X</span>
+                    </div>
+                  })}
+                </div>
             </Grid.Row>
         </Grid>);
     }
 }
 
-export default AddPhoto;
+function mapStateToProps(state){
+  return {
+    photos: state.climateRecords.photos
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    GetStationPhotos: bindActionCreators(GetStationPhotos, dispatch),
+    DeleteStationPhoto: bindActionCreators(DeleteStationPhoto, dispatch),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto);

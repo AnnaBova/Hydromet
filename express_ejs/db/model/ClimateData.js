@@ -12,12 +12,13 @@ const ClimateDataSchema = mongoose.Schema({
     },
     "MaxTemperature": {
         "date":String,
-        "value":String 
+        "value":String
     },
     "MinTemperature": {
         "date":String,
-        "value":String 
-    }
+        "value":String
+    },
+    number: Number
 });
 
 

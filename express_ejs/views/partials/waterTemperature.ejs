@@ -3,9 +3,9 @@
           <div class="block-title text-center">
             <span class="number">03</span>
             Температура <br> води (&deg;C)
-          </div> 
-          <div class="text-center"><%= Water.Date %></div>
-          <hr class="dash dash-blue">  
+          </div>
+          <div class="text-center"><%= day %>.<%= month %>.<%= year %></div>
+          <hr class="dash dash-blue">
           <div class="list-item clear">
             <div class="f-l w-50">
               <div class="text-blue text-bold">р. Дніпро, <br> м. Запоріжжя, район ДГЕС</div>
@@ -18,7 +18,7 @@
               <div class="text-blue text-bold">Азовське море, <br> м. Бердянськ, морський порт</div>
               <p class="text-gray">станом на <%= Water.Azov.Observable %> годину</p>
             </div>
-            <div class="f-r text-white weather-date-big text-center text-bold"><%= Water.Azov.Temperature %></div>            
+            <div class="f-r text-white weather-date-big text-center text-bold"><%= Water.Azov.Temperature %></div>
           </div>
         </div>
 </div>

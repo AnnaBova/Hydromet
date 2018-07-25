@@ -13,7 +13,7 @@ class TableItem extends Component {
         }
     }
 
-    handelSaveValue = (e) => {
+    handleSaveValue = (e) => {
         this.props.Change({...this.props.item, [e.name]:e.value });
     }
 
@@ -25,7 +25,7 @@ class TableItem extends Component {
                         value = {this.props.item.date}
                         name="date"
                         type="text" 
-                        saveValue = {this.handelSaveValue}
+                        saveValue = {this.handleSaveValue}
                     />
                 </Table.Cell>
                 <Table.Cell>
@@ -33,7 +33,7 @@ class TableItem extends Component {
                         value = {this.props.item.value}
                         name="value"
                         type="text" 
-                        saveValue = {this.handelSaveValue}
+                        saveValue = {this.handleSaveValue}
                     />
                 </Table.Cell>
                 <Table.Cell>
@@ -41,7 +41,7 @@ class TableItem extends Component {
                         value = {this.props.item.post}
                         name="post"
                         type="text" 
-                        saveValue = {this.handelSaveValue}
+                        saveValue = {this.handleSaveValue}
                     />
                 </Table.Cell>
             </Table.Row>);

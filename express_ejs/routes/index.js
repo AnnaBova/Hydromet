@@ -68,6 +68,8 @@ router.post('/give_climate_date', ExpressJSW({secret: 'hydromet'}), admincontrol
 
 router.post('/give_weather_observable', ExpressJSW({secret: 'hydromet'}), admincontroller.GiveWeatherObservable);
 
+router.post('/give_weather_observable_api', ExpressJSW({secret: 'hydromet'}), admincontroller.GiveWeatherObservableApi);
+
 router.post('/give_decad_bulletin', ExpressJSW({secret: 'hydromet'}), admincontroller.GiveDecadBulletin);
 
 router.get('/air_pollution', admincontroller.GetAirPollution);
@@ -114,6 +116,18 @@ router.post('/edit_climate_records', admincontroller.EditClimateCharacteristic)
 
 router.get('/info/:station', controller.GetInfoStation);
 
-router.post('/files_carusel', admincontroller.CaruselUpload)
+router.post('/files_carusel', admincontroller.CaruselUpload);
+
+router.get('/get_station_weather/:stationId', admincontroller.getStationWeather);
+
+router.get('/get_gaps'/*, ExpressJSW({secret: 'hydromet'})*/, admincontroller.GetAllGaps);
+
+router.get('/water'/*, ExpressJSW({secret: 'hydromet'})*/, admincontroller.GetWaterTemperature);
+
+router.post('/water', ExpressJSW({secret: 'hydromet'}), admincontroller.SetWaterTemperature);
+
+router.get('/photos/:stationId', ExpressJSW({secret: 'hydromet'}), admincontroller.GetStationPhotos);
+
+router.post('/photos/:stationId', ExpressJSW({secret: 'hydromet'}), admincontroller.DeleteStationPhoto);
 
 module.exports = router;

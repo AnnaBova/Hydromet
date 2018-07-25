@@ -5,23 +5,13 @@ import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import  InputComponent  from './InputComponent';
-import { getStation, AddWeather } from '../redux/actions/index';
-import { FullDataValid } from '../utils/DataValid';
+import { getStation, AddWeather, ChangeSelectedGap, setWater, SetWaterTemperature } from '../redux/actions/index';
+import '../style/meteorolog.css';
 
 class MeteoStation extends Component {
     constructor(props){
         super(props);
         this.state = {
-                TimeGaps: "00",
-                temperature: "",
-                DiractionWind: "up",
-                wind: "",
-                pressure: "",
-                phenomena: "sun",
-                validation: false,
-                waterField: true,
-                waterTemperature: "",
-                date: "",
                 Message: false,
                 ErrorMessage: false,
             }
@@ -35,52 +25,59 @@ class MeteoStation extends Component {
         }
     }
 
-    handelSubmit = (e) => {
-        const weather = {
-            TimeGaps: this.state.TimeGaps,
-            temperature: this.state.temperature,
-            DiractionWind: this.state.DiractionWind,
-            wind: this.state.wind,
-            pressure: this.state.pressure,
-            phenomena: this.state.phenomena,
-            waterTemperature: this.state.waterTemperature,
-            date: this.state.date
-        }
-        if(FullDataValid(this.state.date)){
-            this.props.AddWeather(weather);
+    handleSubmit = (e) => {
+            this.props.AddWeather(this.props.weather);
+            this.props.saveWater(this.props.waterTemperature);
             this.setState({
-                TimeGaps: "00",
-                temperature: "",
-                DiractionWind: "up",
-                wind: "",
-                pressure: "",
-                phenomena: "sun",
-                validation: false,
-                waterField: true,
-                waterTemperature: "",
-                date: "",
                 Message: true,
                 ErrorMessage: false
             })
-        }else{
-            this.setState({ErrorMessage: true});
+    }
+
+    handleSaveValue = (index) => (event) => {
+      this.props.ChangeSelectedGap({
+        ...this.props.weather[index],
+        Weather:{
+          ...this.props.weather[index].Weather,
+          [event.name]:event.value
         }
+      });
+      this.setState({
+        Message:false
+      });
     }
 
-    handelSaveValue = (obj) => {
-        this.setState({[obj.name]:obj.value, Message: false, ErrorMessage: false });
+    OnChangeSelector = (index) => (event) => {
+      this.props.ChangeSelectedGap({
+        ...this.props.weather[index],
+        Weather:{
+          ...this.props.weather[index].Weather,
+          [event.target.name]:event.target.value
+        }
+      });
+      this.setState({
+        Message:false
+      });
     }
 
-    OnChangeTimeGaps = (e) => {
-        this.setState({ TimeGaps:e.target.value, Message: false, ErrorMessage: false });
+    OnChangeWater = (river) => (event) => {
+      this.props.setWater({
+        ...this.props.waterTemperature,
+        [river]:{
+          ...this.props.waterTemperature[river],
+          [event.name]: event.value
+        }
+      });
     }
 
-    OnChangeDiraction = (e) => {
-        this.setState({ DiractionWind: e.target.value, Message: false, ErrorMessage: false });
-    }
-
-    OnChangePhenomena = (e) => {
-        this.setState({ phenomena: e.target.value, Message: false, ErrorMessage: false });
+    OnChangeWaterTime = (river) => (event) => {
+      this.props.setWater({
+        ...this.props.waterTemperature,
+        [river]:{
+          ...this.props.waterTemperature[river],
+          [event.target.name]: event.target.value
+        }
+      });
     }
 
     OnClick = () => {
@@ -88,14 +85,17 @@ class MeteoStation extends Component {
         this.props.noAuthorization();
     }
 
-    handelGygrology = () => {
+    handleGygrology = () => {
         this.props.getGydrolygy();
     }
 
     render() {
+        if(this.props.gaps.length === 0) return 'Завантаждення';
+        if(this.props.water === "zaporozhye" || this.props.water === "berdyansk"){
+          if(!this.props.waterTemperature) return 'Завантаждення';
+        }
         return (
         <Grid>
-
             <Grid.Row>
                 <Grid.Column width={4}/>
                 <Grid.Column width={7}>
@@ -103,22 +103,112 @@ class MeteoStation extends Component {
                     { this.state.ErrorMessage ? <Message error header="Помилка" content="Неправильна дата"/> : <div /> }
                 </Grid.Column>
             </Grid.Row>
-
-            <Grid.Row>
-                <Grid.Column  width={5}/>
-                <Form onSubmit={this.handelSubmit}>
-                <Grid.Column width={5}>
-                        <Form.Field  >
+              <Form onSubmit={this.handleSubmit} >
+                <div className="inputWraper">
+                  {this.props.weather.map((item, index)=>{
+                    const gap = this.props.gaps[index];
+                    return (<div className="inputItem" key={index}>
+                              <p>{`${gap.Summer} або ${gap.Winter}`}</p>
+                              <InputComponent
+                                  value = {item.Weather.temperature}
+                                  label="Температура"
+                                  name="temperature"
+                                  type="text"
+                                  saveValue = {this.handleSaveValue(index)}
+                              />
+                              <InputComponent
+                                  value = {item.Weather.wind}
+                                  label="Швидкість вітру"
+                                  name="wind"
+                                  type="text"
+                                  saveValue = {this.handleSaveValue(index)}
+                              />
+                          <Form.Field
+                            value={item.Weather.DirectionWind}
+                            label='Напрямок вітру'
+                            control='select'
+                            name="DirectionWind"
+                            onChange={this.OnChangeSelector(index)}
+                          >
+                              <option value=''></option>
+                              <option value='up'>Північне</option>
+                              <option value='down'>Південне</option>
+                              <option value='left'>Західне</option>
+                              <option value='right'>Східне</option>
+                              <option value='up rot-45'>Північно-Західне</option>
+                              <option value='left rot-45'>Північно-Східне</option>
+                              <option value='down rot-45'>Південно-Західне</option>
+                              <option value='right rot-45'>Південно-Східне</option>
+                          </Form.Field>
+                              <InputComponent
+                                  value = {item.Weather.pressure}
+                                  label="Атмосферний тиск"
+                                  name="pressure"
+                                  type="text"
+                                  saveValue = {this.handleSaveValue(index)}
+                              />
+                          <Form.Field
+                            value = {item.Weather.phenomena}
+                            label='Атмосферні явища'
+                            control='select'
+                            name="phenomena"
+                            onChange= {this.OnChangeSelector(index)}
+                          >
+                              <option value=''></option>
+                              <option value='sun'>Сонячно</option>
+                              <option value='sun_cloud'>Хмарно</option>
+                              <option value='cloud'>Похмуро</option>
+                              <option value='cloud_rain_snow'>Сніг з дощем</option>
+                              <option value='cloud_rain'>Дощ</option>
+                              <option value='cloud_snow'>Сніг</option>
+                              <option value='fog'>Туман</option>
+                              <option value="mist">Мряка</option>
+                              <option value="hail">Град</option>
+                              <option value='blizzard'>Хуртовина</option>
+                              <option value='flurry'>Шквал</option>
+                              <option value='subfamily'>Поземок</option>
+                              <option value='storm_hail'>Гроза, град</option>
+                              <option value='dust_storm'>Пилова буря</option>
+                              <option value='storm_lightning'>Гроза, дощ</option>
+                              <option value='dusty'>Пил</option>
+                              <option value="mist_rain">Мряка, дощ, ожеледь</option>
+                              <option value="storm">Гроза </option>
+                          </Form.Field>
+                      </div>);
+                })}
+                </div>
+                <Grid.Column width={4}/>
+                <Grid.Column width={4}>
+                {(this.props.water === "zaporozhye")?
+                          <div className="nonFormInput">
+                            <select type="select"
+                              name = "Observable"
+                              onChange = {this.OnChangeWaterTime('Dnipro')}
+                              value={this.props.waterTemperature.Dnipro.Observable}
+                            >
+                              <option value='00'>00 або 02</option>
+                              <option value='03'>03 або 05</option>
+                              <option value='06'>06 або 08</option>
+                              <option value='09'>09 або 11</option>
+                              <option value='12'>12 або 14</option>
+                              <option value='15'>15 або 17</option>
+                              <option value='18'>18 або 20</option>
+                              <option value='21'>21 або 23</option>
+                            </select>
                             <InputComponent
-                                value = {this.state.date}
-                                label="Дата"
-                                name="date"
-                                type="text"
-                                saveValue = {this.handelSaveValue}
-                                placeholder = "формат дд.мм.гггг"
+                              value={this.props.waterTemperature.Dnipro.Temperature}
+                              label="Температура води"
+                              name="Temperature"
+                              type="text"
+                              saveValue = {this.OnChangeWater('Dnipro')}
                             />
-                        </Form.Field>
-                        <Form.Field label='Час спостереження' control='select' name="TimeGaps" onChange={this.OnChangeTimeGaps}>
+                        </div> : ( this.props.water === "berdyansk")?
+                        <div className="nonFormInput">
+                          <select type="select"
+                            name = "Observable"
+                            onChange = {this.OnChangeWaterTime('Azov')}
+                            value={this.props.waterTemperature.Azov.Observable}
+                          >
                             <option value='00'>00 або 02</option>
                             <option value='03'>03 або 05</option>
                             <option value='06'>06 або 08</option>
@@ -127,86 +217,40 @@ class MeteoStation extends Component {
                             <option value='15'>15 або 17</option>
                             <option value='18'>18 або 20</option>
                             <option value='21'>21 або 23</option>
-                        </Form.Field>
-                        <Form.Field  >
-                            <InputComponent
-                                value = {this.state.temperature}
-                                label="Температура"
-                                name="temperature"
-                                type="text"
-                                saveValue = {this.handelSaveValue}
-                            />
-                        </Form.Field>
-                        <Form.Field  >
-                            <InputComponent
-                                value = {this.state.wind}
-                                label="Швидкість вітру"
-                                name="wind"
-                                type="text"
-                                saveValue = {this.handelSaveValue}
-                            />
-                        </Form.Field>
-                        <Form.Field label='Направление ветра' control='select' name="DiractionWind" onChange= {this.OnChangeDiraction}>
-                            <option value='up'>Північне</option>
-                            <option value='down'>Південне</option>
-                            <option value='left'>Західне</option>
-                            <option value='right'>Східне</option>
-                            <option value='up rot-45'>Північно-Західне</option>
-                            <option value='left rot-45'>Північно-Східне</option>
-                            <option value='down rot-45'>Південно-Західне</option>
-                            <option value='right rot-45'>Південно-Східне</option>
-                        </Form.Field>
-                        <Form.Field>
-                            <InputComponent
-                                value = {this.state.pressure}
-                                label="Атмосферний тиск"
-                                name="pressure"
-                                type="text"
-                                saveValue = {this.handelSaveValue}
-                            />
-                        </Form.Field>
-                        <Form.Field label='Атмосферные явления' control='select' name="phenomena" onChange= {this.OnChangePhenomena}>
-                            <option value='sun'>Сонячно</option>
-                            <option value='sun_cloud'>Хмарно</option>
-                            <option value='cloud'>Похмуро</option>
-                            <option value='cloud_rain_snow'>Сніг з дощем</option>
-                            <option value='cloud_rain'>Дощ</option>
-                            <option value='cloud_snow'>Сніг</option>
-                            <option value='fog'>Туман</option>
-                            <option value="mist">Мряка</option>
-                            <option value="snower">Град</option>
-                        </Form.Field>
-                        { this.props.water === "zaporozhye" || this.props.water === "berdyansk"?
-                            (<Form.Field>
-                                <InputComponent
-                                    value = {this.state.waterTemperature}
-                                    label="Температура води"
-                                    name="waterTemperature"
-                                    type="text"
-                                    saveValue = {this.handelSaveValue}
-                                />
-                            </Form.Field>): <div />
-                        }
-                            <Button type="submit" primary>Надіслати форму</Button>
-                            { this.props.water === "zaporozhye" ? <Link to="/gydrolygy"><Button type="button">Заповнити гідрологічні спостереження</Button></Link>: <div />  }
-                            <Button type="button" onClick = {this.OnClick} >Вийти</Button>
-
+                          </select>
+                          <InputComponent
+                            value={this.props.waterTemperature.Azov.Temperature}
+                            label="Температура води"
+                            name="Temperature"
+                            type="text"
+                            saveValue = {this.OnChangeWater('Azov')}
+                          />
+                      </div> : <div />
+                }
+                  <Button type="submit" primary>Надіслати форму</Button>
+                  { this.props.water === "zaporozhye" ? <Link to="/gydrolygy"><Button type="button">Заповнити гідрологічні спостереження</Button></Link>: <div />  }
+                  <Button type="button" onClick = {this.OnClick} >Вийти</Button>
                 </Grid.Column>
-                </Form>
-            </Grid.Row>
-
+              </Form>
         </Grid>);
     }
 }
 
 const mapStateToProps = (state) => ({
-    water: state.authorization.StationName
+    water: state.authorization.StationName,
+    weather: state.currentWeather.weather,
+    gaps: state.currentWeather.gaps,
+    selectedGap: state.currentWeather.selectedGap,
+    waterTemperature: state.currentWeather.waterTemperature,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     noAuthorization: () => dispatch(push('/signin')),
     getStation: bindActionCreators(getStation ,dispatch),
-    AddWeather: bindActionCreators(AddWeather, dispatch)
+    AddWeather: bindActionCreators(AddWeather, dispatch),
+    ChangeSelectedGap: bindActionCreators(ChangeSelectedGap, dispatch),
+    setWater: bindActionCreators(setWater, dispatch),
+    saveWater: bindActionCreators(SetWaterTemperature, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeteoStation);

@@ -20,6 +20,9 @@ module.exports = {
     GetIdTimeGaps: function(string){
        return TimeGaps.find({$or: [{'Summer': string}, {'Winter': string}]})
     },
+    GetAllTimeGaps: function(){
+       return TimeGaps.find({})
+    },
     GetTimeById: function(id){
         return TimeGaps.findById(id);
     }

@@ -1,6 +1,6 @@
 import {
-    GET_BULLETIN, 
-    CHANGE_DAY, 
+    GET_BULLETIN,
+    CHANGE_DAY,
     EDIT_DAY,
     CHANGE_WEATHER_OBL,
     CHANGE_WEATHER_CITY,
@@ -11,9 +11,13 @@ import {
     SET_CLIMATE_DATA,
     SET_WEATHER_OBSERVABLE_DATA,
     SET_HYDRO_BULLETIN_MESSAGE,
-    SET_HYDROMET_MESSAGE
+    SET_HYDROMET_MESSAGE,
+    UPDATE_WEATHER_OBL,
+    UPDATE_WEATHER_CITY,
+    UPDATE_WEATHER_OBL_TEXT,
+    UPDATE_WEATHER_CITY_TEXT,
+    UPDATE_DATE
 } from '../actions/ActionTypes';
-
 
 const initialState = {
     WeatherObl: [],
@@ -26,7 +30,7 @@ const initialState = {
     ClimateData: {},
     ObservDay: {},
     WeatherObservableData: {},
-    Message: false
+    Message: false,
 }
 
 export function hydrometrical_bulletinReducer(state=initialState, actions){
@@ -113,7 +117,7 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 Message: true,
                 ObservDay: actions.payload,
             }
-            
+
         }
         case SET_HYDRO_BULLETIN_MESSAGE: {
             return {
@@ -133,6 +137,51 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 Message: true,
                 WeatherDay: actions.payload,
             }
+        }
+        case UPDATE_WEATHER_CITY: {
+            return {
+                ...state,
+                WeatherCity: state.WeatherCity.map((item, index)=> {
+                    if(index === actions.payload.index) return actions.payload.item;
+                    return item;
+                })
+            }
+        }
+        case UPDATE_WEATHER_OBL: {
+            return {
+                ...state,
+                WeatherObl: state.WeatherObl.map((item, index)=> {
+                    if(index === actions.payload.index) return actions.payload.item;
+                    return item;
+                })
+            }
+        }
+        case UPDATE_WEATHER_CITY_TEXT: {
+            return {
+                ...state,
+                TextWeatherCity: state.TextWeatherCity.map((item, index)=> {
+                    if(index === actions.payload.index) return actions.payload.item;
+                    return item;
+                })
+            }
+        }
+        case UPDATE_WEATHER_OBL_TEXT: {
+            return {
+                ...state,
+                TextWeatherObl: state.TextWeatherObl.map((item, index)=> {
+                    if(index === actions.payload.index) return actions.payload.item;
+                    return item;
+                })
+            }
+        }
+        case UPDATE_DATE: {
+          return {
+              ...state,
+              WeatherCity: actions.payload.city,
+              WeatherObl: actions.payload.obl,
+              TextWeatherCity: actions.payload.textCity,
+              TextWeatherObl: actions.payload.textObl,
+          }
         }
         default:{
             return state;

@@ -3,8 +3,8 @@
     <div class="block-title text-center text-white">
         <span class="number">01</span>
         Регулярні спостереження в період весняної повені
-    </div>  
-    <div class="text-center text-white">Поточна ситуація на річках та водосховищах станом на <%= data[0].observ %> годину <%= data[0].date%>.</div>
+    </div>
+    <div class="text-center text-white">Поточна ситуація на річках та водосховищах станом на <%= data[0].date%>.</div>
     <hr class="dash">
     <div class="container m-b-xl">
         <div class="table-responsive">
@@ -25,14 +25,14 @@
                         <td><%= i+1 %></td>
 
                         <td> <%= data[i].Title %> &nbsp; <span class="text-gray"><%= data[i].Position %></span></td>
-                        <td><%= data[i].OutWater %></td>
                         <td><%= data[i].LvlWater %></td>
+                        <td><%= data[i].OutWater %></td>
                         <td><%= data[i].EditLvl %></td>
                         <td><%= data[i].phenomena %></td>
                     </tr>
-                <%}%>                                                                                          
+                <%}%>
             </tbody>
-        </table>   
-        </div>       
-    </div>      
+        </table>
+        </div>
+    </div>
 </div>

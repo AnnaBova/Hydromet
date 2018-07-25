@@ -3,12 +3,13 @@ import {
     CHANGE_REGULAR_OBSERVABLE,
     EDIT_REGULAR_OBSERVABLE,
     SET_MESSAGE_REGULAR_OBSERVABLE,
-    SET_MESSAGE_REGULAR_OBSERVABLE_TRUE
+    SET_MESSAGE_REGULAR_OBSERVABLE_TRUE,
+    UPDATE_REGULAR_OBSERVABLE
 } from '../actions/ActionTypes';
 
 const initialState = {
     RegularObservable: [],
-    Observ: {}, 
+    Observ: {},
     Message: false
 }
 
@@ -26,6 +27,12 @@ export function RegularObservableReducer(state=initialState, actions){
                 ...state,
                 // eslint-disable-next-line
                 Observ: state.RegularObservable.find(item => item._id == actions.payload)
+            };
+        }
+        case UPDATE_REGULAR_OBSERVABLE:{
+            return {
+                ...state,
+                Observ: actions.payload
             };
         }
         case EDIT_REGULAR_OBSERVABLE:{

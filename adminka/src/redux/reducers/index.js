@@ -10,6 +10,7 @@ import { EventReducer } from './event';
 import { emailReducer } from './EmailReducer';
 import { RaditionalReducer } from './raditional';
 import { ClimateCharacteristicReducer } from './ClimateCharacteristic';
+import { currentWeather } from './currentWeather';
 
 export default combineReducers({
   router: routerReducer,
@@ -18,9 +19,10 @@ export default combineReducers({
   climateRecords: climateReducer,
   hydrometeorolog_bulletin: hydrometrical_bulletinReducer,
   AirPollution: AirPollutionReducer,
-  RegularObservable: RegularObservableReducer, 
+  RegularObservable: RegularObservableReducer,
   events: EventReducer,
   emails: emailReducer,
   RaditionalReducer: RaditionalReducer,
   ClimateCharacteristic: ClimateCharacteristicReducer,
+  currentWeather
 });

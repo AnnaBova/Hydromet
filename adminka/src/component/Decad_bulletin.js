@@ -45,7 +45,7 @@ class DecadBulletin extends Component {
         this.setState({ text: value });
     }
 
-    handelSubmit = () => {
+    handleSubmit = () => {
         this.props.setMessage();
         this.props.SubmitDecadBulletin(this.state.text);
     }
@@ -73,7 +73,7 @@ class DecadBulletin extends Component {
                 <Grid.Row>
                 <Grid.Column width={7}/>
                 <Grid.Column>
-                    <Button onClick = {this.handelSubmit} primary>Зберегти</Button>
+                    <Button onClick = {this.handleSubmit} primary>Зберегти</Button>
                 </Grid.Column>
                 </Grid.Row>
             </Grid>)

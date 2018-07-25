@@ -2,144 +2,144 @@
     <div class="block-title text-center">
       <span class="number">02</span>
       Поточна погода
-    </div>  
-    <div class="text-center">24 листопада</div>
-    <hr class="dash dash-blue">  
+    </div>
+    <div class="text-center"><%= day %> <%= month %> <%= year %></div>
+    <hr class="dash dash-blue">
     <div class="container">
       <div class="background img_gray_map img_gray_map_small">
         <svg viewBox="0 0 668 599" class="svg-map">
-          <g class="zaporozhye"> 
+          <g class="zaporozhye">
               <path d="m 205.44736,106.22661 v 27.83185 l 22.39046,0.53522 -0.81916,-29.43753 z" fill="#e2e2e2" />
               <%if(CityesWeather[0][0].Weather.phenomena != ""){%>
-              <image  
-                xlink:href="/public/assets/svg/<%= CityesWeather[0][0].Weather.phenomena %>.svg" 
-                height="55.043476" 
-                width="55.043476"  
-                x="193.52562" 
-                y="103.72893" 
+              <image
+                xlink:href="/public/assets/svg/<%= CityesWeather[0][0].Weather.phenomena %>.png"
+                height="55.043476"
+                width="55.043476"
+                x="193.52562"
+                y="103.72893"
               />
               <text x="258.87167" y="129.72189" fill="#0098d1" style="font-weight: bold;"><%= CityesWeather[0][0].Weather.temperature %> &deg;</text>
               <%}%>
               <a href="/current/zaporozhye" class="zaparozhye">
-              <path 
+              <path
                 class="zaparozhye"
-                d="m 170.28428,69.449275 c 2.00335,76.794875 -6.01003,73.455965 -2.67113,74.123745 3.33891,0.66778 98.83167,4.00669 98.83167,4.00669 l -2.00335,-86.811594 z" 
+                d="m 170.28428,69.449275 c 2.00335,76.794875 -6.01003,73.455965 -2.67113,74.123745 3.33891,0.66778 98.83167,4.00669 98.83167,4.00669 l -2.00335,-86.811594 z"
                 style="opacity: .0;"
               />
               </a>
           </g>
-          <g class="gylaypole"> 
+          <g class="gylaypole">
               <path d="m 429.82194,124.92449 v 27.83185 l 22.39046,0.53522 -0.81916,-29.43753 z" fill="#e2e2e2" />
               <%if(CityesWeather[3][0].Weather.phenomena != ""){%>
-              <image  
-                xlink:href="/public/assets/svg/<%= CityesWeather[3][0].Weather.phenomena %>.svg" 
-                height="55.043476" 
-                width="55.043476"  
-                x="409.54123" 
-                y="124.74899" 
+              <image
+                xlink:href="/public/assets/svg/<%= CityesWeather[3][0].Weather.phenomena %>.png"
+                height="55.043476"
+                width="55.043476"
+                x="409.54123"
+                y="124.74899"
               />
               <text x="476.65619" y="140.84221" fill="#0098d1" style="font-weight: bold;"><%= CityesWeather[3][0].Weather.temperature %> &deg;</text>
               <%}%>
               <a class="gylaypole" href="/current/gulyaypole">
-                <path 
-                  d="m 390.65217,94.824972 c 2.00335,76.794878 -6.01003,73.455968 -2.67113,74.123748 3.33891,0.66778 98.83167,4.00669 98.83167,4.00669 l -2.00335,-86.811597 z" 
+                <path
+                  d="m 390.65217,94.824972 c 2.00335,76.794878 -6.01003,73.455968 -2.67113,74.123748 3.33891,0.66778 98.83167,4.00669 98.83167,4.00669 l -2.00335,-86.811597 z"
                   style="opacity: .0"
                 />
               </a>
           </g>
-          <g class="kyrylivka"> 
+          <g class="kyrylivka">
               <path d="m 447.18426,230.72129 v 17.93996 l 22.39046,0.34499 -0.81916,-18.97495 z" fill="#e2e2e2"/>
               <%if(CityesWeather[2][0].Weather.phenomena != ""){%>
-              <image  
-                xlink:href="/public/assets/svg/<%= CityesWeather[2][0].Weather.phenomena %>.svg" 
-                height="55.043476" 
-                width="55.043476"  
-                x="429.57468" 
-                y="228.92624" 
+              <image
+                xlink:href="/public/assets/svg/<%= CityesWeather[2][0].Weather.phenomena %>.png"
+                height="55.043476"
+                width="55.043476"
+                x="429.57468"
+                y="228.92624"
               />
               <text x="490.64917" y="274.16028" fill="#0098d1" style="font-weight: bold;"><%= CityesWeather[2][0].Weather.temperature %> &deg;</text>
               <%}%>
               <a href="/current/kyrylivka" class="kyrylivka" >
-                <path 
+                <path
                   d="m 399.33333,206.34448 c 2.00335,76.79488 -6.01003,73.45597 -2.67113,74.12375 3.33891,0.66778 98.83167,4.00669 98.83167,4.00669 l -2.00335,-86.8116 z"
                   style="opacity: .0;"
                 />
               </a>
           </g>
-          <g class="berdyansk"> 
-              <path 
-                d="m 583.78164,424.95182 c 6.53202,-21.46077 -0.36805,-16.49075 -0.43716,-16.42164 l 19.23532,0.49764 c 1.68451,7.81688 3.90042,16.0153 -1.3115,16.91924 -2.75968,4.7836 -9.41198,3.0795 -17.48666,-0.99524 z" 
+          <g class="berdyansk">
+              <path
+                d="m 583.78164,424.95182 c 6.53202,-21.46077 -0.36805,-16.49075 -0.43716,-16.42164 l 19.23532,0.49764 c 1.68451,7.81688 3.90042,16.0153 -1.3115,16.91924 -2.75968,4.7836 -9.41198,3.0795 -17.48666,-0.99524 z"
                 fill="#e2e2e2"
               />
               <%if(CityesWeather[4][0].Weather.phenomena != ""){%>
-              <image  
-                xlink:href="/public/assets/svg/<%= CityesWeather[4][0].Weather.phenomena %>.svg" 
-                height="55.043476" 
-                width="55.043476"  
-                x="564.80878" 
-                y="339.4725" 
+              <image
+                xlink:href="/public/assets/svg/<%= CityesWeather[4][0].Weather.phenomena %>.png"
+                height="55.043476"
+                width="55.043476"
+                x="564.80878"
+                y="339.4725"
               />
               <text x="510.49872" y="371.90131" fill="#0098d1" style="font-weight: bold;"><%= CityesWeather[4][0].Weather.temperature %> &deg;</text>
               <%}%>
               <a href="/current/berdyansk" class="berdyansk">
-                <path 
+                <path
                   d="m 550.91973,379.96767 c 2.00335,76.79488 -6.01003,73.45597 -2.67113,74.12375 3.33891,0.66778 98.83167,4.00669 98.83167,4.00669 l -2.00335,-86.8116 z"
                   style="opacity: .0;"
                 />
               </a>
           </g>
-          <g class="botievo"> 
+          <g class="botievo">
             <path d="m 341.70311,483.25482 c 0,-15.01909 -0.61342,-16.52101 -0.61342,-16.52101 l 26.99072,0.50065 -1.84027,17.02162 z" fill="#e2e2e2"/>
             <%if(CityesWeather[6][0].Weather.phenomena != ""){%>
-              <image  
-                xlink:href="/public/assets/svg/<%= CityesWeather[6][0].Weather.phenomena %>.svg" 
-                height="55.043476" 
-                width="55.043476"  
-                x="356.78647" 
-                y="422.26068" 
+              <image
+                xlink:href="/public/assets/svg/<%= CityesWeather[6][0].Weather.phenomena %>.png"
+                height="55.043476"
+                width="55.043476"
+                x="356.78647"
+                y="422.26068"
               />
               <text x="420.75943" y="459.83926" fill="#0098d1" style="font-weight: bold;"><%= CityesWeather[6][0].Weather.temperature %> &deg;</text>
               <%}%>
               <a href="/current/botievye" class="melitopol">
-                <path 
+                <path
                   d="m 302.73259,437.39688 c 2.49357,76.79488 -7.48068,73.45597 -3.32475,74.12375 4.15593,0.66778 123.01566,4.00669 123.01566,4.00669 l -2.49357,-86.8116 z"
                   style="opacity: .0;"
                 />
               </a>
           </g>
-          <g class="melitopol"> 
+          <g class="melitopol">
               <path d="m 261.541,417.7001 v 17.93996 l 22.39046,0.34499 -0.81916,-18.97495 z" fill="#e2e2e2"/>
               <%if(CityesWeather[5][0].Weather.phenomena != ""){%>
-              <image  
-                xlink:href="/public/assets/svg/<%= CityesWeather[5][0].Weather.phenomena %>.svg" 
-                height="55.043476" 
-                width="55.043476"  
-                x="243.9314" 
-                y="404.23059" 
+              <image
+                xlink:href="/public/assets/svg/<%= CityesWeather[5][0].Weather.phenomena %>.png"
+                height="55.043476"
+                width="55.043476"
+                x="243.9314"
+                y="404.23059"
               />
               <text x="190.71616" y="430.12277" fill="#0098d1" style="font-weight: bold;"><%= CityesWeather[5][0].Weather.temperature %> &deg;</text>
               <%}%>
               <a href="/current/melitopol" class="prism">
-                <path 
+                <path
                   d="m 211.24653,375.96098 c 2.49357,76.79488 -7.48068,73.45597 -3.32475,74.12375 4.15593,0.66778 123.01566,4.00669 123.01566,4.00669 l -2.49357,-86.8116 z"
                   style="opacity: .0;"
                 />
               </a>
           </g>
-          <g class="prishib"> 
+          <g class="prishib">
             <path d="m 253.75697,294.49164 c 0,-20.03345 -0.66778,-22.03679 -0.66778,-22.03679 l 29.38238,0.66778 -2.00334,22.70457 z" fill="#e2e2e2"/>
             <%if(CityesWeather[1][0].Weather.phenomena != ""){%>
-              <image  
-                xlink:href="/public/assets/svg/<%= CityesWeather[1][0].Weather.phenomena %>.svg" 
-                height="55.043476" 
-                width="55.043476"  
-                x="242.59583" 
-                y="315.40225" 
+              <image
+                xlink:href="/public/assets/svg/<%= CityesWeather[1][0].Weather.phenomena %>.png"
+                height="55.043476"
+                width="55.043476"
+                x="242.59583"
+                y="315.40225"
               />
               <text x="300.82956" y="346.4346" fill="#0098d1" style="font-weight: bold;"><%= CityesWeather[1][0].Weather.temperature %> &deg;</text>
               <%}%>
               <a href="/current/prism" class="prism">
-                <path 
+                <path
                   d="m 204.56871,257.76366 c 2.49357,76.79488 -7.48068,73.45597 -3.32475,74.12375 4.15593,0.66778 123.01566,4.00669 123.01566,4.00669 l -2.49357,-86.8116 z"
                   style="opacity: .0;"
                 />
@@ -148,5 +148,5 @@
         </svg>
       </div>
       <div id='map'></div>
-    </div>   
+    </div>
 </div>

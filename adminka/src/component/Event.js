@@ -15,23 +15,23 @@ class Event extends Component {
             Message: false,
         }
     }
-    handelOnChange = (e) => {
+    handleOnChange = (e) => {
         e.preventDefault()
         this.props.setMessageFalse();
         this.setState({file: e.target.files[0]});
     }
 
-    handelSaveValue = (obj) => {
+    handleSaveValue = (obj) => {
         this.props.setMessageFalse();
         this.setState({[obj.name]:obj.value});
     }
 
-    handelOnChangeText = (e) => {
+    handleOnChangeText = (e) => {
         this.props.setMessageFalse();
         this.setState({ text: e.target.value });
     }
 
-    handelSubmit = () => {
+    handleSubmit = () => {
         if(FullDataValid(this.state.date)){
             var obj = {
                 title: this.state.title,
@@ -76,7 +76,7 @@ class Event extends Component {
                                         label="Дата"
                                         name="date"
                                         value={this.state.date}
-                                        saveValue={this.handelSaveValue}
+                                        saveValue={this.handleSaveValue}
                                         placeholder="формат дд.мм.рррр"
                                     />
                                 </Form.Field>
@@ -85,7 +85,7 @@ class Event extends Component {
                                         label="Назва"
                                         name="title"
                                         value={this.state.title}
-                                        saveValue={this.handelSaveValue}
+                                        saveValue={this.handleSaveValue}
                                     />
                                 </Form.Field>
                                 <Form.Field>
@@ -93,7 +93,7 @@ class Event extends Component {
                                         label="Опис"
                                         name="description"
                                         value={this.state.description}
-                                        saveValue={this.handelSaveValue}
+                                        saveValue={this.handleSaveValue}
                                     />
                                 </Form.Field>
                                 <Form.Field>
@@ -101,17 +101,18 @@ class Event extends Component {
                                     <TextArea
                                         value={this.state.text}
                                         autoHeight
-                                        onChange={this.handelOnChangeText}
+                                        onChange={this.handleOnChangeText}
                                     />
                                 </Form.Field>
                                 <Form.Field>
-                                    <input type="file" name="file" id="file" className="inputfile" onChange={this.handelOnChange} />
+                                  <input disable="true" type="text" value={(this.state.file)?this.state.file.name : ''} />
+                                    <input accept="image/jpeg" type="file" name="file" id="file" className="inputfile" onChange={this.handleOnChange} />
                                     <label htmlFor="file" className="ui huge green floated button">
                                         <Icon name="upload"></Icon>
                                         Завантажити фотографію
                                     </label>
                                 </Form.Field>
-                                <Button primary onClick={this.handelSubmit}>зберегти подію</Button>
+                                <Button primary onClick={this.handleSubmit}>зберегти подію</Button>
                         </Form>
                     </Grid.Column>
                 </Grid.Row>

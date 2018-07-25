@@ -4,7 +4,11 @@ import { push } from 'react-router-redux';
 import { Form, Grid, Button, TextArea, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
 import { bindActionCreators } from 'redux';
-import { getRegularObservable, EditRegularObservable, SubmitDangerPhenomen, ChangeRegularObservable } from '../redux/actions/index';
+import { getRegularObservable,
+        EditRegularObservable,
+        SubmitDangerPhenomen,
+        ChangeRegularObservable,
+        UpdateRegularObservable } from '../redux/actions/index';
 import { FullDataValid } from '../utils/DataValid';
 
 const InputSize = 5;
@@ -13,14 +17,6 @@ class Forms extends Component {
     constructor(props){
         super(props);
         this.state = {
-            text: '',
-            Position: "с. Осипенко",
-            Title: "р. Берда",
-            date: "",
-            LvlWater: "",
-            OutWater: "",
-            EditLvl: "",
-            phenomena: "",
             ErrorMessage: false,
         }
     }
@@ -31,70 +27,56 @@ class Forms extends Component {
         }
     }
 
-    handelLogOut = () => {
+    handleLogOut = () => {
         localStorage.removeItem('token');
         this.props.noAuthorization();
     }
 
-    handelGetStation = () => {
+    handleGetStation = () => {
         this.props.GetStation();
     }
 
-    handelSaveValue = (obj) => {
+    handleSaveValue = (obj) => {
         this.props.setMessage();
-        this.setState({ [obj.name]:obj.value, ErrorMessage: false });
+        this.props.updateRegularObservable({
+          ...this.props.Observ,
+          [obj.name]: obj.value
+        });
     }
 
     Validation = () => {
-        if(this.state.date === "" ||
-        this.state.LvlWater === "" ||
-        this.state.OutWater === "" ||
-        this.state.EditLvl === "" ||
-        this.state.phenomena === ""){
-            return false;
-        }else{
-            return true;
-        }
+      return true;
     }
 
-    handelOnChangePosition = (e) => {
+    handleOnChangePosition = (e) => {
         this.props.ChangeRegularObservable(e.target.value);
         this.props.setMessage();
     }
 
-    handelSubmit = () => {
-        if(FullDataValid(this.state.date)){
+    handleSubmit = () => {
+        if(FullDataValid(this.props.Observ.date)){
             if(this.Validation()){
-                this.props.EditRegularObservable({
-                    ...this.props.Observ,
-                    date: this.state.date,
-                    LvlWater: this.state.LvlWater,
-                    OutWater: this.state.OutWater,
-                    EditLvl: this.state.EditLvl,
-                    phenomena: this.state.phenomena,
-                    ErrorMessage: false
-                })
+                this.props.EditRegularObservable(this.props.Observ);
             }
         }else{
             this.setState({ErrorMessage: true})
         }
     }
 
-    handelChangeObserv = (e) => {
+    handleChangeObserv = (e) => {
         this.props.setMessage();
         this.setState({Observ: e.target.value, ErrorMessage: false});
     }
 
-    handelChangeTextArea = (e) => {
+    handleChangeTextArea = (e) => {
         this.props.setMessage();
         this.setState({text: e.target.value, ErrorMessage: false})
     }
 
-    handelSubmittextArea = () => {
+    handleSubmittextArea = () => {
         this.props.setMessageTrue();
         this.props.SubmitDangerPhenomen(this.state.text);
         this.setState({
-            text: '',
             ErrorMessage: false
         });
     }
@@ -116,7 +98,7 @@ class Forms extends Component {
                         <Grid.Column width={InputSize}>
                             <h3>Регулярні спостереження в період весняної повені</h3>
                             <Form>
-                                <Form.Field control="select" label ="Точка спостереження" onChange={this.handelOnChangePosition}>
+                                <Form.Field control="select" label ="Точка спостереження" onChange={this.handleOnChangePosition}>
                                     <option value={this.props.Observs[0]._id}>{this.props.Observs[0].Title}({this.props.Observs[0].Position})</option>
                                     <option value={this.props.Observs[1]._id}>{this.props.Observs[1].Title}({this.props.Observs[1].Position})</option>
                                     <option value={this.props.Observs[2]._id}>{this.props.Observs[2].Title}({this.props.Observs[2].Position})</option>
@@ -130,62 +112,52 @@ class Forms extends Component {
                                 <Form.Field>
                                     <InputComponent
                                         name="date"
-                                        value={this.state.date}
+                                        value={this.props.Observ.date}
                                         label="Дата"
-                                        saveValue={this.handelSaveValue}
+                                        saveValue={this.handleSaveValue}
                                         placeholder="формат дд.мм.гггг"
                                     />
                                 </Form.Field>
-                                <Form.Field control="select" label="Час спостереження" onChange={this.handelChangeObserv}>
-                                    <option value="02">02</option>
-                                    <option value="05">05</option>
-                                    <option value="08">08</option>
-                                    <option value="11">11</option>
-                                    <option value="14">14</option>
-                                    <option value="17">17</option>
-                                    <option value="20">20</option>
-                                    <option value="23">23</option>
-                                </Form.Field>
                                 <Form.Field>
                                     <InputComponent
-                                        value = {this.state.LvlWater}
+                                        value = {this.props.Observ.LvlWater}
                                         name="LvlWater"
                                         label="Відмітка виходу води на заплаву"
-                                        saveValue={this.handelSaveValue}
+                                        saveValue={this.handleSaveValue}
                                     />
                                 </Form.Field>
                                 <Form.Field>
                                     <InputComponent
-                                        value = {this.state.OutWater}
+                                        value = {this.props.Observ.OutWater}
                                         name="OutWater"
                                         label="Фактичний рівень води"
-                                        saveValue={this.handelSaveValue}
+                                        saveValue={this.handleSaveValue}
                                     />
                                 </Form.Field>
                                 <Form.Field>
                                     <InputComponent
-                                        value = {this.state.EditLvl}
+                                        value = {this.props.Observ.EditLvl}
                                         name="EditLvl"
                                         label="Зміна рівня води за добу"
-                                        saveValue={this.handelSaveValue}
+                                        saveValue={this.handleSaveValue}
                                     />
                                 </Form.Field>
                                 <Form.Field>
                                     <InputComponent
-                                        value = {this.state.phenomena}
+                                        value = {this.props.Observ.phenomena}
                                         name="phenomena"
                                         label="Льодові явища"
-                                        saveValue={this.handelSaveValue}
+                                        saveValue={this.handleSaveValue}
                                     />
                                 </Form.Field>
-                                <Button type="button" primary onClick={this.handelSubmit}>Зберегти</Button>
-                                <Button type="button" onClick={this.handelLogOut}>Вийти</Button>
-                                <Button type="button" onClick={this.handelGetStation}>Заповнити дані на станції</Button>
+                                <Button type="button" primary onClick={this.handleSubmit}>Зберегти</Button>
+                                <Button type="button" onClick={this.handleLogOut}>Вийти</Button>
+                                <Button type="button" onClick={this.handleGetStation}>Заповнити дані на станції</Button>
                                 <Form.Field>
                                     <label>Небезпечні гідрологічні явища</label>
-                                    <TextArea autoHeight value={this.state.text} onChange={this.handelChangeTextArea}/>
+                                    <TextArea autoHeight value={this.state.text} onChange={this.handleChangeTextArea}/>
                                 </Form.Field>
-                                <Button onClick={this.handelSubmittextArea}>Зберегти</Button>
+                                <Button onClick={this.handleSubmittextArea}>Зберегти</Button>
                             </Form>
                         </Grid.Column>
                     </Grid.Row>
@@ -207,6 +179,7 @@ const mapDispatchToProps = (dispatch) => ({
     SubmitDangerPhenomen: bindActionCreators(SubmitDangerPhenomen, dispatch),
     EditRegularObservable: bindActionCreators(EditRegularObservable, dispatch),
     getRegularObservable: bindActionCreators(getRegularObservable, dispatch),
+    updateRegularObservable: bindActionCreators(UpdateRegularObservable, dispatch),
     noAuthorization: () => dispatch(push('/signin')),
     GetStation: () => dispatch(push('/meteostation')),
     setMessage: () => dispatch({type: 'SET_MESSAGE_REGULAR_OBSERVABLE'}),

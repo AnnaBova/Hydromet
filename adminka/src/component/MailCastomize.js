@@ -25,11 +25,11 @@ class MailCastomize extends Component {
         this.props.GetEmails();
     }
 
-    handelAddEmail = () => {
+    handleAddEmail = () => {
         this.props.AddEmail(this.state);
     }
 
-    handelChangeRole = (e) => {
+    handleChangeRole = (e) => {
         this.setState({ role: e.target.value })
     }
 
@@ -37,15 +37,15 @@ class MailCastomize extends Component {
         this.props.SetRole(obj);
     }
 
-    handelSaveValue = (obj) => {
+    handleSaveValue = (obj) => {
         this.setState({[obj.name]: obj.value});
     }
 
-    handelSubmitMail = () => {
+    handleSubmitMail = () => {
         this.props.SubmitEmail(this.props.Emails);
     }
 
-    handelBackToGydrpomet = () => {
+    handleBackToGydrpomet = () => {
         this.props.BackToGydromet();
     }
 
@@ -56,7 +56,7 @@ class MailCastomize extends Component {
                     <Grid.Column width={5}/>
                     <Grid.Column width={6}>
                         <Form>
-                            <Form.Field control="select" label="Вид Розсилання" value={this.state.role} onChange = {this.handelChangeRole}>
+                            <Form.Field control="select" label="Вид Розсилання" value={this.state.role} onChange = {this.handleChangeRole}>
                                 <option value="1">Повний гідрометричний бюлетень</option>
                                 <option value="2">Тільки штормове попередження</option>
                             </Form.Field>
@@ -65,12 +65,12 @@ class MailCastomize extends Component {
                                     label="E-mail адресс"
                                     name="Email"
                                     value={this.state.email}
-                                    saveValue = {this.handelSaveValue}
+                                    saveValue = {this.handleSaveValue}
                                 />
                             </Form.Field>
-                            <Button onClick={this.handelAddEmail}>Додати</Button>
-                            <Button onClick={this.handelSubmitMail}>Выдправити листи</Button>
-                              <Button onClick={this.handelBackToGydrpomet}>Повернутися до гідрометричного бюлетеню</Button>
+                            <Button onClick={this.handleAddEmail}>Додати</Button>
+                            <Button onClick={this.handleSubmitMail}>Выдправити листи</Button>
+                              <Button onClick={this.handleBackToGydrpomet}>Повернутися до гідрометричного бюлетеню</Button>
                         </Form>
                     </Grid.Column>
                     </Grid.Row>

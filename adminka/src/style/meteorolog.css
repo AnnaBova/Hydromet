@@ -1,0 +1,16 @@
+.inputItem{
+  border: 1px solid black;
+  margin: 20px;
+  padding: 20px;
+}
+
+.inputWraper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nonFormInput{
+  width: 200px;
+  padding: 20px;
+}

@@ -6,7 +6,7 @@ const ClimaticRecords = require('../db/model/ClimateRecords');
 const WeatherTable = require('../db/model/CityWeatherTable');
 const Station = require('../db/model/Station');
 const TimeGaps = require('../db/model/TimeGaps');
-const WaterTemperature = require('../db/model/waterTemerature');
+const WaterTemperature = require('../db/model/waterTemperature');
 const WeatherCityTable = require('../db/model/WeatherCity');
 const ClimateData = require('../db/model/ClimateData');
 const Regular_observable = require('../db/model/Regular_observable');
@@ -17,6 +17,21 @@ const DagerGydrolygy = require('../db/model/DangerGydrolygy');
 const radiotional = require('../db/model/radiotional');
 const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
 var Init = require('../db/init').Init;
+
+const MONTHS = [
+  "січень",
+  "лютий",
+  "березень",
+  "квітень",
+  "травень",
+  "червень",
+  "липень",
+  "серпень",
+  "вересень",
+  "жовтень",
+  "листопад",
+  "грудень",
+];
 
 function getObserv(){
   var now = new Date();
@@ -77,30 +92,42 @@ module.exports = {
               Promise.all(promise)
                 .then(respons => {
                   WeatherCityTable.GetAll().then(
-                    answer => { 
-                      resp.render('pages/home', { 
-                        ZpTemperature: response[0][0], 
-                        observe: observe, 
-                        weatherObl: answer[0].WeatherTable, 
-                        Water: respons[1][0],
-                        CityesWeather: response
-                      }) 
+                    answer => {
+                      const date = new Date();
+                      let day = date.getDate();
+                      day = (day < 10)? `0${day}` : `${day}`;
+                      let month = date.getMonth();
+                      month = (month < 10)? `0${month}` : `${month}`;
+                      const monthText = MONTHS[month];
+                      const year = date.getFullYear();
+                      resp.render('pages/home', {
+                        ZpTemperature: response[0][0],
+                        observe: observe,
+                        weatherObl: answer[0].WeatherTable,
+                        Water: respons[1],
+                        CityesWeather: response,
+                        day,
+                        month,
+                        monthText,
+                        year
+                      })
                     }
                   )
-                    
+
                 })
                 .catch(err => console.log(err));
         });
       });
-    
+
   },
 
   GetInfoStation: function(req, res){
     Station.GetIdStation(req.params.station).then(respons => {
       res.render('pages/Station',{station: respons[0]});
     })
-    
+
   },
+
   getCurrentWeather: function (req, response) {
     var router = {
       "zaporozhye": false,
@@ -114,7 +141,7 @@ module.exports = {
 
     for(key in router){
       router[key]=false;
-    }   
+    }
     router[req.params.city] = true;
 
     var buffer = [];
@@ -131,9 +158,9 @@ module.exports = {
                 for(var i=0; i<resp.length; i++){
                   table.push(
                     {
-                    Weather: respons[i].Weather, 
+                    Weather: respons[i].Weather,
                     Summer: resp[i].Summer,
-                    Winter: resp[i].Winter 
+                    Winter: resp[i].Winter
                     });
                 }
                 table.sort(function(a, b){
@@ -161,15 +188,21 @@ module.exports = {
                     cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[7][0].id));
                     Promise.all(cityarr)
                       .then(answer => {
-                        response.render('pages/currentweather', { CityesWeather: answer, cityes: router, table: table })
+
+                        const date = new Date();
+                        const day = date.getDate();
+                        const month = MONTHS[date.getMonth()];
+                        const year = date.getFullYear();
+
+                        response.render('pages/currentweather', { CityesWeather: answer, cityes: router, table: table , day, month, year})
                        }) });
-                
+
               })
               .catch(err => console.log(err));
           })
           .catch(err => console.log(err));
       })
-      .catch(err => console.log(err));    
+      .catch(err => console.log(err));
   },
 
   getAgriculturePage: function (req, res) {
@@ -180,10 +213,14 @@ module.exports = {
     res.render('pages/hydrology_observable');
   },
   getPollution: function(req, res){
+    const date = new Date();
+    const day = date.getDate();
+    const month = MONTHS[date.getMonth()];
+    const year = date.getFullYear();
     Chart.GetAll().then(respons => {
-      res.render('pages/pollution', { pollution: respons });
+      res.render('pages/pollution', { pollution: respons, month, year });
     })
-    
+
   },
   getRadiation: function(req, res){
     radiotional.GetAll()
@@ -191,7 +228,7 @@ module.exports = {
       res.render('pages/radiation', { data: respons });
     })
     .catch(err => console.log(err));
-    
+
   },
   getContact: function(req, res){
     res.render('pages/contact');
@@ -214,12 +251,13 @@ module.exports = {
             response => {
               WeatherObservable.getAll()
               .then(answer => {
-                res.render('pages/hedrometeorological_bulletin', 
+                res.render('pages/hedrometeorological_bulletin',
                 { weatherObl: respons[0].WeatherTable,
-                  TextWeatherObl: respons[0].TextWeather, 
-                  weatherCity:  respons[1].WeatherTable, 
+                  TextWeatherObl: respons[0].TextWeather,
+                  weatherCity:  respons[1].WeatherTable,
                   TextWeatherCity: respons[1].TextWeather,
                   ClimaticData: response[0],
+                  date: response[0].day.split('-'),
                   StormWarning: response[0].StormText,
                   WeatherObservable: answer[0],
                   StationWeather: answer[0].StationWeather,
@@ -228,14 +266,14 @@ module.exports = {
               });
             }
           );
-          
+
         }
       );
-   
+
   },
   getClimaticCharacteristic: function(req, res){
     ClimateCharacteristic.GetAll().then(respons => {
-      res.render('pages/climatic_characteristic', {data: respons[0]}); 
+      res.render('pages/climatic_characteristic', {data: respons[0]});
     })
   },
   getClimaticRecords: function(req, res){
@@ -251,26 +289,27 @@ module.exports = {
             res.render('pages/regular_observations', { data: resp, danger:respons[0].text});
           })
       });
-    
+
   },
   getEvents: function(req, res){
     var perPage = 4;
     Promise.all(Events.GetAll(req.params.page, perPage))
       .then(respons => {
-        res.render('pages/events', { 
+        res.render('pages/events', {
           events: respons[0],
           current: req.params.page,
-          pages: Math.ceil(respons[1] / perPage) 
+          pages: Math.ceil(respons[1] / perPage)
         });
       })
-    
+
   },
   getSingleEvents: function(req, res){
     Events.GetEventOne(req.params.id)
     .then(respons => {
+        if(!respons) res.redirect('/events/1');
         res.render('pages/single_events', { event: respons });
     })
-    
+
   },
   getDecadeBulletin: function(req, res){
     DecadBulletin.GetBulletin()

@@ -6,6 +6,7 @@ const WeatherTableSchema = mongoose.Schema({
     "date": String,
     "StationID": String,
     "TimeGapsId": String,
+    "gap": String,
     "Weather": {
         "temperature": String,
         "wind": String,
@@ -24,19 +25,22 @@ module.exports = {
     },
     AddEntry: function(data){
         const entry = new WeatherTable(data);
-        entry.save(); 
+        entry.save();
     },
     EditTables: function(data){
-        WeatherTable.findOneAndUpdate({ StationID: data.StationID, TimeGapsId: data.TimaGapsId }, data)
-            .then(res => {
-                
-            });
+        return WeatherTable.findOneAndUpdate({ StationID: data.StationID, TimeGapsId: data.TimeGapsId }, data)
+            // .then(res => {
+            //
+            // });
     },
     GetAll: function(){
-       return WeatherTable.find({});
+       return WeatherTable.find({})
     },
     GetCityTable: function(id){
-        return WeatherTable.find({StationID: id});
+        return WeatherTable.find({StationID: id}).then(data => {
+          data.sort((a, b)=>(a.gap - b.gap));
+          return data;
+        });;
     },
     GetZpWeather: function(observ, station){
         return WeatherTable.find({"StationID": station, "TimeGapsId": observ });
