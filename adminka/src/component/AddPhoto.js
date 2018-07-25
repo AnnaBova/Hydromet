@@ -105,7 +105,7 @@ class AddPhoto extends Component {
                 <div className="imgWrapper">
                   {this.props.photos.map(item => {
                     const style = {
-                      backgroundImage: `url(http://localhost:3001/public/assets/images/${item})`
+                      backgroundImage: `url(http://77.120.123.202:3001/public/assets/images/${item})`
                     };
                     return <div key={item} style={style} className="stationPhoto">
                       <span className="deleteCross" onClick={this.handleImageClick(item)}>X</span>
