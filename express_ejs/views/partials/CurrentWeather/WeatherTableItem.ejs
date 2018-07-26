@@ -5,7 +5,7 @@
       <div><%= item.Winter %></div>
     </div>
   </td>
-  <td> <%= item.Weather.temperature %> </td>
+  <td> <%= item.Weather.temperature %> <%if (item.Weather.temperature){%>°C<%}%> </td>
   <td> <%= item.Weather.wind %> <%if (item.Weather.wind){%>м/с<%}%><i class="la la-long-arrow-<%= item.Weather.DirectionWind %> la-lg"></i></td>
   <td> <%= item.Weather.pressure %> </td>
   <td>

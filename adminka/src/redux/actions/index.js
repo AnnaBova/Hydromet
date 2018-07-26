@@ -53,11 +53,20 @@ import {
     CHANGE_REGULAR_OBSERVABLE,
     UPDATE_REGULAR_OBSERVABLE,
     UPDATE_WATTER_TEMPERATURE,
-    SET_STATION_PHOTOS
+    SET_STATION_PHOTOS,
+    SET_DECADE_BULLETING,
+    UPDATE_RADIATION,
+    UPDATE_CLIMATE_DATA,
+    UPDATE_OBSERV_DATA_STATION,
+    UPDATE_OBSERV_DATA,
+    EDIT_POLLUTION_VALUE,
+    SET_UPDATING_EVENT,
+    UPDATE_SELECTED_EVENT
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
-const LocalHost = "http://77.120.123.202:3001";
+// const LocalHost = "http://77.120.123.202:3001";
+const LocalHost = "http://localhost:3001";
 
 export function setEventMessageTrue(){
     return {
@@ -1008,4 +1017,97 @@ export function DeleteStationPhoto(station, photo){
       body: JSON.stringify({photo})
   })
   .then(res => dispatch(GetStationPhotos(station)));
+}
+
+export function getDecadeBulletin() {
+  return dispatch => fetch(`${LocalHost}/decade_bulletin_api`, {
+      method: 'GET',
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+  })
+  .then(res => res.text())
+  .then(res => dispatch(setDecadeBulleting(res)))
+}
+
+export function setDecadeBulleting(bulleting) {
+  return {
+    type: SET_DECADE_BULLETING,
+    payload: bulleting
+  }
+}
+
+export function UpdateRadiation(radiation) {
+  return {
+    type: UPDATE_RADIATION,
+    payload: radiation
+  }
+}
+
+export function UpdateClimateData(data) {
+  return {
+    type: UPDATE_CLIMATE_DATA,
+    payload: data
+  }
+}
+
+export function UpdateObservDataStation(data) {
+  return {
+    type: UPDATE_OBSERV_DATA_STATION,
+    payload: data
+  }
+}
+
+export function UpdateObservData(data) {
+  return {
+    type: UPDATE_OBSERV_DATA,
+    payload: data
+  }
+}
+
+export function EditPollutionValue(matter, post, value ) {
+  return {
+    type: EDIT_POLLUTION_VALUE,
+    payload: {
+      matter,
+      post,
+      value
+    }
+  }
+}
+
+export function setUpdatingEvent(event) {
+  return {
+    type: SET_UPDATING_EVENT,
+    payload: event
+  }
+}
+
+export function updateSelectedEvent(event) {
+  return {
+    type: UPDATE_SELECTED_EVENT,
+    payload: event
+  }
+}
+
+export function requestUpdateEvent({file, title, text, date, description, _id}) {
+    let data = new FormData();
+    data.append('file', file);
+    data.append('_id', _id);
+    data.append('title', title);
+    data.append('text', text);
+    data.append('date', date);
+    data.append('description', description);
+
+    return (dispatch) => {
+      fetch(`${LocalHost}/event`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: data
+        })
+        .then(response => {})
+        .catch(error => console.log(error));
+    };
 }

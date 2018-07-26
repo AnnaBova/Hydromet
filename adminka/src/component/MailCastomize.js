@@ -57,7 +57,7 @@ class MailCastomize extends Component {
                     <Grid.Column width={6}>
                         <Form>
                             <Form.Field control="select" label="Вид Розсилання" value={this.state.role} onChange = {this.handleChangeRole}>
-                                <option value="1">Повний гідрометричний бюлетень</option>
+                                <option value="1">Повний гідрометеорологічний бюлетень</option>
                                 <option value="2">Тільки штормове попередження</option>
                             </Form.Field>
                             <Form.Field>
@@ -69,7 +69,7 @@ class MailCastomize extends Component {
                                 />
                             </Form.Field>
                             <Button onClick={this.handleAddEmail}>Додати</Button>
-                            <Button onClick={this.handleSubmitMail}>Выдправити листи</Button>
+                            <Button onClick={this.handleSubmitMail}>Вiдправити листи</Button>
                               <Button onClick={this.handleBackToGydrpomet}>Повернутися до гідрометричного бюлетеню</Button>
                         </Form>
                     </Grid.Column>

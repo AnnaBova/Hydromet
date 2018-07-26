@@ -112,7 +112,7 @@ class Event extends Component {
                                         Завантажити фотографію
                                     </label>
                                 </Form.Field>
-                                <Button primary onClick={this.handleSubmit}>зберегти подію</Button>
+                                <Button primary onClick={this.handleSubmit}>Зберегти подію</Button>
                         </Form>
                     </Grid.Column>
                 </Grid.Row>

@@ -2,7 +2,8 @@ import {
     GET_AIR_POLLUTION,
     CHANGE_MATTER,
     EDIT_MATTER,
-    SET_AIR_POLLUTION_MESSAGE
+    SET_AIR_POLLUTION_MESSAGE,
+    EDIT_POLLUTION_VALUE
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -45,6 +46,19 @@ export function AirPollutionReducer (state = initialState, actions){
                 ...state,
                 Message: actions.payload
             }
+        }
+        case EDIT_POLLUTION_VALUE:{
+          const newData = state.data.map((item, index) => {
+              if(index === +actions.payload.matter){
+                  item.data[actions.payload.post] = actions.payload.value;
+              }
+              return item;
+          });
+          return {
+            ...state,
+            data: newData,
+            matter: newData[+actions.payload.matter]
+          }
         }
         default: {
             return state;

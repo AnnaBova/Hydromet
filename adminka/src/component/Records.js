@@ -21,7 +21,8 @@ import {
     setEventMessageTrue,
     setEventMessageFalse,
     uploadCaruselImage,
-    getStation
+    getStation,
+    setUpdatingEvent
 } from '../redux/actions/index';
 import AddPhoto from './AddPhoto';
 import EventList from './EventList';
@@ -67,7 +68,7 @@ class Records extends Component {
                     UploadFile={this.props.UploadFile}
                     /></Tab.Pane> },
                 {   menuItem: 'Всі події',
-                render: () => <Tab.Pane><EventList  data ={this.props.Events} GetEvents = {this.props.GetEvents} Delete={this.DeleteEvent}/></Tab.Pane> },
+                render: () => <Tab.Pane><EventList setUpdatingEvent={this.props.setUpdatingEvent} data ={this.props.Events} GetEvents = {this.props.GetEvents} Delete={this.DeleteEvent}/></Tab.Pane> },
                 {   menuItem: 'Кліматична характеристика області',
                 render: () => <Tab.Pane>
                             <ClimateCharacteristic
@@ -77,7 +78,7 @@ class Records extends Component {
                                 ClimateCharacteristic = {this.props.ClimateCharacteristic}
                                 EditClimate={this.props.EditClimate}
                             /></Tab.Pane> },
-                {   menuItem: 'Фото на сторінці станції', 
+                {   menuItem: 'Фото на сторінці станції',
                 render: () => <Tab.Pane><AddPhoto
                     uploadCaruselImage={this.props.uploadCaruselImage}
                     Message = {this.props.EventMessage}
@@ -135,7 +136,7 @@ class Records extends Component {
                     <Tab panes = {this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.ChangeTab}></Tab>
                 </Grid.Column>
                 <Grid.Column width={5}>
-                    <Button type="button" floated="right" onClick ={this.LogOut}>Выйти</Button>
+                    <Button type="button" floated="right" onClick ={this.LogOut}>Вийти</Button>
                 </Grid.Column>
             </Grid.Row>
         );
@@ -170,7 +171,8 @@ const mapDispatchToProps = (dispatch) => ({
     SaveRecords: bindActionCreators(SaveRecords, dispatch),
     getPhenomena: bindActionCreators(getPhenomena, dispatch),
     SavePhenomena: bindActionCreators(SavePhenomena, dispatch),
-    uploadCaruselImage: bindActionCreators( uploadCaruselImage, dispatch)
+    uploadCaruselImage: bindActionCreators( uploadCaruselImage, dispatch),
+    setUpdatingEvent: bindActionCreators(setUpdatingEvent, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Records);

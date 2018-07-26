@@ -3,9 +3,10 @@ var mongoose = require('mongoose');
 const ClimateDataSchema = mongoose.Schema({
     "StormText": String,
     "day": String,
-    "mounth":String,
+    "month":String,
     "year": String,
-    "DateBulletin":String,
+    "date": String,
+    "time": Number,
     "SrTemperature": {
         "date":String,
         "value":String

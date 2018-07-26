@@ -22,15 +22,24 @@ class ObservableWeather extends Component {
     }
   }
 
-  handleSaveValue = (obj) => {
+  handleSaveValueData = (obj) => {
     this.props.setMessage();
-    this.setState({[obj.name]: obj.value, ErrorMessage: false});
+    this.props.UpdateObservDataStation({
+      obj,
+      index: this.state.Station
+    });
+    this.setState({ErrorMessage: false});
+  }
+
+  handleSaveValue = (event) => {
+    this.props.setMessage();
+    this.props.UpdateObservData(event);
   }
 
   validator = () => {
-    if(this.state.MaxTemperature !== "" ||
-      this.state.MinTemperature !== "" ||
-      this.state.precipitation !== ""){
+    if(this.props.WeatherObservableData.StationWeather[this.state.Station].MaxTemperature !== "" ||
+      this.props.WeatherObservableData.StationWeather[this.state.Station].MinTemperature !== "" ||
+      this.props.WeatherObservableData.StationWeather[this.state.Station].precipitation !== ""){
         return true;
       }else {
         return false;
@@ -38,51 +47,59 @@ class ObservableWeather extends Component {
   }
 
   Submit = () => {
-    if(DayValid(this.state.day)){
+    if(DayValid(this.props.WeatherObservableData.day)){
       if(this.validator()){
         this.props.EditDay({
           ...this.props.ObservDay,
-          MaxTemperature: this.state.MaxTemperature,
-          MinTemperature: this.state.MinTemperature,
-          Precipitation: this.state.precipitation,
-          Phenomen: this.state.Phenomena,
+          MaxTemperature: this.props.WeatherObservableData.StationWeather[this.state.Station].MaxTemperature,
+          MinTemperature: this.props.WeatherObservableData.StationWeather[this.state.Station].MinTemperature,
+          Precipitation: this.props.WeatherObservableData.StationWeather[this.state.Station].precipitation,
           Station: this.state.Station,
         });
-        this.props.Submit(this.state);
+        this.props.Submit({
+          day: this.props.WeatherObservableData.day,
+          month: this.props.WeatherObservableData.month,
+          year: this.props.WeatherObservableData.year,
+          text: this.props.WeatherObservableData.text,
+          MaxTemperature: this.props.WeatherObservableData.StationWeather[this.state.Station].MaxTemperature,
+          MinTemperature: this.props.WeatherObservableData.StationWeather[this.state.Station].MinTemperature,
+          Precipitation: this.props.WeatherObservableData.StationWeather[this.state.Station].precipitation,
+          Station: this.state.station
+        });
       }
     }else{
       this.setState({ErrorMessage: true});
     }
   }
 
-  handleOnChange = (e) => {
+  handleOnChange = (event) => {
     this.props.setMessage();
-    this.setState({text:e.target.value, ErrorMessage: false});
+    this.props.UpdateObservData({
+      name:'text',
+      value:event.target.value
+    });
+    this.setState({ErrorMessage: false});
   }
 
   handleStationChange = (e) => {
       this.props.setMessage();
       this.setState({
-        MaxTemperature: "",
-        MinTemperature: "",
-        precipitation: "",
         ErrorMessage: false,
         Station: +e.target.value
-      })
-
+      });
   }
 
-  handleChangePhenomen = (e) => {
+  handleOnChangeMonth = (event) => {
     this.props.setMessage();
-    this.setState({Phenomena: e.target.value, ErrorMessage: false})
-  }
-
-  handleOnChangeMounth = (e) =>{
-    this.props.setMessage();
-    this.setState({mounth:e.target.value, ErrorMessage: false})
+    this.props.UpdateObservData({
+      name:'month',
+      value:event.target.value
+    });
+    this.setState({ErrorMessage: false});
   }
 
   render() {
+    if(this.props.WeatherObservableData.length === 0) return 'Loading';
   return (<div >
       <Grid>
         <Grid.Row>
@@ -97,7 +114,7 @@ class ObservableWeather extends Component {
           <Grid.Column width={8}>
           <Form.Field width={InputSize}>
             <InputComponent
-              value={this.state.day}
+              value={this.props.WeatherObservableData.day}
               label="День"
               name = "day"
               saveValue={this.handleSaveValue}
@@ -107,33 +124,33 @@ class ObservableWeather extends Component {
             width={InputSize}
             control="select"
             label="Місяць"
-            value={this.state.mounth}
-            onChange={this.handleOnChangeMounth}
+            value={this.props.WeatherObservableData.month}
+            onChange={this.handleOnChangeMonth}
           >
             <option value="січня">Січень</option>
-            <option value="лютий">Лютий</option>
-            <option value="березень">Березень</option>
-            <option value="квітень">Квітень</option>
-            <option value="травень">Травень</option>
-            <option value="червень">Червень</option>
-            <option value="липень">Липень</option>
-            <option value="серпень">Серпень</option>
-            <option value="вересень">Вересень</option>
-            <option value="жовтень"> Жовтень</option>
-            <option value="листопад">Листопад</option>
-            <option value="грудень">Грудень</option>
+            <option value="лютого">Лютий</option>
+            <option value="березня">Березень</option>
+            <option value="квітня">Квітень</option>
+            <option value="травня">Травень</option>
+            <option value="червня">Червень</option>
+            <option value="липня">Липень</option>
+            <option value="серпня">Серпень</option>
+            <option value="вересня">Вересень</option>
+            <option value="жовтня"> Жовтень</option>
+            <option value="листопада">Листопад</option>
+            <option value="грудня">Грудень</option>
           </Form.Field>
           <Form.Field width={InputSize}>
             <InputComponent
-              value={this.state.year}
+              value={this.props.WeatherObservableData.year}
               label="Рік"
               name = "year"
               saveValue={this.handleSaveValue}
             />
           </Form.Field>
           <Form.Field width={InputSize}>
-            <label>Осмотр погоды</label>
-            <TextArea autoHeight onChange={this.handleOnChange}/>
+            <label>Огляд погоди</label>
+            <TextArea autoHeight value={this.props.WeatherObservableData.text} onChange={this.handleOnChange}/>
           </Form.Field>
           <Form.Field
             width={InputSize}
@@ -153,26 +170,26 @@ class ObservableWeather extends Component {
           </Form.Field>
           <Form.Field width={InputSize}>
             <InputComponent
-              value={this.state.MinTemperature}
+              value={this.props.WeatherObservableData.StationWeather[this.state.Station].MinTemperature}
               label="Мінімальна температура"
               name = "MinTemperature"
-              saveValue={this.handleSaveValue}
+              saveValue={this.handleSaveValueData}
             />
           </Form.Field>
           <Form.Field width={InputSize}>
             <InputComponent
-              value={this.state.MaxTemperature}
+                value={this.props.WeatherObservableData.StationWeather[this.state.Station].MaxTemperature}
               label="Максимальна температура"
               name = "MaxTemperature"
-              saveValue={this.handleSaveValue}
+              saveValue={this.handleSaveValueData}
             />
           </Form.Field>
           <Form.Field width={InputSize}>
             <InputComponent
-              value={this.state.precipitation}
+                value={this.props.WeatherObservableData.StationWeather[this.state.Station].Precipitation}
               label="Кількість опадів"
-              name = "precipitation"
-              saveValue={this.handleSaveValue}
+              name = "Precipitation"
+              saveValue={this.handleSaveValueData}
             />
           </Form.Field>
           <Button onClick={this.Submit}>Зберегти</Button>

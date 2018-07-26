@@ -403,6 +403,7 @@ module.exports = {
       }).catch(err => {
         if(err){
           console.log(err.message);
+          res.sendStatus(500);
         }
       });
     },
@@ -418,7 +419,54 @@ module.exports = {
       }).catch(err => {
         if(err){
           console.log(err.message);
+          res.sendStatus(500);
         }
       })
+    },
+
+    getDecadeBulletin: function(req, res){
+      DecadeBulletin.GetBulletin().then(data => {
+        res.send(data.Decad);
+      }).catch(err => {
+        if(err){
+          console.log(err.message);
+          res.sendStatus(500);
+        }
+      });
+    },
+
+    PostEvent: function (req, res) {
+      if(!req.files){
+        Events.UpdateEventNoImage({
+          _id: req.body._id,
+          title: req.body.title,
+          date: req.body.date,
+          description: req.body.description,
+          text: req.body.text,
+        }).then(data => {
+
+        })
+      }else{
+        Events.GetEventOne(req.body._id).then(data => {
+          const imageFile = req.files.file;
+          const path1 = path.resolve(__dirname, '../public/Events');
+          fs.unlink(`${path1}/${data.Picture}`, err => {
+            imageFile.mv(`${path1}/${imageFile.name}`, function(err){
+                if(err) return res.sendStatus(500);
+                Events.UpdateEvent({
+                  _id: req.body._id,
+                  title: req.body.title,
+                  date: req.body.date,
+                  Picture: imageFile.name,
+                  description: req.body.description,
+                  text: req.body.text,
+                }).then(data => {
+                  res.end()
+                });
+            })
+          });
+        });
+      }
+      res.end();
     }
 }

@@ -16,7 +16,11 @@ import {
     UPDATE_WEATHER_CITY,
     UPDATE_WEATHER_OBL_TEXT,
     UPDATE_WEATHER_CITY_TEXT,
-    UPDATE_DATE
+    UPDATE_DATE,
+    SET_DECADE_BULLETING,
+    UPDATE_CLIMATE_DATA,
+    UPDATE_OBSERV_DATA_STATION,
+    UPDATE_OBSERV_DATA,
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -29,6 +33,7 @@ const initialState = {
     WeatherObservable: [],
     ClimateData: {},
     ObservDay: {},
+    decadeBulletin: '',
     WeatherObservableData: {},
     Message: false,
 }
@@ -183,6 +188,40 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
               TextWeatherObl: actions.payload.textObl,
           }
         }
+        case SET_DECADE_BULLETING:
+          return {
+            ...state,
+            decadeBulletin: actions.payload
+          }
+        case UPDATE_CLIMATE_DATA:
+          return {
+            ...state,
+            гідрометеорологічнийData: actions.payload
+          }
+        case UPDATE_OBSERV_DATA:
+          return {
+            ...state,
+            WeatherObservableData:{
+              ...state.WeatherObservableData,
+              [actions.payload.name]:actions.payload.value
+            }
+          }
+        case UPDATE_OBSERV_DATA_STATION:
+          return {
+            ...state,
+            WeatherObservableData:{
+              ...state.WeatherObservableData,
+              StationWeather: state.WeatherObservableData.StationWeather.map((item, index)=> {
+                  if(index === actions.payload.index){
+                    return {
+                      ...item,
+                      [actions.payload.obj.name]:actions.payload.obj.value
+                    }
+                  }
+                  return item;
+              })
+            }
+          }
         default:{
             return state;
         }

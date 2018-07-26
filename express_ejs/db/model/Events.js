@@ -39,6 +39,27 @@ module.exports = {
     GetEvent(){
         return Events.find({});
     },
+    UpdateEvent({file, title, Picture, text, date, description, _id}){
+      return Events.findByIdAndUpdate(_id, {
+        $set:{
+          title,
+          Text: text,
+          date,
+          description,
+          Picture
+        }
+      });
+    },
+    UpdateEventNoImage({title, text, date, description, _id}){
+      return Events.findByIdAndUpdate(_id, {
+        $set:{
+          title,
+          Text: text,
+          date,
+          description
+        }
+      });
+    },
     Delete(id){
         Events.findByIdAndRemove(id).then(res => {});
     }

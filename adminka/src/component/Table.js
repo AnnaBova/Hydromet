@@ -5,8 +5,6 @@ import TableItem from './TableItem';
 
 class Tables extends Component {
 
-
-
     Change = (value) => {
         this.props.setMessage();
         this.props.Record.table = this.props.Record.table.map((item)=> {

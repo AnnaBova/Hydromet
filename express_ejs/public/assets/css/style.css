@@ -757,7 +757,7 @@ ul.info-list li:before {
 .table.weather-table img{
   margin-top:10px;
   width:55px;
-  height:45px
+  height:55px;
 }
 .table th{
   text-align:center;
@@ -768,7 +768,8 @@ ul.info-list li:before {
 }
 
 .text-style{
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
+  text-indent: 1.5em;
 }
 
 table#regular_observations td,
@@ -984,7 +985,7 @@ span.number{
 }
 
 .modalDate{
-  min-width: 130px;
+  white-space: nowrap !important;
 }
 
 

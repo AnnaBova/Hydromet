@@ -4,25 +4,25 @@
         <span class="number">04</span>
         Кліматичні дані <br> по м. Запоріжжя
         </div>
-        <div class="text-center"><%= ClimaticData.day %> <%= ClimaticData.mounth %> (<%= ClimaticData.year %>рр.)</div>
+        <div class="text-center"><%= ClimaticData.day %> <%= ClimaticData.month %> (<%= ClimaticData.year %>рр.)</div>
         <hr class="dash dash-blue">
         <div class="list-item clear">
         <div class="f-l w-50">
-            Середня за добу температура повітря за <%= date[0] %> <%= ClimaticData.mounth %>
+            Середня за добу температура повітря за <%= date[0] %> <%= ClimaticData.month %>
             <!-- <p class="text-gray">спостерігалась у <%= ClimaticData.SrTemperature.date %> р.</p> -->
         </div>
         <div class="f-r text-white weather-date-big text-center text-bold"><%= ClimaticData.SrTemperature.value %></div>
         </div>
         <div class="list-item clear">
         <div class="f-l w-50">
-            Максимальна денна температура повітря за день <%= date[0] %> <%= ClimaticData.mounth %>
+            Максимальна денна температура повітря за день <%= date[0] %> <%= ClimaticData.month %>
             <p class="text-gray">спостерігалась у <%= ClimaticData.MaxTemperature.date %> р.</p>
         </div>
         <div class="f-r text-white weather-date-big text-center text-bold"><%= ClimaticData.MaxTemperature.value %></div>
         </div>
         <div class="list-item clear">
         <div class="f-l w-50">
-            Мінімальна температура повітря за ніч <%= date[0] %> <%= ClimaticData.mounth %>
+            Мінімальна температура повітря за ніч <%= date[0] %> <%= ClimaticData.month %>
             <p class="text-gray">спостерігалась у <%= ClimaticData.MinTemperature.date %> р.</p>
         </div>
         <div class="f-r text-white weather-date-big text-center text-bold"><%= ClimaticData.MinTemperature.value %></div>
@@ -40,6 +40,6 @@
         </div>
     </div>
     <div class="container m-t-md m-b-md">
-        Бюлетень складений о <%= ClimaticData.DateBulletin %>
+        Бюлетень складений о <%= ClimaticData.time %> годині <%= ClimaticData.date %>
     </div>
 </div>

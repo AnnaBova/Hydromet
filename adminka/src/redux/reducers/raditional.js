@@ -1,4 +1,7 @@
-import { SET_RADITIONAL, EDIT_RADITIONAL, CHANGE_STATION_RADITIONAL } from '../actions/ActionTypes';
+import { SET_RADITIONAL,
+         EDIT_RADITIONAL,
+         CHANGE_STATION_RADITIONAL,
+         UPDATE_RADIATION } from '../actions/ActionTypes';
 
 const initialState = {
     raditionalData: [],
@@ -26,14 +29,20 @@ export function RaditionalReducer(state = initialState, actions){
                 raditional: actions.payload,
                 raditionalData: state.raditionalData.map(item => {
                     if(item._id === actions.payload._id){
-                        item = actions.payload; 
+                        item = actions.payload;
                     }
                     return item;
                 })
             }
         }
+        case UPDATE_RADIATION: {
+          return {
+            ...state,
+            raditional:actions.payload
+          }
+        }
         default: {
             return state;
-        } 
+        }
     }
 }

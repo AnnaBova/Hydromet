@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Grid, Message } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { setDecadeBulleting,
+         getDecadeBulletin } from '../redux/actions/index';
 
 const modules = {
     toolbar: [
@@ -39,15 +43,19 @@ class DecadBulletin extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+      this.props.getDecadeBulletin();
+    }
+
 
     handleChange(value) {
         this.props.setMessage();
-        this.setState({ text: value });
+        this.props.setDecadeBulleting(value);
     }
 
     handleSubmit = () => {
         this.props.setMessage();
-        this.props.SubmitDecadBulletin(this.state.text);
+        this.props.SubmitDecadBulletin(this.props.decadeBulleting);
     }
 
     render() {
@@ -66,7 +74,7 @@ class DecadBulletin extends Component {
                     theme="snow"
                     modules={modules}
                     formats={formats}
-                    value={this.state.text}
+                    value={this.props.decadeBulleting}
                     onChange={this.handleChange}
                 />
                 </Grid.Row>
@@ -80,6 +88,18 @@ class DecadBulletin extends Component {
     }
 }
 
+function mapStateToProps(state){
+  return {
+    decadeBulleting: state.hydrometeorolog_bulletin.decadeBulletin,
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    setDecadeBulleting: bindActionCreators(setDecadeBulleting, dispatch),
+    getDecadeBulletin: bindActionCreators(getDecadeBulletin, dispatch),
+  }
+}
 
 
-export default DecadBulletin;
+export default connect(mapStateToProps, mapDispatchToProps)(DecadBulletin);

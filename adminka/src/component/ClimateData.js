@@ -1,44 +1,37 @@
 import React, { Component } from 'react';
 import { Form, Button, TextArea, Grid, Message } from 'semantic-ui-react';
 import InputComponent from './InputComponent';
-import { FullDataValid  } from '../utils/DataValid';
 const InputSize = 4;
 
 class ClimateData extends Component {
     constructor(props){
         super(props);
         this.state = {
-            day: "",
-            mounth: "сiчень",
-            year: "",
-            date:"",
-            value:"",
-            SrTemperature: {},
-            MaxTemperature: {},
-            MinTemperature: {},
-            StormWarning: "",
-            DateBulletin: "",
-            Time:"",
-            number: '',
             ErrorMessage: false
         }
     }
 
     handleSaveProperties = (objName) => (obj) => {
         this.props.setMessage();
-        const current = this.state[objName];
+        const current = this.props.ClimateData[objName];
         current[obj.name] = obj.value;
         this.setState({
-          [objName]: current,
           ErrorMessage: false
+        });
+        this.props.UpdateClimateData({
+          ...this.props.ClimateData,
+          [objName]:current
         });
     }
 
     handleSaveValue = (event) => {
       this.props.setMessage();
       this.setState({
-        [event.name]:event.value,
         ErrorMessage:false
+      });
+      this.props.UpdateClimateData({
+        ...this.props.ClimateData,
+        [event.name]:event.value
       });
     }
 
@@ -48,36 +41,28 @@ class ClimateData extends Component {
     }
 
     handleSubmit = () => {
-        var obj = {
-            ...this.props.ClimateData,
-            StormText: this.state.StormWarning,
-            day: this.state.day,
-            mounth: this.state.month,
-            year: this.state.year,
-            SrTemperature: this.state.SrTemperature,
-            MaxTemperature: this.state.MaxTemperature,
-            number: this.state.number,
-            MinTemperature: this.state.MinTemperature,
-            DateBulletin:`${this.state.Time} годині ${this.state.DateBulletin}`,
-        }
-        if(
-            FullDataValid(this.state.DateBulletin) &&
-            Number.isInteger(+this.state.day.split('-')[0])
-          )
-            {
-            this.props.Submit(obj);
+        // if(
+        //     FullDataValid(this.props.ClimateData.date)
+        //     // && Number.isInteger(+this.state.day.split('-')[0])
+        //   )
+        //     {
+            this.props.Submit(this.props.ClimateData);
             this.setState({
                 ErrorMessage: false
             });
-        }
-        else{
-            this.setState({ErrorMessage: true});
-        }
+        // }
+        // else{
+        //     this.setState({ErrorMessage: true});
+        // }
     }
 
     handleChangeTextArea = (e) => {
         this.props.setMessage();
-        this.setState({StormWarning:e.target.value, ErrorMessage: false});
+        this.props.UpdateClimateData({
+          ...this.props.ClimateData,
+          StormText:e.target.value
+        });
+        this.setState({ErrorMessage: false});
     }
 
     handleOnChangeMounth = (e) => {
@@ -101,7 +86,7 @@ class ClimateData extends Component {
                 <Grid.Column width={8}>
                   <Form.Field width={InputSize}>
                       <InputComponent
-                          value = {this.state.day}
+                          value = {this.props.ClimateData.day}
                           name="day"
                           label="День"
                           saveValue ={this.handleSaveValue}
@@ -109,7 +94,7 @@ class ClimateData extends Component {
                   </Form.Field>
                   <Form.Field width={InputSize}>
                       <InputComponent
-                          value = {this.state.month}
+                          value = {this.props.ClimateData.month}
                           name="month"
                           label="Мiсяць"
                           saveValue ={this.handleSaveValue}
@@ -117,7 +102,7 @@ class ClimateData extends Component {
                   </Form.Field>
                   <Form.Field width={InputSize}>
                       <InputComponent
-                          value = {this.state.year}
+                          value = {this.props.ClimateData.year}
                           name="year"
                           label="Рік"
                           saveValue ={this.handleSaveValue}
@@ -127,7 +112,7 @@ class ClimateData extends Component {
                 <Form.Group>
                     <Form.Field width={InputSize}>
                         <InputComponent
-                            value = {this.state.SrTemperature.value}
+                            value = {this.props.ClimateData.SrTemperature.value}
                             name="value"
                             label="Значення"
                             saveValue ={this.handleSaveProperties('SrTemperature')}
@@ -138,7 +123,7 @@ class ClimateData extends Component {
                 <Form.Group>
                     <Form.Field width={InputSize}>
                         <InputComponent
-                            value = {this.state.MaxTemperature.value}
+                            value = {this.props.ClimateData.MaxTemperature.value}
                             name="value"
                             label="Значення"
                             saveValue ={this.handleSaveProperties('MaxTemperature')}
@@ -146,7 +131,7 @@ class ClimateData extends Component {
                     </Form.Field>
                     <Form.Field>
                         <InputComponent
-                            value = {this.state.MaxTemperature.date}
+                            value = {this.props.ClimateData.MaxTemperature.date}
                             name = "date"
                             label="Рік"
                             saveValue ={this.handleSaveProperties('MaxTemperature')}
@@ -157,7 +142,7 @@ class ClimateData extends Component {
                 <Form.Group>
                     <Form.Field width={InputSize}>
                         <InputComponent
-                            value = {this.state.MinTemperature.value}
+                            value = {this.props.ClimateData.MinTemperature.value}
                             name="value"
                             label="Значення"
                             saveValue ={this.handleSaveProperties('MinTemperature')}
@@ -165,7 +150,7 @@ class ClimateData extends Component {
                     </Form.Field>
                     <Form.Field>
                         <InputComponent
-                            value = {this.state.MinTemperature.date}
+                            value = {this.props.ClimateData.MinTemperature.date}
                             name = "date"
                             label="Рік"
                             saveValue ={this.handleSaveProperties('MinTemperature')}
@@ -174,12 +159,12 @@ class ClimateData extends Component {
                 </Form.Group>
                 <Form.Field width={InputSize}>
                         <label>Штормове попередження</label>
-                        <TextArea autoHeight value={this.state.StormWarning} name="StormWarning" onChange={this.handleChangeTextArea} />
+                        <TextArea autoHeight value={this.props.ClimateData.StormText} name="StormText" onChange={this.handleChangeTextArea} />
                 </Form.Field>
                 <Form.Group>
                 <Form.Field width={InputSize}>
                 <InputComponent
-                            value = {this.state.DateBulletin}
+                            value = {this.props.ClimateData.date}
                             name = "DateBulletin"
                             label="Белютень складено дата: "
                             saveValue = {this.handleSaveValue}
@@ -188,7 +173,7 @@ class ClimateData extends Component {
                 </Form.Field>
                 <Form.Field>
                     <InputComponent
-                        value={this.state.Time}
+                        value={this.props.ClimateData.time}
                         name="Time"
                         label="Час складання: "
                         saveValue={this.handleSaveValue}
@@ -197,7 +182,7 @@ class ClimateData extends Component {
                 </Form.Field>
                 <Form.Field>
                     <InputComponent
-                        value={this.state.number}
+                        value={this.props.ClimateData.number}
                         name="number"
                         label="Номер бюлетеню:"
                         saveValue={this.handleSaveValue}

@@ -16,9 +16,13 @@ class Radiation extends Component {
 
     handleSaveValue = (obj) =>{
         this.props.setMessage();
-        this.setState({
-          [obj.name]:obj.value,
-          Message: false
+        // this.setState({
+        //   [obj.name]:obj.value,
+        //   Message: false
+        // });
+        this.props.UpdateRadiation({
+            ...this.props.Raditional,
+            [obj.name]:obj.value,
         });
     }
 
@@ -28,11 +32,9 @@ class Radiation extends Component {
     }
 
     handleOnClick = () => {
-        if(FullDataValid(this.state.date)){
+        if(FullDataValid(this.props.Raditional.Date)){
             this.props.EditRaditionalReqest({
-                ...this.props.Raditional,
-                Date: this.state.date,
-                value: this.state.value
+                ...this.props.Raditional
             })
             this.props.SetMessageTrue();
             this.setState({Message: false})
@@ -59,8 +61,8 @@ class Radiation extends Component {
                             <Form.Field>
                                 <InputComponent
                                     label="Дата"
-                                    name="date"
-                                    value={this.state.date}
+                                    name="Date"
+                                    value={this.props.Raditional.Date}
                                     saveValue={this.handleSaveValue}
                                 />
                             </Form.Field>
@@ -77,7 +79,7 @@ class Radiation extends Component {
                                 <InputComponent
                                     label="Значення"
                                     name="value"
-                                    value={this.state.value}
+                                    value={this.props.Raditional.value}
                                     saveValue={this.handleSaveValue}
                                 />
                             </Form.Field>

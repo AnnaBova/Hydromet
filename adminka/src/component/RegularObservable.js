@@ -54,6 +54,7 @@ class Forms extends Component {
     }
 
     handleSubmit = () => {
+        window.scrollTo(window.scrollX, 0);
         if(FullDataValid(this.props.Observ.date)){
             if(this.Validation()){
                 this.props.EditRegularObservable(this.props.Observ);
@@ -150,9 +151,7 @@ class Forms extends Component {
                                         saveValue={this.handleSaveValue}
                                     />
                                 </Form.Field>
-                                <Button type="button" primary onClick={this.handleSubmit}>Зберегти</Button>
-                                <Button type="button" onClick={this.handleLogOut}>Вийти</Button>
-                                <Button type="button" onClick={this.handleGetStation}>Заповнити дані на станції</Button>
+                                  <Button type="button" primary onClick={this.handleSubmit}>Зберегти</Button>
                                 <Form.Field>
                                     <label>Небезпечні гідрологічні явища</label>
                                     <TextArea autoHeight value={this.state.text} onChange={this.handleChangeTextArea}/>
@@ -161,6 +160,10 @@ class Forms extends Component {
                             </Form>
                         </Grid.Column>
                     </Grid.Row>
+                    <div className="buttonWrapper">
+                      <Button type="button" onClick={this.handleGetStation}>Заповнити дані на станції</Button>
+                      <Button type="button" onClick={this.handleLogOut}>Вийти</Button>
+                    </div>
                 </Grid>);
         }else{
             return <div />

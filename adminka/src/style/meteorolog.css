@@ -10,7 +10,25 @@
   justify-content: center;
 }
 
-.nonFormInput{
-  width: 200px;
+.nonFormInputWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   padding: 20px;
+}
+
+.nonFormInput{
+  width: 200px !important;
+}
+
+.buttonWrapper{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.stationTitle{
+  width: 100%;
+  text-align: center;
 }

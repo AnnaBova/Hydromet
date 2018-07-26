@@ -21,7 +21,11 @@ import {
     ChangeStationRaditional,
     EditRaditionalReqest,
     SetHydrometMessage,
-    UpdateDate
+    UpdateDate,
+    UpdateRadiation,
+    UpdateClimateData,
+    UpdateObservData,
+    UpdateObservDataStation,
 } from '../redux/actions/index';
 import ClimateData from './ClimateData';
 import ObservableWeather from './ObservableWeather';
@@ -103,6 +107,8 @@ class Hydrometeorologycal extends Component {
                                 ObservWeather= {this.props.ObservWeather}
                                 WeatherObservableData = {this.props.WeatherObservableData}
                                 setMessage= {this.props.setMessage}
+                                UpdateObservData={this.props.UpdateObservData}
+                                UpdateObservDataStation={this.props.UpdateObservDataStation}
                             />
                         </Tab.Pane> },
                 {   menuItem: 'Кліматичні дані Запоріжжя',
@@ -111,6 +117,7 @@ class Hydrometeorologycal extends Component {
                             Submit={this.handleSubmitClimate}
                             ClimateData={this.props.ClimateData}
                             setMessage= {this.props.setMessage}
+                            UpdateClimateData= {this.props.UpdateClimateData}
                         /></Tab.Pane> },
                 {   menuItem: 'Декадний бюлетень',
                     render: () => <Tab.Pane>
@@ -122,6 +129,7 @@ class Hydrometeorologycal extends Component {
                             Raditional = { this.props.Raditional }
                             EditRaditionalReqest = { this.props.EditRaditionalReqest }
                             SetMessageTrue={this.props.SetHydrometMessageTrue }
+                            UpdateRadiation={this.props.UpdateRadiation}
                             ChangeStationRaditional = { this.props.ChangeStationRaditional }
                             setMessage= {this.props.setMessage}
                         /></Tab.Pane> },
@@ -367,7 +375,7 @@ class Hydrometeorologycal extends Component {
                             margin: [0,20, 0 ,0]
                         },
                         {
-                            text: 'Бюллетень складений о' + this.props.ClimateData.DateBulletin,
+                            text: `Бюллетень складений о ${this.props.ClimateData.time} годині ${this.props.ClimateData.date}`,
                             margin: [0,20,0,0],
                             pageBreak: 'after'
                         },
@@ -480,6 +488,10 @@ const mapDispatchToProps = (dispatch) => ({
     ChangeDay: bindActionCreators(ChangeDay, dispatch),
     getBuletin: bindActionCreators(getHydroBulletin, dispatch),
     UpdateDate: bindActionCreators(UpdateDate, dispatch),
+    UpdateRadiation: bindActionCreators(UpdateRadiation, dispatch),
+    UpdateClimateData: bindActionCreators(UpdateClimateData, dispatch),
+    UpdateObservData: bindActionCreators(UpdateObservData, dispatch),
+    UpdateObservDataStation: bindActionCreators(UpdateObservDataStation, dispatch),
     noAuthorization: () => dispatch(push('/signin')),
     GoTyMailCastomize: () => dispatch(push('/mail_castomize')),
     setMessage: () => dispatch({type: 'SET_HYDRO_BULLETIN_MESSAGE'}),

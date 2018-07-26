@@ -8,30 +8,41 @@ import  InputComponent  from './InputComponent';
 import { getStation, AddWeather, ChangeSelectedGap, setWater, SetWaterTemperature } from '../redux/actions/index';
 import '../style/meteorolog.css';
 
+const STATION_NAMES = {
+  zaporozhye:'Запоріжжя',
+  prism:'Пришиб',
+  kyrylivka: "Кирилівка",
+  botievye: "Ботієве",
+  melitopol: "Мелітополь",
+  gulyaypole: "Гуляйполе",
+  berdyansk: "Бердянськ",
+};
+
 class MeteoStation extends Component {
     constructor(props){
-        super(props);
-        this.state = {
-                Message: false,
-                ErrorMessage: false,
-            }
-        }
+      super(props);
+      this.state = {
+              Message: false,
+              ErrorMessage: false,
+      }
+    }
 
     componentDidMount(){
-        if(!localStorage.getItem('token')){
-            this.props.noAuthorization();
-        }else{
-            this.props.getStation();
-        }
+      if(!localStorage.getItem('token')){
+          this.props.noAuthorization();
+      }else{
+          this.props.getStation();
+      }
     }
 
     handleSubmit = (e) => {
-            this.props.AddWeather(this.props.weather);
-            this.props.saveWater(this.props.waterTemperature);
-            this.setState({
-                Message: true,
-                ErrorMessage: false
-            })
+      window.scrollTo(window.scrollX, 0);
+      this.props.AddWeather(this.props.weather);
+      this.props.saveWater(this.props.waterTemperature);
+      this.setState({
+          Message: true,
+          ErrorMessage: false
+      })
     }
 
     handleSaveValue = (index) => (event) => {
@@ -81,12 +92,12 @@ class MeteoStation extends Component {
     }
 
     OnClick = () => {
-        localStorage.removeItem('token');
-        this.props.noAuthorization();
+      localStorage.removeItem('token');
+      this.props.noAuthorization();
     }
 
     handleGygrology = () => {
-        this.props.getGydrolygy();
+      this.props.getGydrolygy();
     }
 
     render() {
@@ -96,13 +107,14 @@ class MeteoStation extends Component {
         }
         return (
         <Grid>
-            <Grid.Row>
-                <Grid.Column width={4}/>
-                <Grid.Column width={7}>
-                    { this.state.Message ? <Message success header="Збереження" content="Дані успішно збережені" /> : <div /> }
-                    { this.state.ErrorMessage ? <Message error header="Помилка" content="Неправильна дата"/> : <div /> }
-                </Grid.Column>
-            </Grid.Row>
+              <Grid.Row>
+              <Grid.Column width={4}/>
+              <Grid.Column width={7}>
+                <Message success header="Збереження" content="Дані успішно збережені" hidden={!this.state.Message}/>
+                <Message error header="Помилка" content="Неправильна дата" hidden={!this.state.ErrorMessage}/>
+              </Grid.Column>
+              </Grid.Row>
+              <div className="stationTitle">{STATION_NAMES[this.props.water]}</div>
               <Form onSubmit={this.handleSubmit} >
                 <div className="inputWraper">
                   {this.props.weather.map((item, index)=>{
@@ -180,8 +192,9 @@ class MeteoStation extends Component {
                 <Grid.Column width={4}/>
                 <Grid.Column width={4}>
                 {(this.props.water === "zaporozhye")?
-                          <div className="nonFormInput">
+                          <div className="nonFormInputWrapper">
                             <select type="select"
+                              className="nonFormInput"
                               name = "Observable"
                               onChange = {this.OnChangeWaterTime('Dnipro')}
                               value={this.props.waterTemperature.Dnipro.Observable}
@@ -203,8 +216,9 @@ class MeteoStation extends Component {
                               saveValue = {this.OnChangeWater('Dnipro')}
                             />
                         </div> : ( this.props.water === "berdyansk")?
-                        <div className="nonFormInput">
+                        <div className="nonFormInputWrapper">
                           <select type="select"
+                            className="nonFormInput"
                             name = "Observable"
                             onChange = {this.OnChangeWaterTime('Azov')}
                             value={this.props.waterTemperature.Azov.Observable}
@@ -220,6 +234,7 @@ class MeteoStation extends Component {
                           </select>
                           <InputComponent
                             value={this.props.waterTemperature.Azov.Temperature}
+                            className="nonFormInput"
                             label="Температура води"
                             name="Temperature"
                             type="text"
@@ -227,9 +242,9 @@ class MeteoStation extends Component {
                           />
                       </div> : <div />
                 }
-                  <Button type="submit" primary>Надіслати форму</Button>
-                  { this.props.water === "zaporozhye" ? <Link to="/gydrolygy"><Button type="button">Заповнити гідрологічні спостереження</Button></Link>: <div />  }
-                  <Button type="button" onClick = {this.OnClick} >Вийти</Button>
+                <Button type="submit" primary>Надіслати форму</Button>
+                { this.props.water === "zaporozhye" ? <Link to="/gydrolygy"><Button type="button">Заповнити гідрологічні спостереження</Button></Link>: <div />  }
+                <Button type="button" onClick = {this.OnClick} >Вийти</Button>
                 </Grid.Column>
               </Form>
         </Grid>);

@@ -29,7 +29,7 @@ class Email extends Component {
                         <Card.Description>Email-adders: {this.props.email.Email}</Card.Description>
                         <Form>
                             <Form.Field control="select" value={this.state.role} onChange={this.handleChangeRole}>
-                                <option value="1">Повний гідрометричний бюлетень</option>
+                                <option value="1">Повний гідрометеорологічний бюлетень</option>
                                 <option value="2">Тільки штормове попередження</option>
                             </Form.Field>
                         </Form>

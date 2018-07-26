@@ -28,6 +28,11 @@ app.set('view engine', 'ejs');
 
 app.use('/', routes);
 
+app.use(["/", "/meteostation", "/climate_records", "/hydrometeorologycal_bulletin",
+        "/air_pollution", "/gydrolygy", "/all_meteostation", "/mail_castomize"], (req ,res)=>{
+  res.redirect('/signin');
+});
+
 cron.schedule('0 0,2 * * *', function(){
   const now = new Date();
   const hour = now.getHours();

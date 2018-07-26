@@ -130,4 +130,8 @@ router.get('/photos/:stationId', ExpressJSW({secret: 'hydromet'}), admincontroll
 
 router.post('/photos/:stationId', ExpressJSW({secret: 'hydromet'}), admincontroller.DeleteStationPhoto);
 
+router.get('/decade_bulletin_api', ExpressJSW({secret: 'hydromet'}), admincontroller.getDecadeBulletin);
+
+router.post('/event', ExpressJSW({secret: 'hydromet'}), admincontroller.PostEvent);
+
 module.exports = router;
