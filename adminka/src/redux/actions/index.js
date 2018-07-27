@@ -453,6 +453,7 @@ export function ChangeWeathers(value){
 
 export function GiveWeatherObservable(value){
     return (dispatch)=> {
+        console.log(value);
         fetch(`${LocalHost}/give_weather_observable_api`, {
             method: 'POST',
             headers: {
