@@ -274,6 +274,7 @@ module.exports = {
     },
 
     GiveWeatherObservableApi: function(req, res){
+      console.log(req.body);
             WeatherObservable.EditObservable(req.body);
             WeatherObservable.getAll().then(respons => {
               res.json(respons);
