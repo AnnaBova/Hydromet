@@ -46,10 +46,10 @@ class ClimateData extends Component {
         //     // && Number.isInteger(+this.state.day.split('-')[0])
         //   )
         //     {
-            this.props.Submit(this.props.ClimateData);
-            this.setState({
-                ErrorMessage: false
-            });
+        this.props.Submit(this.props.ClimateData);
+        this.setState({
+            ErrorMessage: false
+        });
         // }
         // else{
         //     this.setState({ErrorMessage: true});
@@ -100,6 +100,7 @@ class ClimateData extends Component {
                   <Form.Field
                     width={InputSize}
                     control="select"
+                    name="month"
                     label="Місяць"
                     value={this.props.ClimateData.month}
                     onChange={this.handleOnChangeMonth}

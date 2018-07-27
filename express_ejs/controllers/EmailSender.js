@@ -3,17 +3,17 @@ const WeatherTable = require('../db/model/WeatherCity');
 const ClimateData = require('../db/model/ClimateData');
 
 var transport = nodemailer.createTransport({
-    //service: 'gmail',
-    //auth: {
-    //    user: 'sinoptic.zp@gmail.com',
-    //    pass: 'cb8d280d'
-    //}
-    host: "smtp.mailtrap.io",
-    port: 2525,
+    service: 'gmail',
     auth: {
-        user: "4bb96706d1f4c9",
-        pass: "44075d705ecfbf"
+       user: 'sinoptic.zp@gmail.com',
+       pass: 'cb8d280d'
     }
+    // host: "smtp.mailtrap.io",
+    // port: 2525,
+    // auth: {
+    //     user: "4bb96706d1f4c9",
+    //     pass: "44075d705ecfbf"
+    // }
 });
 
 
@@ -42,7 +42,7 @@ function GetClimateText(text, Data){
     text+= '\n Максимальная температура была зафиксирована в ' + Data.MaxTemperature.date + ' И была равна ' + Data.MaxTemperature.value;
     text+= '\n Минимальная температура была зафиксирована в ' + Data.MinTemperature.date + ' И была равна ' + Data.MinTemperature.value;
     return text;
-} 
+}
 
 module.exports = {
     test: function(emails){
@@ -65,7 +65,7 @@ module.exports = {
             let mailOptions = {
                 from: 'sinoptic.zp@gmail.com',
                 to: emails[i].Email,
-                
+
             }
             if(emails[i].role == 2){
                 mailOptions.text = 'Штормовое предупреждение про самое важное \n\n' + obj.StormWarning;
@@ -79,14 +79,13 @@ module.exports = {
                     return console.log(error);
                 }
                 i++;
-                console.log('Message sent: %s', info.messageId);    
+                console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
                 if(i< max){
                     setTimeout(send, 3000, obj);
                 }
-            });          
+            });
         }
-        
-    } 
-}
 
+    }
+}

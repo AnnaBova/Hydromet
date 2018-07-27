@@ -296,7 +296,6 @@ module.exports = {
         })
     },
     EditAirPollution: function (req, res){
-      console.log(req.body);
             Chart.Edit(req.body);
             res.send();
 

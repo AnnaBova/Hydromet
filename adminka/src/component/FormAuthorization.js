@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 import { getToken } from '../redux/actions/index';
 
 class FormAuthorization extends Component {
-  componentDidMount(){
-  }
 
   OnSubmit = (event) => {
     const user = {

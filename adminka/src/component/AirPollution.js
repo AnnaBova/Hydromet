@@ -62,7 +62,6 @@ class Forms extends Component {
     }
 
     render() {
-      console.log(this.props);
       if(this.props.AirData.length === 0) return 'loading';
         return (
             <Grid>

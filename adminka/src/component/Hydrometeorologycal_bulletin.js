@@ -147,14 +147,14 @@ class Hydrometeorologycal extends Component {
             ...item,
             MaxTemperature : value.MaxTemperature,
             MinTemperature : value.MinTemperature,
-            Precipitation : value.precipitation
+            Precipitation : value.precipitation,
           }
           return item;
         });
         var obj2 = {
             ...this.props.WeatherObservableData,
             day: value.day,
-            mounth: value.mounth,
+            month: value.month,
             year: value.year,
             text:   value.text,
             StationWeather: arr
@@ -459,7 +459,7 @@ class Hydrometeorologycal extends Component {
     SaveReport = () => {
       const {vfs} = vfsFonts.pdfMake;
 	    pdfMake.vfs = vfs;
-        this.toDataURL('http://localhost:3001/public/assets/images/herb.jpg', (img1) => {
+        this.toDataURL('http://77.120.123.202:3001/public/assets/images/herb.jpg', (img1) => {
             this.toDataURL('http://77.120.123.202:3001/public/assets/images/map.png', (img2) => {
               this.toDataURL('http://77.120.123.202:3001/public/assets/images/signature.png', (signature) => {
                 var obj = {
