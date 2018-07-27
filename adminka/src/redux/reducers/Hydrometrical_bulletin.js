@@ -196,7 +196,7 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
         case UPDATE_CLIMATE_DATA:
           return {
             ...state,
-            гідрометеорологічнийData: actions.payload
+            ClimateData: actions.payload
           }
         case UPDATE_OBSERV_DATA:
           return {

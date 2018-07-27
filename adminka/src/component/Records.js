@@ -47,7 +47,7 @@ class Records extends Component {
                                 Message = {this.props.Message}
                             />
                         </Tab.Pane> },
-                {   menuItem: 'Стихійні феномени',
+                {   menuItem: 'Гідрометеорологічні явища',
                     render: () => <Tab.Pane>
                             <Tabels
                                 Submit = {this.Submit}

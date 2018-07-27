@@ -8,7 +8,8 @@ import { getRegularObservable,
         EditRegularObservable,
         SubmitDangerPhenomen,
         ChangeRegularObservable,
-        UpdateRegularObservable } from '../redux/actions/index';
+        UpdateRegularObservable,
+        setGydrolocialMessage } from '../redux/actions/index';
 import { FullDataValid } from '../utils/DataValid';
 
 const InputSize = 5;
@@ -71,12 +72,13 @@ class Forms extends Component {
 
     handleChangeTextArea = (e) => {
         this.props.setMessage();
-        this.setState({text: e.target.value, ErrorMessage: false})
+        this.props.updateGydroMessage(e.target.value);
+        this.setState({ErrorMessage: false})
     }
 
     handleSubmittextArea = () => {
         this.props.setMessageTrue();
-        this.props.SubmitDangerPhenomen(this.state.text);
+        this.props.SubmitDangerPhenomen(this.props.text);
         this.setState({
             ErrorMessage: false
         });
@@ -154,7 +156,7 @@ class Forms extends Component {
                                   <Button type="button" primary onClick={this.handleSubmit}>Зберегти</Button>
                                 <Form.Field>
                                     <label>Небезпечні гідрологічні явища</label>
-                                    <TextArea autoHeight value={this.state.text} onChange={this.handleChangeTextArea}/>
+                                    <TextArea autoHeight value={this.props.text} onChange={this.handleChangeTextArea}/>
                                 </Form.Field>
                                 <Button onClick={this.handleSubmittextArea}>Зберегти</Button>
                             </Form>
@@ -174,7 +176,8 @@ class Forms extends Component {
 const mapStateToProps = (state) => ({
     Observ: state.RegularObservable.Observ,
     Observs: state.RegularObservable.RegularObservable,
-    Message: state.RegularObservable.Message
+    Message: state.RegularObservable.Message,
+    text: state.RegularObservable.gydrolocialMessage
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -186,7 +189,8 @@ const mapDispatchToProps = (dispatch) => ({
     noAuthorization: () => dispatch(push('/signin')),
     GetStation: () => dispatch(push('/meteostation')),
     setMessage: () => dispatch({type: 'SET_MESSAGE_REGULAR_OBSERVABLE'}),
-    setMessageTrue: () => dispatch({type: 'SET_MESSAGE_REGULAR_OBSERVABLE_TRUE'})
+    setMessageTrue: () => dispatch({type: 'SET_MESSAGE_REGULAR_OBSERVABLE_TRUE'}),
+    updateGydroMessage: bindActionCreators(setGydrolocialMessage, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);

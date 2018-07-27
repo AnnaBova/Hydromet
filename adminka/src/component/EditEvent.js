@@ -33,6 +33,12 @@ class EditEvent extends React.Component {
     this.setState({file: e.target.files[0]});
   }
 
+  handleBackButton = (e) => {
+    this.props.selectEvent.setState({
+      selectedEvent: -1
+    });
+  }
+
   handleSubmit = () => {
       if(FullDataValid(this.props.currentEvent.date)){
           const obj = {
@@ -55,6 +61,7 @@ class EditEvent extends React.Component {
 
   render () {
     if(Object.keys(this.props.currentEvent).length === 0 )return;
+    // eslint-disable-next-line
     return (<Grid>
         <Grid.Row>
             <Grid.Column width={3} />
@@ -109,6 +116,7 @@ class EditEvent extends React.Component {
                             </label>
                         </Form.Field>
                         <Button primary onClick={this.handleSubmit}>Зберегти подію</Button>
+                        <Button onClick={this.handleBackButton}>Повернутись до всіх подій</Button>
                 </Form>
             </Grid.Column>
         </Grid.Row>

@@ -13,7 +13,6 @@ const InputSize = 16;
 class Weather extends Component {
     constructor(props){
       super(props);
-
       this.state = {
         Message: false,
         ErrorMessage: false
@@ -21,6 +20,7 @@ class Weather extends Component {
     }
 
     Submit = () => {
+      window.scrollTo(window.scrollX, 0);
       if((this.props.index === 0)? FullDataValid(this.props.weatherCity[0].date) : FullDataValid(this.props.weatherCity[0].date)){
         this.setState({
           Message: true,
@@ -147,18 +147,27 @@ class Weather extends Component {
                        <Form.Field
                          width={InputSize}
                          control="select"
-                         defaultValue={item.day.weather}
+                         value={item.day.weather}
                          label="Aтмосферні явища"
                          name="weather"
-                         onBlur={this.handleChangeSelector(index, 'day')}
+                         onChange={this.handleChangeSelector(index, 'day')}
                        >
                            <option value='sun'>Сонячно</option>
-                           <option value='sun_cloud'>Хмарно</option>
-                           <option value='cloud'>Похмуро</option>
-                           <option value='cloud_rain_snow'>Сніг з дощем</option>
-                           <option value='cloud_rain'>Дощ</option>
-                           <option value='cloud_snow'>Сніг</option>
-                           <option value='fog'>Туман</option>
+                           <option value='sun_cloud'>Мінлива хмарність</option>
+                           <option value='cloud'>Хмарно</option>
+                           <option value='shower'>Невеликий дощ</option>
+                           <option value='shower_lightning'>Невеликий дощ, гроза</option>
+                           <option value='rain'>Дощ</option>
+                           <option value='rain_lightning'>Дощ, гроза</option>
+                           <option value='rain_lightning_hail'>Дощ, гроза, град</option>
+                           <option value='rain_strong'>Сильний дощ</option>
+                           <option value='rain_strong_lightning'>Сильний дощ, гроза</option>
+                           <option value='rain_strong_lightning_hail'>Сильний дощ, гроза, град</option>
+                           <option value='snow_small'>Невеликий сніг</option>
+                           <option value='snow'>Сніг</option>
+                           <option value='snow_strong'>Сильний сніг</option>
+                           <option value='precipitations_small'>Невеликі опади </option>
+                           <option value='precipitations'>Опади, сильні опади</option>
                        </Form.Field>
                        </Grid.Column>
 
@@ -203,18 +212,27 @@ class Weather extends Component {
                        <Form.Field
                          width={InputSize}
                          control="select"
-                         defaultValue={item.night.weather }
+                         value={item.night.weather }
                          label="Aтмосферні явища"
                          name="weather"
-                         onBlur={this.handleChangeSelector(index, 'night')}
+                         onChange={this.handleChangeSelector(index, 'night')}
                        >
                            <option value='moon'>Чистий місяць</option>
                            <option value='cloud_moon'>Захмарений місяць</option>
-                           <option value='cloud'>Похмуро</option>
-                           <option value='cloud_rain_snow'>Сніг з дощем</option>
-                           <option value='cloud_rain'>Дощ</option>
-                           <option value='cloud_snow'>Сніг</option>
-                           <option value='fog'>Туман</option>
+                           <option value='cloud'>Хмарно</option>
+                           <option value='shower'>Невеликий дощ</option>
+                           <option value='shower_lightning'>Невеликий дощ, гроза</option>
+                           <option value='rain'>Дощ</option>
+                           <option value='rain_lightning'>Дощ, гроза</option>
+                           <option value='rain_lightning_hail'>Дощ, гроза, град</option>
+                           <option value='rain_strong'>Сильний дощ</option>
+                           <option value='rain_strong_lightning'>Сильний дощ, гроза</option>
+                           <option value='rain_strong_lightning_hail'>Сильний дощ, гроза, град</option>
+                           <option value='snow_small'>Невеликий сніг</option>
+                           <option value='snow'>Сніг</option>
+                           <option value='snow_strong'>Сильний сніг</option>
+                           <option value='precipitations_small'>Невеликі опади </option>
+                           <option value='precipitations'>Опади, сильні опади</option>
                        </Form.Field>
                        </Grid.Column>
                     </div>

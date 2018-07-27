@@ -10,7 +10,7 @@
   <td> <%= item.Weather.pressure %> </td>
   <td>
       <% if(item.Weather.phenomena != ""){ %>
-      <img src="/public/assets/svg/<%= item.Weather.phenomena %>.png" height="30" width="30">
+      <img src="/public/assets/forecast/<%= item.Weather.phenomena %>.png" height="30" width="30">
     <% } %>
   </td>
 </tr>

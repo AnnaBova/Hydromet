@@ -134,4 +134,6 @@ router.get('/decade_bulletin_api', ExpressJSW({secret: 'hydromet'}), admincontro
 
 router.post('/event', ExpressJSW({secret: 'hydromet'}), admincontroller.PostEvent);
 
+router.get('/gydrology_danger', controller.GetGydrologyMessage);
+
 module.exports = router;

@@ -61,12 +61,13 @@ import {
     UPDATE_OBSERV_DATA,
     EDIT_POLLUTION_VALUE,
     SET_UPDATING_EVENT,
-    UPDATE_SELECTED_EVENT
+    UPDATE_SELECTED_EVENT,
+    SET_HYDROLOGY_MESSAGE
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
-const LocalHost = "http://77.120.123.202:3001";
-// const LocalHost = "http://localhost:3001";
+// const LocalHost = "http://77.120.123.202:3001";
+const LocalHost = "http://localhost:3001";
 
 export function setEventMessageTrue(){
     return {
@@ -332,6 +333,14 @@ export function getRegularObservable(){
         .then(res => res.json())
         .then(res => dispatch(setRegularObservable(res)))
         .catch(err => console.log(err));
+        fetch(`${LocalHost}/gydrology_danger`)
+        .then(res => res.json())
+        .then(res => dispatch(setGydrolocialMessage(res.text)))
+        .catch(err => {
+          if(err){
+            console.log(err.message);
+          }
+        });
     }
 }
 
@@ -1098,7 +1107,6 @@ export function requestUpdateEvent({file, title, text, date, description, _id}) 
     data.append('text', text);
     data.append('date', date);
     data.append('description', description);
-
     return (dispatch) => {
       fetch(`${LocalHost}/event`, {
             method: 'POST',
@@ -1110,4 +1118,11 @@ export function requestUpdateEvent({file, title, text, date, description, _id}) 
         .then(response => {})
         .catch(error => console.log(error));
     };
+}
+
+export function setGydrolocialMessage(text) {
+  return {
+    type: SET_HYDROLOGY_MESSAGE,
+    payload: text
+  }
 }

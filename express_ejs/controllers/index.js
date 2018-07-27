@@ -319,5 +319,16 @@ module.exports = {
   },
   getAdmin: function(req, res){
     res.sendFile(path.resolve('public/build/index.html'))
+  },
+
+  GetGydrologyMessage: function (req, res) {
+    DagerGydrolygy.GetAll().then(data => {
+      res.json(data[0]);
+    }).catch(err => {
+      if(err){
+        console.log(err.message);
+        res.sendStatus(500);
+      }
+    });
   }
 };

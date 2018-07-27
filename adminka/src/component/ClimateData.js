@@ -65,9 +65,13 @@ class ClimateData extends Component {
         this.setState({ErrorMessage: false});
     }
 
-    handleOnChangeMounth = (e) => {
+    handleOnChangeMonth = (e) => {
         this.props.setMessage();
-        this.setState({mounth: e.target.value, ErrorMessage: false});
+        this.props.UpdateClimateData({
+          ...this.props.ClimateData,
+          month:e.target.value
+        });
+        this.setState({ErrorMessage: false});
     }
 
     render() {
@@ -92,14 +96,28 @@ class ClimateData extends Component {
                           saveValue ={this.handleSaveValue}
                       />
                   </Form.Field>
-                  <Form.Field width={InputSize}>
-                      <InputComponent
-                          value = {this.props.ClimateData.month}
-                          name="month"
-                          label="Мiсяць"
-                          saveValue ={this.handleSaveValue}
-                      />
+
+                  <Form.Field
+                    width={InputSize}
+                    control="select"
+                    label="Місяць"
+                    value={this.props.ClimateData.month}
+                    onChange={this.handleOnChangeMonth}
+                  >
+                    <option value="січня">Січень</option>
+                    <option value="лютого">Лютий</option>
+                    <option value="березня">Березень</option>
+                    <option value="квітня">Квітень</option>
+                    <option value="травня">Травень</option>
+                    <option value="червня">Червень</option>
+                    <option value="липня">Липень</option>
+                    <option value="серпня">Серпень</option>
+                    <option value="вересня">Вересень</option>
+                    <option value="жовтня"> Жовтень</option>
+                    <option value="листопада">Листопад</option>
+                    <option value="грудня">Грудень</option>
                   </Form.Field>
+
                   <Form.Field width={InputSize}>
                       <InputComponent
                           value = {this.props.ClimateData.year}

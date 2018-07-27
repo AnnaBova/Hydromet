@@ -4,12 +4,14 @@ import {
     EDIT_REGULAR_OBSERVABLE,
     SET_MESSAGE_REGULAR_OBSERVABLE,
     SET_MESSAGE_REGULAR_OBSERVABLE_TRUE,
-    UPDATE_REGULAR_OBSERVABLE
+    UPDATE_REGULAR_OBSERVABLE,
+    SET_HYDROLOGY_MESSAGE
 } from '../actions/ActionTypes';
 
 const initialState = {
     RegularObservable: [],
     Observ: {},
+    gydrolocialMessage: '',
     Message: false
 }
 
@@ -61,6 +63,11 @@ export function RegularObservableReducer(state=initialState, actions){
                 Message: false
             }
         }
+        case SET_HYDROLOGY_MESSAGE:
+          return {
+            ...state,
+            gydrolocialMessage:actions.payload
+          }
         default: {
             return state;
         }

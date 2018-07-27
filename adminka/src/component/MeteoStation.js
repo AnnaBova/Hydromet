@@ -167,24 +167,24 @@ class MeteoStation extends Component {
                             onChange= {this.OnChangeSelector(index)}
                           >
                               <option value=''></option>
-                              <option value='sun'>Сонячно</option>
-                              <option value='sun_cloud'>Хмарно</option>
-                              <option value='cloud'>Похмуро</option>
-                              <option value='cloud_rain_snow'>Сніг з дощем</option>
-                              <option value='cloud_rain'>Дощ</option>
-                              <option value='cloud_snow'>Сніг</option>
-                              <option value='fog'>Туман</option>
-                              <option value="mist">Мряка</option>
-                              <option value="hail">Град</option>
-                              <option value='blizzard'>Хуртовина</option>
-                              <option value='flurry'>Шквал</option>
-                              <option value='subfamily'>Поземок</option>
-                              <option value='storm_hail'>Гроза, град</option>
-                              <option value='dust_storm'>Пилова буря</option>
-                              <option value='storm_lightning'>Гроза, дощ</option>
+                              <option value='sun'>Ясно</option>
+                              <option value='sun_cloud'>Хмарно з проясненням</option>
+                              <option value='cloud'>Хмарно</option>
                               <option value='dusty'>Пил</option>
+                              <option value='dust_storm'>Пилова буря</option>
+                              <option value='fog'>Туман</option>
+                              <option value="storm">Гроза</option>
+                              <option value='cloud_rain'>Дощ , льодяний дощ</option>
+                              <option value='flurry'>Шквал</option>
+                              <option value="mist">Мряка</option>
+                              <option value='cloud_snow'>Сніг, снігова крупа</option>
+                              <option value='cloud_rain_snow'>Дощ зі снігом</option>
                               <option value="mist_rain">Мряка, дощ, ожеледь</option>
-                              <option value="storm">Гроза </option>
+                              <option value="hail">Град (льодяна крупа)</option>
+                              <option value='subfamily'>Поземок</option>
+                              <option value='blizzard'>Хуртовина</option>
+                              <option value='storm_lightning'>Гроза, дощ</option>
+                              <option value='storm_hail'>Гроза, град</option>
                           </Form.Field>
                       </div>);
                 })}

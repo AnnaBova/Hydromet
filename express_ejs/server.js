@@ -14,6 +14,7 @@ const cors = require('cors');
 const CityWeatherTable = require('./db/model/CityWeatherTable');
 const Initital = require('./db/init');
 const cron = require('node-cron');
+const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -30,7 +31,8 @@ app.use('/', routes);
 
 app.use(["/", "/meteostation", "/climate_records", "/hydrometeorologycal_bulletin",
         "/air_pollution", "/gydrolygy", "/all_meteostation", "/mail_castomize"], (req ,res)=>{
-  res.redirect('/signin');
+  // res.redirect('/signin');
+  res.sendFile(path.resolve('public/build/index.html'))
 });
 
 cron.schedule('0 0,2 * * *', function(){

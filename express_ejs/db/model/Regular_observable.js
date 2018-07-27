@@ -20,7 +20,7 @@ module.exports = {
     Init: function(arr){
         for(var i=0; i < 9; i++){
             var obj = {
-                "date": "24.11.2017р",
+                "date": "24.11.2017",
                 "observ":"08",
                 "Title": arr[i].title,
                 "Position": arr[i].Position,
@@ -33,7 +33,7 @@ module.exports = {
             const observ = new regular_observable(obj);
             observ.save();
         }
-    }, 
+    },
     GetAll: function(){
         return regular_observable.find({});
     },
