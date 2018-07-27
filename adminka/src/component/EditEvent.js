@@ -13,15 +13,24 @@ class EditEvent extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      Message:false
+      Message:false,
+      ErrorMessage: false
     };
   }
 
   handleSaveValue = (event) => {
+    this.setState({
+      Message:false,
+      ErrorMessage: false
+    });
     this.props.updateSelectedEvent(event);
   }
 
   handleOnChangeText = (event) => {
+    this.setState({
+      Message:false,
+      ErrorMessage: false
+    });
     this.props.updateSelectedEvent({
       name: 'Text',
       value: event.target.value
@@ -30,6 +39,10 @@ class EditEvent extends React.Component {
 
   handleOnChange = (e) => {
     e.preventDefault();
+    this.setState({
+      Message:false,
+      ErrorMessage: false
+    });
     this.setState({file: e.target.files[0]});
   }
 
@@ -52,22 +65,21 @@ class EditEvent extends React.Component {
           this.props.saveEvent(obj);
           this.setState({
               file: undefined,
-              Message: false
+              Message: true
           });
       }else{
-          this.setState({Message: true})
+          this.setState({ErrorMessage: true})
       }
   }
 
   render () {
     if(Object.keys(this.props.currentEvent).length === 0 )return;
-    // eslint-disable-next-line
     return (<Grid>
         <Grid.Row>
             <Grid.Column width={3} />
             <Grid.Column width={6}>
-                { this.props.Message ? <Message success header="Збереження" content="Дані успішно збережені" /> : <div /> }
-                { this.state.Message ? <Message error header="Помилка" content="Неправильно введена дата" /> : <div /> }
+                { this.state.Message ? <Message success header="Збереження" content="Дані успішно збережені" /> : <div /> }
+                { this.state.ErrorMessage ? <Message error header="Помилка" content="Неправильно введена дата" /> : <div /> }
             </Grid.Column>
         </Grid.Row>
         <Grid.Row>

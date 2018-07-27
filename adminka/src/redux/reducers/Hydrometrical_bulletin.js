@@ -28,6 +28,7 @@ const initialState = {
     TextWeatherObl: [],
     WeatherCity: [],
     TextWeatherCity: [],
+    OriginDate: '',
     SelectWeathers: [],
     WeatherDay: {},
     WeatherObservable: [],
@@ -45,10 +46,13 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 ...state,
                 SelectWeathers: actions.payload.WeatherCity,
                 WeatherObl: actions.payload.WeatherObl,
+                WeatherOblOrigin: JSON.parse(JSON.stringify(actions.payload.WeatherObl)),
                 TextWeatherObl: actions.payload.TextWeatherObl,
+                TextWeatherOblOrigin: JSON.parse(JSON.stringify(actions.payload.TextWeatherObl)),
                 WeatherCity: actions.payload.WeatherCity,
+                WeatherCityOrigin: JSON.parse(JSON.stringify(actions.payload.WeatherCity)),
                 TextWeatherCity: actions.payload.TextWeatherCity,
-                WeatherObservable: actions.payload.WeatheObservable.StationWeather,
+                TextWeatherCityOrigin: JSON.parse(JSON.stringify(actions.payload.TextWeatherCity)),
                 ObservDay: actions.payload.WeatheObservable.StationWeather[0],
             }
         }

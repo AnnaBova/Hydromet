@@ -70,7 +70,7 @@ class MailCastomize extends Component {
                             </Form.Field>
                             <Button onClick={this.handleAddEmail}>Додати</Button>
                             <Button onClick={this.handleSubmitMail}>Вiдправити листи</Button>
-                              <Button onClick={this.handleBackToGydrpomet}>Повернутися до гідрометричного бюлетеню</Button>
+                              <Button onClick={this.handleBackToGydrpomet}>Повернутися до гідрометеорологічного бюлетеню</Button>
                         </Form>
                     </Grid.Column>
                     </Grid.Row>

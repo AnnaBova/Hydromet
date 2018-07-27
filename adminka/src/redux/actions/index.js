@@ -316,6 +316,7 @@ export function EditRegularObservable(value){
             body: JSON.stringify(value)
         })
         .then(res => dispatch(SetEditRegularObservable(value)))
+        .then(()=> dispatch(getRegularObservable()))
         .catch(err => console.log(err));
     }
 }
@@ -353,7 +354,7 @@ export function AirPollution(value) {
 
 export function getAirPollution() {
     return (dispatch) => {
-        fetch(`${LocalHost}/air_pollution`)
+        fetch(`${LocalHost}/air_pollution_api`)
         .then(res => res.json())
         .then(res => dispatch(AirPollution(res)))
         .catch(err => console.log(err));
@@ -897,7 +898,7 @@ export function updateDate({city, obl, textCity, textObl}){
 }
 
 export function UpdateDate({city, obl, textCity, textObl}){
-  return (dispatch)=>dispatch(updateDate({city, obl, textCity, textObl}))
+  return (dispatch) => dispatch(updateDate({city, obl, textCity, textObl}))
 }
 
 export function UpdateWeatherCity(item, index) {
@@ -1115,7 +1116,9 @@ export function requestUpdateEvent({file, title, text, date, description, _id}) 
             },
             body: data
         })
-        .then(response => {})
+        .then(response => {
+          dispatch(getEvents());
+        })
         .catch(error => console.log(error));
     };
 }

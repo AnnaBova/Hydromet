@@ -183,7 +183,7 @@ class ClimateData extends Component {
                 <Form.Field width={InputSize}>
                 <InputComponent
                             value = {this.props.ClimateData.date}
-                            name = "DateBulletin"
+                            name = "date"
                             label="Белютень складено дата: "
                             saveValue = {this.handleSaveValue}
                             placeholder = "дд.мм.гггг"

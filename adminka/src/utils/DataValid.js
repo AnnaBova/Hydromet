@@ -8,10 +8,13 @@ export function DataValid(datestr){
     if(isNaN(Number(arr[0])) == true || isNaN(Number(arr[1])) == true){
       return false;
     }
-    if(Number(arr[0]) < 1 || Number(arr[0])>31){
+    if(Number(arr[0]) < 1 || Number(arr[0])>31 || !Number.isInteger(+arr[0])){
       return false;
     }
-    if(Number(arr[1])<1 || Number(arr[1])>12){
+    if(Number(arr[1])<1 || Number(arr[1])>12 || !Number.isInteger(+arr[1])){
+      return false
+    }
+    if(!Number.isInteger(+arr[2])){
       return false
     }
     return true;

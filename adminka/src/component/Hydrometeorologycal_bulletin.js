@@ -211,7 +211,30 @@ class Hydrometeorologycal extends Component {
       const dates = dateString.split('.');
       const textDates = [];
       const weekDays = [];
-      const enteredDate = new Date(`${dates[2]}-${dates[1]}-${+dates[0]}`);
+      const enteredDate = new Date(`${+dates[2]}-${+dates[1]}-${+dates[0]}`);
+
+      switch (this.state.activeIndex) {
+        case 0:
+          var firstDate = this.props.WeatherCityOrigin[0].date.split('.');
+          break;
+        case 1:
+          var firstDate = this.props.TextWeatherCityOrigin[0].date.split('.');
+          break;
+        case 2:
+          var firstDate = this.props.WeatherOblOrigin[0].date.split('.');
+          break;
+        case 3:
+          var firstDate = this.props.TextWeatherOblOrigin[0].date.split('.');
+          break;
+        default:
+      }
+
+      const oneDay = 24*60*60*1000;
+
+      const diffDays = Math.round((enteredDate.getTime() - new Date(`${firstDate[1]}.${firstDate[0]}.${firstDate[2]}`).getTime())/(oneDay));
+
+      // if (diffDays === 0) return;
+
       for (var i = 0; i < 5; i++) {
         const date = new Date(enteredDate.getTime() + 24 * 3600 * 1000 * i);
         weekDays.push(WEEK_DAYS[date.getDay()]);
@@ -233,16 +256,159 @@ class Hydrometeorologycal extends Component {
         return item;
       }
 
-      const city = this.props.WeatherCity.map(map);
-      const obl = this.props.WeatherObl.map(map);
-      const textCity = this.props.TextWeatherCity.map(textMap);
-      const textObl = this.props.TextWeatherObl.map(textMap);
+      const obl = this.props.WeatherOblOrigin.map((this.state.activeIndex === 0)? map : item => item);
+      const city = this.props.WeatherCityOrigin.map((this.state.activeIndex === 2)? map : item => item);
+      const textCity = this.props.TextWeatherCityOrigin.map((this.state.activeIndex === 1)? textMap : item => item);
+      const textObl = this.props.TextWeatherOblOrigin.map((this.state.activeIndex === 3)? textMap : item => item);
+
+      if(diffDays > 0 && diffDays < 6) {
+        for(let i = 0; i < diffDays; i++){
+          switch (this.state.activeIndex) {
+            case 0:
+              city.shift();
+              city.push({
+                day:{
+                    weather: "sun",
+                    DirectionWind: "up"
+                },
+                night:{
+                    weather: "moon",
+                    DirectionWind: "up"
+                },
+                date: '',
+                title: '',
+              });
+              break;
+            case 2:
+              obl.shift();
+              obl.push({
+                day:{
+                    weather: "sun",
+                    DirectionWind: "up"
+                },
+                night:{
+                    weather: "moon",
+                    DirectionWind: "up"
+                },
+                date: '',
+                title: '',
+              });
+              break;
+            case 1:
+              textCity.shift();
+              textCity.push({
+                date: '',
+              });
+              break;
+            case 3:
+              textObl.shift();
+              textObl.push({
+                date: '',
+              });
+              break;
+          }
+        }
+      } else if(diffDays < 0 && diffDays > -6) {
+        for(let i = 0; i < -1 * diffDays; i++){
+          switch (this.state.activeIndex) {
+            case 0:
+              city.pop();
+              city.unshift({
+                day:{
+                    weather: "sun",
+                    DirectionWind: "up"
+                },
+                night:{
+                    weather: "moon",
+                    DirectionWind: "up"
+                },
+                date: '',
+                title: '',
+              });
+              break;
+            case 2:
+              obl.pop();
+              obl.unshift({
+                day:{
+                    weather: "sun",
+                    DirectionWind: "up"
+                },
+                night:{
+                    weather: "moon",
+                    DirectionWind: "up"
+                },
+                date: '',
+                title: '',
+              });
+              break;
+            case 1:
+              textCity.pop();
+              textCity.unshift({
+                date: '',
+              });
+              break;
+            case 3:
+              textObl.pop();
+              textObl.unshift({
+                date: '',
+              });
+              break;
+          }
+        }
+      } else if(diffDays < -6 || diffDays > 6) {
+        for(let i = 0; i < 6; i ++){
+          switch (this.state.activeIndex) {
+            case 0:
+              city.shift();
+              city.push({
+                day:{
+                    weather: "sun",
+                    DirectionWind: "up"
+                },
+                night:{
+                    weather: "moon",
+                    DirectionWind: "up"
+                },
+                date: '',
+                title: '',
+              });
+              break;
+            case 2:
+              obl.shift();
+              obl.push({
+                day:{
+                    weather: "sun",
+                    DirectionWind: "up"
+                },
+                night:{
+                    weather: "moon",
+                    DirectionWind: "up"
+                },
+                date: '',
+                title: '',
+              });
+              break;
+            case 1:
+              textCity.shift();
+              textCity.push({
+                date: '',
+              });
+              break;
+            case 3:
+              textObl.shift();
+              textObl.push({
+                date: '',
+              });
+              break;
+          }
+        }
+      }
 
       this.props.UpdateDate({
-        city,
-        obl,
-        textCity,
-        textObl
+        city:city.map((this.state.activeIndex === 0)? map : item => item),
+        obl:obl.map((this.state.activeIndex === 2)? map : item => item),
+        textCity:textCity.map((this.state.activeIndex === 1)? textMap : item => item),
+        textObl:textObl.map((this.state.activeIndex === 3)? textMap : item => item),
       });
     }
 
@@ -260,8 +426,6 @@ class Hydrometeorologycal extends Component {
         case 3:
           this.props.EditDay(this.props.TextWeatherObl, 3);
           break;
-        default:
-
       }
     }
 
@@ -468,7 +632,11 @@ const mapStateToProps = (state) => ({
     ObservDay: state.hydrometeorolog_bulletin.ObservDay,
     TextWeatherObl: state.hydrometeorolog_bulletin.TextWeatherObl,
     TextWeatherCity: state.hydrometeorolog_bulletin.TextWeatherCity,
-    WeatherObservableData: state.hydrometeorolog_bulletin.WeatherObservableData
+    WeatherObservableData: state.hydrometeorolog_bulletin.WeatherObservableData,
+    WeatherCityOrigin: state.hydrometeorolog_bulletin.WeatherCityOrigin,
+    WeatherOblOrigin: state.hydrometeorolog_bulletin.WeatherOblOrigin,
+    TextWeatherOblOrigin: state.hydrometeorolog_bulletin.TextWeatherOblOrigin,
+    TextWeatherCityOrigin: state.hydrometeorolog_bulletin.TextWeatherCityOrigin,
 });
 
 const mapDispatchToProps = (dispatch) => ({

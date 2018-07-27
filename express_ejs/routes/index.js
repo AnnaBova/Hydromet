@@ -72,7 +72,7 @@ router.post('/give_weather_observable_api', ExpressJSW({secret: 'hydromet'}), ad
 
 router.post('/give_decad_bulletin', ExpressJSW({secret: 'hydromet'}), admincontroller.GiveDecadBulletin);
 
-router.get('/air_pollution', admincontroller.GetAirPollution);
+router.get('/air_pollution_api', admincontroller.GetAirPollution);
 
 router.post('/edit_air_pollution', ExpressJSW({secret: 'hydromet'}), admincontroller.EditAirPollution);
 
