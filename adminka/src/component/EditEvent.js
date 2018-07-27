@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 import { updateSelectedEvent,
          requestUpdateEvent } from '../redux/actions/index';
 
-updateSelectedEvent
-
 class EditEvent extends React.Component {
 
   constructor(props){

@@ -65,8 +65,8 @@ import {
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 
-// const LocalHost = "http://77.120.123.202:3001";
-const LocalHost = "http://localhost:3001";
+const LocalHost = "http://77.120.123.202:3001";
+// const LocalHost = "http://localhost:3001";
 
 export function setEventMessageTrue(){
     return {
