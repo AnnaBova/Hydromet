@@ -251,7 +251,6 @@ module.exports = {
             response => {
               WeatherObservable.getAll()
               .then(answer => {
-                console.log(answer);
                 res.render('pages/hedrometeorological_bulletin',
                 { weatherObl: respons[0].WeatherTable,
                   TextWeatherObl: respons[0].TextWeather,

@@ -152,7 +152,7 @@ var observableItem = [
 
 var WeatherObservableObj = {
     day: "20",
-    mounth: "листопада",
+    month: "листопада",
     year: "2017",
     text: "В зпехе все впоряде",
     StationWeather: observableItem
