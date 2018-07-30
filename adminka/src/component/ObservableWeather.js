@@ -47,6 +47,7 @@ class ObservableWeather extends Component {
   }
 
   Submit = () => {
+    window.scrollTo(window.scrollX, 0);
     if(DayValid(this.props.WeatherObservableData.day)){
       if(this.validator()){
         this.props.EditDay({

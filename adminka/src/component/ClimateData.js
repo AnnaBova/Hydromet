@@ -46,6 +46,7 @@ class ClimateData extends Component {
         //     // && Number.isInteger(+this.state.day.split('-')[0])
         //   )
         //     {
+        window.scrollTo(window.scrollX, 0);
         this.props.Submit(this.props.ClimateData);
         this.setState({
             ErrorMessage: false
@@ -193,7 +194,7 @@ class ClimateData extends Component {
                 <Form.Field>
                     <InputComponent
                         value={this.props.ClimateData.time}
-                        name="Time"
+                        name="time"
                         label="Час складання: "
                         saveValue={this.handleSaveValue}
                         placeholder="О котрій годині?"
