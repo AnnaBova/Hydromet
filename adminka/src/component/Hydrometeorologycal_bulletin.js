@@ -212,21 +212,22 @@ class Hydrometeorologycal extends Component {
       const textDates = [];
       const weekDays = [];
       const enteredDate = new Date(`${+dates[2]}-${+dates[1]}-${+dates[0]}`);
-
+    
       switch (this.state.activeIndex) {
         case 0:
           var firstDate = this.props.WeatherCityOrigin[0].date.split('.');
           break;
         case 1:
-          var firstDate = this.props.TextWeatherCityOrigin[0].date.split('.');
+          firstDate = this.props.TextWeatherCityOrigin[0].date.split('.');
           break;
         case 2:
-          var firstDate = this.props.WeatherOblOrigin[0].date.split('.');
+          firstDate = this.props.WeatherOblOrigin[0].date.split('.');
           break;
         case 3:
-          var firstDate = this.props.TextWeatherOblOrigin[0].date.split('.');
+          firstDate = this.props.TextWeatherOblOrigin[0].date.split('.');
           break;
         default:
+            break;
       }
 
       const oneDay = 24*60*60*1000;
@@ -306,6 +307,8 @@ class Hydrometeorologycal extends Component {
                 date: '',
               });
               break;
+            default:
+              break;
           }
         }
       } else if(diffDays < 0 && diffDays > -6) {
@@ -352,6 +355,8 @@ class Hydrometeorologycal extends Component {
               textObl.unshift({
                 date: '',
               });
+              break;
+            default:
               break;
           }
         }
@@ -400,6 +405,8 @@ class Hydrometeorologycal extends Component {
                 date: '',
               });
               break;
+            default:
+              break;
           }
         }
       }
@@ -425,6 +432,8 @@ class Hydrometeorologycal extends Component {
           break;
         case 3:
           this.props.EditDay(this.props.TextWeatherObl, 3);
+          break;
+        default:
           break;
       }
     }
@@ -609,7 +618,7 @@ class Hydrometeorologycal extends Component {
         this.props.GoTyMailCastomize();
     }
 
-    render() {
+    render() {    
     return (
         <Form success={this.props.Message}>
             <Tab panes={this.state.panas} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange}></Tab>
