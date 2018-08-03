@@ -39,19 +39,24 @@ class Tables extends Component {
                         {this.props.Records.map((item)=> <option key={item._id} value={item.id}>{item.modalTitle || item.modalName}</option>)}
                     </Form.Field>
                     <Table>
-                        {this.props.Record.date ?
-                            (<Table.Header>
-                                <TableItem id={this.props.Record._id} item={this.props.Record} Change={this.ChangeTitle}/>
-                            </Table.Header>): <Table.Body />
-                        }
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell> Дата</Table.HeaderCell>
                                 <Table.HeaderCell> Значення</Table.HeaderCell>
                                 <Table.HeaderCell> Станція</Table.HeaderCell>
+                            </Table.Row>                        
+                            <Table.Row>
+                                <Table.HeaderCell> Максімальне рекордне значення</Table.HeaderCell>
+                                <Table.HeaderCell> </Table.HeaderCell>
+                                <Table.HeaderCell> </Table.HeaderCell>
+                            </Table.Row>
+                                <TableItem id={this.props.Record._id} item={this.props.Record} Change={this.ChangeTitle}/>                        
+                            <Table.Row>
+                                <Table.HeaderCell> Рекордні значення по окремих станціях</Table.HeaderCell>
+                                <Table.HeaderCell> </Table.HeaderCell>
+                                <Table.HeaderCell> </Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
-
                         <Table.Body>
                             { this.props.Record.table ?
                                 this.props.Record.table.map((item)=><TableItem item={item}
