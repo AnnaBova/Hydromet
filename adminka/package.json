@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "PUBLIC_URL='/public/build' NODE_ENV=development react-scripts build  && node after.js",
+    "build": "PUBLIC_URL='/public/build' NODE_ENV=production react-scripts build  && node after.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "build:dist": "webpack --progress"
