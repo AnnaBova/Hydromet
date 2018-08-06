@@ -35,7 +35,6 @@ module.exports = {
       return Station.findOne({'Title': station}, {_id:0, photo: 1});
     },
     DeletePhoto: function(station, photo){
-      console.log(station, photo);
       return Station.update({'Title': station}, {
         $pull:{
           photo: photo
