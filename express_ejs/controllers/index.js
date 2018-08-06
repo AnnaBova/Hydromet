@@ -94,12 +94,12 @@ module.exports = {
                   WeatherCityTable.GetAll().then(
                     answer => {
                       const date = new Date();
-                      let day = date.getDate();
+                      let day = date.getUTCDate();                      
                       day = (day < 10)? `0${day}` : `${day}`;
-                      let month = date.getMonth();
+                      let month = date.getUTCMonth() + 1;
                       month = (month < 10)? `0${month}` : `${month}`;
                       const monthText = MONTHS[month];
-                      const year = date.getFullYear();
+                      const year = date.getUTCFullYear();
                       resp.render('pages/home', {
                         ZpTemperature: response[0][0],
                         observe: observe,
