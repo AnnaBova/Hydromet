@@ -9,8 +9,10 @@ const arrItem = mongoose.Schema({
     "Phenomen": String
 });
 const weatherObsSchema = mongoose.Schema({
-    "day": Number,
-    "month": String,
+    "dayDate": Number,
+    "dayMonth": String,
+    "nigthDate": Number,
+    "nigthMonth": String,
     "year": String,
     "text": String,
     "StationWeather": [arrItem]

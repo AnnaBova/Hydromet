@@ -89,11 +89,12 @@ class ClimateData extends Component {
             <Grid.Row>
                 <Grid.Column  width={5}/>
                 <Grid.Column width={8}>
+                  <Form.Group> 
                   <Form.Field width={InputSize}>
                       <InputComponent
-                          value = {this.props.ClimateData.day}
-                          name="day"
-                          label="День"
+                          value = {this.props.ClimateData.dayDate}
+                          name="dayDate"
+                          label="День: дата"
                           saveValue ={this.handleSaveValue}
                       />
                   </Form.Field>
@@ -101,9 +102,9 @@ class ClimateData extends Component {
                   <Form.Field
                     width={InputSize}
                     control="select"
-                    name="month"
+                    name="nigthMonth"
                     label="Місяць"
-                    value={this.props.ClimateData.month}
+                    value={this.props.ClimateData.dayMonth}
                     onChange={this.handleOnChangeMonth}
                   >
                     <option value="січня">Січень</option>
@@ -119,7 +120,39 @@ class ClimateData extends Component {
                     <option value="листопада">Листопад</option>
                     <option value="грудня">Грудень</option>
                   </Form.Field>
+                  </Form.Group> 
+                  <Form.Group> 
+                  <Form.Field width={InputSize}>
+                      <InputComponent
+                          value = {this.props.ClimateData.nigthDate}
+                          name="nigthDate"
+                          label="Нiч: Дата"
+                          saveValue ={this.handleSaveValue}
+                      />
+                  </Form.Field>
 
+                  <Form.Field
+                    width={InputSize}
+                    control="select"
+                    name="nigthMonth"
+                    label="Місяць"
+                    value={this.props.ClimateData.nigthMonth}
+                    onChange={this.handleOnChangeMonth}
+                  >
+                    <option value="січня">Січень</option>
+                    <option value="лютого">Лютий</option>
+                    <option value="березня">Березень</option>
+                    <option value="квітня">Квітень</option>
+                    <option value="травня">Травень</option>
+                    <option value="червня">Червень</option>
+                    <option value="липня">Липень</option>
+                    <option value="серпня">Серпень</option>
+                    <option value="вересня">Вересень</option>
+                    <option value="жовтня"> Жовтень</option>
+                    <option value="листопада">Листопад</option>
+                    <option value="грудня">Грудень</option>
+                  </Form.Field>
+                  </Form.Group> 
                   <Form.Field width={InputSize}>
                       <InputComponent
                           value = {this.props.ClimateData.year}

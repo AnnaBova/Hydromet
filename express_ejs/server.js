@@ -35,23 +35,6 @@ app.use(["/", "/meteostation", "/climate_records", "/hydrometeorologycal_bulleti
   res.sendFile(path.resolve('public/build/index.html'))
 });
 
-cron.schedule('0 0,2 * * *', function(){
-  const now = new Date();
-  const hour = now.getHours();
-  const mounth = now.getMonth();
-  if(mounth >= 2 || mounth <= 10){
-    if(hour == 0){
-      CityWeatherTable.reset();
-      Initital.InitCityWeatrherTable();
-    }
-  }else{
-    if(hour == 2){
-      CityWeatherTable.reset();
-      Initital.InitCityWeatrherTable();
-    }
-  }
-});
-
 app.listen(port, function () {
   console.log('Server listening on port ' + port + '...');
 });

@@ -16,6 +16,8 @@ class Forms extends Component {
             Post11: "",
             Post12: "",
             Post13: "",
+            Mounth: "",
+            Year: "",
         }
     }
 
@@ -29,6 +31,10 @@ class Forms extends Component {
     handleOnClick = () => {
       localStorage.removeItem('token');
       this.props.noAuthorization();
+    }
+
+    SaveValue = (obj) => {
+        this.setState({[obj.name]: obj.value})
     }
 
     handleSaveValue = (obj) => {
@@ -54,7 +60,9 @@ class Forms extends Component {
                 this.props.Matter.data[2],
                 this.props.Matter.data[3],
                 this.props.Matter.data[4],
-            ]
+            ],
+            year: this.state.Year,
+            mounth: this.state.Mounth,
         });
         this.setState({
             Matter:this.state.Matter
@@ -70,6 +78,24 @@ class Forms extends Component {
                     <h3>Діаграма Забруднення повітря</h3>
                     {this.props.Message ?   <Message success header="Збереження" content="Дані успішно збережені" /> : <div />}
                     <Form>
+                        <Form.Group>
+                            <Form.Field>
+                                <InputComponent
+                                    value={this.state.Mounth}
+                                    label="Мiсяц"
+                                    name = "Mounth"
+                                    saveValue={this.SaveValue}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <InputComponent
+                                    value={this.state.Year}
+                                    label="Рiк"
+                                    name="Year"
+                                    saveValue={this.SaveValue}
+                                />
+                            </Form.Field>
+                        </Form.Group>
                         <Form.Field
                             control="select"
                             value={this.state.Matter}

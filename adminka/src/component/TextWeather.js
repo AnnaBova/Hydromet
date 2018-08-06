@@ -87,7 +87,7 @@ class TextWeather extends Component {
                 placeholder="формат дд.мм.рррр"
             />
           </Form.Field>
-          <Grid.Row>
+          <Grid.Row style={{display: 'flex', justifyContent: 'center'}}>
             {arr.map((item, index)=>{
               return (
                 <div className="dayInput" key = {index}>
@@ -97,6 +97,9 @@ class TextWeather extends Component {
                   </Form.Field>
                   <Form.Field width={InputSize}>
                         <InputComponent
+                            type="textarea"
+                            cols={50}
+                            row={4}
                             value={item.text}
                             label="Текст"
                             name="text"

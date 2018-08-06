@@ -109,7 +109,7 @@ module.exports = {
                         day,
                         month,
                         monthText,
-                        year
+                        year,
                       })
                     }
                   )
@@ -127,7 +127,10 @@ module.exports = {
     })
 
   },
-
+  DownloadConvention: function(req, res) {
+    var file = path.resolve(__dirname, '../public/document/Умовнi\ позначки.docx');
+    res.download(file);
+  },
   getCurrentWeather: function (req, response) {
     var router = {
       "zaporozhye": false,
@@ -213,11 +216,9 @@ module.exports = {
     res.render('pages/hydrology_observable');
   },
   getPollution: function(req, res){
-    const date = new Date();
-    const day = date.getDate();
-    const month = MONTHS[date.getMonth()];
-    const year = date.getFullYear();
     Chart.GetAll().then(respons => {
+      let month = respons[0].mounth
+      let year = respons[0].year 
       res.render('pages/pollution', { pollution: respons, month, year });
     })
 
@@ -257,7 +258,6 @@ module.exports = {
                   weatherCity:  respons[1].WeatherTable,
                   TextWeatherCity: respons[1].TextWeather,
                   ClimaticData: response[0],
-                  date: response[0].day.split('-'),
                   StormWarning: response[0].StormText,
                   WeatherObservable: answer[0],
                   StationWeather: answer[0].StationWeather,

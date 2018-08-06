@@ -138,8 +138,8 @@ class Weather extends Component {
                          <option value='up'>Південне</option>
                          <option value='right'>Західне</option>
                          <option value='left'>Східне</option>
-                         <option value='down rot-45'>Північно-Західне</option>
-                         <option value='right rot-45'>Північно-Східне</option>
+                         <option value='rigth rot-45'>Північно-Західне</option>
+                         <option value='down rot-45'>Північно-Східне</option>
                          <option value='up rot-45'>Південно-Західне</option>
                          <option value='left rot-45'>Південно-Східне</option>
                          <option value=''>Штиль</option>
@@ -168,6 +168,10 @@ class Weather extends Component {
                            <option value='snow_strong'>Сильний сніг</option>
                            <option value='precipitations_small'>Невеликі опади </option>
                            <option value='precipitations'>Опади, сильні опади</option>
+                           <option value='fog'>Туман</option>
+                           <option value='blizzard'>Хуртовина</option>
+                           <option value='ice'>Ожеледь</option>
+                           <option value='frosts'>Заморозки</option>
                        </Form.Field>
                        </Grid.Column>
 
@@ -233,6 +237,10 @@ class Weather extends Component {
                            <option value='snow_strong'>Сильний сніг</option>
                            <option value='precipitations_small'>Невеликі опади </option>
                            <option value='precipitations'>Опади, сильні опади</option>
+                           <option value='fog'>Туман</option>
+                           <option value='blizzard'>Хуртовина</option>
+                           <option value='ice'>Ожеледь</option>
+                           <option value='frosts'>Заморозки</option>
                        </Form.Field>
                        </Grid.Column>
                     </div>

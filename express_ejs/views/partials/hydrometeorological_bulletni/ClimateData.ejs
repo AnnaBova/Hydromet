@@ -4,42 +4,28 @@
         <span class="number">04</span>
         Кліматичні дані <br> по м. Запоріжжя
         </div>
-        <div class="text-center"><%= ClimaticData.day %> <%= ClimaticData.month %> (<%= ClimaticData.year %>рр.)</div>
+        <div class="text-center"><%= ClimaticData.dayDate %> <%= ClimaticData.dayMonth %> (<%= ClimaticData.year %>рр.)</div>
         <hr class="dash dash-blue">
         <div class="list-item clear">
         <div class="f-l w-50">
-            Середня за добу температура повітря за <%= date[0] %> <%= ClimaticData.month %>
+            Середньодобова температура повітря за <%= ClimaticData.dayDate %> <%= ClimaticData.dayMonth %>
             <!-- <p class="text-gray">спостерігалась у <%= ClimaticData.SrTemperature.date %> р.</p> -->
         </div>
         <div class="f-r text-white weather-date-big text-center text-bold"><%= ClimaticData.SrTemperature.value %></div>
         </div>
         <div class="list-item clear">
         <div class="f-l w-50">
-            Максимальна денна температура повітря за день <%= date[0] %> <%= ClimaticData.month %>
+            Максимальна температура повітря за день <%= ClimaticData.dayDate %> <%= ClimaticData.dayMonth %>
             <p class="text-gray">спостерігалась у <%= ClimaticData.MaxTemperature.date %> р.</p>
         </div>
         <div class="f-r text-white weather-date-big text-center text-bold"><%= ClimaticData.MaxTemperature.value %></div>
         </div>
         <div class="list-item clear">
         <div class="f-l w-50">
-            Мінімальна температура повітря за ніч <%= date[0] %> <%= ClimaticData.month %>
+            Мінімальна температура повітря за ніч <%= ClimaticData.nigthDate %> <%= ClimaticData.nigthMonth %>
             <p class="text-gray">спостерігалась у <%= ClimaticData.MinTemperature.date %> р.</p>
         </div>
         <div class="f-r text-white weather-date-big text-center text-bold"><%= ClimaticData.MinTemperature.value %></div>
         </div>
-    </div>
-    </div>
-    <div class="block-white">
-    <div class="container">
-        <div class="m-t-md signatur-name">
-            Завідувач сектору метеорологічних прогнозів<br>
-            відділу гідрометзабезпечення
-        </div>
-        <div class="text-right m-b-md  m-t-md signature">
-            І.К.Івашковська
-        </div>
-    </div>
-    <div class="container m-t-md m-b-md">
-        Бюлетень складений о <%= ClimaticData.time %> годині <%= ClimaticData.date %>
     </div>
 </div>

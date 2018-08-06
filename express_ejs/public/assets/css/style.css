@@ -870,6 +870,22 @@ span.number{
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+.convention {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+
+.convention:hover {
+  color: white;
+}
+
+.convention:visited {
+  text-decoration: none;
+  color: white;
+}
+
 .top-round-block .title{
   margin:25px 0 10px;
 }

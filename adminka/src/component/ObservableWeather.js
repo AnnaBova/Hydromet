@@ -9,8 +9,10 @@ class ObservableWeather extends Component {
   constructor(props){
     super(props);
     this.state = {
-      day: "",
-      mounth: "січня",
+      dayDate: "",
+      nigthDate: "",
+      dayMounth: "січня",
+      nigthMounth: "січня",
       year: "",
       text:"",
       MaxTemperature: "",
@@ -48,7 +50,8 @@ class ObservableWeather extends Component {
 
   Submit = () => {
     window.scrollTo(window.scrollX, 0);
-    if(DayValid(this.props.WeatherObservableData.day)){
+    if(DayValid(this.props.WeatherObservableData.dayDate) && 
+       DayValid(this.props.WeatherObservableData.nigthDate)){
       if(this.validator()){
         this.props.EditDay({
           ...this.props.ObservDay,
@@ -58,8 +61,10 @@ class ObservableWeather extends Component {
           Station: this.state.Station,
         });
         this.props.Submit({
-          day: this.props.WeatherObservableData.day,
-          month: this.props.WeatherObservableData.month,
+          dayDate: this.props.WeatherObservableData.dayDate,
+          dayMonth: this.props.WeatherObservableData.dayMonth,
+          nigthDate: this.props.WeatherObservableData.nigthDate,
+          nigthMonth: this.props.WeatherObservableData.nigthMonth,
           year: this.props.WeatherObservableData.year,
           text: this.props.WeatherObservableData.text,
           MaxTemperature: this.props.WeatherObservableData.StationWeather[this.state.Station].MaxTemperature,
@@ -93,7 +98,7 @@ class ObservableWeather extends Component {
   handleOnChangeMonth = (event) => {
     this.props.setMessage();
     this.props.UpdateObservData({
-      name:'month',
+      name: event.target.name,
       value:event.target.value
     });
     this.setState({ErrorMessage: false});
@@ -113,34 +118,68 @@ class ObservableWeather extends Component {
         <Grid.Row>
           <Grid.Column  width={5}/>
           <Grid.Column width={8}>
-          <Form.Field width={InputSize}>
-            <InputComponent
-              value={this.props.WeatherObservableData.day}
-              label="День"
-              name = "day"
-              saveValue={this.handleSaveValue}
-            />
-          </Form.Field >
-          <Form.Field
-            width={InputSize}
-            control="select"
-            label="Місяць"
-            value={this.props.WeatherObservableData.month}
-            onChange={this.handleOnChangeMonth}
-          >
-            <option value="січня">Січень</option>
-            <option value="лютого">Лютий</option>
-            <option value="березня">Березень</option>
-            <option value="квітня">Квітень</option>
-            <option value="травня">Травень</option>
-            <option value="червня">Червень</option>
-            <option value="липня">Липень</option>
-            <option value="серпня">Серпень</option>
-            <option value="вересня">Вересень</option>
-            <option value="жовтня"> Жовтень</option>
-            <option value="листопада">Листопад</option>
-            <option value="грудня">Грудень</option>
-          </Form.Field>
+          <Form.Group>
+            <Form.Field width={InputSize}>
+              <InputComponent
+                value={this.props.WeatherObservableData.dayDate}
+                label="День: дата"
+                name = "dayDate"
+                saveValue={this.handleSaveValue}
+              />
+            </Form.Field >
+            <Form.Field
+              width={InputSize}
+              control="select"
+              label="Місяць"
+              name="dayMounth"
+              value={this.props.WeatherObservableData.dayMonth}
+              onChange={this.handleOnChangeMonth}
+            >
+              <option value="січня">Січень</option>
+              <option value="лютого">Лютий</option>
+              <option value="березня">Березень</option>
+              <option value="квітня">Квітень</option>
+              <option value="травня">Травень</option>
+              <option value="червня">Червень</option>
+              <option value="липня">Липень</option>
+              <option value="серпня">Серпень</option>
+              <option value="вересня">Вересень</option>
+              <option value="жовтня"> Жовтень</option>
+              <option value="листопада">Листопад</option>
+              <option value="грудня">Грудень</option>
+            </Form.Field>
+          </Form.Group>
+          <Form.Group>
+            <Form.Field width={InputSize}>
+              <InputComponent
+                value={this.props.WeatherObservableData.nigthDate}
+                label="Нiч: дата"
+                name = "nigthDate"
+                saveValue={this.handleSaveValue}
+              />
+            </Form.Field >
+            <Form.Field
+              width={InputSize}
+              control="select"
+              label="Місяць"
+              dayMounth="nigthMounth"
+              value={this.props.WeatherObservableData.nigthMonth}
+              onChange={this.handleOnChangeMonth}
+            >
+              <option value="січня">Січень</option>
+              <option value="лютого">Лютий</option>
+              <option value="березня">Березень</option>
+              <option value="квітня">Квітень</option>
+              <option value="травня">Травень</option>
+              <option value="червня">Червень</option>
+              <option value="липня">Липень</option>
+              <option value="серпня">Серпень</option>
+              <option value="вересня">Вересень</option>
+              <option value="жовтня"> Жовтень</option>
+              <option value="листопада">Листопад</option>
+              <option value="грудня">Грудень</option>
+            </Form.Field>
+          </Form.Group>
           <Form.Field width={InputSize}>
             <InputComponent
               value={this.props.WeatherObservableData.year}

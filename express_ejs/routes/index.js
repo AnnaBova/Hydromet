@@ -136,4 +136,6 @@ router.post('/event', ExpressJSW({secret: 'hydromet'}), admincontroller.PostEven
 
 router.get('/gydrology_danger', controller.GetGydrologyMessage);
 
+router.get('/download_convention', controller.DownloadConvention);
+
 module.exports = router;

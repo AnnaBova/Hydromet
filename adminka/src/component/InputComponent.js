@@ -34,21 +34,38 @@ class InputComponent extends Component {
 
     render(){
         const { value } = this.state;
-        const { type, label, placeholder, disabled} = this.props;
+        const { type, label, placeholder, disabled, cols, row} = this.props;
         return (
             <div className={this.props.className}>
             {
               label &&
               <label >{`${label}`}</label>
             }
-            <input
-            type={type}
-            value={value}
-            onChange={this.handleChangeValue}
-            onBlur={this.handleSaveValue}
-            placeholder={placeholder}
-            disabled={disabled}
-          />
+            {
+                type !== 'textarea' && 
+                (<input
+                    type={type}
+                    value={value}
+                    onChange={this.handleChangeValue}
+                    onBlur={this.handleSaveValue}
+                    placeholder={placeholder}
+                    disabled={disabled}
+                />)
+            }
+            {
+                type === 'textarea' &&  
+                (<textarea 
+                    value={value}
+                    onChange={this.handleChangeValue}
+                    onBlur={this.handleSaveValue}
+                    placeholder={placeholder}
+                    cols={cols}
+                    row={row}
+                    disabled={disabled}
+                />)
+
+            }
+            
           </div>
         )
     }

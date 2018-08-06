@@ -25,6 +25,7 @@ const radionatial = require('../db/model/radiotional');
 const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
 const pngToJpeg = require('png-to-jpeg');
 const PATH_TO_IMAGE = '../public/Events/';
+const Initital = require('../db/init');
 
 module.exports = {
     EditClimateCharacteristic: function(req,res){
@@ -105,7 +106,6 @@ module.exports = {
                 if(err) {
                     console.log(err); return res.status(500).send();
                 }
-                console.log(req.files.file.mimetype)
                 if(req.files.file.mimetype != 'image/jpeg'){
                     let buffer = fs.readFileSync(path.resolve(__dirname, PATH_TO_IMAGE + req.files.file.name));
                     pngToJpeg({quality: 90})(buffer)
@@ -164,6 +164,21 @@ module.exports = {
             .catch(err => res.status(403).send(err));
     },
     addWeather: function(req, res){
+            const now = new Date();
+            const hour = now.getHours();
+            const mounth = now.getMonth();
+            if(mounth >= 2 || mounth <= 10){
+                if(hour == 0){
+                    WeatherTable.reset();
+                    Initital.InitCityWeatrherTable();
+                }
+            }else{
+                if(hour == 2){
+                    WeatherTabel.reset();
+                    Initital.InitCityWeatrherTable();
+                }
+            }
+
             var PromiseArr = [];
             PromiseArr.push(TimeGaps.GetIdTimeGaps(req.body.TimeGaps));
             PromiseArr.push(UserController.Authorization(req.user.login));
@@ -298,8 +313,9 @@ module.exports = {
         })
     },
     EditAirPollution: function (req, res){
-            Chart.Edit(req.body);
-            res.send();
+        console.log(req.body)
+        Chart.Edit(req.body);
+        res.send();
 
     },
     GetRegularObservable: function(req, res){

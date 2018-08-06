@@ -151,8 +151,10 @@ var observableItem = [
 ]
 
 var WeatherObservableObj = {
-    day: "20",
-    month: "листопада",
+    dayDate: "20",
+    dayMonth: "листопада",
+    nigthDate: "21",
+    nigthMonth: "листопада",
     year: "2017",
     text: "В зпехе все впоряде",
     StationWeather: observableItem
@@ -409,8 +411,10 @@ var ClimateRecordObjArr = [
 
 var ClimateDataObject = {
     StormText: "",
-    day: "20",
-    month: "листопада",
+    dayDate: "20",
+    dayMonth: "листопада",
+    nigthDate: "21",
+    nigthMonth: "листопада",
     year: "2017",
     date: "13 липня 2015",
     time: 12,
@@ -499,7 +503,7 @@ var meteorologPhenomenaArr = [
         modalName: "Сильний мороз",
         modalConvention: "температура повітря",
         table: ClimateRecordsArr,
-        strength:"Нижче -30​​°",
+        strength:"-30​​° i нижче",
 		    duration:"Будь-яка"
     },
     {
@@ -653,47 +657,65 @@ var chartArr = [
     {
         "label": "Пил",
         "backgroundColor": "rgb(0, 255, 0)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     },
     {
         "label": "Двооксид сірки",
         "backgroundColor": "rgb(255, 0, 68)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     },
     {
         "label": "Оксид вуглецю",
         "backgroundColor": "rgb(0, 171, 255)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     },
     {
         "label": "Двооксид азоту",
         "backgroundColor": "rgb(171, 0, 255)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     },
     {
         "label": "Оксид азоту",
         "backgroundColor": "rgb(255, 247, 0)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     },
     {
         "label": "Фенол",
         "backgroundColor": "rgb(255, 99, 132)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     },
     {
         "label": "Хлористий водень",
         "backgroundColor": "rgb(152, 96, 0)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     },
     {
         "label": "Фтористий водень",
         "backgroundColor": "rgb(230, 168, 42)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     },
     {
         "label": "Формальдегід",
         "backgroundColor": "rgb(0, 7, 223)",
-        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5]
+        "data": [1.3, 5.6, 5, 2, 2.8, 3.9, 4.5],
+        "mounth":"серпень",
+        "year": "2018"
     }
 ]
 

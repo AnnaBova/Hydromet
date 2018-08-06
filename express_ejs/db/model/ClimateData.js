@@ -2,8 +2,10 @@ var mongoose = require('mongoose');
 
 const ClimateDataSchema = mongoose.Schema({
     "StormText": String,
-    "day": String,
-    "month":String,
+    "dayDate": Number,
+    "dayMonth": String,
+    "nigthDate": Number,
+    "nigthMonth": String,
     "year": String,
     "date": String,
     "time": Number,

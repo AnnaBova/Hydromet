@@ -143,14 +143,14 @@ class MeteoStation extends Component {
                             onChange={this.OnChangeSelector(index)}
                           >
                               <option value=''></option>
-                              <option value='up'>Північне</option>
-                              <option value='down'>Південне</option>
-                              <option value='left'>Західне</option>
-                              <option value='right'>Східне</option>
-                              <option value='up rot-45'>Північно-Західне</option>
-                              <option value='left rot-45'>Північно-Східне</option>
-                              <option value='down rot-45'>Південно-Західне</option>
-                              <option value='right rot-45'>Південно-Східне</option>
+                              <option value='down'>Північне</option>
+                              <option value='up'>Південне</option>
+                              <option value='rigth'>Західне</option>
+                              <option value='left'>Східне</option>
+                              <option value='down rot-45'>Північно-Західне</option>
+                              <option value='rigth rot-45'>Північно-Східне</option>
+                              <option value='up rot-45'>Південно-Західне</option>
+                              <option value='left rot-45'>Південно-Східне</option>
                           </Form.Field>
                               <InputComponent
                                   value = {item.Weather.pressure}

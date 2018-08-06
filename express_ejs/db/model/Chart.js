@@ -3,7 +3,9 @@ var mongoose = require('mongoose');
 const ChartSchema = mongoose.Schema({
     "label": String,
     "backgroundColor": String,
-    "data": [Number]
+    "data": [Number],
+    "mounth": String,
+    "year": String,
 });
 
 const Chart = mongoose.model('Chart', ChartSchema);
