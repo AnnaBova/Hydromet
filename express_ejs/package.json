@@ -3,6 +3,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
+    "debug": "nodemon --inspect server.js",
+    "init": "node initial_bd.js init",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

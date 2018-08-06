@@ -9,6 +9,6 @@ npm start
 Init DB
 ```bash
 cd db
-node initial_bd.js
+npm run init
 ```
 `open localhost:3001`
