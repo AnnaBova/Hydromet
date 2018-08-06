@@ -65,9 +65,7 @@ import {
     SET_HYDROLOGY_MESSAGE
 } from './ActionTypes';
 import { push } from 'react-router-redux';
-
-const LocalHost = "http://77.120.123.202:3001";
-// const LocalHost = "http://localhost:3001";
+import LocalHost from '../../utils/path';
 
 export function setEventMessageTrue(){
     return {
@@ -480,7 +478,6 @@ export function uploadCaruselImage(file, station){
     let data = new FormData();
     data.append('file', file);
     data.append('station', station);
-
     return (dispatch) => {
         fetch(`${LocalHost}/files_carusel`, {
                 method: 'POST',

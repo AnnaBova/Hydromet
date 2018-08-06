@@ -24,6 +24,7 @@ const DagerGydrolygy = require('../db/model/DangerGydrolygy');
 const radionatial = require('../db/model/radiotional');
 const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
 const pngToJpeg = require('png-to-jpeg');
+const PATH_TO_IMAGE = '../public/Events/';
 
 module.exports = {
     EditClimateCharacteristic: function(req,res){
@@ -96,20 +97,21 @@ module.exports = {
         });
     },
 
-    CaruselUpload: function(req, res){
-        var arr = req.files.file.name.split('.');
+    CaruselUpload: function(req, res){       
+        const arr = req.files.file.name.split('.');        
         let imageFile = req.files.file;
-        var path1 = path.resolve(__dirname, '../public/assets/images');
+        const path1 = path.resolve(__dirname, PATH_TO_IMAGE);
         imageFile.mv(`${path1}/${req.files.file.name}`, function(err){
                 if(err) {
                     console.log(err); return res.status(500).send();
                 }
+                console.log(req.files.file.mimetype)
                 if(req.files.file.mimetype != 'image/jpeg'){
-                    let buffer = fs.readFileSync(path.resolve(__dirname, "../public/assets/images/" + req.files.file.name));
+                    let buffer = fs.readFileSync(path.resolve(__dirname, PATH_TO_IMAGE + req.files.file.name));
                     pngToJpeg({quality: 90})(buffer)
                         .then(output => {
-                            fs.writeFileSync(path.resolve(__dirname, "../public/assets/images/"+ arr[0] + '.jpg'), output)
-                            fs.unlinkSync(path.resolve(__dirname, "../public/assets/images/" + req.files.file.name));
+                            fs.writeFileSync(path.resolve(__dirname, PATH_TO_IMAGE+ arr[0] + '.jpg'), output)
+                            fs.unlinkSync(path.resolve(__dirname, PATH_TO_IMAGE + req.files.file.name));
                         });
                 }
                 Station.AddPhoto(req.body.station,req.files.file.name);
@@ -312,7 +314,7 @@ module.exports = {
     },
     UploadFile: function(req, res){
         let imageFile = req.files.file;
-        var path1 = path.resolve(__dirname, '../public/Events');
+        var path1 = path.resolve(__dirname, PATH_TO_IMAGE);
         imageFile.mv(`${path1}/${req.files.file.name}`, function(err){
             if(err) return res.status(500).send();
 
@@ -333,7 +335,7 @@ module.exports = {
     },
     deleteEvent: function(req, res){
         Events.GetEventOne(req.body).then(data => {
-          fs.unlink(`${path.resolve(__dirname, '../public/Events')}/${data.Picture}`, (err => {
+          fs.unlink(`${path.resolve(__dirname, PATH_TO_IMAGE)}/${data.Picture}`, (err => {
             if(err){
               return console.log(err.message);
             }
@@ -409,7 +411,7 @@ module.exports = {
 
     DeleteStationPhoto: function(req, res) {
       Station.DeletePhoto(req.params.stationId, req.body.photo).then(data => {
-        fs.unlink(`${path.resolve(__dirname, '../public/assets/images')}/${req.body.photo}`, (err => {
+        fs.unlink(`${path.resolve(__dirname, PATH_TO_IMAGE)}/${req.body.photo}`, (err => {
           if(err){
             return console.log(err.message);
           }
@@ -448,7 +450,7 @@ module.exports = {
       }else{
         Events.GetEventOne(req.body._id).then(data => {
           const imageFile = req.files.file;
-          const path1 = path.resolve(__dirname, '../public/Events');
+          const path1 = path.resolve(__dirname, PATH_TO_IMAGE);
           fs.unlink(`${path1}/${data.Picture}`, err => {
             imageFile.mv(`${path1}/${imageFile.name}`, function(err){
                 if(err) return res.sendStatus(500);

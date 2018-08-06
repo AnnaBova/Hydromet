@@ -4,13 +4,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { GetStationPhotos,
          DeleteStationPhoto } from '../redux/actions';
+import URL from '../utils/path';
 import '../style/Event.css';
+const PATH_TO_IMAGE = `${URL}/public/Events`;
 
 class AddPhoto extends Component {
     constructor(props){
         super(props);
         this.state = {
-            file: undefined,
+            file: null,
             imageTypeError: false,
             station: 'zaporozhye',
         }
@@ -22,8 +24,9 @@ class AddPhoto extends Component {
 
     handleSubmit = () => {
         var { file, station } = this.state;
+        if (!file) return;
         var arr = file.name.split('.');
-        // eslint-disable-next-line
+         // eslint-disable-next-line
         if(arr[1] === 'jpeg' || arr[1]==="JPEG" ||
            arr[1] ==="JPG" || arr[1] === 'jpg'){
             arr[1]="jpg";
@@ -32,11 +35,12 @@ class AddPhoto extends Component {
             const NewFileName = new File([blob], name, {type: file.type});
             this.props.uploadCaruselImage(NewFileName, this.state.station);
             this.props.setMessageTrue();
-        } else {
+            this.setState({file: null});
+         } else {
           this.setState({
             imageTypeError: true
           });
-        }
+        } 
     }
 
     handleStationChange = (e) => {
@@ -105,7 +109,7 @@ class AddPhoto extends Component {
                 <div className="imgWrapper">
                   {this.props.photos.map(item => {
                     const style = {
-                      backgroundImage: `url(http://77.120.123.202:3001/public/assets/images/${item})`
+                      backgroundImage: `url(${PATH_TO_IMAGE}/${item})`
                     };
                     return <div key={item} style={style} className="stationPhoto">
                       <span className="deleteCross" onClick={this.handleImageClick(item)}>X</span>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, Image  } from 'semantic-ui-react';
+import URL from '../utils/path';
+const PATH_TO_IMAGE = `${URL}/public/Events`;
 
 class Forms extends Component {
     handleSubmit = () => {
@@ -12,7 +14,7 @@ class Forms extends Component {
     return (
             <Card>
                 <Card.Content>
-                <Image src={"http://77.120.123.202:3001/public/Events/"+ this.props.item.Picture} floated='right' size='mini' />
+                <Image src={`${PATH_TO_IMAGE}/${this.props.item.Picture}`} floated='right' size='mini' />
                 <Card.Header>{this.props.item.title}</Card.Header>
                 <Card.Description>{this.props.item.description}</Card.Description>
                 <Button onClick={ this.props.select } secondary>Редагувати</Button>
