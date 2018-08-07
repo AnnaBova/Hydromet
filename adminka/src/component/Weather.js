@@ -134,8 +134,8 @@ class Weather extends Component {
                          name="DirectionWind"
                          onBlur={this.handleChangeSelector(index, 'day')}
                        >
-                         <option value='up'>Північне</option>
-                         <option value='down'>Південне</option>
+                         <option value='down'>Північне</option>
+                         <option value='up'>Південне</option>
                          <option value='right'>Західне</option>
                          <option value='left'>Східне</option>
                          <option value='right rot-45'>Північно-Західне</option>
@@ -203,8 +203,8 @@ class Weather extends Component {
                          name="DirectionWind"
                          onBlur={this.handleChangeSelector(index, 'night')}
                        >
-                         <option value='up'>Північне</option>
-                         <option value='down'>Південне</option>
+                         <option value='down'>Північне</option>
+                         <option value='up'>Південне</option>
                          <option value='right'>Західне</option>
                          <option value='left'>Східне</option>
                          <option value='right rot-45'>Північно-Західне</option>

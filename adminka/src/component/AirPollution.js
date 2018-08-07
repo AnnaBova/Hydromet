@@ -82,7 +82,7 @@ class Forms extends Component {
                             <Form.Field>
                                 <InputComponent
                                     value={this.state.Mounth}
-                                    label="Мiсяц"
+                                    label="Мiсяць"
                                     name = "Mounth"
                                     saveValue={this.SaveValue}
                                 />
