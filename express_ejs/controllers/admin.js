@@ -270,7 +270,6 @@ module.exports = {
                                 res.send();
                             })
                         })
-
                     })
             })
 
