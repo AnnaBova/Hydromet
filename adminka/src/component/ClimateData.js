@@ -70,7 +70,7 @@ class ClimateData extends Component {
         this.props.setMessage();
         this.props.UpdateClimateData({
           ...this.props.ClimateData,
-          month:e.target.value
+          [e.target.name]:e.target.value
         });
         this.setState({ErrorMessage: false});
     }
@@ -102,7 +102,7 @@ class ClimateData extends Component {
                   <Form.Field
                     width={InputSize}
                     control="select"
-                    name="nigthMonth"
+                    name="dayMonth"
                     label="Місяць"
                     value={this.props.ClimateData.dayMonth}
                     onChange={this.handleOnChangeMonth}

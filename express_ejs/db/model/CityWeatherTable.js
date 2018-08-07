@@ -21,7 +21,8 @@ const WeatherTable = mongoose.model('WeatherTable', WeatherTableSchema);
 
 module.exports = {
     UnInit: function(){
-        WeatherTable.remove({}).then(res => {});
+        WeatherTable.remove({}, function(err){
+        });
     },
     AddEntry: function(data){
         const entry = new WeatherTable(data);
@@ -45,8 +46,4 @@ module.exports = {
     GetZpWeather: function(observ, station){
         return WeatherTable.find({"StationID": station, "TimeGapsId": observ });
     },
-    reset: function() {
-        WeatherTable.remove({}, function(err){
-        });
-    }
 };

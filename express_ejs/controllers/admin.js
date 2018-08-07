@@ -169,12 +169,12 @@ module.exports = {
             const mounth = now.getMonth();
             if(mounth >= 2 || mounth <= 10){
                 if(hour == 0){
-                    WeatherTable.reset();
+                    WeatherTable.UnInit();
                     Initital.InitCityWeatrherTable();
                 }
             }else{
                 if(hour == 2){
-                    WeatherTabel.reset();
+                    WeatherTabel.UnInit();
                     Initital.InitCityWeatrherTable();
                 }
             }
@@ -190,19 +190,6 @@ module.exports = {
                     Promise.all(queryArray).then(()=>{
                       res.end();
                     })
-                    // let obj = {
-                    //     Weather: {
-                    //         temperature: req.body.temperature,
-                    //         wind: req.body.wind,
-                    //         pressure: req.body.pressure,
-                    //         DirectionWind: req.body.DiractionWind,
-                    //         phenomena: req.body.phenomena
-                    //     },
-                    //     date: req.body.date,
-                    //     StationID: respons[1].stationID,
-                    //     TimaGapsId: respons[0][0].id
-                    // }
-                    // waterTemperature.AddTemperature(respons[1].stationID, req.body.waterTemperature, req.body.date, req.body.TimeGaps);
                 })
                 .catch(err => console.log(err));
     },
@@ -293,7 +280,19 @@ module.exports = {
     GiveWeatherObservableApi: function(req, res){
             WeatherObservable.EditObservable(req.body);
             WeatherObservable.getAll().then(respons => {
-              res.json(respons);
+                var template = fs.readFileSync( path.resolve('../express_ejs/views/partials/hydrometeorological_bulletni/svgMap.ejs'), 'utf-8' );
+                var map = ejs.render(template, {StationWeather: respons[0].StationWeather, print: true});
+                convert(map, {width: 668, heidht: 599})
+                    .then(resp=> {
+                        var encoded = new Buffer(resp).toString('base64');
+                        fs.unlink('./public/assets/images/map.png', (err)=> {
+                            fs.writeFile('./public/assets/images/map.png', encoded, 'base64', function(err){
+                                if(err) console.log(err);
+                                res.json(respons);
+                            })
+                        })
+
+                    })
             }).catch(err => {
               if(err){
                 console.log(err.message);

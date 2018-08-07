@@ -504,15 +504,10 @@ class Hydrometeorologycal extends Component {
                             alignment: 'center',
                         },
                         {
-                            text:'Гідрометеорологічний белютень',
+                            text:`Гідрометеорологічний бюлетень №${this.props.ClimateData.number}`,
                             style: 'bold',
                             alignment: 'center',
                             margin: [0,35,0,0]
-                        },
-                        {
-                            text: `№${this.props.ClimateData.number}`,
-                            alignment: 'right',
-                            style: 'bold'
                         },
                         {
                             text: "Прогноз погоди по Запорізькій області",
@@ -548,7 +543,7 @@ class Hydrometeorologycal extends Component {
                             margin: [0,20, 0 ,0]
                         },
                         {
-                            text: `Бюллетень складений о ${this.props.ClimateData.time} годині ${this.props.ClimateData.date}`,
+                            text: `Бюлетень складений о ${this.props.ClimateData.time} годині ${this.props.ClimateData.date}`,
                             margin: [0,20,0,0],
                             pageBreak: 'after'
                         },
@@ -575,7 +570,7 @@ class Hydrometeorologycal extends Component {
                         },
                         {
                             margin: [0,10,0,0],
-                            text: 'Максимальна денна температура повітря за день зафiксовано у ' + this.props.ClimateData.MaxTemperature.date + ' роцi : ' + this.props.ClimateData.MaxTemperature.value
+                            text: 'Максимальна температура повітря за день зафiксовано у ' + this.props.ClimateData.MaxTemperature.date + ' роцi : ' + this.props.ClimateData.MaxTemperature.value
                         },
                         {
                             margin: [0,10,0,0],
@@ -583,7 +578,7 @@ class Hydrometeorologycal extends Component {
                         },
                         {
                             margin: [0,10,0,0],
-                            text: 'Середня за добу температура повітря зафiксовано у ' + this.props.ClimateData.SrTemperature.date + ' роцi : ' + this.props.ClimateData.SrTemperature.value
+                            text: 'Cередньодобова температура повітря зафiксовано у ' + this.props.ClimateData.SrTemperature.date + ' роцi : ' + this.props.ClimateData.SrTemperature.value
                         }
                     ],
                     styles: {

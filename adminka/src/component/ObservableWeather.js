@@ -99,6 +99,7 @@ class ObservableWeather extends Component {
     this.props.setMessage();
     this.props.UpdateObservData({
       name: event.target.name,
+      [event.target.name]: event.target.value,
       value:event.target.value
     });
     this.setState({ErrorMessage: false});
@@ -131,7 +132,7 @@ class ObservableWeather extends Component {
               width={InputSize}
               control="select"
               label="Місяць"
-              name="dayMounth"
+              name="dayMonth"
               value={this.props.WeatherObservableData.dayMonth}
               onChange={this.handleOnChangeMonth}
             >
@@ -162,7 +163,7 @@ class ObservableWeather extends Component {
               width={InputSize}
               control="select"
               label="Місяць"
-              dayMounth="nigthMounth"
+              name="nigthMonth"
               value={this.props.WeatherObservableData.nigthMonth}
               onChange={this.handleOnChangeMonth}
             >

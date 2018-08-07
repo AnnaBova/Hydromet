@@ -134,11 +134,11 @@ class Weather extends Component {
                          name="DirectionWind"
                          onBlur={this.handleChangeSelector(index, 'day')}
                        >
-                         <option value='down'>Північне</option>
-                         <option value='up'>Південне</option>
+                         <option value='up'>Північне</option>
+                         <option value='down'>Південне</option>
                          <option value='right'>Західне</option>
                          <option value='left'>Східне</option>
-                         <option value='rigth rot-45'>Північно-Західне</option>
+                         <option value='right rot-45'>Північно-Західне</option>
                          <option value='down rot-45'>Північно-Східне</option>
                          <option value='up rot-45'>Південно-Західне</option>
                          <option value='left rot-45'>Південно-Східне</option>
@@ -203,12 +203,12 @@ class Weather extends Component {
                          name="DirectionWind"
                          onBlur={this.handleChangeSelector(index, 'night')}
                        >
-                         <option value='down'>Північне</option>
-                         <option value='up'>Південне</option>
+                         <option value='up'>Північне</option>
+                         <option value='down'>Південне</option>
                          <option value='right'>Західне</option>
                          <option value='left'>Східне</option>
-                         <option value='down rot-45'>Північно-Західне</option>
-                         <option value='right rot-45'>Північно-Східне</option>
+                         <option value='right rot-45'>Північно-Західне</option>
+                         <option value='down rot-45'>Північно-Східне</option>
                          <option value='up rot-45'>Південно-Західне</option>
                          <option value='left rot-45'>Південно-Східне</option>
                          <option value=''>Штиль</option>
