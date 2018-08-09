@@ -138,5 +138,8 @@ router.get('/gydrology_danger', controller.GetGydrologyMessage);
 
 router.get('/download_convention/:number', controller.DownloadConvention);
 
+router.get('/get_info_for_report', admincontroller.GetReportInfo)
+
+router.post('/update_info_for_report', admincontroller.UpdateReportInfo)
 
 module.exports = router;

@@ -17,6 +17,38 @@ const waterTemperature = require('./model/waterTemperature');
 const WeatherCity = require('./model/WeatherCity');
 const WeatherObservable = require('./model/WeatherObservable');
 const ClimateCharacteristic = require('./model/ClimateCharacteristic');
+const Report = require('./model/ReportInfo')
+
+var ReportObj = {
+    AzovText: `В Азовском море много бычков кораблей и отдыхающих, будьте аккуратны`,
+    TextWeather: [
+        {
+            date: "08.08.2018",
+            text: `Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+            15-17градусів, вдень 26-28градусів`
+        },
+        {
+            date: "08.08.2018",
+            text: `Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+            15-17градусів, вдень 26-28градусів`
+        },
+        {
+            date: "08.08.2018",
+            text: `Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+            15-17градусів, вдень 26-28градусів`
+        },
+        {
+            date: "08.08.2018",
+            text: `Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+            15-17градусів, вдень 26-28градусів`
+        },
+        {
+            date: "08.08.2018",
+            text: `Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+            15-17градусів, вдень 26-28градусів`
+        }
+    ]
+}
 
 var DangerGydrolygyText = `
     Гідрологічна ситуація спокійна, рівні води знаходяться у межах русел.
@@ -250,23 +282,28 @@ var WeatherDay =
 var TextWeatherDay = [
     {
         date: "20.11.2011",
-        text: "В запорожье тепло"
+        text: `text: Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+        15-17градусів, вдень 26-28градусів`
     },
     {
         date: "21.11.2011",
-        text: "В запорожье тепло"
+        text: `text: Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+        15-17градусів, вдень 26-28градусів`
     },
     {
         date: "22.11.2011",
-        text: "В запорожье тепло"
+        text: `text: Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+        15-17градусів, вдень 26-28градусів`
     },
     {
         date: "23.11.2011",
-        text: "В запорожье тепло"
+        text: `text: Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+        15-17градусів, вдень 26-28градусів`
     },
     {
         date: "24.11.2011",
-        text: "В запорожье тепло"
+        text: `text: Мінлива хмарність, без опадів, вітер східний, 7-12 м/с, температура повітря вночі
+        15-17градусів, вдень 26-28градусів`
     }
 ]
 
@@ -958,6 +995,7 @@ function InitCityWeatrherTable(){
 
 module.exports = {
     Init: function(){
+        Report.Init(ReportObj);
         ClimateCharacteristic.Init(CharacteristicArr);
         ClimateRecords.Init(ClimateRecordObjArr)
         ClimateData.Init(ClimateDataObject)
@@ -981,6 +1019,7 @@ module.exports = {
         },5000)
     },
     UnInit: function(){
+        Report.UnInit();
         ClimateCharacteristic.UnInit();
         ClimateRecords.UnInit();
         ClimateData.UnInit();

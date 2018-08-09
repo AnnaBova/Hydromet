@@ -26,6 +26,8 @@ import {
     UpdateClimateData,
     UpdateObservData,
     UpdateObservDataStation,
+    GetReportInfo,
+    UpdateReport,
 } from '../redux/actions/index';
 import ClimateData from './ClimateData';
 import ObservableWeather from './ObservableWeather';
@@ -33,6 +35,7 @@ import DecadBulletin from './Decad_bulletin';
 import pdfMake from 'pdfmake/build/pdfmake';
 import vfsFonts from 'pdfmake/build/vfs_fonts';
 import Radiation from './radiation';
+import Report from './Report'
 import '../style/hydrometeorologycalBulletin.css';
 
 const WEEK_DAYS = [
@@ -133,8 +136,34 @@ class Hydrometeorologycal extends Component {
                             ChangeStationRaditional = { this.props.ChangeStationRaditional }
                             setMessage= {this.props.setMessage}
                         /></Tab.Pane> },
+                {   menuItem: 'Для Звiту',
+                        render: () => <Tab.Pane>
+                            <Report
+                                data={this.props.WeatherDay}
+                                ChangeDay={this.ChangeDay}
+                                Submit={this.saveReportSubmit}
+                                index={this.state.activeIndex}
+                                setMessage= {this.props.setMessage}
+                                updateDate = {this.updateDate}
+                            />
+                            </Tab.Pane> }
             ],
         }
+    }
+
+    componentDidMount(){
+        this.props.GetRaditional();
+        this.props.getBuletin();
+        this.props.getClimateData();
+        this.props.getWeatherObserv();
+        this.props.GetReportInfo();
+        if(!localStorage.getItem('token')){
+            this.props.noAuthorization();
+        }
+    }
+
+    saveReportSubmit = () =>{
+        this.props.UpdateReport(this.props.Report)
     }
 
     handleEditDayObserv = (obj) => {
@@ -226,6 +255,9 @@ class Hydrometeorologycal extends Component {
         case 3:
           firstDate = this.props.TextWeatherOblOrigin[0].date.split('.');
           break;
+        case 8: 
+          firstDate = this.props.TextWeatherReport[0].date.split('.');
+          break
         default:
             break;
       }
@@ -261,7 +293,7 @@ class Hydrometeorologycal extends Component {
       const city = this.props.WeatherCityOrigin.map((this.state.activeIndex === 2)? map : item => item);
       const textCity = this.props.TextWeatherCityOrigin.map((this.state.activeIndex === 1)? textMap : item => item);
       const textObl = this.props.TextWeatherOblOrigin.map((this.state.activeIndex === 3)? textMap : item => item);
-
+      const textReport = this.props.TextWeatherReport.map((this.state.activeIndex === 8)? textMap : item => item);
       if(diffDays > 0 && diffDays < 6) {
         for(let i = 0; i < diffDays; i++){
           switch (this.state.activeIndex) {
@@ -307,6 +339,12 @@ class Hydrometeorologycal extends Component {
                 date: '',
               });
               break;
+            case 8: 
+              textReport.shift();
+              textReport.push({
+                date: '',
+              });
+              break
             default:
               break;
           }
@@ -356,6 +394,12 @@ class Hydrometeorologycal extends Component {
                 date: '',
               });
               break;
+            case 8:
+              textReport.pop();
+              textReport.unshift({
+              date: '',
+              });
+              break
             default:
               break;
           }
@@ -405,17 +449,23 @@ class Hydrometeorologycal extends Component {
                 date: '',
               });
               break;
+            case 8: 
+              textReport.shift();
+              textReport.push({
+                date: '',
+              });
+              break;
             default:
               break;
           }
         }
       }
-
       this.props.UpdateDate({
         city:city.map((this.state.activeIndex === 0)? map : item => item),
         obl:obl.map((this.state.activeIndex === 2)? map : item => item),
         textCity:textCity.map((this.state.activeIndex === 1)? textMap : item => item),
         textObl:textObl.map((this.state.activeIndex === 3)? textMap : item => item),
+        textReport: textReport.map((this.state.activeIndex === 8)? textMap : item => item),
       });
     }
 
@@ -438,25 +488,15 @@ class Hydrometeorologycal extends Component {
       }
     }
 
-    componentDidMount(){
-        this.props.GetRaditional();
-        this.props.getBuletin();
-        this.props.getClimateData();
-        this.props.getWeatherObserv();
-        if(!localStorage.getItem('token')){
-            this.props.noAuthorization();
-        }
-    }
-
     LogOut = () => {
         localStorage.removeItem('token');
         this.props.noAuthorization();
     }
 
-    GetWeatherTable = (array) => {
+    GetWeatherTable = (array, flag) => {
         var arr = [];
         for(var i=0; i< 5; i++){
-            if(i === 0){
+            if(i === 0 && !flag){
                 arr.push({
                     text: array[i].text,
                     margin: [0,5,0,5],
@@ -475,7 +515,7 @@ class Hydrometeorologycal extends Component {
                     },
                     {
                         text: array[i].text,
-                        margin: [65,-19,0,5],
+                        margin: [65,-14,0,5],
                         alignment: 'left',
                         fontSize: 8
                     }
@@ -485,6 +525,7 @@ class Hydrometeorologycal extends Component {
         }
         return arr;
     }
+
     SaveReport = () => {
       const {vfs} = vfsFonts.pdfMake;
 	    pdfMake.vfs = vfs;
@@ -531,12 +572,25 @@ class Hydrometeorologycal extends Component {
                             margin: [0,35,0,0]
                         },
                         {
+                            text:`Погода на Азовському морs`,
+                            style: 'bold',
+                            alignment: 'center',
+                            margin: [0,15,0,0]
+                        },
+                        {
+                            text:this.props.Report.AzovText,
+                            alignment: 'center',
+                            fontSize: 8,
+                            margin: [0,15,0,0] 
+                        },
+                        {
                             text: "Прогноз погоди по Запорізькій області",
                             style: 'bold',
                             alignment: 'center',
                             margin: [0,13,0,0]
                         },
                         this.GetWeatherTable(this.props.TextWeatherObl),
+                        this.GetWeatherTable(this.props.TextWeatherReport, true),
                         {
                             text: "Прогноз погоди по м. Запоріжжя",
                             style: 'bold',
@@ -622,7 +676,8 @@ class Hydrometeorologycal extends Component {
                         alignment: 'center',
                     });
                 }
-                pdfMake.createPdf(obj).download('Гідрометеорологічний белютень.pdf');
+                pdfMake.createPdf(obj).open()
+                //.download('Гідрометеорологічний белютень.pdf');
             });
           });
         });
@@ -662,6 +717,8 @@ const mapStateToProps = (state) => ({
     WeatherOblOrigin: state.hydrometeorolog_bulletin.WeatherOblOrigin,
     TextWeatherOblOrigin: state.hydrometeorolog_bulletin.TextWeatherOblOrigin,
     TextWeatherCityOrigin: state.hydrometeorolog_bulletin.TextWeatherCityOrigin,
+    TextWeatherReport: state.hydrometeorolog_bulletin.Report.TextWeather,
+    Report: state.hydrometeorolog_bulletin.Report,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -685,6 +742,8 @@ const mapDispatchToProps = (dispatch) => ({
     UpdateClimateData: bindActionCreators(UpdateClimateData, dispatch),
     UpdateObservData: bindActionCreators(UpdateObservData, dispatch),
     UpdateObservDataStation: bindActionCreators(UpdateObservDataStation, dispatch),
+    GetReportInfo: bindActionCreators(GetReportInfo, dispatch),
+    UpdateReport: bindActionCreators(UpdateReport, dispatch),
     noAuthorization: () => dispatch(push('/signin')),
     GoTyMailCastomize: () => dispatch(push('/mail_castomize')),
     setMessage: () => dispatch({type: 'SET_HYDRO_BULLETIN_MESSAGE'}),

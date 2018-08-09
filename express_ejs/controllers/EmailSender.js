@@ -1,32 +1,38 @@
 const nodemailer = require('nodemailer');
 const WeatherTable = require('../db/model/WeatherCity');
 const ClimateData = require('../db/model/ClimateData');
+const Report = require('../db/model/ReportInfo');
 
 var transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-       user: 'sinoptic.zp@gmail.com',
-       pass: 'cb8d280d'
+      user: 'sinoptic.zp@gmail.com',
+      pass: 'cb8d280d'
     }
-    // host: "smtp.mailtrap.io",
-    // port: 2525,
-    // auth: {
-    //     user: "4bb96706d1f4c9",
-    //     pass: "44075d705ecfbf"
-    // }
+    //host: "smtp.mailtrap.io",
+    //port: 2525,
+    //auth: {
+    //    user: "4bb96706d1f4c9",
+    //    pass: "44075d705ecfbf"
+    //}
 });
 
 
 
-function GetMessageText (arr1, arr2, StormWarning = ""){
+function GetMessageText (arr1, arr2, StormWarning = "", obj3){
     var text = "";
     if(StormWarning !== ""){
         text += "Штормовое предупреждение про самые важные события \n\n"
         text += StormWarning + '\n';
     }
+    text += '\n\n погода в Азовськом морi \n\n'
+    text += obj3.AzovText 
     text += '\n\n Погода по запорожской облости \n\n'
     for(var j=0; j< arr1.length; j++){
         text += '\n'+ arr1[j].date+ ' : ' + arr1[j].text;
+    }
+    for(var j=0; j< obj3.TextWeather.length; j++){
+        text += '\n'+ obj3.TextWeather[j].date+ ' : ' + obj3.TextWeather[j].text;
     }
     text += '\n\n Погода по городу Запорожье \n\n'
     for(var n=0; n< arr2.length; n++){
@@ -49,9 +55,10 @@ module.exports = {
         var PromiseArr =[];
         PromiseArr.push(WeatherTable.GetAll());
         PromiseArr.push(ClimateData.Get());
+        PromiseArr.push(Report.Get())
         Promise.all(PromiseArr)
             .then(respons => {
-                var text = GetMessageText(respons[0][0].TextWeather, respons[0][1].TextWeather, respons[1][0].StormText);
+                var text = GetMessageText(respons[0][0].TextWeather, respons[0][1].TextWeather, respons[1][0].StormText, respons[2]);
                 text += GetClimateText(text, respons[1][0])
                 var obj = {
                     text: text,

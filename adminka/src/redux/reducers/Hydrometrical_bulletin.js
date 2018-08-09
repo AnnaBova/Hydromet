@@ -21,6 +21,9 @@ import {
     UPDATE_CLIMATE_DATA,
     UPDATE_OBSERV_DATA_STATION,
     UPDATE_OBSERV_DATA,
+    UPDATE_AZOV_TEXT,
+    GET_REPORT_INFO,
+    UPDATE_REPORT_INFO,
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -37,6 +40,10 @@ const initialState = {
     decadeBulletin: '',
     WeatherObservableData: {},
     Message: false,
+    Report: {
+        AzovText: '',
+        TextWeather: [],
+    }
 }
 
 export function hydrometrical_bulletinReducer(state=initialState, actions){
@@ -56,10 +63,22 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                 ObservDay: actions.payload.WeatheObservable.StationWeather[0],
             }
         }
+        case UPDATE_REPORT_INFO: {
+            return {
+                ...state,
+                Report: actions.payload,
+            }
+        }
         case SET_HYDROMET_MESSAGE: {
             return {
                 ...state,
                 Message: true,
+            }
+        }
+        case GET_REPORT_INFO: {
+            return {
+                ...state,
+                Report: actions.payload,
             }
         }
         case SET_WEATHER_OBSERVABLE_DATA: {
@@ -190,6 +209,10 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
               WeatherObl: actions.payload.obl,
               TextWeatherCity: actions.payload.textCity,
               TextWeatherObl: actions.payload.textObl,
+              Report: {
+                ...state.Report,
+                TextWeather: [...actions.payload.textReport],
+              }
           }
         }
         case SET_DECADE_BULLETING:
@@ -225,6 +248,14 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
                   return item;
               })
             }
+          }
+        case UPDATE_AZOV_TEXT: 
+          return {
+              ...state,
+              Report: {
+                  ...state.Report,
+                  AzovText: actions.payload,
+              }
           }
         default:{
             return state;

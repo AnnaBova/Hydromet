@@ -24,6 +24,7 @@ const DagerGydrolygy = require('../db/model/DangerGydrolygy');
 const radionatial = require('../db/model/radiotional');
 const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
 const pngToJpeg = require('png-to-jpeg');
+const Report = require('../db/model/ReportInfo')
 const PATH_TO_IMAGE = '../public/Events/';
 const Initital = require('../db/init');
 
@@ -36,6 +37,12 @@ module.exports = {
         ClimateCharacteristic.GetAll()
             .then(respons => res.json(respons))
             .catch(err => console.log(err));
+    },
+    GetReportInfo: function(req, res) {
+        Report.Get().then(respons => res.json(respons))
+    },
+    UpdateReportInfo: function(req, res) {
+        Report.Update(req.body).then(respons => res.json(respons))
     },
     GiveSubmitDangerGydrolog: function(req, res){
         DagerGydrolygy.Edit(req.body);

@@ -62,10 +62,57 @@ import {
     EDIT_POLLUTION_VALUE,
     SET_UPDATING_EVENT,
     UPDATE_SELECTED_EVENT,
-    SET_HYDROLOGY_MESSAGE
+    SET_HYDROLOGY_MESSAGE,
+    UPDATE_AZOV_TEXT,
+    UPDATE_WEATHER_REPORT,
+    UPDATE_REPORT_INFO,
+    GET_REPORT_INFO
 } from './ActionTypes';
 import { push } from 'react-router-redux';
 import LocalHost from '../../utils/path';
+
+export function UpdateReportAction(report) {
+    return {
+        type: UPDATE_REPORT_INFO,
+        payload: report,
+    }
+}
+
+export function UpdateReport(report) {
+    return (dispatch) => {
+        fetch(`${LocalHost}/update_info_for_report`, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify(report)
+        })
+            .then(res => res.json())
+            .then(res => dispatch(UpdateReportAction(report)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function UpdateAzovText(text){
+    return {
+        type: UPDATE_AZOV_TEXT,
+        payload: text,
+    }
+}
+
+export function GetReportUpdate(obj){
+    return {
+        type: GET_REPORT_INFO,
+        payload: obj
+    }
+}
+
+export function GetReportInfo(){
+    return (dispatch) => {
+        fetch(`${LocalHost}/get_info_for_report`)
+        .then(res => res.json())
+        .then(res => dispatch(GetReportUpdate(res)))
+        .catch(err => console.log(err))
+    }
+}
 
 export function setEventMessageTrue(){
     return {
@@ -873,6 +920,16 @@ export function updateCity({index, item}){
     }
 }
 
+export function updateReport({index, item}){
+    return{
+        type: UPDATE_WEATHER_REPORT,
+        payload: {
+          item,
+          index
+        }
+    }
+}
+
 export function updateObl({index, item}){
     return{
         type: UPDATE_WEATHER_OBL,
@@ -883,20 +940,25 @@ export function updateObl({index, item}){
     }
 }
 
-export function updateDate({city, obl, textCity, textObl}){
+export function updateDate({city, obl, textCity, textObl, textReport}){
     return{
         type: UPDATE_DATE,
         payload: {
           city,
           obl,
           textCity,
-          textObl
+          textObl,
+          textReport,
         }
     }
 }
 
-export function UpdateDate({city, obl, textCity, textObl}){
-  return (dispatch) => dispatch(updateDate({city, obl, textCity, textObl}))
+export function UpdateDate({city, obl, textCity, textObl, textReport}){
+  return (dispatch) => dispatch(updateDate({city, obl, textCity, textObl, textReport}))
+}
+
+export function UpdateReportInfo(item, index) {
+    return (dispatch) => dispatch(updateReport({item, index}))
 }
 
 export function UpdateWeatherCity(item, index) {
