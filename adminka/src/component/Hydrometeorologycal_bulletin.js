@@ -676,8 +676,7 @@ class Hydrometeorologycal extends Component {
                         alignment: 'center',
                     });
                 }
-                pdfMake.createPdf(obj).open()
-                //.download('Гідрометеорологічний белютень.pdf');
+                pdfMake.createPdf(obj).download('Гідрометеорологічний белютень.pdf');
             });
           });
         });
