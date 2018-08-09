@@ -128,8 +128,18 @@ module.exports = {
 
   },
   DownloadConvention: function(req, res) {
-    var file = path.resolve(__dirname, '../public/document/Умовнi\ позначки.docx');
-    res.download(file);
+    if (req.params.number == 1) {
+      var file = path.resolve(__dirname, '../public/document/Умовнi\ позначки.docx');
+      res.download(file);
+    }
+    if (req.params.number == 2) {
+      var file = path.resolve(__dirname, '../public/document/Поточна\ погода.docx');
+      res.download(file);
+    }
+    if (req.params.number == 3) {
+      var file = path.resolve(__dirname, '../public/document/Прогноз\ погоди.docx');
+      res.download(file);
+    }
   },
   getCurrentWeather: function (req, response) {
     var router = {

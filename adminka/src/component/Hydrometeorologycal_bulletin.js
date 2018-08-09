@@ -456,11 +456,31 @@ class Hydrometeorologycal extends Component {
     GetWeatherTable = (array) => {
         var arr = [];
         for(var i=0; i< 5; i++){
-            var text = `${array[i].date}  ${array[i].text}`;
+            if(i === 0){
+                arr.push({
+                    text: array[i].text,
+                    margin: [0,5,0,5],
+                    fontSize: 8,
+                    alignment: 'center',
+                });  
+                continue
+            }
             arr.push({
-                text: text,
-                margin: [0,5,0,5],
-                fontSize: 11
+                stack: [
+                    {
+                        text: array[i].date,
+                        margin: [0,5,0,5],
+                        alignment: 'left',
+                        fontSize: 8
+                    },
+                    {
+                        text: array[i].text,
+                        margin: [65,-19,0,5],
+                        alignment: 'left',
+                        fontSize: 8
+                    }
+                ]
+
             });
         }
         return arr;
@@ -481,13 +501,14 @@ class Hydrometeorologycal extends Component {
                         {
                           text: 'ДЕРЖАВНА СЛУЖБА УКРАЇНИ З НАДЗВИЧАЙНИХ СИТУАЦІЙ',
                           style: 'bold',
+                          fontSize: 11,
                           alignment: 'center',
-                          margin: [0,35,0,0]
+                          margin: [0,20,0,0]
                         },
                         {
                           text: 'ЗАПОРІЗЬКИЙ ОБЛАСНИЙ ЦЕНТР З ГІДРОМЕТЕОРОЛОГІЇ',
                           style: 'bold',
-                          fontSize: 20,
+                          fontSize: 13,
                           alignment: 'center'
                         },
                         {
@@ -524,32 +545,8 @@ class Hydrometeorologycal extends Component {
                         },
                         this.GetWeatherTable(this.props.TextWeatherCity),
                         {
-                           stack: [
-                                {
-                                    text: 'Начальник центру',
-                                    alignment: 'left'
-                                },
-                                {
-                                    image: signature,
-                                    alignment: 'right',
-                                    margin: [0, 0, 30, 0]
-                                },
-                                {
-                                    text: 'І.Г.Черник',
-                                    alignment: 'right',
-                                    margin:[0,-14,0,0],
-                                },
-                            ],
-                            margin: [0,20, 0 ,0]
-                        },
-                        {
-                            text: `Бюлетень складений о ${this.props.ClimateData.time} годині ${this.props.ClimateData.date}`,
-                            margin: [0,20,0,0],
-                            pageBreak: 'after'
-                        },
-                        {
                             text: 'Огляд погоди',
-
+                            pageBreak: 'before',
                             alignment: 'center',
                             style: 'bold'
                         },
@@ -561,25 +558,49 @@ class Hydrometeorologycal extends Component {
                         },
                         {
                             image: img2,
-                            width: 530
+                            width: 400,
+                            margin: [47,0,0,50],
                         },
                         {
-                            text: 'Клімітатичні дані',
+                            text: 'Кліматичні дані по м. Запоріжжя ',
                             style: 'bold',
                             alignment: 'center',
                         },
                         {
-                            margin: [0,10,0,0],
-                            text: 'Максимальна температура повітря за день зафiксовано у ' + this.props.ClimateData.MaxTemperature.date + ' роцi : ' + this.props.ClimateData.MaxTemperature.value
+                            text: `(1947-${this.props.ClimateData.year}рр)`,
+                            style: 'bold',
+                            alignment: 'center',
                         },
                         {
-                            margin: [0,10,0,0],
-                            text: 'Мінімальна температура повітря за ніч  зафiксовано у ' + this.props.ClimateData.MinTemperature.date + ' роцi : ' + this.props.ClimateData.MinTemperature.value
+                            margin: [0,5,0,0],
+                            text: `Cередньодобова температура повітря за  ${this.props.ClimateData.dayDate} ${this.props.ClimateData.dayMonth} – ${this.props.ClimateData.SrTemperature.value}°`
                         },
                         {
-                            margin: [0,10,0,0],
-                            text: 'Cередньодобова температура повітря зафiксовано у ' + this.props.ClimateData.SrTemperature.date + ' роцi : ' + this.props.ClimateData.SrTemperature.value
-                        }
+                            margin: [0,5,0,0],
+                            text: `Максимальна температура повітря за  ${this.props.ClimateData.dayDate} ${this.props.ClimateData.dayMonth} – ${this.props.ClimateData.MaxTemperature.value}° спостерігалась у ${this.props.ClimateData.MaxTemperature.date}р`
+                        },
+                        {
+                            margin: [0,5,0,0],
+                            text: `Мінімальна температура повітря за ${this.props.ClimateData.nigthDate} ${this.props.ClimateData.nigthMonth} – ${this.props.ClimateData.MinTemperature.value}° спостерігалась у ${this.props.ClimateData.MinTemperature.date}р`
+                        },
+                        {
+                            stack: [
+                                 {
+                                     text: 'Начальник центру',
+                                     alignment: 'left'
+                                 },
+                                 {
+                                     text: 'І.Г.Черник',
+                                     alignment: 'right',
+                                     margin:[0,-14,0,0],
+                                 },
+                             ],
+                             margin: [0,20, 0 ,0]
+                        },
+                        {
+                            text: `Бюлетень складений о ${this.props.ClimateData.time} годині ${this.props.ClimateData.date}`,
+                            margin: [0,20,0,0]
+                        },
                     ],
                     styles: {
                         bold:{

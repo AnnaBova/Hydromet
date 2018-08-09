@@ -164,34 +164,19 @@ module.exports = {
             .catch(err => res.status(403).send(err));
     },
     addWeather: function(req, res){
-            const now = new Date();
-            const hour = now.getHours();
-            const mounth = now.getMonth();
-            if(mounth >= 2 || mounth <= 10){
-                if(hour == 0){
-                    WeatherTable.UnInit();
-                    Initital.InitCityWeatrherTable();
-                }
-            }else{
-                if(hour == 2){
-                    WeatherTabel.UnInit();
-                    Initital.InitCityWeatrherTable();
-                }
-            }
-
-            var PromiseArr = [];
-            PromiseArr.push(TimeGaps.GetIdTimeGaps(req.body.TimeGaps));
-            PromiseArr.push(UserController.Authorization(req.user.login));
-            Promise.all(PromiseArr)
-                .then(respons => {
-                    const queryArray = req.body.map((item)=>{
-                      return WeatherTabel.EditTables(item);
-                    });
-                    Promise.all(queryArray).then(()=>{
-                      res.end();
-                    })
+        var PromiseArr = [];
+        PromiseArr.push(TimeGaps.GetIdTimeGaps(req.body.TimeGaps));
+        PromiseArr.push(UserController.Authorization(req.user.login));
+        Promise.all(PromiseArr)
+            .then(respons => {
+                const queryArray = req.body.map((item)=>{
+                    return WeatherTabel.EditTables(item);
+                });
+                Promise.all(queryArray).then(()=>{
+                    res.end();
                 })
-                .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
     },
     GetClimateRecords: function(req, res) {
         ClimateRecords.getAllRecords()
