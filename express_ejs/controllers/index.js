@@ -193,13 +193,13 @@ module.exports = {
                 Promise.all(arr)
                   .then(res => {
                     var cityarr = [];
-                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[1][0].id));
-                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[2][0].id));
-                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[3][0].id));
-                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[4][0].id));
-                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[5][0].id));
-                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[6][0].id));
-                    cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[7][0].id));
+                    cityarr.push(WeatherTable.GetStationWeather(res[1][0].id));
+                    cityarr.push(WeatherTable.GetStationWeather(res[2][0].id));
+                    cityarr.push(WeatherTable.GetStationWeather(res[3][0].id));
+                    cityarr.push(WeatherTable.GetStationWeather(res[4][0].id));
+                    cityarr.push(WeatherTable.GetStationWeather(res[5][0].id));
+                    cityarr.push(WeatherTable.GetStationWeather(res[6][0].id));
+                    cityarr.push(WeatherTable.GetStationWeather(res[7][0].id));
                     Promise.all(cityarr)
                       .then(answer => {
 
