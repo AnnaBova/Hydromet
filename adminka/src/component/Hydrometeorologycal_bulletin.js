@@ -493,18 +493,9 @@ class Hydrometeorologycal extends Component {
         this.props.noAuthorization();
     }
 
-    GetWeatherTable = (array, flag) => {
+    GetWeatherTable = (array) => {
         var arr = [];
         for(var i=0; i< 5; i++){
-            if(i === 0 && !flag){
-                arr.push({
-                    text: array[i].text,
-                    margin: [0,5,0,5],
-                    fontSize: 8,
-                    alignment: 'center',
-                });  
-                continue
-            }
             arr.push({
                 stack: [
                     {
@@ -569,10 +560,10 @@ class Hydrometeorologycal extends Component {
                             text:`Гідрометеорологічний бюлетень №${this.props.ClimateData.number}`,
                             style: 'bold',
                             alignment: 'center',
-                            margin: [0,35,0,0]
+                            margin: [0,15,0,0]
                         },
                         {
-                            text:`Погода на Азовському морs`,
+                            text:`Погода на Азовському морi`,
                             style: 'bold',
                             alignment: 'center',
                             margin: [0,15,0,0]
@@ -590,7 +581,7 @@ class Hydrometeorologycal extends Component {
                             margin: [0,13,0,0]
                         },
                         this.GetWeatherTable(this.props.TextWeatherObl),
-                        this.GetWeatherTable(this.props.TextWeatherReport, true),
+                        this.GetWeatherTable(this.props.TextWeatherReport),
                         {
                             text: "Прогноз погоди по м. Запоріжжя",
                             style: 'bold',
@@ -665,23 +656,22 @@ class Hydrometeorologycal extends Component {
                 }
 
                 if(this.props.ClimateData.StormText !== ""){
-                    obj.content.splice(8, 0,  {
+                    obj.content.splice(7, 0,  {
                         text: 'Штормове попередження про найважливіші гідрометеорологічні явища ',
                         alignment: 'center',
                         style: 'bold',
-                        margin: [5,20,0,0],
+                        margin: [5,10,0,0],
                     });
-                    obj.content.splice(9, 0,{
+                    obj.content.splice(8, 0,{
                         text: this.props.ClimateData.StormText,
                         alignment: 'center',
+                        fontSize: 8,
                     });
                 }
                 pdfMake.createPdf(obj).download('Гідрометеорологічний белютень.pdf');
             });
           });
         });
-
-
     }
 
     handleSendMail = () => {

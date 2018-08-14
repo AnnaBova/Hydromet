@@ -46,4 +46,18 @@ module.exports = {
     GetZpWeather: function(observ, station){
         return WeatherTable.find({"StationID": station, "TimeGapsId": observ });
     },
+    GetStationWeather: function(station){
+        return WeatherTable
+                .find({"StationID": station})
+                .where("Weather")
+                .ne({
+                    temperature: "", 
+                    wind: "", 
+                    pressure: "", 
+                    DirectionWind: "", 
+                    phenomena: ""
+                })
+                .sort({gap:-1})
+                .limit(1) 
+    }
 };

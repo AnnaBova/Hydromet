@@ -42,7 +42,7 @@ function getObserv(){
     if(hour >= 3 && hour <= 5){
       return '03'
     }
-    if(hour >= 6 && hour <= 8){
+    if(hour >= 6 && hour <= 8){ 
       return '06'
     }
     if(hour >= 9 && hour <= 11){
@@ -77,14 +77,15 @@ module.exports = {
     arr.push(Station.GetIdStation('botievye'));
     Promise.all(arr)
       .then(res => {
+        WeatherTable.GetStationWeather(res[3][0].id).then(res => console.log(res))
         var cityarr = [];
-        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[1][0].id));
-        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[2][0].id));
-        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[3][0].id));
-        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[4][0].id));
-        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[5][0].id));
-        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[6][0].id));
-        cityarr.push(WeatherTable.GetZpWeather(res[0][0].id, res[7][0].id));
+        cityarr.push(WeatherTable.GetStationWeather(res[1][0].id));
+        cityarr.push(WeatherTable.GetStationWeather(res[2][0].id));
+        cityarr.push(WeatherTable.GetStationWeather(res[3][0].id));
+        cityarr.push(WeatherTable.GetStationWeather(res[4][0].id));
+        cityarr.push(WeatherTable.GetStationWeather(res[5][0].id));
+        cityarr.push(WeatherTable.GetStationWeather(res[6][0].id));
+        cityarr.push(WeatherTable.GetStationWeather(res[7][0].id));
         Promise.all(cityarr)
         .then(response => {
           promise.push(Station.GetIdStation('zaporozhye'));
