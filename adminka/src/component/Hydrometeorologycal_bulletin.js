@@ -502,13 +502,13 @@ class Hydrometeorologycal extends Component {
                         text: array[i].date,
                         margin: [0,5,0,5],
                         alignment: 'left',
-                        fontSize: 8
+                        fontSize: 12
                     },
                     {
                         text: array[i].text,
-                        margin: [65,-14,0,5],
+                        margin: [65,-20,0,5],
                         alignment: 'left',
-                        fontSize: 8
+                        fontSize: 12
                     }
                 ]
 
@@ -571,7 +571,7 @@ class Hydrometeorologycal extends Component {
                         {
                             text:this.props.Report.AzovText,
                             alignment: 'center',
-                            fontSize: 8,
+                            fontSize: 12,
                             margin: [0,15,0,0] 
                         },
                         {
