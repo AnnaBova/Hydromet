@@ -7,7 +7,7 @@ import { FullDataValid } from '../utils/DataValid';
 import { UpdateReportInfo,
          UpdateAzovText, } from '../redux/actions/index';
 
-const InputSize = 16;
+//const InputSize = 16;
 
 class Report extends Component {
   constructor(props){
@@ -90,7 +90,7 @@ class Report extends Component {
                     type="textarea"
                     cols={50}
                     row={4}
-                    label="Погода по Азовському морю"
+                    label="Прогноз погоди по Азовському морю"
                     name="text"
                     value={this.props.AzovText}
                     saveValue={this.handleSaveValueAzov}

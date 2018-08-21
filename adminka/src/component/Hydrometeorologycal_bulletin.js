@@ -546,15 +546,18 @@ class Hydrometeorologycal extends Component {
                         {
                           text: '(ЗАПОРІЗЬКИЙ ЦГМ)',
                           style: 'bold',
-                          alignment: 'center'
+                          alignment: 'center',
+                          fontSize:10
                         },
                         {
                             text:'69095, м. Запоріжжя, пр. Соборний, 105,  тел/факс. (061) 787-62-06, 787-62-09',
                             alignment: 'center',
+                            fontSize:8
                         },
                         {
                             text:'E-mail: pgdzaporozh@meteo.gov.ua, zcgm@ukr.net',
                             alignment: 'center',
+                            fontSize:8
                         },
                         {
                             text:`Гідрометеорологічний бюлетень №${this.props.ClimateData.number}`,
@@ -659,7 +662,7 @@ class Hydrometeorologycal extends Component {
                     obj.content.splice(8, 0,{
                         text: this.props.ClimateData.StormText,
                         alignment: 'center',
-                        fontSize: 8,
+                        fontSize: 13,
                     });
                 }
                 pdfMake.createPdf(obj).download('Гідрометеорологічний белютень.pdf');
