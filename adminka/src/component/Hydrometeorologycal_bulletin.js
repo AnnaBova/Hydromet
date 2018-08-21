@@ -662,7 +662,7 @@ class Hydrometeorologycal extends Component {
                     obj.content.splice(8, 0,{
                         text: this.props.ClimateData.StormText,
                         alignment: 'center',
-                        fontSize: 13,
+                        fontSize: 12,
                     });
                 }
                 pdfMake.createPdf(obj).download('Гідрометеорологічний белютень.pdf');
