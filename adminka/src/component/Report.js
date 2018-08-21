@@ -18,15 +18,13 @@ class Report extends Component {
     }
   }
 
-  handleSaveValue = (index) => (event) => {
+  handleSaveValue = (event) => {
     this.props.setMessage();
     this.setState({
       Message: false,
       ErrorMessage: false
     });
-    const arr = this.props.textWeatherObl.slice(0);
-    arr[index]['text'] = event.value;
-    this.props.UpdateReportInfo(arr[index], index);
+    this.props.UpdateReportInfo(event.value);
   }
 
   CreateObj = () => {
@@ -43,18 +41,11 @@ class Report extends Component {
   }
 
   handleSubmit = () => {
-    if(FullDataValid(this.props.textWeatherObl[0].date)){
-      this.setState({
-        Message: true,
-        ErrorMessage: false
-      });
-      this.props.Submit();
-    } else {
-      this.setState({
-        Message: false,
-        ErrorMessage: true
-      });
-    }
+    this.setState({
+      Message: true,
+      ErrorMessage: false
+    });
+    this.props.Submit();
   }
 
   handleSaveValueAzov = (obj) => {
@@ -106,30 +97,6 @@ class Report extends Component {
                 />
           </Form.Field>
           </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{display: 'flex', justifyContent: 'center'}}>
-            {arr.map((item, index)=>{
-              return (
-                <div className="dayInput" key = {index}>
-                  <Grid.Column width={8}>
-                  <Form.Field width={InputSize}>
-                    {item.date} <br />
-                  </Form.Field>
-                  <Form.Field width={InputSize}>
-                        <InputComponent
-                            type="textarea"
-                            cols={50}
-                            row={4}
-                            value={item.text}
-                            label="Текст"
-                            name="text"
-                            saveValue = {this.handleSaveValue(index)}
-                        />
-                  </Form.Field>
-                  </Grid.Column>
-                </div>
-              );
-            })}
           </Grid.Row>
         </Grid>
         <Button onClick = {this.handleSubmit}>Зберегти</Button>

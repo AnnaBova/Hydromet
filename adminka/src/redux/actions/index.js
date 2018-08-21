@@ -920,13 +920,10 @@ export function updateCity({index, item}){
     }
 }
 
-export function updateReport({index, item}){
+export function updateReport(value){
     return{
         type: UPDATE_WEATHER_REPORT,
-        payload: {
-          item,
-          index
-        }
+        payload: value
     }
 }
 
@@ -957,8 +954,8 @@ export function UpdateDate({city, obl, textCity, textObl, textReport}){
   return (dispatch) => dispatch(updateDate({city, obl, textCity, textObl, textReport}))
 }
 
-export function UpdateReportInfo(item, index) {
-    return (dispatch) => dispatch(updateReport({item, index}))
+export function UpdateReportInfo(value) {
+    return (dispatch) => dispatch(updateReport(value))
 }
 
 export function UpdateWeatherCity(item, index) {

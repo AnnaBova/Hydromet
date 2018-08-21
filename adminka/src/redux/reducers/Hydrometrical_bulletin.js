@@ -24,6 +24,7 @@ import {
     UPDATE_AZOV_TEXT,
     GET_REPORT_INFO,
     UPDATE_REPORT_INFO,
+    UPDATE_WEATHER_REPORT
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -42,7 +43,7 @@ const initialState = {
     Message: false,
     Report: {
         AzovText: '',
-        TextWeather: [],
+        TextWeather: '',
     }
 }
 
@@ -255,6 +256,14 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
               Report: {
                   ...state.Report,
                   AzovText: actions.payload,
+              }
+          }
+        case UPDATE_WEATHER_REPORT:
+          return {
+              ...state,
+              Report: {
+                  ...state.Report,
+                  TextWeather:actions.payload
               }
           }
         default:{

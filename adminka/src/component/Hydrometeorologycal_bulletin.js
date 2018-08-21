@@ -563,7 +563,7 @@ class Hydrometeorologycal extends Component {
                             margin: [0,15,0,0]
                         },
                         {
-                            text:`Погода на Азовському морi`,
+                            text:`Прогноз погоди по Азовському морю`,
                             style: 'bold',
                             alignment: 'center',
                             margin: [0,15,0,0]
@@ -581,12 +581,11 @@ class Hydrometeorologycal extends Component {
                             margin: [0,13,0,0]
                         },
                         this.GetWeatherTable(this.props.TextWeatherObl),
-                        this.GetWeatherTable(this.props.TextWeatherReport),
                         {
                             text: "Прогноз погоди по м. Запоріжжя",
                             style: 'bold',
                             alignment: 'center',
-                            margin: [0,13,0,0]
+                            margin: [0,10,0,0]
                         },
                         this.GetWeatherTable(this.props.TextWeatherCity),
                         {
@@ -608,11 +607,6 @@ class Hydrometeorologycal extends Component {
                         },
                         {
                             text: 'Кліматичні дані по м. Запоріжжя ',
-                            style: 'bold',
-                            alignment: 'center',
-                        },
-                        {
-                            text: `(1947-${this.props.ClimateData.year}рр)`,
                             style: 'bold',
                             alignment: 'center',
                         },
