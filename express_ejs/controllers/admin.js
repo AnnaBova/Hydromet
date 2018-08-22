@@ -547,6 +547,7 @@ module.exports = {
 
         const pdfObject = {
             pageSize: 'A4',
+            pageMargins: [ 40, 10, 40, 60 ],
             content: [
                 {
                     image:'public/assets/images/herb.jpg',
@@ -731,6 +732,7 @@ module.exports = {
 
         const pdfObject = {
             pageSize: 'A4',
+            pageMargins: [ 40, 10, 40, 60 ],
             content: [
                 {
                     image:'public/assets/images/herb.jpg',
