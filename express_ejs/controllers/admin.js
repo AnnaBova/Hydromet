@@ -77,13 +77,13 @@ const reportMap = item => {
                 text: item.date,
                 margin: [0,5,0,5],
                 alignment: 'left',
-                fontSize: 12
+                fontSize: 11
             },
             {
                 text: item.text,
                 margin: [65,-20,0,5],
                 alignment: 'left',
-                fontSize: 12
+                fontSize: 11
             }
         ]
 
