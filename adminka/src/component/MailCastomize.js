@@ -64,7 +64,7 @@ class MailCastomize extends Component {
                                 <InputComponent
                                     label="E-mail адресс"
                                     name="Email"
-                                    value={this.state.email}
+                                    value={this.state.Email}
                                     saveValue = {this.handleSaveValue}
                                 />
                             </Form.Field>

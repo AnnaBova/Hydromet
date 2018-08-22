@@ -8,6 +8,8 @@ db.on('error', err => {
     console.log('error', err)
 });
 
+// mongoose.set('debug', true);
+
 
 db.once('open', () => {
     console.log('we are connected')

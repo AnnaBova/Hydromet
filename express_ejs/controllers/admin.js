@@ -26,7 +26,69 @@ const ClimateCharacteristic = require('../db/model/ClimateCharacteristic');
 const pngToJpeg = require('png-to-jpeg');
 const Report = require('../db/model/ReportInfo')
 const PATH_TO_IMAGE = '../public/Events/';
+const pdfmake = require('pdfmake/build/pdfmake');
+const pdfMakePrinter = require('pdfmake/src/printer');
 const Initital = require('../db/init');
+
+function createPdfBinary(pdfDoc, callback) {
+
+    const fontDescriptors = {
+      Roboto: {
+        normal: path.join(__dirname, '..', 'public', '/fonts/Roboto-Regular.ttf'),
+        bold: path.join(__dirname, '..', 'public', '/fonts/Roboto-Medium.ttf'),
+        italics: path.join(__dirname, '..', 'public', '/fonts/Roboto-Italic.ttf'),
+        bolditalics: path.join(__dirname, '..', 'public', '/fonts/Roboto-MediumItalic.ttf')
+      }
+    };
+  
+    const printer = new pdfMakePrinter(fontDescriptors);
+  
+    const doc = printer.createPdfKitDocument(pdfDoc);
+  
+    const chunks = [];
+  
+    doc.on('data', function (chunk) {
+      chunks.push(chunk);
+    });
+    doc.on('end', function () {
+      const result = Buffer.concat(chunks);
+      callback(result);
+    });  
+    doc.end();
+  }
+
+function GetMapPosition(station){
+    switch(station){
+        case 'zaporozhye':return {x: 240, y: 200};
+        case 'prism': return { x: 265, y: 335 };
+        case 'berdyansk': return { x: 370, y: 350 };
+        case 'gylyaypole': return { x: 375, y: 210};
+        case 'botievye': return {x: 335, y: 400};
+        case 'kyrylivka': return { x: 375, y: 280};
+        case 'melitopol': return { x: 180, y: 390};
+        default: return {x:10, y:10};
+    }
+}
+
+const reportMap = item => {
+    return {
+        stack: [
+            {
+                text: item.date,
+                margin: [0,5,0,5],
+                alignment: 'left',
+                fontSize: 12
+            },
+            {
+                text: item.text,
+                margin: [65,-20,0,5],
+                alignment: 'left',
+                fontSize: 12
+            }
+        ]
+
+    };
+}
 
 module.exports = {
     EditClimateCharacteristic: function(req,res){
@@ -49,8 +111,7 @@ module.exports = {
         res.send();
     },
     SendMail: function(req, res){
-        data = JSON.parse(req.body);
-        EmailSender.test(data);
+        EmailSender.test();
         res.send();
     },
     DeleteEmail: function(req, res){
@@ -358,7 +419,6 @@ module.exports = {
         Station.GetIdStation(req.body.station).then(respons => {
             res.json(respons[0]);
         })
-
     },
     AddWeatherByStation: function(req, res){
         var PromiseArr = [];
@@ -475,5 +535,278 @@ module.exports = {
         });
       }
       res.end();
+    },
+    GetBulletin: async function (req, res) {
+        const climateData = await ClimateData.Get().exec();
+        const reportInfo = await Report.Get().exec();
+        const weatherInfo = await WeatherCityTable.GetAll().exec();
+        const weatherObservable = await WeatherObservable.getAll().exec();
+        
+        const textWeatherCity = weatherInfo[0].TextWeather.map(reportMap);
+        const textWeatherObl = weatherInfo[1].TextWeather.map(reportMap);
+
+        const pdfObject = {
+            pageSize: 'A4',
+            content: [
+                {
+                    image:'public/assets/images/herb.jpg',
+                    alignment: 'center'
+                },
+                {
+                  text: 'ДЕРЖАВНА СЛУЖБА УКРАЇНИ З НАДЗВИЧАЙНИХ СИТУАЦІЙ',
+                  style: 'bold',
+                  fontSize: 11,
+                  alignment: 'center',
+                  margin: [0,20,0,0]
+                },
+                {
+                  text: 'ЗАПОРІЗЬКИЙ ОБЛАСНИЙ ЦЕНТР З ГІДРОМЕТЕОРОЛОГІЇ',
+                  style: 'bold',
+                  fontSize: 13,
+                  alignment: 'center'
+                },
+                {
+                  text: '(ЗАПОРІЗЬКИЙ ЦГМ)',
+                  style: 'bold',
+                  alignment: 'center',
+                  fontSize:10
+                },
+                {
+                    text:'69095, м. Запоріжжя, пр. Соборний, 105,  тел/факс. (061) 787-62-06, 787-62-09',
+                    alignment: 'center',
+                    fontSize:8
+                },
+                {
+                    text:'E-mail: pgdzaporozh@meteo.gov.ua, zcgm@ukr.net',
+                    alignment: 'center',
+                    fontSize:8
+                },
+                {
+                    text:`Гідрометеорологічний бюлетень №${climateData[0].number}`,
+                    style: 'bold',
+                    alignment: 'center',
+                    margin: [0,15,0,0]
+                },
+                {
+                    text:`Прогноз погоди по Азовському морю`,
+                    style: 'bold',
+                    alignment: 'center',
+                    margin: [0,15,0,0]
+                },
+                {
+                    text:`${reportInfo.AzovText}`,
+                    alignment: 'center',
+                    fontSize: 12,
+                    margin: [0,15,0,0] 
+                },
+                {
+                    text: "Прогноз погоди по Запорізькій області",
+                    style: 'bold',
+                    alignment: 'center',
+                    margin: [0,13,0,0]
+                },
+                textWeatherCity,
+                {
+                    text: "Прогноз погоди по м. Запоріжжя",
+                    style: 'bold',
+                    alignment: 'center',
+                    margin: [0,10,0,0]
+                },
+                textWeatherObl,
+                {
+                    text: 'Огляд погоди',
+                    pageBreak: 'before',
+                    alignment: 'center',
+                    style: 'bold'
+                },
+                {
+                    margin: [0,30,0,30],
+                    width: 200,
+                    text: `${weatherObservable[0].text}`,
+                    alignment: 'center',
+                },
+                {
+                    image:'public/assets/images/radiation_map.png',
+                    width: 400,
+                    margin: [47,0,0,50],
+                },
+                {
+                    text: 'Кліматичні дані по м. Запоріжжя ',
+                    style: 'bold',
+                    alignment: 'center',
+                },
+                weatherObservable[0].StationWeather.map(item => {
+                    const mapPosition = GetMapPosition(item.Station);
+                    return [
+                        {
+                            text:`${item.MinTemperature}°`,
+                            absolutePosition:mapPosition,
+                            style: 'temperatureNight'
+                        },
+                        {
+                            text:`${item.MaxTemperature}°`,
+                            absolutePosition:{x: mapPosition.x, y: mapPosition.y+10},
+                            style: 'temperatureDay'
+                        },
+                        {
+                            text:`${item.Precipitation} mm`,
+                            absolutePosition:{x: mapPosition.x+30, y: mapPosition.y+5},
+                            style: 'precipitation'
+                        }
+                    ];
+                }),
+                {
+                    margin: [0,5,0,0],
+                    text: `Cередньодобова температура повітря за ${climateData[0].dayDate} ${climateData[0].dayMonth} – ${climateData[0].SrTemperature.value}°`
+                },
+                {
+                    margin: [0,5,0,0],
+                    text: `Максимальна температура повітря за ${climateData[0].dayDate} ${climateData[0].dayMonth} – ${climateData[0].MaxTemperature.value}° спостерігалась у ${climateData[0].MaxTemperature.date}р`
+                },
+                {
+                    margin: [0,5,0,0],
+                    text: `Мінімальна температура повітря за ${climateData[0].nigthDate} ${climateData[0].nigthMonth} – ${climateData[0].MinTemperature.value}° спостерігалась у ${climateData[0].MinTemperature.date}р`
+                },
+                {
+                    stack: [
+                         {
+                             text: 'Начальник центру',
+                             alignment: 'left'
+                         },
+                         {
+                             text: 'І.Г.Черник',
+                             alignment: 'right',
+                             margin:[0,-14,0,0],
+                         },
+                     ],
+                     margin: [0,20, 0 ,0]
+                },
+                {
+                    text: `Бюлетень складений о ${climateData[0].time} годині ${climateData[0].date}`,
+                    margin: [0,20,0,0]
+                },
+            ],
+            styles: {
+                bold:{
+                    fontSize: 13,
+                    bold: true
+                },
+                temperatureNight:{
+                    fontSize:9,
+                    color:'#0098d1'
+                },
+                temperatureDay:{
+                    fontSize:9,
+                    color:'#FF0000'
+                },
+                precipitation: {
+                    fontSize: 9,
+                    color:'#13a800'
+                }
+            }
+        };
+
+        if(climateData[0].StormText !== ""){
+            pdfObject.content.splice(7, 0,  {
+                text: 'Штормове попередження про найважливіші гідрометеорологічні явища ',
+                alignment: 'center',
+                style: 'bold',
+                margin: [5,10,0,0],
+            });
+            pdfObject.content.splice(8, 0,{
+                text: climateData[0].StormText,
+                alignment: 'center',
+                fontSize: 12,
+            });
+        }
+
+        createPdfBinary(pdfObject, function(binary) {
+            res.contentType('application/pdf');
+            res.send(binary);
+        });
+    },
+    GetStromWarning: async function (req, res) {
+        const climateData = await ClimateData.Get().exec();
+        const weatherInfo = await WeatherCityTable.GetAll().exec();
+
+        const pdfObject = {
+            pageSize: 'A4',
+            content: [
+                {
+                    image:'public/assets/images/herb.jpg',
+                    alignment: 'center'
+                },
+                {
+                    text: 'ДЕРЖАВНА СЛУЖБА УКРАЇНИ З НАДЗВИЧАЙНИХ СИТУАЦІЙ',
+                    style: 'bold',
+                    fontSize: 11,
+                    alignment: 'center',
+                    margin: [0,20,0,0]
+                },
+                {
+                    text: 'ЗАПОРІЗЬКИЙ ОБЛАСНИЙ ЦЕНТР З ГІДРОМЕТЕОРОЛОГІЇ',
+                    style: 'bold',
+                    fontSize: 13,
+                    alignment: 'center'
+                },
+                {
+                    text: '(ЗАПОРІЗЬКИЙ ЦГМ)',
+                    style: 'bold',
+                    alignment: 'center',
+                    fontSize:10
+                },
+                {
+                    text:'69095, м. Запоріжжя, пр. Соборний, 105,  тел/факс. (061) 787-62-06, 787-62-09',
+                    alignment: 'center',
+                    fontSize:8
+                },
+                {
+                    text:'E-mail: pgdzaporozh@meteo.gov.ua, zcgm@ukr.net',
+                    alignment: 'center',
+                    fontSize:8
+                },
+                {
+                    text: 'Штормове попередження про найважливіші гідрометеорологічні явища ',
+                    alignment: 'center',
+                    style: 'bold',
+                    margin: [5,10,0,0],
+                },
+                {
+                    text: climateData[0].StormText,
+                    alignment: 'center',
+                    fontSize: 12,
+                },
+                {
+                    stack: [
+                            {
+                                text: 'Начальник центру',
+                                alignment: 'left'
+                            },
+                            {
+                                text: 'І.Г.Черник',
+                                alignment: 'right',
+                                margin:[0,-14,0,0],
+                            },
+                        ],
+                        margin: [0,20, 0 ,0]
+                },
+            ],
+            styles: {
+                bold:{
+                    fontSize: 13,
+                    bold: true
+                },
+            }    
+        };
+
+        createPdfBinary(pdfObject, function(binary) {
+            res.contentType('application/pdf');
+            res.send(binary);
+        });
+    },
+    UpdateEmail: async function (req, res) {
+        
+        await Email.ChangeRole(JSON.parse(req.body)).exec();
+        res.end();
     }
 }

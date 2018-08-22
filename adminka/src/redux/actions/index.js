@@ -285,6 +285,21 @@ export function DeleteEmails(obj){
 }
 
 export function SetRole(obj){
+    return (dispatch) => {
+        fetch(`${LocalHost}/email`, {
+            method: 'PUT',
+            headers: {
+                'Conten-type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(obj)
+        })
+            .then(res => dispatch(UpdateEmail(obj)))
+            .catch(err => console.log(err));
+    }
+}
+
+export function UpdateEmail(obj){
     return {
         type: SET_EMAIL_ROLE,
         payload: obj

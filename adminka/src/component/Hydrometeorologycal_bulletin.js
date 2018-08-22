@@ -32,11 +32,10 @@ import {
 import ClimateData from './ClimateData';
 import ObservableWeather from './ObservableWeather';
 import DecadBulletin from './Decad_bulletin';
-import pdfMake from 'pdfmake/build/pdfmake';
-import vfsFonts from 'pdfmake/build/vfs_fonts';
 import Radiation from './radiation';
 import Report from './Report'
 import '../style/hydrometeorologycalBulletin.css';
+import LocalHost from '../utils/path';
 
 const WEEK_DAYS = [
   "Неділя",
@@ -518,157 +517,7 @@ class Hydrometeorologycal extends Component {
     }
 
     SaveReport = () => {
-      const {vfs} = vfsFonts.pdfMake;
-	    pdfMake.vfs = vfs;
-        this.toDataURL('http://77.120.123.202:3001/public/assets/images/herb.jpg', (img1) => {
-            this.toDataURL('http://77.120.123.202:3001/public/assets/images/map.png', (img2) => {
-              this.toDataURL('http://77.120.123.202:3001/public/assets/images/signature.png', (signature) => {
-                var obj = {
-                    pageSize: 'A4',
-                    content: [
-                        {
-                            image: img1,
-                            alignment: 'center'
-                        },
-                        {
-                          text: 'ДЕРЖАВНА СЛУЖБА УКРАЇНИ З НАДЗВИЧАЙНИХ СИТУАЦІЙ',
-                          style: 'bold',
-                          fontSize: 11,
-                          alignment: 'center',
-                          margin: [0,20,0,0]
-                        },
-                        {
-                          text: 'ЗАПОРІЗЬКИЙ ОБЛАСНИЙ ЦЕНТР З ГІДРОМЕТЕОРОЛОГІЇ',
-                          style: 'bold',
-                          fontSize: 13,
-                          alignment: 'center'
-                        },
-                        {
-                          text: '(ЗАПОРІЗЬКИЙ ЦГМ)',
-                          style: 'bold',
-                          alignment: 'center',
-                          fontSize:10
-                        },
-                        {
-                            text:'69095, м. Запоріжжя, пр. Соборний, 105,  тел/факс. (061) 787-62-06, 787-62-09',
-                            alignment: 'center',
-                            fontSize:8
-                        },
-                        {
-                            text:'E-mail: pgdzaporozh@meteo.gov.ua, zcgm@ukr.net',
-                            alignment: 'center',
-                            fontSize:8
-                        },
-                        {
-                            text:`Гідрометеорологічний бюлетень №${this.props.ClimateData.number}`,
-                            style: 'bold',
-                            alignment: 'center',
-                            margin: [0,15,0,0]
-                        },
-                        {
-                            text:`Прогноз погоди по Азовському морю`,
-                            style: 'bold',
-                            alignment: 'center',
-                            margin: [0,15,0,0]
-                        },
-                        {
-                            text:this.props.Report.AzovText,
-                            alignment: 'center',
-                            fontSize: 12,
-                            margin: [0,15,0,0] 
-                        },
-                        {
-                            text: "Прогноз погоди по Запорізькій області",
-                            style: 'bold',
-                            alignment: 'center',
-                            margin: [0,13,0,0]
-                        },
-                        this.GetWeatherTable(this.props.TextWeatherObl),
-                        {
-                            text: "Прогноз погоди по м. Запоріжжя",
-                            style: 'bold',
-                            alignment: 'center',
-                            margin: [0,10,0,0]
-                        },
-                        this.GetWeatherTable(this.props.TextWeatherCity),
-                        {
-                            text: 'Огляд погоди',
-                            pageBreak: 'before',
-                            alignment: 'center',
-                            style: 'bold'
-                        },
-                        {
-                            margin: [0,30,0,30],
-                            width: 200,
-                            text: this.props.WeatherObservableData.text,
-                            alignment: 'center',
-                        },
-                        {
-                            image: img2,
-                            width: 400,
-                            margin: [47,0,0,50],
-                        },
-                        {
-                            text: 'Кліматичні дані по м. Запоріжжя ',
-                            style: 'bold',
-                            alignment: 'center',
-                        },
-                        {
-                            margin: [0,5,0,0],
-                            text: `Cередньодобова температура повітря за  ${this.props.ClimateData.dayDate} ${this.props.ClimateData.dayMonth} – ${this.props.ClimateData.SrTemperature.value}°`
-                        },
-                        {
-                            margin: [0,5,0,0],
-                            text: `Максимальна температура повітря за  ${this.props.ClimateData.dayDate} ${this.props.ClimateData.dayMonth} – ${this.props.ClimateData.MaxTemperature.value}° спостерігалась у ${this.props.ClimateData.MaxTemperature.date}р`
-                        },
-                        {
-                            margin: [0,5,0,0],
-                            text: `Мінімальна температура повітря за ${this.props.ClimateData.nigthDate} ${this.props.ClimateData.nigthMonth} – ${this.props.ClimateData.MinTemperature.value}° спостерігалась у ${this.props.ClimateData.MinTemperature.date}р`
-                        },
-                        {
-                            stack: [
-                                 {
-                                     text: 'Начальник центру',
-                                     alignment: 'left'
-                                 },
-                                 {
-                                     text: 'І.Г.Черник',
-                                     alignment: 'right',
-                                     margin:[0,-14,0,0],
-                                 },
-                             ],
-                             margin: [0,20, 0 ,0]
-                        },
-                        {
-                            text: `Бюлетень складений о ${this.props.ClimateData.time} годині ${this.props.ClimateData.date}`,
-                            margin: [0,20,0,0]
-                        },
-                    ],
-                    styles: {
-                        bold:{
-                            fontSize: 13,
-                            bold: true
-                        }
-                    }
-                }
-
-                if(this.props.ClimateData.StormText !== ""){
-                    obj.content.splice(7, 0,  {
-                        text: 'Штормове попередження про найважливіші гідрометеорологічні явища ',
-                        alignment: 'center',
-                        style: 'bold',
-                        margin: [5,10,0,0],
-                    });
-                    obj.content.splice(8, 0,{
-                        text: this.props.ClimateData.StormText,
-                        alignment: 'center',
-                        fontSize: 12,
-                    });
-                }
-                pdfMake.createPdf(obj).download('Гідрометеорологічний белютень.pdf');
-            });
-          });
-        });
+        window.open(`${LocalHost}/report`)
     }
 
     handleSendMail = () => {

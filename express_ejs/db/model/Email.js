@@ -28,5 +28,12 @@ module.exports = {
     Delete: function(data){
         data = JSON.parse(data);
         return Email.findOneAndRemove({_id: data._id}).then(res => {});
+    },
+    ChangeRole: function(data){
+        return Email.findByIdAndUpdate(data._id, {
+            $set:{
+                role: data.role
+            }
+        });
     }
 }

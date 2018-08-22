@@ -62,6 +62,20 @@ function getObserv(){
     }
 }
 
+function fillArrayIfNecessery(arr){
+  return arr.map(item => {
+    return (item.length === 0)? [{
+      Weather:
+        { temperature: '',
+          wind: '',
+          pressure: '',
+          DirectionWind: 'up',
+          phenomena: '' 
+        }
+    }] : item;
+  });
+}
+
 module.exports = {
   getMainPage: function (req, resp) {
     var promise = [];
@@ -77,7 +91,6 @@ module.exports = {
     arr.push(Station.GetIdStation('botievye'));
     Promise.all(arr)
       .then(res => {
-        WeatherTable.GetStationWeather(res[3][0].id).then(res => console.log(res))
         var cityarr = [];
         cityarr.push(WeatherTable.GetStationWeather(res[1][0].id));
         cityarr.push(WeatherTable.GetStationWeather(res[2][0].id));
@@ -88,6 +101,7 @@ module.exports = {
         cityarr.push(WeatherTable.GetStationWeather(res[7][0].id));
         Promise.all(cityarr)
         .then(response => {
+          const responseArray = fillArrayIfNecessery(response);
           promise.push(Station.GetIdStation('zaporozhye'));
               promise.push(WaterTemperature.GetTemperature());
               Promise.all(promise)
@@ -100,13 +114,13 @@ module.exports = {
                       let month = date.getUTCMonth() + 1;
                       month = (month < 10)? `0${month}` : `${month}`;
                       const monthText = MONTHS[month];
-                      const year = date.getUTCFullYear();
+                      const year = date.getUTCFullYear();     
                       resp.render('pages/home', {
-                        ZpTemperature: response[0][0],
+                        ZpTemperature: responseArray[0][0],
                         observe: observe,
                         weatherObl: answer[0].WeatherTable,
                         Water: respons[1],
-                        CityesWeather: response,
+                        CityesWeather: responseArray,
                         day,
                         month,
                         monthText,
@@ -201,14 +215,14 @@ module.exports = {
                     cityarr.push(WeatherTable.GetStationWeather(res[6][0].id));
                     cityarr.push(WeatherTable.GetStationWeather(res[7][0].id));
                     Promise.all(cityarr)
-                      .then(answer => {
-
+                      .then(answer => {                        
                         const date = new Date();
                         const day = date.getDate();
                         const month = MONTHS[date.getMonth()];
                         const year = date.getFullYear();
+                        const renderData = fillArrayIfNecessery(answer);
 
-                        response.render('pages/currentweather', { CityesWeather: answer, cityes: router, table: table , day, month, year})
+                        response.render('pages/currentweather', { CityesWeather: renderData, cityes: router, table: table , day, month, year})
                        }) });
 
               })
