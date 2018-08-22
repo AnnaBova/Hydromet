@@ -556,21 +556,21 @@ module.exports = {
                 {
                   text: 'ДЕРЖАВНА СЛУЖБА УКРАЇНИ З НАДЗВИЧАЙНИХ СИТУАЦІЙ',
                   style: 'bold',
-                  fontSize: 11,
+                  fontSize: 10,
                   alignment: 'center',
                   margin: [0,20,0,0]
                 },
                 {
                   text: 'ЗАПОРІЗЬКИЙ ОБЛАСНИЙ ЦЕНТР З ГІДРОМЕТЕОРОЛОГІЇ',
                   style: 'bold',
-                  fontSize: 13,
+                  fontSize: 12,
                   alignment: 'center'
                 },
                 {
                   text: '(ЗАПОРІЗЬКИЙ ЦГМ)',
                   style: 'bold',
                   alignment: 'center',
-                  fontSize:10
+                  fontSize:9
                 },
                 {
                     text:'69095, м. Запоріжжя, пр. Соборний, 105,  тел/факс. (061) 787-62-06, 787-62-09',
@@ -597,7 +597,7 @@ module.exports = {
                 {
                     text:`${reportInfo.AzovText}`,
                     alignment: 'center',
-                    fontSize: 12,
+                    fontSize: 11,
                     margin: [0,15,0,0] 
                 },
                 {
@@ -717,7 +717,7 @@ module.exports = {
             pdfObject.content.splice(8, 0,{
                 text: climateData[0].StormText,
                 alignment: 'center',
-                fontSize: 12,
+                fontSize: 11,
             });
         }
 
@@ -741,21 +741,21 @@ module.exports = {
                 {
                     text: 'ДЕРЖАВНА СЛУЖБА УКРАЇНИ З НАДЗВИЧАЙНИХ СИТУАЦІЙ',
                     style: 'bold',
-                    fontSize: 11,
+                    fontSize: 10,
                     alignment: 'center',
                     margin: [0,20,0,0]
                 },
                 {
                     text: 'ЗАПОРІЗЬКИЙ ОБЛАСНИЙ ЦЕНТР З ГІДРОМЕТЕОРОЛОГІЇ',
                     style: 'bold',
-                    fontSize: 13,
+                    fontSize: 12,
                     alignment: 'center'
                 },
                 {
                     text: '(ЗАПОРІЗЬКИЙ ЦГМ)',
                     style: 'bold',
                     alignment: 'center',
-                    fontSize:10
+                    fontSize:9
                 },
                 {
                     text:'69095, м. Запоріжжя, пр. Соборний, 105,  тел/факс. (061) 787-62-06, 787-62-09',
@@ -776,7 +776,7 @@ module.exports = {
                 {
                     text: climateData[0].StormText,
                     alignment: 'center',
-                    fontSize: 12,
+                    fontSize: 11,
                 },
                 {
                     stack: [
@@ -795,7 +795,7 @@ module.exports = {
             ],
             styles: {
                 bold:{
-                    fontSize: 13,
+                    fontSize: 12,
                     bold: true
                 },
             }    
