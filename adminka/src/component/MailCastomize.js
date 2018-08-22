@@ -27,6 +27,9 @@ class MailCastomize extends Component {
 
     handleAddEmail = () => {
         this.props.AddEmail(this.state);
+        this.setState({
+            Email:''
+        });
     }
 
     handleChangeRole = (e) => {
