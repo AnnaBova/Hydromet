@@ -292,7 +292,6 @@ class Hydrometeorologycal extends Component {
       const city = this.props.WeatherCityOrigin.map((this.state.activeIndex === 2)? map : item => item);
       const textCity = this.props.TextWeatherCityOrigin.map((this.state.activeIndex === 1)? textMap : item => item);
       const textObl = this.props.TextWeatherOblOrigin.map((this.state.activeIndex === 3)? textMap : item => item);
-      const textReport = this.props.TextWeatherReport.map((this.state.activeIndex === 8)? textMap : item => item);
       if(diffDays > 0 && diffDays < 6) {
         for(let i = 0; i < diffDays; i++){
           switch (this.state.activeIndex) {
@@ -338,12 +337,6 @@ class Hydrometeorologycal extends Component {
                 date: '',
               });
               break;
-            case 8: 
-              textReport.shift();
-              textReport.push({
-                date: '',
-              });
-              break
             default:
               break;
           }
@@ -393,12 +386,6 @@ class Hydrometeorologycal extends Component {
                 date: '',
               });
               break;
-            case 8:
-              textReport.pop();
-              textReport.unshift({
-              date: '',
-              });
-              break
             default:
               break;
           }
@@ -448,12 +435,6 @@ class Hydrometeorologycal extends Component {
                 date: '',
               });
               break;
-            case 8: 
-              textReport.shift();
-              textReport.push({
-                date: '',
-              });
-              break;
             default:
               break;
           }
@@ -464,7 +445,6 @@ class Hydrometeorologycal extends Component {
         obl:obl.map((this.state.activeIndex === 2)? map : item => item),
         textCity:textCity.map((this.state.activeIndex === 1)? textMap : item => item),
         textObl:textObl.map((this.state.activeIndex === 3)? textMap : item => item),
-        textReport: textReport.map((this.state.activeIndex === 8)? textMap : item => item),
       });
     }
 

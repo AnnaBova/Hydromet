@@ -210,10 +210,6 @@ export function hydrometrical_bulletinReducer(state=initialState, actions){
               WeatherObl: actions.payload.obl,
               TextWeatherCity: actions.payload.textCity,
               TextWeatherObl: actions.payload.textObl,
-              Report: {
-                ...state.Report,
-                TextWeather: [...actions.payload.textReport],
-              }
           }
         }
         case SET_DECADE_BULLETING:
